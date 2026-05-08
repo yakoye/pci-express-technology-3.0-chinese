@@ -34,6 +34,7 @@ Mindshare PCI Express Technology 3.0 一书的中文翻译
 - [第 18 章 系统复位](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
 - [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
 - [第 20 章 规范 2.1 版本更新](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
+- [第 21 章 附录](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
 
 #### 贡献列表
 
