@@ -22,19 +22,18 @@ Mindshare PCI Express Technology 3.0 一书的中文翻译
 - [第 7 章 QoS 服务质量](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F.md)(待校对)
 - [第 8 章 事务排序](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F.md)(待校对)
 - [第 9 章 DLLP 元素](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/9%20DLLP%20%E5%85%83%E7%B4%A0.md)
-- [第 10 章 Ack/Nak 协议](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 11 章 物理层-逻辑](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（Gen1和Gen2）
+- [第 10 章 Ack/Nak 协议](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/10%20Ack-Nak%20%E5%8D%8F%E8%AE%AE.md)（机器翻译）
+- [第 11 章 物理层-逻辑](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/11%20物理层-逻辑(Gen1和Gen2).md)（Gen1和Gen2）
 - [第 12 章 物理层-逻辑（Gen3）](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/9%20DLLP%20%E5%85%83%E7%B4%A0.md)
-- [第 13 章 物理层-电气](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-
+- [第 13 章 物理层-电气](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/13%20物理层-电气.md)（机器翻译）
 - [第 14 章 链路初始化与训练](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83.md)(正在翻译)
-- [第 15 章 错误检测与处理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 16 章 电源管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 17 章 中断支持](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 18 章 系统复位](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 20 章 规范 2.1 版本更新](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
-- [第 21 章 附录](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/)（机器翻译）
+- [第 15 章 错误检测与处理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/15%20错误检测与处理.md)（机器翻译）
+- [第 16 章 电源管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/16%20电源管理.md)（机器翻译）
+- [第 17 章 中断支持](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/17%20中断支持.md)（机器翻译）
+- [第 18 章 系统复位](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/18%20系统复位.md)（机器翻译）
+- [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/19%20热插拔和功耗预算管理.md)（机器翻译）
+- [第 20 章 规范 2.1 版本更新](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/20%20规范%202.1%20版本更新.md)（机器翻译）
+- [第 21 章 附录](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/21%20附录.md)（机器翻译）
 
 #### 贡献列表
 
