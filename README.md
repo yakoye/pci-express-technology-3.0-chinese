@@ -34,10 +34,10 @@ fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgib
 - [第 12 章 物理层-逻辑（Gen3）](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/9%20DLLP%20%E5%85%83%E7%B4%A0.md)
 - [第 13 章 物理层-电气](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/13%20物理层-电气.md)（机器翻译，待排版，待校对）
 - [第 14 章 链路初始化与训练](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83.md)
-- [第 15 章 错误检测与处理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/15%20错误检测与处理.md)（机器翻译，待排版，待校对）
-- [第 16 章 电源管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/16%20电源管理.md)（机器翻译，待排版，待校对）
+- [第 15 章 错误检测与处理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/15%20错误检测与处理.md)（机器翻译，待校对）
+- [第 16 章 电源管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/16%20电源管理.md)（机器翻译，待校对）
 - [第 17 章 中断支持](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/17%20中断支持.md)（机器翻译，待排版，待校对）
-- [第 18 章 系统复位](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/18%20系统复位.md)（机器翻译，待排版，待校对）
+- [第 18 章 系统复位](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/18%20系统复位.md)（机器翻译，待校对）
 - [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/19%20热插拔和功耗预算管理.md)（机器翻译，待排版，待校对）
 - [第 20 章 规范 2.1 版本更新](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/20%20规范%202.1%20版本更新.md)（机器翻译，待排版，待校对）
 - [第 21 章 附录](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/21%20附录.md)（机器翻译，待排版，待校对）
