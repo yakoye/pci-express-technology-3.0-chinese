@@ -38,7 +38,7 @@ fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgib
 - [第 16 章 电源管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/16%20电源管理.md)（待校对）
 - [第 17 章 中断支持](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/17%20中断支持.md)（待校对）
 - [第 18 章 系统复位](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/18%20系统复位.md)（待校对）
-- [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/19%20热插拔和功耗预算管理.md)（待排版，待校对）
+- [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/19%20热插拔和功耗预算管理.md)（待翻译，待排版，待校对）
 - [第 20 章 规范 2.1 版本更新](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/20%20规范%202.1%20版本更新.md)（待排版，待校对）
 - [第 21 章 附录](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/21%20附录.md)（待排版，待校对）
 - [术语表](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/术语表.md)（待排版，待校对）
