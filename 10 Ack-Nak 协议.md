@@ -412,11 +412,13 @@ Nak 表示发生了问题。当发送方收到 Nak 时，它首先从重放缓�
 AckNak_LATENCY_TIMER 的超时值由规范定义，并根据协商的链路宽度和启用的最大有效负载大小而变化。
 
 定义超时的公式如下所示：
+
 $$
 \frac{(\mathrm{Max\_Payload\_Size} + \mathrm{TLPOverhead}) \times \mathrm{AckFactor}}{\mathrm{LinkWidth}}
 \+ \mathrm{InternalDelay}
 \+ \mathrm{Tx\_L0s\_Adjustment}
 $$
+
 \> 注：`Tx_L0s_Adjustment` 项在 PCIe Gen2 及后续版本中已移除。
 
 
