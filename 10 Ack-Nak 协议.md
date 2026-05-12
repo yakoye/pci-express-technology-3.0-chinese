@@ -414,9 +414,9 @@ AckNak_LATENCY_TIMER 的超时值由规范定义，并根据协商的链路宽�
 定义超时的公式如下所示：
 
 $$
-\frac{(\text{Max\_Payload\_Size} + \text{TLPOverhead}) \times \text{AckFactor}}{\text{LinkWidth}}
-+ \text{InternalDelay}
-+ \text{Tx\_L0s\_Adjustment}
+\frac{(\texttt{Max\_Payload\_Size} + \texttt{TLPOverhead}) \times \texttt{AckFactor}}{\texttt{LinkWidth}}
++ \texttt{InternalDelay}
++ \texttt{Tx\_L0s\_Adjustment}
 $$
 
 \> 注：`Tx_L0s_Adjustment` 项在 PCIe Gen2 及后续版本中已移除。
