@@ -315,8 +315,6 @@ Nak 表示发生了问题。当发送方收到 Nak 时，它首先从重放缓�
 
 - 最大负载大小 - 设备控制寄存器中的值。对于具有不同最大负载大小的多个功能，规范建议使用其中最小的值。
 
-
-
 - TLP 开销 - 数据负载之外的额外 TLP 字段（序列号、头部、摘要、LCRC 以及起始/结束帧符号）。在规范中，开销值被视为一个常数为 28 个符号。
 - AckFactor (AF) - 本质上是一个修正因子，表示在必须发送确认（Ack）之前，可以接收的最大有效载荷 TLP 数量。AF 值范围为 1.0 至 3.0，旨在平衡链路带宽效率与重放缓冲区大小。第 339 页图 10-11 中的表格展示了不同链路宽度和有效载荷大小对应的 Ack Factor 值。这些 Ack Factor 值经过精心选择，使实现方案能够在无需配备昂贵的大容量缓冲区的情况下获得良好性能。
 - LinkWidth - 范围从 x1（1 位宽）到 x32（32 位宽）。
@@ -413,13 +411,7 @@ AckNak_LATENCY_TIMER 的超时值由规范定义，并根据协商的链路宽�
 
 定义超时的公式如下所示：
 
-$$
-\frac{(\texttt{Max\_Payload\_Size} + \texttt{TLPOverhead}) \times \texttt{AckFactor}}{\texttt{LinkWidth}}
-+ \texttt{InternalDelay}
-+ \texttt{Tx\_L0s\_Adjustment}
-$$
-
-\> 注：`Tx_L0s_Adjustment` 项在 PCIe Gen2 及后续版本中已移除。
+![image-20260512210749537](img/10%20Ack-Nak%20%E5%8D%8F%E8%AE%AE/image-20260512210749537-1778591274319-1.png)
 
 
 定时器中的值以符号时间表示，即通过链路发送一个符号所需的时间：Gen1 为 4ns，Gen2 为 2ns，Gen3 为 1ns。
