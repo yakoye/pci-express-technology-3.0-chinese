@@ -1679,9 +1679,9 @@
       const deltaY = currentTouchY - lastTouchY;
 
       if (deltaY > 0) {
-        showTopbar();
+        showTopbar(); // 手指向下拨（画面向上），立刻显示
       } else if (deltaY < -4) {
-        hideTopbar();
+        hideTopbar(); // 手指向上拨（画面向下），立刻隐藏
       }
 
       lastTouchY = currentTouchY;
