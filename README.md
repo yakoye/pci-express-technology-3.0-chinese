@@ -41,7 +41,7 @@ fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgib
 - [第 19 章 热插拔和功耗预算管理](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/19%20%E7%83%AD%E6%8F%92%E6%8F%92%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%A1%E7%90%86.md)
 - [第 20 章 规范 2.1 版本更新](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/20%20%E8%A7%84%E8%8C%83%202.1%20%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0.md)
 - [第 21 章 附录](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/21%20%E9%99%84%E5%BD%95.md)
-- [术语表](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/22%20%E6%9C%AF%E8%AF%AD%E8%A1%A8.md)
+- [第 22 章 术语表](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/22%20%E6%9C%AF%E8%AF%AD%E8%A1%A8.md)
 
 #### 贡献列表
 
