@@ -22,23 +22,32 @@
   --topbar-height: 58px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
-  /* font-family: "LXGW WenKai GB", -apple-system, BlinkMacSystemFont, "Segoe UI",
-               "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; */
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.8;
+  /* 【新增这一行】为 fixed 导航栏预留空间，高度与导航栏一致 */
+  padding-top: var(--topbar-height);
 }
 
 body.drawer-open {
@@ -46,22 +55,54 @@ body.drawer-open {
 }
 
 /* =========================
+   防止移动端横向滑动/轻微拉宽回弹
+   ========================= */
+
+.topbar,
+.desktop-topbar,
+.mobile-topbar,
+.content,
+article,
+.toc-panel,
+.drawer,
+.drawer-toc,
+.chapter-nav,
+.chapter-nav-bottom {
+  max-width: 100%;
+}
+
+.content,
+article {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* =========================
    顶部导航通用
    ========================= */
 
 .topbar {
-  position: sticky;
+  position: fixed; /* 【修改】从 sticky 改为 fixed */
   top: 0;
+  left: 0;         /* 【新增】 */
+  right: 0;        /* 【新增】 */
+  margin: 0 auto;  /* 【新增】配合 left/right 0 保证桌面端限制宽度时居中 */
+  width: 100%;     /* 【新增】确保背景色铺满 */
   z-index: 50;
   height: var(--topbar-height);
   background: rgba(246, 248, 251, 0.96);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
-  transition: transform 0.22s ease;
+  transition: transform 0.2s ease-out; /* 建议将 0.12s 改为 0.2s，动画更自然 */
+  will-change: transform;
 }
 
 .topbar.hide {
   transform: translateY(-100%);
+}
+
+.topbar:not(.hide) {
+  transform: translateY(0) !important;
 }
 
 /* =========================
@@ -210,7 +251,7 @@ body.drawer-open {
   top: 0;
   left: 0;
   z-index: 90;
-  width: 390px;
+  width: min(390px, 88vw);
   max-width: 88vw;
   height: 100vh;
   background: var(--card);
@@ -219,6 +260,7 @@ body.drawer-open {
   transition: transform 0.22s ease;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .drawer.open {
@@ -303,7 +345,8 @@ body.drawer-open {
 
 .drawer-toc {
   flex: 1;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 14px 14px 18px;
 }
 
@@ -323,19 +366,27 @@ body.drawer-open {
 
 /* =========================
    本章大纲
-   无黑点、无圆圈、无方框、纯缩进对齐
+   电脑端固定悬停；不随正文滚动
    ========================= */
 
 .toc-panel {
-  position: sticky;
-  top: 0px;
-  max-height: 100vh;
-  overflow: auto;
+  position: fixed;
+  left: max(24px, calc((100vw - var(--page-width)) / 2 + 24px));
+  top: var(--topbar-height);
+
+  width: var(--side-width);
+  height: calc(100vh - var(--topbar-height));
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
   padding: 12px 20px 20px;
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--card);
   box-shadow: var(--shadow);
+
+  z-index: 30;
 }
 
 .toc-toggle {
@@ -383,10 +434,6 @@ body.drawer-open {
 
 /*
   彻底去掉 Pandoc TOC 的所有 ul/ol/li 项目符号。
-  这里同时覆盖：
-  nav ul
-  #TOC ul
-  普通 ul / ol
 */
 .toc-content ul,
 .drawer-toc ul,
@@ -421,7 +468,6 @@ body.drawer-open {
   padding-left: 0 !important;
 }
 
-/* 去掉浏览器 marker */
 .toc-content li::marker,
 .drawer-toc li::marker,
 .toc-content nav li::marker,
@@ -433,7 +479,6 @@ body.drawer-open {
   color: transparent !important;
 }
 
-/* 防止主题或 Pandoc 样式用 before 生成假项目符号 */
 .toc-content li::before,
 .drawer-toc li::before,
 .toc-content nav li::before,
@@ -456,7 +501,7 @@ body.drawer-open {
   padding-left: 1em !important;
 }
 
-/* 链接样式：只保留文字和 hover 背景 */
+/* 链接样式 */
 .toc-content a,
 .drawer-toc a {
   display: block;
@@ -481,8 +526,10 @@ body.drawer-open {
   font-size: 13px;
 }
 
-/* 大纲滚动条：窄一点、浅一点 */
- /* Chrome / Edge / Safari */
+/* =========================
+   大纲滚动条：窄一点、浅一点
+   ========================= */
+
 .toc-panel::-webkit-scrollbar,
 .drawer-toc::-webkit-scrollbar {
   width: 4px;
@@ -504,7 +551,6 @@ body.drawer-open {
   background: rgba(100, 116, 139, 0.45);
 }
 
-/* Firefox */
 .toc-panel,
 .drawer-toc {
   scrollbar-width: thin;
@@ -516,12 +562,14 @@ body.drawer-open {
    ========================= */
 
 .content {
+  grid-column: 2;
   min-width: 0;
   padding: 36px 48px 46px;
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--card);
   box-shadow: var(--shadow);
+  overflow-x: hidden;
 }
 
 article {
@@ -614,6 +662,7 @@ th {
 
 /* 代码块 */
 pre {
+  max-width: 100%;
   overflow-x: auto;
   padding: 14px;
   border-radius: 10px;
@@ -772,8 +821,11 @@ blockquote {
   }
 
   .layout {
-    grid-template-columns: 1fr;
-    padding-top: 16px;
+    display: block;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 14px 10px 48px;
   }
 
   .toc-panel {
@@ -781,15 +833,34 @@ blockquote {
   }
 
   .content {
+    grid-column: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 28px 24px 36px;
+    overflow-x: hidden;
   }
 
   article {
+    width: 100%;
     max-width: 100%;
   }
 
   img {
     max-width: 100%;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 
@@ -811,7 +882,10 @@ blockquote {
   }
 
   .mobile-topbar {
+    width: 100%;
+    max-width: 100vw;
     height: var(--topbar-height);
+    overflow: hidden;
   }
 
   .mobile-title {
@@ -825,8 +899,8 @@ blockquote {
   }
 
   .drawer {
-    width: 88vw;
-    max-width: 360px;
+    width: min(88vw, 360px);
+    max-width: 88vw;
   }
 
   .drawer-header {
@@ -846,12 +920,23 @@ blockquote {
   }
 
   .layout {
+    width: 100%;
+    max-width: 100vw;
     padding: 14px 10px 48px;
   }
 
   .content {
+    width: 100%;
+    max-width: 100%;
     padding: 22px 16px 30px;
     border-radius: 16px;
+    overflow-x: hidden;
+  }
+
+  article {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 
   h1 {
@@ -869,6 +954,24 @@ blockquote {
   p,
   li {
     font-size: 16px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .chapter-nav-bottom {

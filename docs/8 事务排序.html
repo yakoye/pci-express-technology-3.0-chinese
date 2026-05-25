@@ -807,27 +807,97 @@
     const drawer = document.getElementById('drawer');
     const drawerMask = document.getElementById('drawerMask');
     const backToTop = document.getElementById('backToTop');
+
     const desktopTopbar = document.querySelector('.desktop-topbar');
     const mobileTopbar = document.querySelector('.mobile-topbar');
+    const topbars = [desktopTopbar, mobileTopbar].filter(Boolean);
+
+    const scrollRoot = document.scrollingElement || document.documentElement;
+
+    let lastScrollY = scrollRoot.scrollTop || window.scrollY || 0;
+    let lastTouchY = 0;
+    let ticking = false;
+
+    function getScrollY() {
+      return scrollRoot.scrollTop || window.scrollY || 0;
+    }
+
+    function showTopbar() {
+      topbars.forEach((bar) => {
+        bar.classList.remove('hide');
+        bar.style.transform = 'translateY(0)';
+      });
+    }
+
+    function hideTopbar() {
+      if (getScrollY() <= 80) {
+        showTopbar();
+        return;
+      }
+
+      topbars.forEach((bar) => {
+        bar.classList.add('hide');
+        bar.style.transform = 'translateY(-100%)';
+      });
+    }
+
+    function updateBackToTop() {
+      if (!backToTop) return;
+
+      if (getScrollY() > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    }
 
     function openDrawer() {
+      if (!drawer || !drawerMask) return;
       drawer.classList.add('open');
       drawerMask.classList.add('open');
       document.body.classList.add('drawer-open');
+      showTopbar();
     }
 
     function closeDrawer() {
+      if (!drawer || !drawerMask) return;
       drawer.classList.remove('open');
       drawerMask.classList.remove('open');
       document.body.classList.remove('drawer-open');
     }
 
-    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
-    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+    if (menuBtn) {
+      menuBtn.addEventListener('click', openDrawer);
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeDrawer);
+    }
+
+    if (drawerMask) {
+      drawerMask.addEventListener('click', closeDrawer);
+    }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeDrawer();
+      if (e.key === 'Escape') {
+        closeDrawer();
+      }
+
+      if (
+        e.key === 'ArrowUp' ||
+        e.key === 'PageUp' ||
+        e.key === 'Home'
+      ) {
+        showTopbar();
+      }
+
+      if (
+        e.key === 'ArrowDown' ||
+        e.key === 'PageDown' ||
+        e.key === ' '
+      ) {
+        hideTopbar();
+      }
     });
 
     if (drawer) {
@@ -841,38 +911,99 @@
         const panel = btn.closest('.toc-panel, .drawer-toc');
         if (!panel) return;
         panel.classList.toggle('toc-collapsed');
+        showTopbar();
       });
     });
 
-    let lastScrollY = window.scrollY;
+    /*
+      页面正常滚动：
+      - 向下滚：隐藏顶部栏
+      - 只要向上滚一点：显示顶部栏
+    */
+    function handlePageScroll() {
+      const currentY = getScrollY();
+      const delta = currentY - lastScrollY;
 
-    window.addEventListener('scroll', () => {
-      const currentY = window.scrollY;
+      updateBackToTop();
 
-      if (currentY > 500) {
-        backToTop.classList.add('show');
-      } else {
-        backToTop.classList.remove('show');
-      }
-
-      /*
-        顶部栏自动隐藏：
-        下滑隐藏，上滑显示，顶部显示。
-      */
-      if (currentY > lastScrollY && currentY > 80) {
-        desktopTopbar.classList.add('hide');
-        mobileTopbar.classList.add('hide');
-      } else {
-        desktopTopbar.classList.remove('hide');
-        mobileTopbar.classList.remove('hide');
+      if (currentY <= 20) {
+        showTopbar();
+      } else if (delta < 0) {
+        showTopbar();
+      } else if (delta > 4) {
+        hideTopbar();
       }
 
       lastScrollY = currentY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handlePageScroll);
+        ticking = true;
+      }
     }, { passive: true });
 
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /*
+      捕获滚轮事件：
+      鼠标在正文、左侧大纲、代码块、表格上滚动都会触发。
+    */
+    document.addEventListener('wheel', (e) => {
+      if (e.deltaY < 0) {
+        showTopbar();
+      } else if (e.deltaY > 0) {
+        hideTopbar();
+      }
+    }, { passive: true, capture: true });
+
+    /*
+      鼠标靠近顶部，显示导航栏。
+      兜底解决“顶部栏隐藏后不好唤出”的问题。
+    */
+    document.addEventListener('mousemove', (e) => {
+      if (e.clientY <= 90) {
+        showTopbar();
+      }
+    }, { passive: true });
+
+    /*
+      手机触摸：
+      手指向下拉，说明用户想往上回看，立即显示顶部栏。
+    */
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        lastTouchY = e.touches[0].clientY;
+      }
+    }, { passive: true, capture: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+
+      const currentTouchY = e.touches[0].clientY;
+      const deltaY = currentTouchY - lastTouchY;
+
+      if (deltaY > 0) {
+        showTopbar();
+      } else if (deltaY < -4) {
+        hideTopbar();
+      }
+
+      lastTouchY = currentTouchY;
+    }, { passive: true, capture: true });
+
+    window.addEventListener('resize', showTopbar);
+    window.addEventListener('focus', showTopbar);
+
+    if (backToTop) {
+      backToTop.addEventListener('click', () => {
+        showTopbar();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    updateBackToTop();
+    showTopbar();
   </script>
 </body>
 </html>
