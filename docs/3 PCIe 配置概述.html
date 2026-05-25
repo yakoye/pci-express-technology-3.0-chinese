@@ -8,92 +8,342 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="2 PCIe 体系结构概述.html">← 第 2 章 PCIe 体系结构概述</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="2 PCIe 体系结构概述.html">← 第 2 章 PCIe 体系结构概述</a>
+          </div>
+
+    <div class="topbar-title">
       第 3 章 PCIe 配置概述
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="4 地址空间与事务路由.html">第 4 章 地址空间与事务路由 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="4 地址空间与事务路由.html">第 4 章 地址空间与事务路由 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 3 章 PCIe 配置概述
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 3 章 PCIe 配置概述</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="2 PCIe 体系结构概述.html">← 第 2 章 PCIe 体系结构概述</a>
+      
+            <a class="drawer-link" href="4 地址空间与事务路由.html">第 4 章 地址空间与事务路由 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#pcie配置概述configuration-overview"
+                id="toc-pcie配置概述configuration-overview">3
+                PCIe配置概述（Configuration Overview）</a>
+                <ul>
+                <li><a href="#前一章" id="toc-前一章">前一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a
+                href="#总线设备功能的定义definition-of-busdevice-and-function"
+                id="toc-总线设备功能的定义definition-of-busdevice-and-function">3.1
+                总线/设备/功能/的定义（Definition of Bus,Device and
+                Function）</a></li>
+                <li><a href="#pcie总线pcie-buses"
+                id="toc-pcie总线pcie-buses">3.2 PCIe总线（PCIe
+                Buses）</a></li>
+                <li><a href="#pcie设备pcie-devices"
+                id="toc-pcie设备pcie-devices">3.3 PCIe设备（PCIe
+                Devices）</a></li>
+                <li><a href="#pcie功能pcie-functions"
+                id="toc-pcie功能pcie-functions">3.4 PCIe功能（PCIe
+                Functions）</a></li>
+                <li><a href="#配置地址空间configuration-address-space"
+                id="toc-配置地址空间configuration-address-space">3.5
+                配置地址空间（Configuration Address Space）</a>
+                <ul>
+                <li><a href="#pci兼容空间pci-compatible-space"
+                id="toc-pci兼容空间pci-compatible-space">3.5.1
+                PCI兼容空间（PCI-Compatible Space）</a></li>
+                <li><a href="#扩展配置空间extended-configuration-space"
+                id="toc-扩展配置空间extended-configuration-space">3.5.2
+                扩展配置空间（Extended Configuration Space）</a></li>
+                </ul></li>
+                <li><a href="#host-to-pci-bridge配置寄存器"
+                id="toc-host-to-pci-bridge配置寄存器">3.6 Host-to-PCI
+                Bridge配置寄存器</a>
+                <ul>
+                <li><a href="#整体说明general"
+                id="toc-整体说明general">3.6.1
+                整体说明（General）</a></li>
+                <li><a
+                href="#只有rc发送配置请求only-the-root-sends-configuration-request"
+                id="toc-只有rc发送配置请求only-the-root-sends-configuration-request">3.6.2
+                只有RC发送配置请求（Only the Root Sends Configuration
+                Request）</a></li>
+                </ul></li>
+                <li><a
+                href="#生成配置事务generating-configuration-transactions"
+                id="toc-生成配置事务generating-configuration-transactions">3.7
+                生成配置事务（Generating Configuration
+                Transactions）</a>
+                <ul>
+                <li><a href="#传统pci机制legacy-pci-mechanism"
+                id="toc-传统pci机制legacy-pci-mechanism">3.7.1
+                传统PCI机制（Legacy PCI Mechanism）</a></li>
+                <li><a
+                href="#增强型配置访问机制enhanced-configuration-access-mechanism"
+                id="toc-增强型配置访问机制enhanced-configuration-access-mechanism">3.7.2
+                增强型配置访问机制（Enhanced Configuration Access
+                Mechanism）</a></li>
+                </ul></li>
+                <li><a href="#配置请求configuration-requests"
+                id="toc-配置请求configuration-requests">3.8
+                配置请求（Configuration Requests）</a>
+                <ul>
+                <li><a
+                href="#type-0配置请求type-0-configuration-request"
+                id="toc-type-0配置请求type-0-configuration-request">3.8.1
+                Type 0配置请求（Type 0 Configuration Request）</a></li>
+                <li><a
+                href="#type-1配置请求type-1-configuration-request"
+                id="toc-type-1配置请求type-1-configuration-request">3.8.2
+                Type 1配置请求（Type 1 Configuration Request）</a></li>
+                </ul></li>
+                <li><a
+                href="#pci兼容配置访问示例example-pci-compatible-configuration-access"
+                id="toc-pci兼容配置访问示例example-pci-compatible-configuration-access">3.9
+                PCI兼容配置访问示例（Example PCI-Compatible
+                Configuration Access）</a></li>
+                <li><a
+                href="#增强型配置访问示例example-enhanced-configuration-access"
+                id="toc-增强型配置访问示例example-enhanced-configuration-access">3.10
+                增强型配置访问示例（Example Enhanced Configuration
+                Access）</a></li>
+                <li><a
+                href="#枚举搜索发现拓扑enumeration-discovering-the-topology"
+                id="toc-枚举搜索发现拓扑enumeration-discovering-the-topology">3.11
+                枚举——搜索发现拓扑（Enumeration-Discovering the
+                Topology）</a>
+                <ul>
+                <li><a
+                href="#搜索某个function是否存在discovering-the-presence-or-absence-of-a-function"
+                id="toc-搜索某个function是否存在discovering-the-presence-or-absence-of-a-function">3.11.1
+                搜索某个Function是否存在（Discovering the Presence or
+                Absence of a Function）</a></li>
+                <li><a href="#确认某个function是ep还是bridge"
+                id="toc-确认某个function是ep还是bridge">3.11.2
+                确认某个Function是EP还是Bridge</a></li>
+                </ul></li>
+                <li><a
+                href="#单rc枚举示例single-root-enumeration-example"
+                id="toc-单rc枚举示例single-root-enumeration-example">3.12
+                单RC枚举示例（Single Root Enumeration Example）</a></li>
+                <li><a
+                href="#多rc枚举示例multi-root-enumeration-example"
+                id="toc-多rc枚举示例multi-root-enumeration-example">3.13
+                多RC枚举示例（Multi-Root Enumeration Example）</a>
+                <ul>
+                <li><a href="#整体说明general-2"
+                id="toc-整体说明general-2">3.13.1
+                整体说明（General）</a></li>
+                <li><a
+                href="#多rc枚举过程multi-root-enumeration-process"
+                id="toc-多rc枚举过程multi-root-enumeration-process">3.13.2
+                多RC枚举过程（Multi-Root Enumeration Process）</a></li>
+                <li><a href="#热插拔注意事项hot-plug-considerations"
+                id="toc-热插拔注意事项hot-plug-considerations">3.13.3
+                热插拔注意事项（Hot-Plug Considerations）</a></li>
+                </ul></li>
+                <li><a
+                href="#mindshare-arbor调试验证分析和学习的软件工具"
+                id="toc-mindshare-arbor调试验证分析和学习的软件工具">3.14
+                MindShare Arbor：调试/验证/分析和学习的软件工具</a>
+                <ul>
+                <li><a href="#整体说明general-3"
+                id="toc-整体说明general-3">3.14.1
+                整体说明（General）</a></li>
+                <li><a href="#mindshare-arbor功能列表"
+                id="toc-mindshare-arbor功能列表">3.14.2 MindShare
+                Arbor功能列表</a></li>
+                </ul></li>
+                <li><a href="#术语翻译"
+                id="toc-术语翻译">术语翻译</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#pcie配置概述configuration-overview"
-            id="toc-pcie配置概述configuration-overview">3
-            PCIe配置概述（Configuration Overview）</a>
-            <ul>
-            <li><a href="#前一章" id="toc-前一章">前一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a
-            href="#总线设备功能的定义definition-of-busdevice-and-function"
-            id="toc-总线设备功能的定义definition-of-busdevice-and-function">3.1
-            总线/设备/功能/的定义（Definition of Bus,Device and
-            Function）</a></li>
-            <li><a href="#pcie总线pcie-buses"
-            id="toc-pcie总线pcie-buses">3.2 PCIe总线（PCIe
-            Buses）</a></li>
-            <li><a href="#pcie设备pcie-devices"
-            id="toc-pcie设备pcie-devices">3.3 PCIe设备（PCIe
-            Devices）</a></li>
-            <li><a href="#pcie功能pcie-functions"
-            id="toc-pcie功能pcie-functions">3.4 PCIe功能（PCIe
-            Functions）</a></li>
-            <li><a href="#配置地址空间configuration-address-space"
-            id="toc-配置地址空间configuration-address-space">3.5
-            配置地址空间（Configuration Address Space）</a></li>
-            <li><a href="#host-to-pci-bridge配置寄存器"
-            id="toc-host-to-pci-bridge配置寄存器">3.6 Host-to-PCI
-            Bridge配置寄存器</a></li>
-            <li><a
-            href="#生成配置事务generating-configuration-transactions"
-            id="toc-生成配置事务generating-configuration-transactions">3.7
-            生成配置事务（Generating Configuration
-            Transactions）</a></li>
-            <li><a href="#配置请求configuration-requests"
-            id="toc-配置请求configuration-requests">3.8
-            配置请求（Configuration Requests）</a></li>
-            <li><a
-            href="#pci兼容配置访问示例example-pci-compatible-configuration-access"
-            id="toc-pci兼容配置访问示例example-pci-compatible-configuration-access">3.9
-            PCI兼容配置访问示例（Example PCI-Compatible Configuration
-            Access）</a></li>
-            <li><a
-            href="#增强型配置访问示例example-enhanced-configuration-access"
-            id="toc-增强型配置访问示例example-enhanced-configuration-access">3.10
-            增强型配置访问示例（Example Enhanced Configuration
-            Access）</a></li>
-            <li><a
-            href="#枚举搜索发现拓扑enumeration-discovering-the-topology"
-            id="toc-枚举搜索发现拓扑enumeration-discovering-the-topology">3.11
-            枚举——搜索发现拓扑（Enumeration-Discovering the
-            Topology）</a></li>
-            <li><a href="#单rc枚举示例single-root-enumeration-example"
-            id="toc-单rc枚举示例single-root-enumeration-example">3.12
-            单RC枚举示例（Single Root Enumeration Example）</a></li>
-            <li><a href="#多rc枚举示例multi-root-enumeration-example"
-            id="toc-多rc枚举示例multi-root-enumeration-example">3.13
-            多RC枚举示例（Multi-Root Enumeration Example）</a></li>
-            <li><a href="#mindshare-arbor调试验证分析和学习的软件工具"
-            id="toc-mindshare-arbor调试验证分析和学习的软件工具">3.14
-            MindShare Arbor：调试/验证/分析和学习的软件工具</a></li>
-            <li><a href="#术语翻译" id="toc-术语翻译">术语翻译</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#pcie配置概述configuration-overview"
+                id="toc-pcie配置概述configuration-overview">3
+                PCIe配置概述（Configuration Overview）</a>
+                <ul>
+                <li><a href="#前一章" id="toc-前一章">前一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a
+                href="#总线设备功能的定义definition-of-busdevice-and-function"
+                id="toc-总线设备功能的定义definition-of-busdevice-and-function">3.1
+                总线/设备/功能/的定义（Definition of Bus,Device and
+                Function）</a></li>
+                <li><a href="#pcie总线pcie-buses"
+                id="toc-pcie总线pcie-buses">3.2 PCIe总线（PCIe
+                Buses）</a></li>
+                <li><a href="#pcie设备pcie-devices"
+                id="toc-pcie设备pcie-devices">3.3 PCIe设备（PCIe
+                Devices）</a></li>
+                <li><a href="#pcie功能pcie-functions"
+                id="toc-pcie功能pcie-functions">3.4 PCIe功能（PCIe
+                Functions）</a></li>
+                <li><a href="#配置地址空间configuration-address-space"
+                id="toc-配置地址空间configuration-address-space">3.5
+                配置地址空间（Configuration Address Space）</a>
+                <ul>
+                <li><a href="#pci兼容空间pci-compatible-space"
+                id="toc-pci兼容空间pci-compatible-space">3.5.1
+                PCI兼容空间（PCI-Compatible Space）</a></li>
+                <li><a href="#扩展配置空间extended-configuration-space"
+                id="toc-扩展配置空间extended-configuration-space">3.5.2
+                扩展配置空间（Extended Configuration Space）</a></li>
+                </ul></li>
+                <li><a href="#host-to-pci-bridge配置寄存器"
+                id="toc-host-to-pci-bridge配置寄存器">3.6 Host-to-PCI
+                Bridge配置寄存器</a>
+                <ul>
+                <li><a href="#整体说明general"
+                id="toc-整体说明general">3.6.1
+                整体说明（General）</a></li>
+                <li><a
+                href="#只有rc发送配置请求only-the-root-sends-configuration-request"
+                id="toc-只有rc发送配置请求only-the-root-sends-configuration-request">3.6.2
+                只有RC发送配置请求（Only the Root Sends Configuration
+                Request）</a></li>
+                </ul></li>
+                <li><a
+                href="#生成配置事务generating-configuration-transactions"
+                id="toc-生成配置事务generating-configuration-transactions">3.7
+                生成配置事务（Generating Configuration
+                Transactions）</a>
+                <ul>
+                <li><a href="#传统pci机制legacy-pci-mechanism"
+                id="toc-传统pci机制legacy-pci-mechanism">3.7.1
+                传统PCI机制（Legacy PCI Mechanism）</a></li>
+                <li><a
+                href="#增强型配置访问机制enhanced-configuration-access-mechanism"
+                id="toc-增强型配置访问机制enhanced-configuration-access-mechanism">3.7.2
+                增强型配置访问机制（Enhanced Configuration Access
+                Mechanism）</a></li>
+                </ul></li>
+                <li><a href="#配置请求configuration-requests"
+                id="toc-配置请求configuration-requests">3.8
+                配置请求（Configuration Requests）</a>
+                <ul>
+                <li><a
+                href="#type-0配置请求type-0-configuration-request"
+                id="toc-type-0配置请求type-0-configuration-request">3.8.1
+                Type 0配置请求（Type 0 Configuration Request）</a></li>
+                <li><a
+                href="#type-1配置请求type-1-configuration-request"
+                id="toc-type-1配置请求type-1-configuration-request">3.8.2
+                Type 1配置请求（Type 1 Configuration Request）</a></li>
+                </ul></li>
+                <li><a
+                href="#pci兼容配置访问示例example-pci-compatible-configuration-access"
+                id="toc-pci兼容配置访问示例example-pci-compatible-configuration-access">3.9
+                PCI兼容配置访问示例（Example PCI-Compatible
+                Configuration Access）</a></li>
+                <li><a
+                href="#增强型配置访问示例example-enhanced-configuration-access"
+                id="toc-增强型配置访问示例example-enhanced-configuration-access">3.10
+                增强型配置访问示例（Example Enhanced Configuration
+                Access）</a></li>
+                <li><a
+                href="#枚举搜索发现拓扑enumeration-discovering-the-topology"
+                id="toc-枚举搜索发现拓扑enumeration-discovering-the-topology">3.11
+                枚举——搜索发现拓扑（Enumeration-Discovering the
+                Topology）</a>
+                <ul>
+                <li><a
+                href="#搜索某个function是否存在discovering-the-presence-or-absence-of-a-function"
+                id="toc-搜索某个function是否存在discovering-the-presence-or-absence-of-a-function">3.11.1
+                搜索某个Function是否存在（Discovering the Presence or
+                Absence of a Function）</a></li>
+                <li><a href="#确认某个function是ep还是bridge"
+                id="toc-确认某个function是ep还是bridge">3.11.2
+                确认某个Function是EP还是Bridge</a></li>
+                </ul></li>
+                <li><a
+                href="#单rc枚举示例single-root-enumeration-example"
+                id="toc-单rc枚举示例single-root-enumeration-example">3.12
+                单RC枚举示例（Single Root Enumeration Example）</a></li>
+                <li><a
+                href="#多rc枚举示例multi-root-enumeration-example"
+                id="toc-多rc枚举示例multi-root-enumeration-example">3.13
+                多RC枚举示例（Multi-Root Enumeration Example）</a>
+                <ul>
+                <li><a href="#整体说明general-2"
+                id="toc-整体说明general-2">3.13.1
+                整体说明（General）</a></li>
+                <li><a
+                href="#多rc枚举过程multi-root-enumeration-process"
+                id="toc-多rc枚举过程multi-root-enumeration-process">3.13.2
+                多RC枚举过程（Multi-Root Enumeration Process）</a></li>
+                <li><a href="#热插拔注意事项hot-plug-considerations"
+                id="toc-热插拔注意事项hot-plug-considerations">3.13.3
+                热插拔注意事项（Hot-Plug Considerations）</a></li>
+                </ul></li>
+                <li><a
+                href="#mindshare-arbor调试验证分析和学习的软件工具"
+                id="toc-mindshare-arbor调试验证分析和学习的软件工具">3.14
+                MindShare Arbor：调试/验证/分析和学习的软件工具</a>
+                <ul>
+                <li><a href="#整体说明general-3"
+                id="toc-整体说明general-3">3.14.1
+                整体说明（General）</a></li>
+                <li><a href="#mindshare-arbor功能列表"
+                id="toc-mindshare-arbor功能列表">3.14.2 MindShare
+                Arbor功能列表</a></li>
+                </ul></li>
+                <li><a href="#术语翻译"
+                id="toc-术语翻译">术语翻译</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="pcie配置概述configuration-overview">3
@@ -117,13 +367,13 @@
         PCIe
         拓扑结构，配置软件负责检测出拓扑中的每个Bus、Device和Function，缩写为BDF。接下来的几节将会结合一个PCIe拓扑的示例，来讨论BDF的主要特征。图
         3‑1展示了一个PCIe拓扑结构，图中着重标识了示例系统中的Buses、Devices和Functions。本章后续内容将解释总线编号和设备编号分配的过程。</p>
+        <p>图 3‑1示例系统</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image114.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑1示例系统</p>
         <h3 id="pcie总线pcie-buses">3.2 PCIe总线（PCIe Buses）</h3>
         <p>软件总共可以分配256个总线编号。第一个总线号，Bus
         0，通常由硬件分配给RC（Root Complex）。Bus
@@ -174,13 +424,13 @@
         <li><p>电源管理</p></li>
         <li><p>MSI、MSI-X</p></li>
         </ul>
+        <p>图 3‑2 PCI兼容配置寄存器空间</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image116.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑2 PCI兼容配置寄存器空间</p>
         <h4 id="扩展配置空间extended-configuration-space">3.5.2
         扩展配置空间（Extended Configuration Space）</h4>
         <p>在阅读下面的讨论内容时，请同时参阅图
@@ -193,13 +443,13 @@
         PCI
         是不可见的。在扩展配置空间内包含了新增加的PCIe可选扩展能力寄存器（Extended
         Capability register），图 3‑3罗列出了一部分扩展能力寄存器。</p>
+        <p>图 3‑3每个PCIe Function所拥有的4KB配置空间</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image118.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑3每个PCIe Function所拥有的4KB配置空间</p>
         <h3 id="host-to-pci-bridge配置寄存器">3.6 Host-to-PCI
         Bridge配置寄存器</h3>
         <h4 id="整体说明general">3.6.1 整体说明（General）</h4>
@@ -244,13 +494,13 @@
         <p>配置地址端口仅在处理器对其完成一个完整的32bit写操作时，锁存住写入的信息，如图
         3‑4，若对这个端口进行读操作则会返回它的这些内容。写入配置地址空间的信息必须遵照下面所描述的格式（图
         3‑4）。</p>
+        <p>图 3‑4地址位于0CF8h的配置地址端口</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image120.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑4地址位于0CF8h的配置地址端口</p>
         <ul>
         <li><p>Bits[1:0]固定为0不变，且只读的，在读取时只能返回<strong>0</strong>。它的位置是DW对齐的，不允许指定字节（byte-specific）偏移量。</p></li>
         <li><p>Bits[7:2]用于标识目标Function的PCI兼容配置空间内的<strong>目标DW</strong>（target
@@ -299,13 +549,13 @@
         0，那么它将是一个Type
         0配置请求。若目标总线是从属总线范围内的其他总线，那么它将是一个Type
         1配置请求。若目标总线不在从属总线范围内，那么这个Bridge将不会对这个请求进行转发操作。</p>
+        <p>图 3‑5 单Root系统</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image122.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑5 单Root系统</p>
         <h5 id="多host系统multi-host-system">3.7.1.4
         多Host系统（Multi-Host System）</h5>
         <p>若在一个系统中存在多个RC，如图
@@ -333,13 +583,13 @@
         的情况，更一般的情况中会存在 1-N 个 RC。</p>
         </blockquote></li>
         </ol>
+        <p>图 3‑6多Root系统</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image124.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑6多Root系统</p>
         <h4
         id="增强型配置访问机制enhanced-configuration-access-mechanism">3.7.2
         增强型配置访问机制（Enhanced Configuration Access
@@ -355,13 +605,13 @@
         <p>为了处理地址映射，每个Function的4KB配置空间都以一个4KB对齐的地址作为起始地址，且这些4KB配置空间所映射的地址都要位于那段为了配置访问而预留的256MB内存地址空间内。并且现在的地址中的bit还携带了识别信息（identifying
         information），用于表示哪一个Function是访问目标（见表
         3‑1）。</p>
+        <p>表 3‑1增强型配置机制的内存映射地址范围</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image126.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 3‑1增强型配置机制的内存映射地址范围</p>
         <h5 id="一些规则some-rules">3.7.2.2 一些规则（Some Rules）</h5>
         <p>如果一个访问跨了dword地址边界（跨越了相邻的两个内存DW的边界，即操作长度大于了一个DW，或者是操作长度等于一个DW但是起始地址没有位于DW对齐的地址），那么RC可以不支持它访问增强型配置内存空间。RC们也不需要支持某些总线锁定协议（bus
         locking
@@ -389,13 +639,13 @@
         </ol>
         <p>如图 3‑7中给出了Type
         0配置写请求和读请求的Header格式。在读写两种情况下，Type字段都是00100，而Format（Fmt）字段则用于指示是读请求还是写请求。</p>
+        <p>图 3‑7 Type 0配置读请求和写请求的Header</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image128.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑7 Type 0配置读请求和写请求的Header</p>
         <h4 id="type-1配置请求type-1-configuration-request">3.8.2 Type
         1配置请求（Type 1 Configuration Request）</h4>
         <p>当Bridge得到的配置请求的目标总线号并不是自己的次级总线号，但是目标总线号又在从属总线（Subordinate
@@ -412,13 +662,13 @@
         </ul>
         <p>如图 3-8 展示了Type
         1配置读请求和写请求的Header格式。在读写两种情况下，Type字段域都是00101，而Format（Fmt）字段则用来指示这是读还是写。</p>
+        <p>图 3‑8 Type 1配置读请求和写请求的Header</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image130.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑8 Type 1配置读请求和写请求的Header</p>
         <h3
         id="pci兼容配置访问示例example-pci-compatible-configuration-access">3.9
         PCI兼容配置访问示例（Example PCI-Compatible Configuration
@@ -431,14 +681,14 @@
         <p>为了更好说明传统的CF8h/CFCh机制来产生配置请求，请参考下面的x86汇编代码，这段代码使得RC执行一个2byte的读操作，操作目标为Bus
         4，Device 0，Function 0，Register 0（这个Register
         0就是厂商Vendor ID）。</p>
-        <p><code>mov  dx,0CF8h   ;将dx设置为配置地址端口的地址</code></p>
-        <p><code>mov  eax,8004000h ;enable bit=1，bus 4，dev 0，func 0，DW 0</code></p>
-        <p><code>out  dx,eax    ;IO写来设置地址端口</code></p>
-        <p><code>mov  dx,0CFCh   ;将dx设置为配置数据端口的地址</code></p>
-        <p><code>in   ax,dx    ;从配置数据端口读出2byte数据</code></p>
-        <p>代码中的out指令将产生一个IO写操作，从处理器写入配置地址端口，这个配置地址端口位于RC的Host
-        Bridge（0CF8h），如图 3‑4。</p>
-        <ol start="2" type="1">
+        <pre><code>mov  dx,0CF8h     ;将dx设置为配置地址端口的地址
+mov  eax,8004000h ;enable bit=1，bus 4，dev 0，func 0，DW 0
+out  dx,eax       ;IO写来设置地址端口
+mov  dx,0CFCh     ;将dx设置为配置数据端口的地址
+in   ax,dx        ;从配置数据端口读出2byte数据</code></pre>
+        <ol type="1">
+        <li><p>代码中的out指令将产生一个IO写操作，从处理器写入配置地址端口，这个配置地址端口位于RC的Host
+        Bridge（0CF8h），如图 3‑4。</p></li>
         <li><p>Host
         Bridge将配置地址端口中的目标总线号（这里是4）与Bridge下方的从属总线范围（这里是0到10）进行比较。很明显目标总线号在从属总线范围内，因此Bridge就准备好了接下来产生配置请求的目的地。</p></li>
         <li><p>代码中的in指令将产生一个IO读事务，读事务产生自处理器并发往RC
@@ -502,13 +752,13 @@
         Bridge识别到这个地址位于用来进行配置的区域之内，它将产生一个配置读请求，读取的位置为Bus
         4—Device 0—Function 0—dword
         0—首两个字节。剩下的操作就跟前面的小节中所讲的一样了，也就是如何把读出来的信息通过完成包返回给Host。</p>
+        <p>图 3‑9配置读访问示例</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image132.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑9配置读访问示例</p>
         <h3
         id="枚举搜索发现拓扑enumeration-discovering-the-topology">3.11
         枚举——搜索发现拓扑（Enumeration-Discovering the Topology）</h3>
@@ -518,13 +768,13 @@
         0。需要注意，一个Bridge自身上方相连的总线称为主总线（Primary
         Bus），而这个Bridge自身下方相连的总线称为次级总线（Secondary
         Bus）。扫描PCIe结构来发现整体拓扑结构的过程被称为<strong>枚举过程</strong>。</p>
+        <p>图 3‑10刚启动时软件所认为的拓扑结构</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image134.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑10刚启动时软件所认为的拓扑结构</p>
         <h4
         id="搜索某个function是否存在discovering-the-presence-or-absence-of-a-function">3.11.1
         搜索某个Function是否存在（Discovering the Presence or Absence of
@@ -572,13 +822,13 @@
         <p>除了系统复位之后的那一段时间之外，RC处理配置读请求的CRS（配置重试状态）完成包的方式不是通用的。在系统复位后的那一小段时间里，RC有两个可以进行的操作供选择，选择哪一种则取决于Root控制寄存器（Root
         Control Register）中CRS Software Visibility这一bit的值（如图
         3‑11）。</p>
+        <p>图 3‑11 PCIe能力块中的Root控制寄存器</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image136.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑11 PCIe能力块中的Root控制寄存器</p>
         <ul>
         <li><p>如果这个bit被置为1，而且发出的请求是配置读请求，要读取Vendor
         ID寄存器的全部两个byte（枚举过程通过这样的操作来搜索发现一个Function是否存在），那么在接收到CRS完成包时RC需要给Host返回伪造的0001h作为读取的寄存器值，并将其他的所有字节都置为全1。这个Vendor
@@ -606,13 +856,13 @@
         Bridge（Bus 8，Device 0）的Header
         Type字段也将返回1。但是对于EP来说，它返回的Header
         Type字段是0。</p>
+        <p>图 3‑12 Header类型寄存器</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image138.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑12 Header类型寄存器</p>
         <h3 id="单rc枚举示例single-root-enumeration-example">3.12
         单RC枚举示例（Single Root Enumeration Example）</h3>
         <p>现在，让我们通过一个例子来讨论一下枚举过程中的基本要素。如图
@@ -821,13 +1071,13 @@
         </ol>
         <p>每个Bridge中最终的主总线号、次级总线号和从属总线号可以参阅图
         3‑9。</p>
+        <p>图 3‑13单Root系统</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image140.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑13单Root系统</p>
         <h3 id="多rc枚举示例multi-root-enumeration-example">3.13
         多RC枚举示例（Multi-Root Enumeration Example）</h3>
         <h4 id="整体说明general-2">3.13.1 整体说明（General）</h4>
@@ -875,13 +1125,13 @@
         Bridge的从属总线号更新为65。</p></li>
         <li><p>这样就完成了次级RC的枚举过程。</p></li>
         </ol>
+        <p>图 3‑14多Root系统</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image142.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑14多Root系统</p>
         <h4 id="热插拔注意事项hot-plug-considerations">3.13.3
         热插拔注意事项（Hot-Plug Considerations）</h4>
         <p>热插拔，指的是一个插件卡（add-in
@@ -917,13 +1167,13 @@
         <p>访问<a
         href="http://www.mindshare.com/arbor">www.mindshare.com/arbor</a>即可免费下载MindShare
         Arbor的试用版。</p>
+        <p>图 3‑15 MindShare Arbor的部分截图</p>
         <figure>
         <img
         src="img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image144.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 3‑15 MindShare Arbor的部分截图</p>
         <h4 id="mindshare-arbor功能列表">3.14.2 MindShare
         Arbor功能列表</h4>
         <ul>
@@ -1024,22 +1274,16 @@
         </tr>
         </tbody>
         </table>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： Michael ZZY</p>
-        <p>校对： LJGibbs</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="2 PCIe 体系结构概述.html">← 第 2 章 PCIe 体系结构概述</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1052,17 +1296,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

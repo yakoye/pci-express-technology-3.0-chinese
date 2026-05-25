@@ -8,62 +8,138 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="21 附录.html">← 第 21 章 附录</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="21 附录.html">← 第 21 章 附录</a>
+          </div>
+
+    <div class="topbar-title">
       术语表
     </div>
 
-    <div class="nav-next">
-            <span class="nav-btn disabled">已是最后一章 →</span>
+    <div class="topbar-next">
+            <span class="topbar-btn disabled">已是最后一章 →</span>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      术语表
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">术语表</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="21 附录.html">← 第 21 章 附录</a>
+      
+            <span class="drawer-link disabled">已是最后一章 →</span>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#术语表" id="toc-术语表">22 术语表</a>
+                <ul>
+                <li><a href="#术语表glossary"
+                id="toc-术语表glossary">22.1 术语表（Glossary）</a></li>
+                <li><a href="#索引" id="toc-索引">22.2 索引</a>
+                <ul>
+                <li><a href="#数字" id="toc-数字">数字</a></li>
+                <li><a href="#a" id="toc-a">A</a></li>
+                <li><a href="#b" id="toc-b">B</a></li>
+                <li><a href="#c" id="toc-c">C</a></li>
+                <li><a href="#d" id="toc-d">D</a></li>
+                <li><a href="#e" id="toc-e">E</a></li>
+                <li><a href="#f" id="toc-f">F</a></li>
+                <li><a href="#g" id="toc-g">G</a></li>
+                <li><a href="#h" id="toc-h">H</a></li>
+                <li><a href="#i" id="toc-i">I</a></li>
+                <li><a href="#j" id="toc-j">J</a></li>
+                <li><a href="#l" id="toc-l">L</a></li>
+                <li><a href="#m" id="toc-m">M</a></li>
+                <li><a href="#n" id="toc-n">N</a></li>
+                <li><a href="#o" id="toc-o">O</a></li>
+                <li><a href="#p" id="toc-p">P</a></li>
+                <li><a href="#q" id="toc-q">Q</a></li>
+                <li><a href="#r" id="toc-r">R</a></li>
+                <li><a href="#s" id="toc-s">S</a></li>
+                <li><a href="#t" id="toc-t">T</a></li>
+                <li><a href="#u" id="toc-u">U</a></li>
+                <li><a href="#v" id="toc-v">V</a></li>
+                <li><a href="#w" id="toc-w">W</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#术语表" id="toc-术语表">22 术语表</a>
-            <ul>
-            <li><a href="#术语表glossary" id="toc-术语表glossary">22.1
-            术语表（Glossary）</a></li>
-            <li><a href="#索引" id="toc-索引">22.2 索引</a>
-            <ul>
-            <li><a href="#数字" id="toc-数字">数字</a></li>
-            <li><a href="#a" id="toc-a">A</a></li>
-            <li><a href="#b" id="toc-b">B</a></li>
-            <li><a href="#c" id="toc-c">C</a></li>
-            <li><a href="#d" id="toc-d">D</a></li>
-            <li><a href="#e" id="toc-e">E</a></li>
-            <li><a href="#f" id="toc-f">F</a></li>
-            <li><a href="#g" id="toc-g">G</a></li>
-            <li><a href="#h" id="toc-h">H</a></li>
-            <li><a href="#i" id="toc-i">I</a></li>
-            <li><a href="#j" id="toc-j">J</a></li>
-            <li><a href="#l" id="toc-l">L</a></li>
-            <li><a href="#m" id="toc-m">M</a></li>
-            <li><a href="#n" id="toc-n">N</a></li>
-            <li><a href="#o" id="toc-o">O</a></li>
-            <li><a href="#p" id="toc-p">P</a></li>
-            <li><a href="#q" id="toc-q">Q</a></li>
-            <li><a href="#r" id="toc-r">R</a></li>
-            <li><a href="#s" id="toc-s">S</a></li>
-            <li><a href="#t" id="toc-t">T</a></li>
-            <li><a href="#u" id="toc-u">U</a></li>
-            <li><a href="#v" id="toc-v">V</a></li>
-            <li><a href="#w" id="toc-w">W</a></li>
-            </ul></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#术语表" id="toc-术语表">22 术语表</a>
+                <ul>
+                <li><a href="#术语表glossary"
+                id="toc-术语表glossary">22.1 术语表（Glossary）</a></li>
+                <li><a href="#索引" id="toc-索引">22.2 索引</a>
+                <ul>
+                <li><a href="#数字" id="toc-数字">数字</a></li>
+                <li><a href="#a" id="toc-a">A</a></li>
+                <li><a href="#b" id="toc-b">B</a></li>
+                <li><a href="#c" id="toc-c">C</a></li>
+                <li><a href="#d" id="toc-d">D</a></li>
+                <li><a href="#e" id="toc-e">E</a></li>
+                <li><a href="#f" id="toc-f">F</a></li>
+                <li><a href="#g" id="toc-g">G</a></li>
+                <li><a href="#h" id="toc-h">H</a></li>
+                <li><a href="#i" id="toc-i">I</a></li>
+                <li><a href="#j" id="toc-j">J</a></li>
+                <li><a href="#l" id="toc-l">L</a></li>
+                <li><a href="#m" id="toc-m">M</a></li>
+                <li><a href="#n" id="toc-n">N</a></li>
+                <li><a href="#o" id="toc-o">O</a></li>
+                <li><a href="#p" id="toc-p">P</a></li>
+                <li><a href="#q" id="toc-q">Q</a></li>
+                <li><a href="#r" id="toc-r">R</a></li>
+                <li><a href="#s" id="toc-s">S</a></li>
+                <li><a href="#t" id="toc-t">T</a></li>
+                <li><a href="#u" id="toc-u">U</a></li>
+                <li><a href="#v" id="toc-v">V</a></li>
+                <li><a href="#w" id="toc-w">W</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h1 id="术语表">22 术语表</h1>
@@ -1463,13 +1539,14 @@
         </ul>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="21 附录.html">← 第 21 章 附录</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1482,17 +1559,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

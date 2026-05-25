@@ -8,52 +8,216 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="19 热插拔和功耗预算管理.html">← 第 19 章 热插拔和功耗预算管理</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="19 热插拔和功耗预算管理.html">← 第 19 章 热插拔和功耗预算管理</a>
+          </div>
+
+    <div class="topbar-title">
       第 20 章 规范 2.1 版本更新
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="21 附录.html">第 21 章 附录 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="21 附录.html">第 21 章 附录 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 20 章 规范 2.1 版本更新
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 20 章 规范 2.1 版本更新</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="19 热插拔和功耗预算管理.html">← 第 19 章 热插拔和功耗预算管理</a>
+      
+            <a class="drawer-link" href="21 附录.html">第 21 章 附录 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#针对规范修订版-2.1-的更新updates-for-spec-revision-2.1"
+                id="toc-针对规范修订版-2.1-的更新updates-for-spec-revision-2.1">20
+                针对规范修订版 2.1 的更新（Updates for Spec Revision
+                2.1）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#pcie-规范-2.1-修订版变更"
+                id="toc-pcie-规范-2.1-修订版变更">20.1 PCIe 规范 2.1
+                修订版变更</a></li>
+                <li><a href="#系统冗余改进多播"
+                id="toc-系统冗余改进多播">20.2 系统冗余改进：多播</a>
+                <ul>
+                <li><a href="#多播能力寄存器"
+                id="toc-多播能力寄存器">20.2.1 多播能力寄存器</a></li>
+                <li><a href="#多播示例" id="toc-多播示例">20.2.2
+                多播示例</a></li>
+                <li><a href="#mc-叠加-bar" id="toc-mc-叠加-bar">20.2.3
+                MC 叠加 BAR</a></li>
+                <li><a href="#叠加示例" id="toc-叠加示例">20.2.4
+                叠加示例</a></li>
+                <li><a href="#路由多播-tlp" id="toc-路由多播-tlp">20.2.5
+                路由多播 TLP</a></li>
+                <li><a href="#拥塞避免" id="toc-拥塞避免">20.2.6
+                拥塞避免</a></li>
+                </ul></li>
+                <li><a href="#性能改进" id="toc-性能改进">20.3
+                性能改进</a>
+                <ul>
+                <li><a href="#原子操作" id="toc-原子操作">20.3.1
+                原子操作</a></li>
+                <li><a href="#tphtlp-处理提示"
+                id="toc-tphtlp-处理提示">20.3.2 TPH（TLP
+                处理提示）</a></li>
+                <li><a href="#ido基于-id-的排序"
+                id="toc-ido基于-id-的排序">20.3.3 IDO（基于 ID
+                的排序）</a></li>
+                <li><a href="#ari替代路由-id-解释"
+                id="toc-ari替代路由-id-解释">20.3.4 ARI（替代路由 ID
+                解释）</a></li>
+                </ul></li>
+                <li><a href="#电源管理改进" id="toc-电源管理改进">20.4
+                电源管理改进</a>
+                <ul>
+                <li><a href="#dpa动态电源分配"
+                id="toc-dpa动态电源分配">20.4.1
+                DPA（动态电源分配）</a></li>
+                <li><a href="#ltr延迟容忍度报告"
+                id="toc-ltr延迟容忍度报告">20.4.2
+                LTR（延迟容忍度报告）</a></li>
+                <li><a href="#obff优化缓冲区刷新与填充"
+                id="toc-obff优化缓冲区刷新与填充">20.4.3
+                OBFF（优化缓冲区刷新与填充）</a></li>
+                <li><a href="#aspm-选项" id="toc-aspm-选项">20.4.4 ASPM
+                选项</a></li>
+                </ul></li>
+                <li><a href="#配置改进" id="toc-配置改进">20.5
+                配置改进</a>
+                <ul>
+                <li><a href="#内部错误报告" id="toc-内部错误报告">20.5.1
+                内部错误报告</a></li>
+                <li><a href="#可调整大小的-bar"
+                id="toc-可调整大小的-bar">20.5.2 可调整大小的
+                BAR</a></li>
+                <li><a href="#简化排序表" id="toc-简化排序表">20.5.3
+                简化排序表</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a
-            href="#针对规范修订版-2.1-的更新updates-for-spec-revision-2.1"
-            id="toc-针对规范修订版-2.1-的更新updates-for-spec-revision-2.1">20
-            针对规范修订版 2.1 的更新（Updates for Spec Revision
-            2.1）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#pcie-规范-2.1-修订版变更"
-            id="toc-pcie-规范-2.1-修订版变更">20.1 PCIe 规范 2.1
-            修订版变更</a></li>
-            <li><a href="#系统冗余改进多播"
-            id="toc-系统冗余改进多播">20.2 系统冗余改进：多播</a></li>
-            <li><a href="#性能改进" id="toc-性能改进">20.3
-            性能改进</a></li>
-            <li><a href="#电源管理改进" id="toc-电源管理改进">20.4
-            电源管理改进</a></li>
-            <li><a href="#配置改进" id="toc-配置改进">20.5
-            配置改进</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#针对规范修订版-2.1-的更新updates-for-spec-revision-2.1"
+                id="toc-针对规范修订版-2.1-的更新updates-for-spec-revision-2.1">20
+                针对规范修订版 2.1 的更新（Updates for Spec Revision
+                2.1）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#pcie-规范-2.1-修订版变更"
+                id="toc-pcie-规范-2.1-修订版变更">20.1 PCIe 规范 2.1
+                修订版变更</a></li>
+                <li><a href="#系统冗余改进多播"
+                id="toc-系统冗余改进多播">20.2 系统冗余改进：多播</a>
+                <ul>
+                <li><a href="#多播能力寄存器"
+                id="toc-多播能力寄存器">20.2.1 多播能力寄存器</a></li>
+                <li><a href="#多播示例" id="toc-多播示例">20.2.2
+                多播示例</a></li>
+                <li><a href="#mc-叠加-bar" id="toc-mc-叠加-bar">20.2.3
+                MC 叠加 BAR</a></li>
+                <li><a href="#叠加示例" id="toc-叠加示例">20.2.4
+                叠加示例</a></li>
+                <li><a href="#路由多播-tlp" id="toc-路由多播-tlp">20.2.5
+                路由多播 TLP</a></li>
+                <li><a href="#拥塞避免" id="toc-拥塞避免">20.2.6
+                拥塞避免</a></li>
+                </ul></li>
+                <li><a href="#性能改进" id="toc-性能改进">20.3
+                性能改进</a>
+                <ul>
+                <li><a href="#原子操作" id="toc-原子操作">20.3.1
+                原子操作</a></li>
+                <li><a href="#tphtlp-处理提示"
+                id="toc-tphtlp-处理提示">20.3.2 TPH（TLP
+                处理提示）</a></li>
+                <li><a href="#ido基于-id-的排序"
+                id="toc-ido基于-id-的排序">20.3.3 IDO（基于 ID
+                的排序）</a></li>
+                <li><a href="#ari替代路由-id-解释"
+                id="toc-ari替代路由-id-解释">20.3.4 ARI（替代路由 ID
+                解释）</a></li>
+                </ul></li>
+                <li><a href="#电源管理改进" id="toc-电源管理改进">20.4
+                电源管理改进</a>
+                <ul>
+                <li><a href="#dpa动态电源分配"
+                id="toc-dpa动态电源分配">20.4.1
+                DPA（动态电源分配）</a></li>
+                <li><a href="#ltr延迟容忍度报告"
+                id="toc-ltr延迟容忍度报告">20.4.2
+                LTR（延迟容忍度报告）</a></li>
+                <li><a href="#obff优化缓冲区刷新与填充"
+                id="toc-obff优化缓冲区刷新与填充">20.4.3
+                OBFF（优化缓冲区刷新与填充）</a></li>
+                <li><a href="#aspm-选项" id="toc-aspm-选项">20.4.4 ASPM
+                选项</a></li>
+                </ul></li>
+                <li><a href="#配置改进" id="toc-配置改进">20.5
+                配置改进</a>
+                <ul>
+                <li><a href="#内部错误报告" id="toc-内部错误报告">20.5.1
+                内部错误报告</a></li>
+                <li><a href="#可调整大小的-bar"
+                id="toc-可调整大小的-bar">20.5.2 可调整大小的
+                BAR</a></li>
+                <li><a href="#简化排序表" id="toc-简化排序表">20.5.3
+                简化排序表</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2
@@ -722,13 +886,14 @@
         288 页“简化排序规则表”一节。</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="19 热插拔和功耗预算管理.html">← 第 19 章 热插拔和功耗预算管理</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -741,17 +906,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

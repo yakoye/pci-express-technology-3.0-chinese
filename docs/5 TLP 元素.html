@@ -8,46 +8,162 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="4 地址空间与事务路由.html">← 第 4 章 地址空间与事务路由</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="4 地址空间与事务路由.html">← 第 4 章 地址空间与事务路由</a>
+          </div>
+
+    <div class="topbar-title">
       第 5 章 TLP 元素
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="6 流量控制.html">第 6 章 流量控制 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="6 流量控制.html">第 6 章 流量控制 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 5 章 TLP 元素
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 5 章 TLP 元素</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="4 地址空间与事务路由.html">← 第 4 章 地址空间与事务路由</a>
+      
+            <a class="drawer-link" href="6 流量控制.html">第 6 章 流量控制 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#tlp-元素tlp-element"
+                id="toc-tlp-元素tlp-element">5 TLP 元素（TLP
+                Element）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a
+                href="#基于数据包协议的介绍introduction-to-packet-based-protocol"
+                id="toc-基于数据包协议的介绍introduction-to-packet-based-protocol">5.1
+                基于数据包协议的介绍（Introduction to Packet-Based
+                Protocol）</a>
+                <ul>
+                <li><a href="#概括general" id="toc-概括general">5.1.1
+                概括（General）</a></li>
+                <li><a href="#使用基于数据包协议的动机"
+                id="toc-使用基于数据包协议的动机">5.1.2
+                使用基于数据包协议的动机</a></li>
+                </ul></li>
+                <li><a href="#tlp-细节tlp-details"
+                id="toc-tlp-细节tlp-details">5.2 TLP 细节（TLP
+                Details）</a>
+                <ul>
+                <li><a href="#tlp-的组包和拆包"
+                id="toc-tlp-的组包和拆包">5.2.1 TLP
+                的组包和拆包</a></li>
+                <li><a href="#tlp-结构" id="toc-tlp-结构">5.2.2 TLP
+                结构</a></li>
+                <li><a
+                href="#通用-tlp-header-格式generic-tlp-header-format"
+                id="toc-通用-tlp-header-格式generic-tlp-header-format">5.2.3
+                通用 TLP Header 格式（Generic TLP Header
+                Format）</a></li>
+                <li><a
+                href="#通用-tlp-header-详细说明generic-tlp-header-details"
+                id="toc-通用-tlp-header-详细说明generic-tlp-header-details">5.2.4
+                通用 TLP Header 详细说明（Generic TLP Header
+                Details）</a></li>
+                <li><a href="#具体的-tlp-格式请求-tlp-和完成-tlp"
+                id="toc-具体的-tlp-格式请求-tlp-和完成-tlp">5.2.5 具体的
+                TLP 格式：请求 TLP 和完成 TLP</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#tlp-元素tlp-element"
-            id="toc-tlp-元素tlp-element">5 TLP 元素（TLP Element）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a
-            href="#基于数据包协议的介绍introduction-to-packet-based-protocol"
-            id="toc-基于数据包协议的介绍introduction-to-packet-based-protocol">5.1
-            基于数据包协议的介绍（Introduction to Packet-Based
-            Protocol）</a></li>
-            <li><a href="#tlp-细节tlp-details"
-            id="toc-tlp-细节tlp-details">5.2 TLP 细节（TLP
-            Details）</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#tlp-元素tlp-element"
+                id="toc-tlp-元素tlp-element">5 TLP 元素（TLP
+                Element）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a
+                href="#基于数据包协议的介绍introduction-to-packet-based-protocol"
+                id="toc-基于数据包协议的介绍introduction-to-packet-based-protocol">5.1
+                基于数据包协议的介绍（Introduction to Packet-Based
+                Protocol）</a>
+                <ul>
+                <li><a href="#概括general" id="toc-概括general">5.1.1
+                概括（General）</a></li>
+                <li><a href="#使用基于数据包协议的动机"
+                id="toc-使用基于数据包协议的动机">5.1.2
+                使用基于数据包协议的动机</a></li>
+                </ul></li>
+                <li><a href="#tlp-细节tlp-details"
+                id="toc-tlp-细节tlp-details">5.2 TLP 细节（TLP
+                Details）</a>
+                <ul>
+                <li><a href="#tlp-的组包和拆包"
+                id="toc-tlp-的组包和拆包">5.2.1 TLP
+                的组包和拆包</a></li>
+                <li><a href="#tlp-结构" id="toc-tlp-结构">5.2.2 TLP
+                结构</a></li>
+                <li><a
+                href="#通用-tlp-header-格式generic-tlp-header-format"
+                id="toc-通用-tlp-header-格式generic-tlp-header-format">5.2.3
+                通用 TLP Header 格式（Generic TLP Header
+                Format）</a></li>
+                <li><a
+                href="#通用-tlp-header-详细说明generic-tlp-header-details"
+                id="toc-通用-tlp-header-详细说明generic-tlp-header-details">5.2.4
+                通用 TLP Header 详细说明（Generic TLP Header
+                Details）</a></li>
+                <li><a href="#具体的-tlp-格式请求-tlp-和完成-tlp"
+                id="toc-具体的-tlp-格式请求-tlp-和完成-tlp">5.2.5 具体的
+                TLP 格式：请求 TLP 和完成 TLP</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="tlp-元素tlp-element">5 TLP 元素（TLP Element）</h2>
@@ -95,6 +211,7 @@
         Ordered Set 也并没有像 TLP 和 DLLP
         一样的字节条带化过程，相反地，Ordered Set
         会在链路的每个通道（lane）上都复制一份，而不是像字节条带化一样把信息按字节分配到各个通道上。</p>
+        <p>图 5‑1 TLP 和 DLLP 包</p>
         <figure>
         <img
         src="img/5%20TLP%20%E5%85%83%E7%B4%A0/image-20220502163039798.png"
@@ -102,7 +219,6 @@
         <figcaption
         aria-hidden="true">image-20220502163039798</figcaption>
         </figure>
-        <p>图 5‑1 TLP 和 DLLP 包</p>
         <h4 id="使用基于数据包协议的动机">5.1.2
         使用基于数据包协议的动机</h4>
         <p>使用基于包的协议（Packet-Based
@@ -165,12 +281,12 @@
         的一般流程。现在让我们讲一讲从一个包的生成，到它被传送到接收端的
         Device Core 的各个步骤。下面列出了 TLP
         组包和拆包的关键阶段，列出的编号与图 5‑2 中的编号相对应。</p>
+        <p>图 5‑2 PCIe TLP 的组包与拆包</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image212.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑2 PCIe TLP 的组包与拆包</p>
         <h5 id="发送方">发送方</h5>
         <ol type="1">
         <li>设备 A 的 Device Core 向它的 PCIe 接口发送一个请求（具体
@@ -234,12 +350,12 @@
         <h4 id="tlp-结构">5.2.2 TLP 结构</h4>
         <p>一个事务层包 TLP 中每个字段域的基本用法在表 5‑1
         中进行了定义。</p>
+        <p>表 5‑1 TLP Header 的 Type 字段定义了事务不同种类</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image214.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑1 TLP Header 的 Type 字段定义了事务不同种类</p>
         <p>下面对表 5‑1 中的内容进行复述。</p>
         <ul>
         <li><p>Header</p></li>
@@ -275,17 +391,18 @@
         的格式和内容。在本节内，会对几乎所有事务的 TLP Header
         中的公共字段进行总结，并会在稍后讨论与特定事务类型相关 Header
         格式差异。</p>
+        <p>图 5‑3 通用 TLP Header 的各字段域</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image216.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑3 通用 TLP Header 的各字段域</p>
         <h5 id="通用-header-各字段摘要">5.2.3.2 通用 Header
         各字段摘要</h5>
         <p>表 5‑2 中对通用 TLP Header
         中的每个字段的大小和用途进行了总结。需要注意的是，在图 5‑3
         中被标注为“R”的字段是保留字段（reserve），应该被置为 0。</p>
+        <p>表 5‑2 通用 TLP Header 的各字段摘要</p>
         <table>
         <colgroup>
         <col style="width: 37%" />
@@ -420,7 +537,6 @@
         </tr>
         </tbody>
         </table>
-        <p>表 5‑2 通用 TLP Header 的各字段摘要</p>
         <h4
         id="通用-tlp-header-详细说明generic-tlp-header-details">5.2.4
         通用 TLP Header 详细说明（Generic TLP Header Details）</h4>
@@ -430,6 +546,7 @@
         Type/Format 字段编码含义</h5>
         <p>表 5‑3 中总结了 TLP Header 中 Type 字段和 Fmt
         字段（Format）的编码含义。</p>
+        <p>表 5‑3 TLP Header 的 Type 字段和 Fmt 字段编码含义</p>
         <table>
         <colgroup>
         <col style="width: 48%" />
@@ -549,7 +666,6 @@
         </tr>
         </tbody>
         </table>
-        <p>表 5‑3 TLP Header 的 Type 字段和 Fmt 字段编码含义</p>
         <h5 id="digestecrc-字段">5.2.4.2 Digest/ECRC 字段</h5>
         <p>TLP 的 Digest 位表示是否存在 ECRC（End-to-End
         CRC）。如果当前支持这个可选的特性，并且软件也启用了它，那么设备将会给自己产生的所有
@@ -644,12 +760,12 @@
         DW 中的任何有效字节延伸至最后一个 DW
         中的任何有效字节。因为数据传输量大于
         2DW，字节使能就只能用来标识这次传输中起始地址的位置（2d）和结束地址的位置（34d）。</p>
+        <p>图 5‑4 首 DW 字节使能和尾 DW 字节使能字段的使用</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image218.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑4 首 DW 字节使能和尾 DW 字节使能字段的使用</p>
         <h5 id="事务描述符字段transaction-descriptor-fields">5.2.4.4
         事务描述符字段（Transaction Descriptor Fields）</h5>
         <p>当事务在 Requester 和 Completer
@@ -659,12 +775,12 @@
         协议在 TLP Header
         中定义了多个重要字段，来组成一个唯一的事务描述符（Transaction
         Descriptor），如图 5‑5 所示。</p>
+        <p>图 5‑5 事务描述符字段</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image220.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑5 事务描述符字段</p>
         <p>虽然事务描述符在 TLP Header
         中并不是位置全连续的字段，但是这些不连续字段合起来可以一起描述事务的关键属性，包括：</p>
         <h6 id="事务-idtransaction-id">5.2.4.4.1 事务 ID（Transaction
@@ -731,26 +847,27 @@
         展示了系统 IO 映射以及 16bit 和 32bit
         地址边界。自身不是传统遗留设备的设备是不允许访问 BAR 中的 IO
         地址空间的。</p>
+        <p>图 5‑6 系统 IO 映射</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image222.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑6 系统 IO 映射</p>
         <h6 id="l-io-request-header-的格式">l IO Request Header
         的格式</h6>
         <p>如图 5‑7 所示是一个 3DW IO Request
         Header，其中的每个字段都会在接下来的内容中进行描述。</p>
+        <p>图 5‑7 3DW IO Request Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image224.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑7 3DW IO Request Header 格式</p>
         <h6 id="l-io-request-header-各字段">l IO Request Header
         各字段</h6>
         <p>一个 IO Request Header 中的每个字段的位置和作用都在表 5‑4
         中进行了描述。</p>
+        <p>表 5‑4 IO Request Header 各字段</p>
         <table>
         <colgroup>
         <col style="width: 25%" />
@@ -858,7 +975,6 @@
         </tr>
         </tbody>
         </table>
-        <p>表 5‑4 IO Request Header 各字段</p>
         <h5 id="memory-请求memory-request">5.2.5.2 Memory 请求（Memory
         Request）</h5>
         <p>PCIe 的 Memory
@@ -866,17 +982,18 @@
         3DW 与 4DW 的 Memory
         请求包。需要记住协议规范中多次重申的一点，Memory
         传输绝对不允许跨 4KB 地址边界。</p>
+        <p>图 5‑8 3DW 和 4DW 的 Memory Request Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image226.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑8 3DW 和 4DW 的 Memory Request Header 格式</p>
         <h6 id="memory-request-header-各字段">5.2.5.2.1 Memory Request
         Header 各字段</h6>
         <p>一个 4DW 的 Memory Request Header
         中的每个字段的位置和作用都在表 5‑5 中进行了描述。注意，3DW 和
         4DW Header 的区别仅仅是起始地址字段的位置和字段大小不同。</p>
+        <p>表 5‑5 4DW Memory Request Header 各字段</p>
         <table>
         <colgroup>
         <col style="width: 25%" />
@@ -1005,7 +1122,6 @@
         </tr>
         </tbody>
         </table>
-        <p>表 5‑5 4DW Memory Request Header 各字段</p>
         <h6 id="memory-request-注意事项">5.2.5.2.2 Memory Request
         注意事项</h6>
         <p>Memory 请求的特性包括：</p>
@@ -1044,16 +1160,17 @@
         或者其他指示信号来告诉设备需要声明自己占有 Type 0
         配置请求，也就是说设备只要从上行收到了 Type 0
         配置请求，就知道这个配置请求的目标设备就必然是自己。</p>
+        <p>图 5‑9 3DW 配置请求以及 Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image228.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑9 3DW 配置请求以及 Header 格式</p>
         <h6 id="configuration-request-header-各字段的定义">5.2.5.3.1
         Configuration Request Header 各字段的定义</h6>
         <p>图 5‑9 中展示的 Configuration Request Header
         中的每个字段的位置和作用都在表 5‑6 中进行了描述。</p>
+        <p>表 5‑6 配置请求 Header 各字段</p>
         <table>
         <colgroup>
         <col style="width: 39%" />
@@ -1174,7 +1291,6 @@
         </tr>
         </tbody>
         </table>
-        <p>表 5‑6 配置请求 Header 各字段</p>
         <h6 id="configuration-request-注意事项">5.2.5.3.2 Configuration
         Request 注意事项</h6>
         <p>配置请求的 Header 总为 3DW 格式，路由信息为 Bus
@@ -1197,12 +1313,12 @@
         请求的完成包，并且还展示了这个完成包的 3DW
         Header。在正常操作中，Completer ID
         并没有什么额外的用处，但若是在系统调试期间能够知道完成包从哪里来，那么这对错误的诊断就有较大的帮助。</p>
+        <p>图 5‑10 3DW 完成包 Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image230.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑10 3DW 完成包 Header 格式</p>
         <h6 id="completion-header-各字段的定义">5.2.5.4.1 Completion
         Header 各字段的定义</h6>
         <p>图 5‑10 中展示的 Completion Header
@@ -1495,12 +1611,12 @@
         中定义了哪些附加的字段，例如使用基于 ID 路由的 Header
         中就会有用于路由的 BDF。通用的 Message 请求 Header 格式如图 5‑11
         所示。</p>
+        <p>图 5‑11 4DW 的 Message 请求 Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image232.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑11 4DW 的 Message 请求 Header 格式</p>
         <h6
         id="message-请求-header-各字段message-request-header-fields">5.2.5.5.1
         Message 请求 Header 各字段（Message Request Header Fields）</h6>
@@ -1657,12 +1773,12 @@
         Message
         来表示这个“虚拟中断线”已经释放。更多关于这种协议的内容，请参阅“Virtual
         INTx Signaling”一节。</p>
+        <p>表 5‑9 INTx 中断信号 Message 的代码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image234.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑9 INTx 中断信号 Message 的代码</p>
         <p>关于使用 INTx Message 的一些规则：</p>
         <ol type="1">
         <li><p>INTx Message 没有数据荷载，因此 Length
@@ -1699,12 +1815,12 @@
         是用来传达一些关于电源管理的信息，但是如果想了解完整的 PCIe
         电源管理协议是如何工作的，那么请参阅 Chapter 16 “Power
         Management”一章。表 5‑10 总结了四种电源管理 Message 类型。</p>
+        <p>表 5‑10 电源管理 Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image236.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑10 电源管理 Message 标识码</p>
         <p>关于使用电源管理 Message 的一些规则：</p>
         <ol type="1">
         <li><p>电源管理 Message 没有数据荷载，因此 Length
@@ -1733,12 +1849,12 @@
         RC）。为了协助软件，让软件知道应该如何处理这个错误，在 Error
         Message 中使用 Header 中的 Requester ID 字段来表示请求者。表
         5‑11 总结了三种 Error Message 类型。</p>
+        <p>表 5‑11 错误 Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image238.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑11 错误 Message 标识码</p>
         <p>关于使用 Error Message 的一些规则：</p>
         <ol type="1">
         <li><p>Error Message 没有数据荷载，因此 Length
@@ -1759,12 +1875,12 @@
         解锁。这种 Unlock Message 会被发送至 Locked
         事务的目标设备，以此来释放传输路径中的所有被锁定的端口，并用于最终完成锁定事务的一系列行为。表
         5‑12 总结了 Unlock Message 的标识码。</p>
+        <p>表 5‑12 解锁 Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image240.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑12 解锁 Message 标识码</p>
         <p>关于使用 Unlock Message 的一些规则：</p>
         <ol type="1">
         <li><p>Unlock Message 没有数据荷载，因此 Length
@@ -1780,12 +1896,12 @@
         是由下行端口发送给插在插槽上的设备的。这里面的功率限制信息会储存在
         EP 的设备能力寄存器中（Device Capabilities Register）。表 5‑12
         总结了 Unlock Message 的标识码。</p>
+        <p>表 5‑13 插槽功率限制 Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image242.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑13 插槽功率限制 Message 标识码</p>
         <p>关于使用 Set Slot Power Limit Message 的一些规则：</p>
         <ol type="1">
         <li><p>Set Slot Power Limit Message 需要使用默认的流量类型 TC
@@ -1808,18 +1924,18 @@
         能力的扩展，这种扩展既可以通过协议本身，也可以通过厂商来指定的扩展。这种
         Message 的 Header 格式如图 5‑12 所示，Message 标识码如表
         5‑12。</p>
+        <p>图 5‑12 厂商定义的 Message Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image244.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑12 厂商定义的 Message Header 格式</p>
+        <p>表 5‑14 厂商定义的 Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image246.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑14 厂商定义的 Message 标识码</p>
         <p>关于使用Vendor-Defined Message 的一些规则：</p>
         <ol type="1">
         <li><p>Vendor-Defined Message 0 和1
@@ -1839,12 +1955,12 @@
         类型是由PCIe 1.0a 版本所定义的，但是这个选项在PCIe 1.1
         版本中就已经不再支持了，因此这里所讲的这些细节内容仅作为参考。正如名字要表达的那样，强烈建议发送方不要发送这些Message，并且也强烈建议接收方就算收到它们也要忽视掉。如果无论如何仍要使用这些Message，那么它们必须要符合PCIe
         1.0a 的协议细节。</p>
+        <p>表 5‑15 热插拔Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image248.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑15 热插拔Message 标识码</p>
         <p>关于使用Hot Plug Message 的一些规则：</p>
         <ol type="1">
         <li><p>Hot Plug Message 由下行端口发送给插槽中的板卡。</p></li>
@@ -1857,18 +1973,18 @@
         <p>LTR Message
         是用来报告一个设备可接受的读写服务延迟，这是一个可选项。更多关于这种电源管理技术的内容，请参阅“LTR（Latency
         Tolerance Reporting）”一节。</p>
+        <p>图 5‑13 LTR Message Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image250.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑13 LTR Message Header 格式</p>
+        <p>表 5‑16 LTR Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image252.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑16 LTR Message 标识码</p>
         <p>关于使用LTR Message 的一些规则：</p>
         <ol type="1">
         <li><p>LTR Message 没有数据荷载，因此Length
@@ -1884,18 +2000,18 @@
         <p>OBFF Message 用来向EP
         报告平台电源情况，以此来促进更高效的系统电源管理。更多关于这种技术的内容，请参阅“OBBF（Optimized
         Buffer Flush and Fill）”一节。</p>
+        <p>图 5‑14 OBBF Message Header 格式</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image254.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 5‑14 OBBF Message Header 格式</p>
+        <p>表 5‑17 OBBF Message 标识码</p>
         <figure>
         <img src="img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image256.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 5‑17 OBBF Message 标识码</p>
         <p>关于使用OBFF Message 的一些规则：</p>
         <ol type="1">
         <li><p>OBFF Message 没有数据荷载，因此Length
@@ -1905,22 +2021,16 @@
         TLP）。</p></li>
         <li><p>Header 中的Requester ID 必须为传送中的端口的ID。</p></li>
         </ol>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： Michael ZZY</p>
-        <p>校对：</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="4 地址空间与事务路由.html">← 第 4 章 地址空间与事务路由</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1933,17 +2043,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

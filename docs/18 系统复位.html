@@ -8,47 +8,136 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="17 中断支持.html">← 第 17 章 中断支持</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="17 中断支持.html">← 第 17 章 中断支持</a>
+          </div>
+
+    <div class="topbar-title">
       第 18 章 系统复位
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="19 热插拔和功耗预算管理.html">第 19 章 热插拔和功耗预算管理 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="19 热插拔和功耗预算管理.html">第 19 章 热插拔和功耗预算管理 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 18 章 系统复位
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 18 章 系统复位</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="17 中断支持.html">← 第 17 章 中断支持</a>
+      
+            <a class="drawer-link" href="19 热插拔和功耗预算管理.html">第 19 章 热插拔和功耗预算管理 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#系统复位system-reset"
+                id="toc-系统复位system-reset">18 系统复位（System
+                Reset）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#系统复位的两类方式"
+                id="toc-系统复位的两类方式">18.1
+                系统复位的两类方式</a></li>
+                <li><a href="#常规复位" id="toc-常规复位">18.2
+                常规复位</a>
+                <ul>
+                <li><a href="#基本复位" id="toc-基本复位">18.2.1
+                基本复位</a></li>
+                <li><a href="#热复位带内复位"
+                id="toc-热复位带内复位">18.2.2
+                热复位（带内复位）</a></li>
+                </ul></li>
+                <li><a href="#功能级复位flr" id="toc-功能级复位flr">18.3
+                功能级复位（FLR）</a>
+                <ul>
+                <li><a href="#允许时间" id="toc-允许时间">18.3.1
+                允许时间</a></li>
+                <li><a href="#flr-期间的行为"
+                id="toc-flr-期间的行为">18.3.2 FLR 期间的行为</a></li>
+                </ul></li>
+                <li><a href="#复位退出" id="toc-复位退出">18.4
+                复位退出</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#系统复位system-reset"
-            id="toc-系统复位system-reset">18 系统复位（System
-            Reset）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#系统复位的两类方式"
-            id="toc-系统复位的两类方式">18.1 系统复位的两类方式</a></li>
-            <li><a href="#常规复位" id="toc-常规复位">18.2
-            常规复位</a></li>
-            <li><a href="#功能级复位flr" id="toc-功能级复位flr">18.3
-            功能级复位（FLR）</a></li>
-            <li><a href="#复位退出" id="toc-复位退出">18.4
-            复位退出</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#系统复位system-reset"
+                id="toc-系统复位system-reset">18 系统复位（System
+                Reset）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#系统复位的两类方式"
+                id="toc-系统复位的两类方式">18.1
+                系统复位的两类方式</a></li>
+                <li><a href="#常规复位" id="toc-常规复位">18.2
+                常规复位</a>
+                <ul>
+                <li><a href="#基本复位" id="toc-基本复位">18.2.1
+                基本复位</a></li>
+                <li><a href="#热复位带内复位"
+                id="toc-热复位带内复位">18.2.2
+                热复位（带内复位）</a></li>
+                </ul></li>
+                <li><a href="#功能级复位flr" id="toc-功能级复位flr">18.3
+                功能级复位（FLR）</a>
+                <ul>
+                <li><a href="#允许时间" id="toc-允许时间">18.3.1
+                允许时间</a></li>
+                <li><a href="#flr-期间的行为"
+                id="toc-flr-期间的行为">18.3.2 FLR 期间的行为</a></li>
+                </ul></li>
+                <li><a href="#复位退出" id="toc-复位退出">18.4
+                复位退出</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="系统复位system-reset">18 系统复位（System Reset）</h2>
@@ -393,13 +482,14 @@
         EEPROM 复制必要信息，因此可能需要一些时间。</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="17 中断支持.html">← 第 17 章 中断支持</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -412,17 +502,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

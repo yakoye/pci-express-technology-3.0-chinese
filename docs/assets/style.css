@@ -1,3 +1,11 @@
+/* @font-face {
+  font-family: "LXGW WenKai GB";
+  src: url("./fonts/LXGWWenKaiGB-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+} */
+
 :root {
   --bg: #f6f8fb;
   --card: #ffffff;
@@ -11,6 +19,7 @@
   --page-width: 1600px;
   --side-width: 330px;
   --gap-width: 32px;
+  --topbar-height: 58px;
 }
 
 * {
@@ -23,50 +32,64 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei",
-               "Noto Sans CJK SC", Arial, sans-serif;
+  /* font-family: "LXGW WenKai GB", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.8;
 }
 
-/* 通用导航 */
-.chapter-nav {
+body.drawer-open {
+  overflow: hidden;
+}
+
+/* =========================
+   顶部导航通用
+   ========================= */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--topbar-height);
+  background: rgba(246, 248, 251, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  transition: transform 0.22s ease;
+}
+
+.topbar.hide {
+  transform: translateY(-100%);
+}
+
+/* =========================
+   桌面端顶部导航
+   首页 | 上一章 | 本章标题 | 下一章
+   ========================= */
+
+.desktop-topbar {
   max-width: var(--page-width);
   margin: 0 auto;
   padding: 0 24px;
   display: grid;
+  grid-template-columns: 86px var(--side-width) minmax(280px, 1fr) auto;
+  column-gap: 18px;
   align-items: center;
 }
 
-/*
-  顶部只保留一条导航：
-  上一章 | 目录 | 本章标题 | 下一章
-*/
-.chapter-nav-top {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  grid-template-columns: var(--side-width) auto minmax(280px, 1fr) auto;
-  column-gap: var(--gap-width);
-  padding-top: 10px;
-  padding-bottom: 5px;
-  background: rgba(246, 248, 251, 0.96);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-}
-
-.nav-prev {
+.topbar-home {
   grid-column: 1;
   text-align: left;
 }
 
-.nav-home {
+.topbar-prev {
   grid-column: 2;
   text-align: left;
 }
 
-.nav-title {
+.topbar-title {
   grid-column: 3;
   text-align: center;
   font-size: 20px;
@@ -77,37 +100,15 @@ body {
   text-overflow: ellipsis;
 }
 
-.nav-next {
+.topbar-next {
   grid-column: 4;
   text-align: right;
 }
 
-/* 底部导航 */
-.chapter-nav-bottom {
-  grid-template-columns: 1fr auto 1fr;
-  column-gap: 12px;
-  margin-top: 44px;
-  padding: 24px 0 0;
-  border-top: 1px solid var(--line);
-}
-
-.nav-left {
-  text-align: left;
-}
-
-.nav-center {
-  text-align: center;
-}
-
-.nav-right {
-  text-align: right;
-}
-
-/* 导航按钮 */
-.nav-btn {
+.topbar-btn {
   display: inline-block;
   max-width: 100%;
-  padding: 9px 16px;
+  padding: 8px 15px;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--text);
@@ -121,84 +122,356 @@ body {
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
-.nav-btn:hover {
+.topbar-btn:hover {
   color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-bg);
 }
 
-.nav-btn.home {
+.topbar-btn.home {
   color: white;
   background: var(--accent);
   border-color: var(--accent);
-  font-weight: 700;
-  min-width: 70px;
+  font-weight: 800;
+  min-width: 64px;
   text-align: center;
 }
 
-.nav-btn.disabled {
+.topbar-btn.disabled {
   color: #9ca3af;
   background: #f3f4f6;
   box-shadow: none;
 }
 
-/* 主体布局 */
+/* =========================
+   手机端顶部导航
+   ☰ | 本章标题
+   ========================= */
+
+.mobile-topbar {
+  display: none;
+}
+
+.menu-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.menu-btn span {
+  width: 17px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text);
+}
+
+.menu-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.mobile-title {
+  min-width: 0;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================
+   抽屉
+   ========================= */
+
+.drawer-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: none;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.drawer-mask.open {
+  display: block;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 390px;
+  max-width: 88vw;
+  height: 100vh;
+  background: var(--card);
+  box-shadow: 18px 0 42px rgba(15, 23, 42, 0.18);
+  transform: translateX(-105%);
+  transition: transform 0.22s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-close {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.drawer-close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.drawer-nav {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-link {
+  display: block;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--card);
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.drawer-link.home {
+  color: white;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 800;
+}
+
+.drawer-link.disabled {
+  color: #9ca3af;
+  background: #f3f4f6;
+}
+
+.drawer-toc {
+  flex: 1;
+  overflow: auto;
+  padding: 14px 14px 18px;
+}
+
+/* =========================
+   主体布局
+   ========================= */
+
 .layout {
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: 28px 24px 70px;
+  padding: 8px 24px 70px;
   display: grid;
   grid-template-columns: var(--side-width) minmax(0, 1fr);
   gap: var(--gap-width);
   align-items: start;
 }
 
-/* 左侧大纲 */
+/* =========================
+   本章大纲
+   无黑点、无圆圈、无方框、纯缩进对齐
+   ========================= */
+
 .toc-panel {
   position: sticky;
-  top: 86px;
-  max-height: calc(100vh - 110px);
+  top: 0px;
+  max-height: 100vh;
   overflow: auto;
-  padding: 24px 22px;
+  padding: 12px 20px 20px;
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--card);
   box-shadow: var(--shadow);
 }
 
-.toc-title {
-  margin-bottom: 18px;
-  font-weight: 800;
-  font-size: 18px;
-  color: var(--text);
-}
-
-.toc-panel nav ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.toc-panel nav ul ul {
-  padding-left: 16px;
-  margin-top: 6px;
-}
-
-.toc-panel li {
-  margin: 6px 0;
-}
-
-.toc-panel a {
+.toc-toggle {
+  width: 100%;
   display: block;
-  padding: 4px 6px;
-  border-radius: 8px;
+  margin: 0 0 8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.toc-toggle::after {
+  content: "  ▾";
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.toc-collapsed .toc-toggle::after {
+  content: "  ▸";
+}
+
+.toc-collapsed .toc-content {
+  display: none;
+}
+
+/* Pandoc TOC 容器 */
+.toc-content,
+.drawer-toc {
+  margin: 0;
+  padding: 0;
+}
+
+.toc-content nav,
+.drawer-toc nav,
+.toc-content #TOC,
+.drawer-toc #TOC {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+  彻底去掉 Pandoc TOC 的所有 ul/ol/li 项目符号。
+  这里同时覆盖：
+  nav ul
+  #TOC ul
+  普通 ul / ol
+*/
+.toc-content ul,
+.drawer-toc ul,
+.toc-content ol,
+.drawer-toc ol,
+.toc-content nav ul,
+.drawer-toc nav ul,
+.toc-content nav ol,
+.drawer-toc nav ol,
+.toc-content #TOC ul,
+.drawer-toc #TOC ul,
+.toc-content #TOC ol,
+.drawer-toc #TOC ol {
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+}
+
+.toc-content li,
+.drawer-toc li,
+.toc-content nav li,
+.drawer-toc nav li,
+.toc-content #TOC li,
+.drawer-toc #TOC li {
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  display: block !important;
+  margin: 2px 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 去掉浏览器 marker */
+.toc-content li::marker,
+.drawer-toc li::marker,
+.toc-content nav li::marker,
+.drawer-toc nav li::marker,
+.toc-content #TOC li::marker,
+.drawer-toc #TOC li::marker {
+  content: "" !important;
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+/* 防止主题或 Pandoc 样式用 before 生成假项目符号 */
+.toc-content li::before,
+.drawer-toc li::before,
+.toc-content nav li::before,
+.drawer-toc nav li::before,
+.toc-content #TOC li::before,
+.drawer-toc #TOC li::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* 层级缩进：每一级约两个空格视觉距离 */
+.toc-content ul ul,
+.drawer-toc ul ul,
+.toc-content ol ol,
+.drawer-toc ol ol,
+.toc-content ul ol,
+.drawer-toc ul ol,
+.toc-content ol ul,
+.drawer-toc ol ul {
+  padding-left: 1em !important;
+}
+
+/* 链接样式：只保留文字和 hover 背景 */
+.toc-content a,
+.drawer-toc a {
+  display: block;
+  padding: 3px 4px;
+  border: none;
+  border-radius: 7px;
   color: var(--muted);
   text-decoration: none;
   font-size: 14px;
   line-height: 1.5;
+  word-break: break-word;
 }
 
-.toc-panel a:hover {
+.toc-content a:hover,
+.drawer-toc a:hover {
   color: var(--accent);
   background: var(--accent-bg);
 }
@@ -208,7 +481,40 @@ body {
   font-size: 13px;
 }
 
-/* 正文卡片 */
+/* 大纲滚动条：窄一点、浅一点 */
+ /* Chrome / Edge / Safari */
+.toc-panel::-webkit-scrollbar,
+.drawer-toc::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-panel::-webkit-scrollbar-track,
+.drawer-toc::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-panel::-webkit-scrollbar-thumb,
+.drawer-toc::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+  border-radius: 999px;
+}
+
+.toc-panel::-webkit-scrollbar-thumb:hover,
+.drawer-toc::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.45);
+}
+
+/* Firefox */
+.toc-panel,
+.drawer-toc {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+/* =========================
+   正文卡片
+   ========================= */
+
 .content {
   min-width: 0;
   padding: 36px 48px 46px;
@@ -226,7 +532,7 @@ article {
 /* 正文排版 */
 h1, h2, h3, h4, h5 {
   line-height: 1.35;
-  scroll-margin-top: 96px;
+  scroll-margin-top: 88px;
 }
 
 h1 {
@@ -326,11 +632,79 @@ blockquote {
   color: #374151;
 }
 
+/* =========================
+   底部导航
+   ========================= */
+
+.chapter-nav {
+  display: grid;
+  align-items: center;
+}
+
+.chapter-nav-bottom {
+  grid-template-columns: 1fr auto 1fr;
+  column-gap: 12px;
+  margin-top: 44px;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.nav-left {
+  text-align: left;
+}
+
+.nav-center {
+  text-align: center;
+}
+
+.nav-right {
+  text-align: right;
+}
+
+.nav-btn {
+  display: inline-block;
+  max-width: 100%;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--card);
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.nav-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.nav-btn.home {
+  color: white;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 700;
+  min-width: 70px;
+  text-align: center;
+}
+
+.nav-btn.disabled {
+  color: #9ca3af;
+  background: #f3f4f6;
+  box-shadow: none;
+}
+
 /* 回到顶部 */
 .back-to-top {
   position: fixed;
   right: 24px;
   bottom: 24px;
+  z-index: 60;
   display: none;
   width: 42px;
   height: 42px;
@@ -347,15 +721,23 @@ blockquote {
   display: block;
 }
 
-/* 中等屏幕 */
+/* =========================
+   响应式
+   ========================= */
+
 @media (max-width: 1100px) {
   :root {
     --side-width: 280px;
     --gap-width: 24px;
   }
 
-  .nav-title {
-    font-size: 17px;
+  .desktop-topbar {
+    grid-template-columns: 78px var(--side-width) minmax(220px, 1fr) auto;
+    column-gap: 12px;
+  }
+
+  .topbar-title {
+    font-size: 18px;
   }
 
   .content {
@@ -371,32 +753,35 @@ blockquote {
   }
 }
 
+/* 平板和手机 */
 @media (max-width: 980px) {
+  .desktop-topbar {
+    display: none;
+  }
+
+  .mobile-topbar {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    column-gap: 8px;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .menu-btn {
+    display: inline-flex;
+  }
+
   .layout {
     grid-template-columns: 1fr;
+    padding-top: 16px;
   }
 
   .toc-panel {
-    position: static;
-    max-height: none;
+    display: none;
   }
 
-  .chapter-nav-top {
-    grid-template-columns: 1fr;
-    row-gap: 10px;
-  }
-
-  .nav-prev,
-  .nav-home,
-  .nav-title,
-  .nav-next {
-    grid-column: auto;
-    text-align: center;
-  }
-
-  .nav-title {
-    order: -1;
-    font-size: 17px;
+  .content {
+    padding: 28px 24px 36px;
   }
 
   article {
@@ -408,31 +793,65 @@ blockquote {
   }
 }
 
+/* 桌面端隐藏手机导航 */
+@media (min-width: 981px) {
+  .mobile-topbar {
+    display: none;
+  }
+
+  .desktop-topbar {
+    display: grid;
+  }
+}
+
 /* 小屏幕 */
 @media (max-width: 640px) {
-  .chapter-nav,
-  .chapter-nav-bottom {
-    grid-template-columns: 1fr;
-    padding-left: 16px;
-    padding-right: 16px;
+  :root {
+    --topbar-height: 50px;
+  }
+
+  .mobile-topbar {
+    height: var(--topbar-height);
+  }
+
+  .mobile-title {
+    font-size: 16px;
+  }
+
+  .menu-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+
+  .drawer {
+    width: 88vw;
+    max-width: 360px;
+  }
+
+  .drawer-header {
+    padding: 14px 14px 12px;
+  }
+
+  .drawer-title {
+    font-size: 16px;
+  }
+
+  .drawer-nav {
+    padding: 14px;
+  }
+
+  .drawer-toc {
+    padding: 14px;
   }
 
   .layout {
-    padding: 18px 16px 48px;
+    padding: 14px 10px 48px;
   }
 
   .content {
-    padding: 24px 18px 32px;
-  }
-
-  .nav-left,
-  .nav-center,
-  .nav-right {
-    text-align: center;
-  }
-
-  .nav-btn {
-    width: 100%;
+    padding: 22px 16px 30px;
+    border-radius: 16px;
   }
 
   h1 {
@@ -450,5 +869,25 @@ blockquote {
   p,
   li {
     font-size: 16px;
+  }
+
+  .chapter-nav-bottom {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .nav-left,
+  .nav-center,
+  .nav-right {
+    text-align: center;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
   }
 }

@@ -68,7 +68,7 @@ for ((i=0; i<total; i++)); do
     -t html5 \
     --standalone \
     --toc \
-    --toc-depth=3 \
+    --toc-depth=4 \
     --template=docs/template.html \
     --metadata title="$title" \
     -V prev_url="$prev_url" \

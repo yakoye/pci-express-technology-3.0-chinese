@@ -20,9 +20,9 @@
 
 除了逻辑空闲符号（Logical Idle symbol）和 Ordered Set 的物理层包外，在活跃的 PCIe 链路上传输的信息的基本组块被称为 Packet（包），包是由符号组成的。链路上交换的两类主要的数据包为高层的 TLP（Transaction Layer Packet，事务层包），和低层的用于链路维护的包称为 DLLP（Data Link Layer Packet，数据链路层包）。这些包和它们的传输流如图 5‑1 所示。物理层的 Ordered Set 也是一种包，但是它并不像 TLP 和 DLLP 一样会被封装上包起始符号和包结束符号（也就是前面章节所讲的组帧符号），并且 Ordered Set 也并没有像 TLP 和 DLLP 一样的字节条带化过程，相反地，Ordered Set 会在链路的每个通道（lane）上都复制一份，而不是像字节条带化一样把信息按字节分配到各个通道上。
 
-![image-20220502163039798](img/5%20TLP%20%E5%85%83%E7%B4%A0/image-20220502163039798.png)
-
 图 5‑1 TLP 和 DLLP 包
+
+![image-20220502163039798](img/5%20TLP%20%E5%85%83%E7%B4%A0/image-20220502163039798.png)
 
 #### 5.1.2 使用基于数据包协议的动机
 
@@ -54,9 +54,9 @@
 
 如图 5‑2 所示的是链路的发送端组装 TLP 和接收端拆解 TLP 的一般流程。现在让我们讲一讲从一个包的生成，到它被传送到接收端的 Device Core 的各个步骤。下面列出了 TLP 组包和拆包的关键阶段，列出的编号与图 5‑2 中的编号相对应。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image212.jpg)
-
 图 5‑2 PCIe TLP 的组包与拆包
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image212.jpg)
 
 ##### 发送方
 
@@ -91,9 +91,9 @@
 
 一个事务层包 TLP 中每个字段域的基本用法在表 5‑1 中进行了定义。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image214.jpg)
-
 表 5‑1 TLP Header 的 Type 字段定义了事务不同种类
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image214.jpg)
 
 下面对表 5‑1 中的内容进行复述。
 
@@ -131,15 +131,17 @@
 
 如图 5‑3 中，展示了一个 4DW 的通用 TLP Header 的格式和内容。在本节内，会对几乎所有事务的 TLP Header 中的公共字段进行总结，并会在稍后讨论与特定事务类型相关 Header 格式差异。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image216.jpg)
-
 图 5‑3 通用 TLP Header 的各字段域
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image216.jpg)
 
 ##### 5.2.3.2 通用 Header 各字段摘要
 
 表 5‑2 中对通用 TLP Header 中的每个字段的大小和用途进行了总结。需要注意的是，在图 5‑3 中被标注为“R”的字段是保留字段（reserve），应该被置为 0。
 
 
+
+表 5‑2 通用 TLP Header 的各字段摘要
 
 | Header 中的字段名                                             | Header 中的位置                          | 字段作用                                                     |
 | ------------------------------------------------------------ | --------------------------------------- | ------------------------------------------------------------ |
@@ -156,8 +158,6 @@
 | Last  DW BE[3:0]  末尾 DW 的字节使能  (Last  DW Byte Enable)   | Byte  7  Bit  7:4                       | 这个字段中的 4 个高有效的 bit，与数据荷载中最后一个 DW 中的 4 个 Byte 一一对应。 <br> Bit 7 = 1：末尾 DW 的 Byte 3 是有效的；否则为无效的。 <br> Bit 6 = 1：末尾 DW 的 Byte 2 是有效的；否则为无效的。 <br> Bit 5 = 1：末尾 DW 的 Byte 1 是有效的；否则为无效的。 <br> Bit 4 = 1：末尾 DW 的 Byte 0 是有效的；否则为无效的。 |
 | 1st  DW BE[3:0]  第一个 DW 的字节使能  (First  DW Byte Enable) | Byte  7  Bit  3:0                       | 这个字段中的 4 个高有效的 bit，与数据荷载中第一个 DW 中的 4 个 Byte 一一对应。 <br> Bit 3 = 1：末尾 DW 的 Byte 3 是有效的；否则为无效的。 <br> Bit 2 = 1：末尾 DW 的 Byte 2 是有效的；否则为无效的。 <br> Bit 1 = 1：末尾 DW 的 Byte 1 是有效的；否则为无效的。 <br> Bit 0 = 1：末尾 DW 的 Byte 0 是有效的；否则为无效的。 |
 
-表 5‑2 通用 TLP Header 的各字段摘要
-
 #### 5.2.4 通用 TLP Header 详细说明（Generic TLP Header Details）
 
 在接下来的几个小节中，我们将对图 5‑3 中展示的 TLP Header 的每一个字段都进行细节描述。
@@ -165,6 +165,8 @@
 ##### 5.2.4.1 Header 的 Type/Format 字段编码含义
 
 表 5‑3 中总结了 TLP Header 中 Type 字段和 Fmt 字段（Format）的编码含义。
+
+表 5‑3 TLP Header 的 Type 字段和 Fmt 字段编码含义
 
 | TLP 事务种类                                                  | Fmt[2:0]                                | Type[4:0]                |
 | ------------------------------------------------------------ | --------------------------------------- | ------------------------ |
@@ -188,8 +190,6 @@
 | 对比和交换原子操作请求  （Compare and Swap AtomicOP Request） | 010=3DW，有数据  011=4DW，有数据        | 0  1110                  |
 | 本地 TLP 前缀  （Local TLP Prefix）                            | 100=TLP  Prefix                         | 0L3L2L1L0                |
 | 端到端 TLP 前缀  （End-to-End TLP Prefix）                     | 100=TLP  Prefix                         | 1E3E2E1E0                |
-
-表 5‑3 TLP Header 的 Type 字段和 Fmt 字段编码含义
 
 ##### 5.2.4.2 Digest/ECRC 字段
 
@@ -241,17 +241,17 @@ ECRC 的预定目标是 TLP 的最终接收者。对 LCRC（Link CRC）的校验
 
 如图 5‑4 展示了字节使能字段是如何使用的。注意，数据传输长度必须从第一个 DW 中的任何有效字节延伸至最后一个 DW 中的任何有效字节。因为数据传输量大于 2DW，字节使能就只能用来标识这次传输中起始地址的位置（2d）和结束地址的位置（34d）。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image218.jpg)
-
 图 5‑4 首 DW 字节使能和尾 DW 字节使能字段的使用
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image218.jpg)
 
 ##### 5.2.4.4 事务描述符字段（Transaction Descriptor Fields）
 
 当事务在 Requester 和 Completer 之间移动时，必须要能够对各个事务进行唯一的标识，因为在任何时刻的 Requester 中都有可能有许多的拆分事务在排队。为了更好的进行标识，PCIe 协议在 TLP Header 中定义了多个重要字段，来组成一个唯一的事务描述符（Transaction Descriptor），如图 5‑5 所示。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image220.jpg)
-
 图 5‑5 事务描述符字段
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image220.jpg)
 
 虽然事务描述符在 TLP Header 中并不是位置全连续的字段，但是这些不连续字段合起来可以一起描述事务的关键属性，包括：
 
@@ -295,23 +295,25 @@ ECRC 的预定目标是 TLP 的最终接收者。对 LCRC（Link CRC）的校验
 
 虽然协议中不鼓励使用 IO 事务，但是对于传统遗留设备还是允许的，并且对于软件来说需要通过 IO 事务来兼容那些存在系统 IO 映射而不是内存映射的设备。虽然 IO 事务从技术上讲是可以访问 32bit IO 范围的，但是实际上许多系统（和 CPU）都会将 IO 访问限制在低 16bit（64KB）范围内。图 5‑6 展示了系统 IO 映射以及 16bit 和 32bit 地址边界。自身不是传统遗留设备的设备是不允许访问 BAR 中的 IO 地址空间的。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image222.jpg)
-
 图 5‑6 系统 IO 映射
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image222.jpg)
 
 ###### l IO Request Header 的格式
 
 如图 5‑7 所示是一个 3DW IO Request Header，其中的每个字段都会在接下来的内容中进行描述。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image224.jpg)
-
 图 5‑7 3DW IO Request Header 格式
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image224.jpg)
 
  
 
 ###### l IO Request Header 各字段
 
 一个 IO Request Header 中的每个字段的位置和作用都在表 5‑4 中进行了描述。
+
+表 5‑4 IO Request Header 各字段
 
 | 字段名称                                  | 位于 Header 中的 Byte/Bit                                       | 功能                                                         |
 | ----------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -331,19 +333,19 @@ ECRC 的预定目标是 TLP 的最终接收者。对 LCRC（Link CRC）的校验
 | 1st  DW BE[3:0]  首 DW 字节使能             | Byte  7 Bit 3:0                                              | 这个字段用于限定第一个 DW 数据内的有效字节。对于 IO 请求来说，所有的 bit 组合都是允许的（包括 0000b）。 |
 | Address[31:2]  地址                       | Byte  8 Bit 7:0  Byte  9 Bit 7:0  Byte  10 Bit 7:0  Byte  11 Bit 7:2 | 该字段是 32bit 起始地址的高 30bit。而最低 2bit 是保留位（00b），这使得 32bit 起始地址一定是 DW 对齐的。 |
 
-表 5‑4 IO Request Header 各字段
-
 ##### 5.2.5.2 Memory 请求（Memory Request）
 
 PCIe 的 Memory 事务包含两种类型：第一种是读请求及其相对应的完成包，第二种是写请求。系统内存映射如所示，展示了 3DW 与 4DW 的 Memory 请求包。需要记住协议规范中多次重申的一点，Memory 传输绝对不允许跨 4KB 地址边界。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image226.jpg)
-
 图 5‑8 3DW 和 4DW 的 Memory Request Header 格式
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image226.jpg)
 
 ###### 5.2.5.2.1 Memory Request Header 各字段
 
 一个 4DW 的 Memory Request Header 中的每个字段的位置和作用都在表 5‑5 中进行了描述。注意，3DW 和 4DW Header 的区别仅仅是起始地址字段的位置和字段大小不同。
+
+表 5‑5 4DW Memory Request Header 各字段
 
 | 字段名称                                  | 位于 Header 中的 Byte/Bit                                       | 功能                                                         |
 | ----------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -363,8 +365,6 @@ PCIe 的 Memory 事务包含两种类型：第一种是读请求及其相对应�
 | 1st  DW BE[3:0]  首 DW 字节使能             | Byte  7 Bit 3:0                                              | 这个字段用于限定第一个 DW 数据内的有效字节。                   |
 | Address[63:32]  高 32bit 地址               | Byte  8 Bit 7:0  Byte  9 Bit 7:0  Byte  10 Bit 7:0  Byte  11 Bit 7:2 | 该字段是 Memory 传输的 64bit 起始地址的高 32bit。                 |
 | Address[31:2]  低 32bit 地址                | Byte  12 Bit 7:0  Byte  13 Bit 7:0  Byte  14 Bit 7:0  Byte  15 Bit 7:2 | 该字段是 Memory 传输的 64bit 起始地址的低 32bit。而最低 2bit 是保留位始终为 0，这样就强制起始地址是 DW 对齐的。 |
-
-表 5‑5 4DW Memory Request Header 各字段
 
 ###### 5.2.5.2.2 Memory Request 注意事项
 
@@ -390,13 +390,15 @@ PCIe 像 PCI 一样使用 Type 0 和 Type 1 配置请求，以此来保持向后
 
 如图 5‑9 中，一个 Type 1 配置请求正在按照规则向下行移动，它在 Switch 左侧的下行端口的 Bridge 被转换成 Type 0，这种转换是通过改变 TLP Header 中的 Type 字段 Bit 0 来完成的（Type 从 0 0101b 变为 0 0100b）。注意，不同于 PCI，PCIe 中下行的一条链路上只能由一个设备，因此链路上不需要有 IDSEL 或者其他指示信号来告诉设备需要声明自己占有 Type 0 配置请求，也就是说设备只要从上行收到了 Type 0 配置请求，就知道这个配置请求的目标设备就必然是自己。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image228.jpg)
-
 图 5‑9 3DW 配置请求以及 Header 格式
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image228.jpg)
 
 ###### 5.2.5.3.1 Configuration Request Header 各字段的定义
 
 图 5‑9 中展示的 Configuration Request Header 中的每个字段的位置和作用都在表 5‑6 中进行了描述。
+
+表 5‑6 配置请求 Header 各字段
 
 | 字段名称                                                     | 位于 Header 中的 Byte/Bit           | 功能                                                         |
 | ------------------------------------------------------------ | -------------------------------- | ------------------------------------------------------------ |
@@ -418,8 +420,6 @@ PCIe 像 PCI 一样使用 Type 0 和 Type 1 配置请求，以此来保持向后
 | Ext  Register Number[3:0]  扩展寄存器号  （Extended Register Number） | Byte  10 Bit 3:0                 | 这个字段提供了在访问扩展配置空间（Extended Config Space）时 DW 空间的高 4bit，它与 Register Number 共同组合成 10bit 地址，用于访问 1024DW（也就是 4096Byte）的空间。对于 PCI-Compatible 配置空间，这个字段必须为 0。 |
 | Register  Number[3:0]  寄存器号  （Register Number）         | Byte  11 Bit 7:0                 | 用于指示寄存器号，是配置 DW 空间的低 8bit。最低的 2bit 始终为 0，以强制进行 DW 对齐的访问。 |
 
-表 5‑6 配置请求 Header 各字段
-
 ###### 5.2.5.3.2 Configuration Request 注意事项
 
 配置请求的 Header 总为 3DW 格式，路由信息为 Bus Number、Device Number 和 Function Number。所有的设备都会在接收到一个 Type 0 配置写请求时从请求包中捕获出它们自己的 Bus Number 和 Device Number。之所以这样，是因为这些设备之后会用自己捕获到的 Type 0 配置写中的 Bus Number 和 Device Number 来作为 Requester ID，用来在以后发起请求时使用。
@@ -430,9 +430,9 @@ Completion（完成包）是用来响应 Non-Posted 请求的，除非有错误�
 
 在完成包中的许多字段的值，都与它相关的请求包中的字段相同，包括 TC（Traffic Class，流量类型）、Attr（Attribute，属性）以及 Requester ID（请求者 ID，用来将完成包路由回到请求者去）。图 5‑10 中展示了一个响应 Non-Posted 请求的完成包，并且还展示了这个完成包的 3DW Header。在正常操作中，Completer ID 并没有什么额外的用处，但若是在系统调试期间能够知道完成包从哪里来，那么这对错误的诊断就有较大的帮助。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image230.jpg)
-
 图 5‑10 3DW 完成包 Header 格式
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image230.jpg)
 
 ###### 5.2.5.4.1 Completion Header 各字段的定义
 
@@ -551,9 +551,9 @@ Completer 设置这个字段是用来反映返回给 Requester 的数据荷载�
 
 Message 请求取代了 PCI/PCI-X 中使用的许多中断（interrupt）、错误（error）和电源管理（power management）的边带信号。所有的 Message 请求使用的都是 4DW Header 格式，但是并不是每种 Message 都使用了 Header 中的每一个字段。对于 Header 中的 Byte8-15 来说，在一些种类的 Message 中就没有其定义，在这种情况下它就是保留字段。Message 的处理方式更像是 Posted 的 MWr 事务，但是 Message 的路由方式可以是基于地址的、基于 ID 的，在一些情况下还可以是隐式路由。TLP Header 中的路由子域（routing subfield），也就是 Byte 0 bit 2:0，它用来表示使用的是哪种路由方法，并且相应的在 Header 中定义了哪些附加的字段，例如使用基于 ID 路由的 Header 中就会有用于路由的 BDF。通用的 Message 请求 Header 格式如图 5‑11 所示。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image232.jpg)
-
 图 5‑11 4DW 的 Message 请求 Header 格式
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image232.jpg)
 
  
 
@@ -609,9 +609,9 @@ Message 请求取代了 PCI/PCI-X 中使用的许多中断（interrupt）、错�
 
 许多设备都适用 PCI 2.3 的 MSI（Message Signaled Interrupt）方法来传输中断，但是对于老的设备来说可能会不支持 MSI。对于这些情况，PCIe 定义了一个“虚拟线 virtual wire”作为替代方案，设备通过发送 Message 来模拟 PCI 中断引脚（INTA-INTD）的拉起与释放。中断设备发出第一个 Message 来通知上行设备自己拉起了一个中断。一旦这个中断被响应处理（Serviced）了，那么中断设备就发出第二个 Message 来表示这个“虚拟中断线”已经释放。更多关于这种协议的内容，请参阅“Virtual INTx Signaling”一节。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image234.jpg)
-
 表 5‑9 INTx 中断信号 Message 的代码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image234.jpg)
 
 关于使用 INTx Message 的一些规则：
 
@@ -637,9 +637,9 @@ Message 请求取代了 PCI/PCI-X 中使用的许多中断（interrupt）、错�
 
 PCIe 对 PCI 的电源管理是兼容的，并且还加入了基于硬件的链路电源管理。Message 是用来传达一些关于电源管理的信息，但是如果想了解完整的 PCIe 电源管理协议是如何工作的，那么请参阅 Chapter 16 “Power Management”一章。表 5‑10 总结了四种电源管理 Message 类型。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image236.jpg)
-
 表 5‑10 电源管理 Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image236.jpg)
 
 关于使用电源管理 Message 的一些规则：
 
@@ -659,9 +659,9 @@ PCIe 对 PCI 的电源管理是兼容的，并且还加入了基于硬件的链�
 
 当启用了错误 Message 的组件检测到了错误，那么就会将错误 Message 向上发送（隐式路由至 RC）。为了协助软件，让软件知道应该如何处理这个错误，在 Error Message 中使用 Header 中的 Requester ID 字段来表示请求者。表 5‑11 总结了三种 Error Message 类型。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image238.jpg)
-
 表 5‑11 错误 Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image238.jpg)
 
 关于使用 Error Message 的一些规则：
 
@@ -675,9 +675,9 @@ PCIe 对 PCI 的电源管理是兼容的，并且还加入了基于硬件的链�
 
 解锁 Message（Unlock Message）被应用于 PCI 定义的锁定事务协议中（Locked Transaction Protocol），并且在 PCIe 中依然对传统 PCI 遗留设备可用。这种协议起始于一个 MRd Lock 请求。当这个请求在被送达到目标设备的过程中，沿途的端口们都会发现它，这些端口会实现一个原子“读-修改-写”协议（read-modify-write protocol），也就是说它们将会锁定 VC0（Virtual Channel 0）让其他的请求不能使用，直到收到 Unlock Message 才会对 VC0 解锁。这种 Unlock Message 会被发送至 Locked 事务的目标设备，以此来释放传输路径中的所有被锁定的端口，并用于最终完成锁定事务的一系列行为。表 5‑12 总结了 Unlock Message 的标识码。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image240.jpg)
-
 表 5‑12 解锁 Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image240.jpg)
 
 关于使用 Unlock Message 的一些规则：
 
@@ -689,9 +689,9 @@ PCIe 对 PCI 的电源管理是兼容的，并且还加入了基于硬件的链�
 
 这种 Message 是由下行端口发送给插在插槽上的设备的。这里面的功率限制信息会储存在 EP 的设备能力寄存器中（Device Capabilities Register）。表 5‑12 总结了 Unlock Message 的标识码。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image242.jpg)
-
 表 5‑13 插槽功率限制 Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image242.jpg)
 
 关于使用 Set Slot Power Limit Message 的一些规则：
 
@@ -707,13 +707,13 @@ PCIe 对 PCI 的电源管理是兼容的，并且还加入了基于硬件的链�
 
 Vendor-Defined Message 是用于进行 PCIe Message 能力的扩展，这种扩展既可以通过协议本身，也可以通过厂商来指定的扩展。这种 Message 的 Header 格式如图 5‑12 所示，Message 标识码如表 5‑12。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image244.jpg)
-
 图 5‑12 厂商定义的 Message Header 格式
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image246.jpg)
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image244.jpg)
 
 表 5‑14 厂商定义的 Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image246.jpg)
 
 关于使用Vendor-Defined Message 的一些规则：
 
@@ -733,9 +733,9 @@ Vendor-Defined Message 是用于进行 PCIe Message 能力的扩展，这种扩�
 
 如果直接列出一整个目录的需要被忽略的Message，而不去讲忽略的前因后果，那可能会听起来有一些奇怪。这些Message 其实是原来的热插拔信号Message（Hot Plug Signaling Message），它们用于支持设备，这些设备上具有热插拔指示器，并且只需要按下这个插卡设备上的按钮而不是系统板上的按钮。这种Message 类型是由PCIe 1.0a 版本所定义的，但是这个选项在PCIe 1.1 版本中就已经不再支持了，因此这里所讲的这些细节内容仅作为参考。正如名字要表达的那样，强烈建议发送方不要发送这些Message，并且也强烈建议接收方就算收到它们也要忽视掉。如果无论如何仍要使用这些Message，那么它们必须要符合PCIe 1.0a 的协议细节。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image248.jpg)
-
 表 5‑15 热插拔Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image248.jpg)
 
 关于使用Hot Plug Message 的一些规则：
 
@@ -747,13 +747,13 @@ Vendor-Defined Message 是用于进行 PCIe Message 能力的扩展，这种扩�
 
 LTR Message 是用来报告一个设备可接受的读写服务延迟，这是一个可选项。更多关于这种电源管理技术的内容，请参阅“LTR（Latency Tolerance Reporting）”一节。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image250.jpg)
-
 图 5‑13 LTR Message Header 格式
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image252.jpg)
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image250.jpg)
 
 表 5‑16 LTR Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image252.jpg)
 
 关于使用LTR Message 的一些规则：
 
@@ -765,13 +765,13 @@ LTR Message 是用来报告一个设备可接受的读写服务延迟，这是�
 
 OBFF Message 用来向EP 报告平台电源情况，以此来促进更高效的系统电源管理。更多关于这种技术的内容，请参阅“OBBF（Optimized Buffer Flush and Fill）”一节。
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image254.jpg)
-
 图 5‑14 OBBF Message Header 格式
 
-![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image256.jpg)
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image254.jpg)
 
 表 5‑17 OBBF Message 标识码
+
+![img](img/5%20TLP%20%E5%85%83%E7%B4%A0/clip_image256.jpg)
 
 关于使用OBFF Message 的一些规则：
 
@@ -781,15 +781,3 @@ OBFF Message 用来向EP 报告平台电源情况，以此来促进更高效的�
 
 3.    Header 中的Requester ID 必须为传送中的端口的ID。
 
-
-------
-
-原文：  Mindshare
-
-译者：  Michael ZZY
-
-校对：  
-
-欢迎参与 《Mindshare PCI Express Technology 3.0 一书的中文翻译计划》
-
-https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology

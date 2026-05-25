@@ -8,65 +8,314 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="3 PCIe 配置概述.html">← 第 3 章 PCIe 配置概述</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="3 PCIe 配置概述.html">← 第 3 章 PCIe 配置概述</a>
+          </div>
+
+    <div class="topbar-title">
       第 4 章 地址空间与事务路由
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="5 TLP 元素.html">第 5 章 TLP 元素 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="5 TLP 元素.html">第 5 章 TLP 元素 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 4 章 地址空间与事务路由
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 4 章 地址空间与事务路由</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="3 PCIe 配置概述.html">← 第 3 章 PCIe 配置概述</a>
+      
+            <a class="drawer-link" href="5 TLP 元素.html">第 5 章 TLP 元素 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#地址空间与事务路由address-space-transaction-routing"
+                id="toc-地址空间与事务路由address-space-transaction-routing">4
+                地址空间与事务路由（Address Space &amp; Transaction
+                Routing）</a>
+                <ul>
+                <li><a href="#前一章" id="toc-前一章">前一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#我需要一个地址i-need-an-address"
+                id="toc-我需要一个地址i-need-an-address">4.1
+                我需要一个地址（I Need An Address）</a>
+                <ul>
+                <li><a href="#配置空间configuration-space"
+                id="toc-配置空间configuration-space">4.1.1
+                配置空间（Configuration Space）</a></li>
+                <li><a
+                href="#内存和io地址空间memory-and-io-address-spaces"
+                id="toc-内存和io地址空间memory-and-io-address-spaces">4.1.2
+                内存和IO地址空间（Memory and IO Address
+                Spaces）</a></li>
+                </ul></li>
+                <li><a href="#基地址寄存器barsbase-address-registers"
+                id="toc-基地址寄存器barsbase-address-registers">4.2
+                基地址寄存器BARs（Base Address Registers）</a>
+                <ul>
+                <li><a href="#整体说明general-1"
+                id="toc-整体说明general-1">4.2.1
+                整体说明（General）</a></li>
+                <li><a href="#bar示例132bit内存地址空间请求"
+                id="toc-bar示例132bit内存地址空间请求">4.2.2
+                BAR示例1——32bit内存地址空间请求</a></li>
+                <li><a href="#bar示例264bit内存地址空间请求"
+                id="toc-bar示例264bit内存地址空间请求">4.2.3
+                BAR示例2——64bit内存地址空间请求</a></li>
+                <li><a href="#bar示例3io地址空间请求"
+                id="toc-bar示例3io地址空间请求">4.2.4
+                BAR示例3——IO地址空间请求</a></li>
+                <li><a href="#所有的bars都必须按顺序被评估"
+                id="toc-所有的bars都必须按顺序被评估">4.2.5
+                所有的BARs都必须按顺序被评估</a></li>
+                <li><a href="#大小可变的barsresizable-bars"
+                id="toc-大小可变的barsresizable-bars">4.2.6
+                大小可变的BARs（Resizable BARs）</a></li>
+                </ul></li>
+                <li><a
+                href="#base寄存器和limit寄存器base-and-limit-registers"
+                id="toc-base寄存器和limit寄存器base-and-limit-registers">4.3
+                Base寄存器和Limit寄存器（Base and Limit Registers）</a>
+                <ul>
+                <li><a href="#整体说明general-2"
+                id="toc-整体说明general-2">4.3.1
+                整体说明（General）</a></li>
+                <li><a href="#p-mmio可预取范围prefetchable-range"
+                id="toc-p-mmio可预取范围prefetchable-range">4.3.2
+                P-MMIO可预取范围（Prefetchable Range）</a></li>
+                <li><a href="#np-mmio不可预取范围non-prefetchable-range"
+                id="toc-np-mmio不可预取范围non-prefetchable-range">4.3.3
+                NP-MMIO不可预取范围（Non-Prefetchable Range）</a></li>
+                <li><a href="#io范围io-range"
+                id="toc-io范围io-range">4.3.4 IO范围（IO
+                Range）</a></li>
+                <li><a href="#未被使用的base和limit寄存器"
+                id="toc-未被使用的base和limit寄存器">4.3.5
+                未被使用的Base和Limit寄存器</a></li>
+                </ul></li>
+                <li><a
+                href="#理解检查对所有地址路由的寄存器sanity-checkregisters-used-for-address-routing"
+                id="toc-理解检查对所有地址路由的寄存器sanity-checkregisters-used-for-address-routing">4.4
+                理解检查：对所有地址路由的寄存器（Sanity
+                Check：Registers Used For Address Routing）</a></li>
+                <li><a href="#tlp路由基础tlp-routing-basics"
+                id="toc-tlp路由基础tlp-routing-basics">4.5
+                TLP路由基础（TLP Routing Basics）</a>
+                <ul>
+                <li><a
+                href="#接收器检查3种类型的流量recievers-check-for-three-types-of-traffic"
+                id="toc-接收器检查3种类型的流量recievers-check-for-three-types-of-traffic">4.5.1
+                接收器检查3种类型的流量（Recievers Check For Three Types
+                of Traffic）</a></li>
+                <li><a href="#路由元件routing-elements"
+                id="toc-路由元件routing-elements">4.5.2
+                路由元件（Routing Elements）</a></li>
+                <li><a
+                href="#tlp路由的三种方法three-methods-of-tlp-routing"
+                id="toc-tlp路由的三种方法three-methods-of-tlp-routing">4.5.3
+                TLP路由的三种方法（Three Methods of TLP
+                Routing）</a></li>
+                <li><a href="#拆分事务协议split-transaction-protocol"
+                id="toc-拆分事务协议split-transaction-protocol">4.5.4
+                拆分事务协议（Split Transaction Protocol）</a></li>
+                <li><a href="#posted与non-posted"
+                id="toc-posted与non-posted">4.5.5
+                Posted与Non-Posted</a></li>
+                <li><a href="#header中定义数据包格式和类型的字段"
+                id="toc-header中定义数据包格式和类型的字段">4.5.6
+                Header中定义数据包格式和类型的字段</a></li>
+                <li><a href="#tlp-header概述"
+                id="toc-tlp-header概述">4.5.7 TLP Header概述</a></li>
+                </ul></li>
+                <li><a
+                href="#路由机制的应用方法applying-routing-mechanisms"
+                id="toc-路由机制的应用方法applying-routing-mechanisms">4.6
+                路由机制的应用方法（Applying Routing Mechanisms）</a>
+                <ul>
+                <li><a href="#id路由id-routing"
+                id="toc-id路由id-routing">4.6.1 ID路由（ID
+                Routing）</a></li>
+                <li><a href="#地址路由address-routing"
+                id="toc-地址路由address-routing">4.6.2 地址路由（Address
+                Routing）</a></li>
+                <li><a href="#隐式路由implicit-routing"
+                id="toc-隐式路由implicit-routing">4.6.3
+                隐式路由（Implicit Routing）</a></li>
+                </ul></li>
+                <li><a href="#dllp和ordered-set不会被路由"
+                id="toc-dllp和ordered-set不会被路由">4.7 DLLP和Ordered
+                Set不会被路由</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a
-            href="#地址空间与事务路由address-space-transaction-routing"
-            id="toc-地址空间与事务路由address-space-transaction-routing">4
-            地址空间与事务路由（Address Space &amp; Transaction
-            Routing）</a>
-            <ul>
-            <li><a href="#前一章" id="toc-前一章">前一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#我需要一个地址i-need-an-address"
-            id="toc-我需要一个地址i-need-an-address">4.1
-            我需要一个地址（I Need An Address）</a></li>
-            <li><a href="#基地址寄存器barsbase-address-registers"
-            id="toc-基地址寄存器barsbase-address-registers">4.2
-            基地址寄存器BARs（Base Address Registers）</a></li>
-            <li><a
-            href="#base寄存器和limit寄存器base-and-limit-registers"
-            id="toc-base寄存器和limit寄存器base-and-limit-registers">4.3
-            Base寄存器和Limit寄存器（Base and Limit Registers）</a></li>
-            <li><a
-            href="#理解检查对所有地址路由的寄存器sanity-checkregisters-used-for-address-routing"
-            id="toc-理解检查对所有地址路由的寄存器sanity-checkregisters-used-for-address-routing">4.4
-            理解检查：对所有地址路由的寄存器（Sanity Check：Registers
-            Used For Address Routing）</a></li>
-            <li><a href="#tlp路由基础tlp-routing-basics"
-            id="toc-tlp路由基础tlp-routing-basics">4.5 TLP路由基础（TLP
-            Routing Basics）</a></li>
-            <li><a href="#路由机制的应用方法applying-routing-mechanisms"
-            id="toc-路由机制的应用方法applying-routing-mechanisms">4.6
-            路由机制的应用方法（Applying Routing Mechanisms）</a></li>
-            <li><a href="#dllp和ordered-set不会被路由"
-            id="toc-dllp和ordered-set不会被路由">4.7 DLLP和Ordered
-            Set不会被路由</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#地址空间与事务路由address-space-transaction-routing"
+                id="toc-地址空间与事务路由address-space-transaction-routing">4
+                地址空间与事务路由（Address Space &amp; Transaction
+                Routing）</a>
+                <ul>
+                <li><a href="#前一章" id="toc-前一章">前一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#我需要一个地址i-need-an-address"
+                id="toc-我需要一个地址i-need-an-address">4.1
+                我需要一个地址（I Need An Address）</a>
+                <ul>
+                <li><a href="#配置空间configuration-space"
+                id="toc-配置空间configuration-space">4.1.1
+                配置空间（Configuration Space）</a></li>
+                <li><a
+                href="#内存和io地址空间memory-and-io-address-spaces"
+                id="toc-内存和io地址空间memory-and-io-address-spaces">4.1.2
+                内存和IO地址空间（Memory and IO Address
+                Spaces）</a></li>
+                </ul></li>
+                <li><a href="#基地址寄存器barsbase-address-registers"
+                id="toc-基地址寄存器barsbase-address-registers">4.2
+                基地址寄存器BARs（Base Address Registers）</a>
+                <ul>
+                <li><a href="#整体说明general-1"
+                id="toc-整体说明general-1">4.2.1
+                整体说明（General）</a></li>
+                <li><a href="#bar示例132bit内存地址空间请求"
+                id="toc-bar示例132bit内存地址空间请求">4.2.2
+                BAR示例1——32bit内存地址空间请求</a></li>
+                <li><a href="#bar示例264bit内存地址空间请求"
+                id="toc-bar示例264bit内存地址空间请求">4.2.3
+                BAR示例2——64bit内存地址空间请求</a></li>
+                <li><a href="#bar示例3io地址空间请求"
+                id="toc-bar示例3io地址空间请求">4.2.4
+                BAR示例3——IO地址空间请求</a></li>
+                <li><a href="#所有的bars都必须按顺序被评估"
+                id="toc-所有的bars都必须按顺序被评估">4.2.5
+                所有的BARs都必须按顺序被评估</a></li>
+                <li><a href="#大小可变的barsresizable-bars"
+                id="toc-大小可变的barsresizable-bars">4.2.6
+                大小可变的BARs（Resizable BARs）</a></li>
+                </ul></li>
+                <li><a
+                href="#base寄存器和limit寄存器base-and-limit-registers"
+                id="toc-base寄存器和limit寄存器base-and-limit-registers">4.3
+                Base寄存器和Limit寄存器（Base and Limit Registers）</a>
+                <ul>
+                <li><a href="#整体说明general-2"
+                id="toc-整体说明general-2">4.3.1
+                整体说明（General）</a></li>
+                <li><a href="#p-mmio可预取范围prefetchable-range"
+                id="toc-p-mmio可预取范围prefetchable-range">4.3.2
+                P-MMIO可预取范围（Prefetchable Range）</a></li>
+                <li><a href="#np-mmio不可预取范围non-prefetchable-range"
+                id="toc-np-mmio不可预取范围non-prefetchable-range">4.3.3
+                NP-MMIO不可预取范围（Non-Prefetchable Range）</a></li>
+                <li><a href="#io范围io-range"
+                id="toc-io范围io-range">4.3.4 IO范围（IO
+                Range）</a></li>
+                <li><a href="#未被使用的base和limit寄存器"
+                id="toc-未被使用的base和limit寄存器">4.3.5
+                未被使用的Base和Limit寄存器</a></li>
+                </ul></li>
+                <li><a
+                href="#理解检查对所有地址路由的寄存器sanity-checkregisters-used-for-address-routing"
+                id="toc-理解检查对所有地址路由的寄存器sanity-checkregisters-used-for-address-routing">4.4
+                理解检查：对所有地址路由的寄存器（Sanity
+                Check：Registers Used For Address Routing）</a></li>
+                <li><a href="#tlp路由基础tlp-routing-basics"
+                id="toc-tlp路由基础tlp-routing-basics">4.5
+                TLP路由基础（TLP Routing Basics）</a>
+                <ul>
+                <li><a
+                href="#接收器检查3种类型的流量recievers-check-for-three-types-of-traffic"
+                id="toc-接收器检查3种类型的流量recievers-check-for-three-types-of-traffic">4.5.1
+                接收器检查3种类型的流量（Recievers Check For Three Types
+                of Traffic）</a></li>
+                <li><a href="#路由元件routing-elements"
+                id="toc-路由元件routing-elements">4.5.2
+                路由元件（Routing Elements）</a></li>
+                <li><a
+                href="#tlp路由的三种方法three-methods-of-tlp-routing"
+                id="toc-tlp路由的三种方法three-methods-of-tlp-routing">4.5.3
+                TLP路由的三种方法（Three Methods of TLP
+                Routing）</a></li>
+                <li><a href="#拆分事务协议split-transaction-protocol"
+                id="toc-拆分事务协议split-transaction-protocol">4.5.4
+                拆分事务协议（Split Transaction Protocol）</a></li>
+                <li><a href="#posted与non-posted"
+                id="toc-posted与non-posted">4.5.5
+                Posted与Non-Posted</a></li>
+                <li><a href="#header中定义数据包格式和类型的字段"
+                id="toc-header中定义数据包格式和类型的字段">4.5.6
+                Header中定义数据包格式和类型的字段</a></li>
+                <li><a href="#tlp-header概述"
+                id="toc-tlp-header概述">4.5.7 TLP Header概述</a></li>
+                </ul></li>
+                <li><a
+                href="#路由机制的应用方法applying-routing-mechanisms"
+                id="toc-路由机制的应用方法applying-routing-mechanisms">4.6
+                路由机制的应用方法（Applying Routing Mechanisms）</a>
+                <ul>
+                <li><a href="#id路由id-routing"
+                id="toc-id路由id-routing">4.6.1 ID路由（ID
+                Routing）</a></li>
+                <li><a href="#地址路由address-routing"
+                id="toc-地址路由address-routing">4.6.2 地址路由（Address
+                Routing）</a></li>
+                <li><a href="#隐式路由implicit-routing"
+                id="toc-隐式路由implicit-routing">4.6.3
+                隐式路由（Implicit Routing）</a></li>
+                </ul></li>
+                <li><a href="#dllp和ordered-set不会被路由"
+                id="toc-dllp和ordered-set不会被路由">4.7 DLLP和Ordered
+                Set不会被路由</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="地址空间与事务路由address-space-transaction-routing">4
@@ -86,9 +335,11 @@
         Need An Address）</h3>
         <p>几乎所有的设备中都有能够让软件（或是其他潜在的设备）访问的内部寄存器或是存储空间位置。这些内部位置有可能用来控制设备的行为、报告设备的状态，或者可能用来保持住设备要进行处理的数据。这里先不管这些内部寄存器/存储的目的，我们这里更看重的一点是可以从设备外部来对它们进行访问。这意味着这些内部位置需要是可寻址的（addressable）。软件必须可以执行一个带有地址的读或者写操作，以此来访问目标设备内相应的内部位置。为了让这种方式可行，这些内部位置都需要被分配地址，并且所分配的地址也都必须是系统所支持的地址空间。</p>
         <p>PCIe支持三个地址空间，与PCI中的三个地址空间完全相同：</p>
-        <p>n 配置空间（Configuration）</p>
-        <p>n 内存地址空间（Memory）</p>
-        <p>n IO地址空间（IO）</p>
+        <ul>
+        <li><p>配置空间（Configuration）</p></li>
+        <li><p>内存地址空间（Memory）</p></li>
+        <li><p>IO地址空间（IO）</p></li>
+        </ul>
         <h4 id="配置空间configuration-space">4.1.1
         配置空间（Configuration Space）</h4>
         <p>如我们在Chapter
@@ -118,19 +369,22 @@
         4‑1展示了被PCIe设备声明的两种不同类型的MMIO：可预取MMIO（Prefetchable
         MMIO，P-MMIO）和不可预取MMIO（Non-Prefetchable
         MMIO，NP-MMIO）。了解这两种内存空间之间的区别是十分重要的。可预取空间有两个意义十分明确的属性：</p>
-        <p>n 读操作不存在副作用。（Reads do not have side effects）</p>
-        <p>n 允许写合并（Write merging is allowed）</p>
+        <ul>
+        <li><p>读操作不存在副作用。（Reads do not have side
+        effects）</p></li>
+        <li><p>允许写合并（Write merging is allowed）</p></li>
+        </ul>
         <p>将MMIO的一个区域定义为可预取的，这样就可以推测性的提前获取该区域中的数据，以预测Requester在不久的将来可能需要比当前实际请求更多的数据。之所以这种小型的Caching（Minor
         Caching）数据操作是安全的，是因为读取这些数据并不会改变目标设备的任何状态信息，也就是说读取某个位置并不会带来副作用。例如，如果一个Requester请求从一个地址中读取128byte数据，那么Completer可以在给出此次请求的128byte之后也预取出下一个128byte，而当下一个128byte被请求时数据早已经被Completer从内存空间中预取出来了，这样就提高了性能。然而如果Requester再也没有请求额外的数据，那么Completer就需要将预取的数据清除掉，释放自身的Buffer空间。如果读取数据的行为改变了对应地址上的数值（或者有其他的什么副作用），那么就将会无法恢复被清除的数据了。然而对于可预取空间来说，读取行为并没有任何副作用，因此它总是可以回退并且在稍后也能获得原始的数据，因为原始的数据一直都不变的存放在那里。</p>
         <p>你也许会想知道什么样的内存空间会存在读取操作的副作用。举一个例子，一个内存映射的状态寄存器，它被设计成在读取时自动清除自己，这样可以减少程序员在读取这个状态后还需要额外步骤来清除这些比特的操作。</p>
         <p>做这种可预取和不可预取的区分，对于PCI的意义要大于PCIe，因为PCI总线协议中的事务并没有包含传输量大小的信息。如果设备都在同一条总线上交换数据，那么没有传输量大小的信息也不是什么问题，因为在同一总线上会有实时的握手信号来指示Requester什么时候收到了足够的数据完成了事务。但是如果数据的传输需要跨过一个Bridge来到另一条总线，那么情况就不像刚才一样简单了，因为对于跨到不同总线的读操作来说，Bridge在收集另一条总线上的数据时需要去猜测传输数据总量。如果猜错了传输量的大小则会增加延时而降低性能，因此在这种情况下若拥有预取的权限则对提升性能会有不小的帮助。这就是为什么将内存空间指定为可预取的概念在PCI中很有好处。由于PCIe请求中包含了传输量大小的信息，所以可预取空间并不像以前在PCI中那样引人关注了，但是为了向后兼容性，PCIe还是继承了这种概念。</p>
+        <p>图 4‑1通用的Memory与IO的地址映射</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image146-16402716192771.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑1通用的Memory与IO的地址映射</p>
         <h3 id="基地址寄存器barsbase-address-registers">4.2
         基地址寄存器BARs（Base Address Registers）</h3>
         <h4 id="整体说明general-1">4.2.1 整体说明（General）</h4>
@@ -144,13 +398,13 @@
         1 Header。Type 0
         Header只存在于非Bridge设备中，例如EP。关于这里的一个例子可以参阅图
         4‑3。</p>
+        <p>图 4‑2配置空间中的BARs</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image148-16402716211412.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑2配置空间中的BARs</p>
         <p>系统软件必须首先确定设备所需地址空间的大小和类型。设备的设计者知道设备中需要通过IO或者MMIO访问的内部寄存器/存储的总体大小。设备的设计者还知道当这些寄存器被访问时设备将会如何工作（例如读取操作是否有副作用）。这将决定设备所需要的是可预取MMIO（读取操作无副作用）还是不可预取MMIO（读取操作有副作用）。知道了这个信息之后，设备设计者将BARs的低位bit固定为某个值，以此来指示需要请求的地址空间的大小和类型。</p>
         <p>BARs的高位bit是软件可进行写入的。一旦系统软件通过检查BARs的低位bit确定了设备所请求的地址空间的大小和类型，系统软件就会将分配给这个设备的地址范围的基地址写入BAR中。由于一个EP（使用Type
         0
@@ -158,52 +412,55 @@
         <p>并不是所有的BARs都需要被实现。如果一个设备并不需要使用所有的BAR来映射自己的内部寄存器，那么多余的BARs将会被固定为全0，以此来通知软件这些BARs并没有被实现。</p>
         <p>一旦BARs被编程写入（programmed），设备内的内部寄存器或者本地内存（local
         memory）就可以通过BARs中所写入的地址范围进行访问。任何时候，当设备发现一个请求事务的地址是映射到自己的一个BAR时，它就会接收这个请求事务，因为它自己就是这个请求的目标设备。</p>
+        <p>图 4‑3 PCIe设备中对Type 0、Type 1 Header的用法</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image150-16402716233073.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑3 PCIe设备中对Type 0、Type 1 Header的用法</p>
         <h4 id="bar示例132bit内存地址空间请求">4.2.2
         BAR示例1——32bit内存地址空间请求</h4>
         <p>图
         4‑4展示了设置建立一个BAR的基础步骤，在本例中，要请求一个4KB大小的不可预取内存（NP-MMIO，non-prefetchable
         memory）。在图中，展示了BAR在配置过程中的三个节点：</p>
-        <p>\1. 在图
+        <ol type="1">
+        <li>在图
         4‑4中的（1），我们可以看到BAR处于未初始化的状态。设备的设计者已经将低位bit固定为一个数值，来指示需要的memory的大小和类型，但是高位bit（可写可读的）则仍然是用X来表示，这代表它们的值还未知。系统软件将会首先把每个BAR都通过配置写操作来将可写入的bit写为全1（当然，被固定的低位bit不会受到配置写操作的影响）。在图
-        4‑4的（2）中展示的BAR就是处于第二阶段的样子，除了被固定的低位bit以外，所有的bit都被写为1。</p>
+        4‑4的（2）中展示的BAR就是处于第二阶段的样子，除了被固定的低位bit以外，所有的bit都被写为1。</li>
+        </ol>
         <p>写为全1这个操作是为了确定最低位的可写入的bit（least-significant
         writable
         bit）是哪一位，这个bit的位置指示了需要被请求的地址空间的大小。在本例中，最低位的可写入的bit为bit
         12，因此这个BAR需要请求2的12次方（或者说是4KB）的地址空间。如果最低位的可写入的bit为bit
         20，那么这个BAR就要请求2的20次方（1MB）的地址空间。</p>
-        <p>\2.
-        在软件将BARs中所有可写bit都写为1后，软件将从BAR0开始，依次读取每个BAR的数值，以此来确定各个BAR要请求的地址空间的大小和类型。表
-        4‑1中总结了本例中对BAR0进行配置读的结果。</p>
-        <p>\3. 这个过程中的最后一步就是系统软件为BAR
+        <ol start="2" type="1">
+        <li><p>在软件将BARs中所有可写bit都写为1后，软件将从BAR0开始，依次读取每个BAR的数值，以此来确定各个BAR要请求的地址空间的大小和类型。表
+        4‑1中总结了本例中对BAR0进行配置读的结果。</p></li>
+        <li><p>这个过程中的最后一步就是系统软件为BAR
         0分配一个地址范围，因为对于软件来说现在已经知道了BAR
         0请求的地址空间的大小和类型。图
         4‑4的（3）中展示了BAR处于第三阶段的样子，此时系统软件已经将一块地址区域的起始地址写入了BAR
-        0中。在本例中，这个起始地址为F900_0000h。</p>
+        0中。在本例中，这个起始地址为F900_0000h。</p></li>
+        </ol>
         <p>到这里为止，对BAR
         0的配置就完成了。一旦软件启用了命令寄存器（Command
         register，偏移地址04h）中的内存地址译码（memory address
         decoding），那么这个设备就会接受所有地址在F900_0000h-F900_0FFFh（4KB大小）范围内的memory请求。</p>
+        <p>表 4‑1对BAR 0写入全1后再读取BAR 0时的结果</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image152-16402716253194.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑1对BAR 0写入全1后再读取BAR 0时的结果</p>
+        <p>图 4‑4设置建立32bit不可预取内存的BAR</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image154-16402716263515.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑4设置建立32bit不可预取内存的BAR</p>
         <h4 id="bar示例264bit内存地址空间请求">4.2.3
         BAR示例2——64bit内存地址空间请求</h4>
         <p>在上一个例子中，我们看到了通过BAR
@@ -211,13 +468,14 @@
         4‑5所示，BAR 1和BAR
         2被用来请求一块64MB的可预取内存地址空间。这里使用了两个连续相连的BAR是因为这个设备支持这个内存地址空间的请求使用64bit地址，这意味着如果需要的话，软件给它分配的地址空间可以超过4GB地址边界（并非必要）。由于地址可以是64bit位宽，因此必须将两个连续相连的BAR一起使用。</p>
         <p>跟上面一样，将BAR在配置过程中分为3个节点：</p>
-        <p>\1. 在图
+        <ol type="1">
+        <li><p>在图
         4‑5中的（1），我们可以看到一对BAR都处于未初始化的状态。设备的设计者已经将低位BAR（在本例中为BAR
         1）中的低位bit固定为一个数值，来指示需要的memory的大小和类型，但是高位BAR（BAR
         2）中的bit则都是可读可写的，没有被固定。系统软件的第一步就是把每个BAR都通过配置写操作来将可写入的bit写为全1。在图
         4‑5的（2）中展示的BAR就是处于第二阶段的样子，除了BAR
-        1中被固定的低位bit以外，所有的bit都被写为1。</p>
-        <p>\2. 如上一个例子所述，系统软件已经评估过BAR
+        1中被固定的低位bit以外，所有的bit都被写为1。</p></li>
+        <li><p>如上一个例子所述，系统软件已经评估过BAR
         0。因此软件的下一步就是读取下一个BAR（BAR
         1），并对其进行评估，以此来确定设备是否正在请求更多的地址空间。一旦BAR
         1被读取，软件就会发现设备正在请求更多的地址空间，并且所请求的地址空间类型为可预取内存地址空间（P-MMIO），这个地址空间可以被分配为64bit地址范围的任何一个位置。由于这个地址空间请求支持64bit地址，那么下一个连续相连的BAR（本例中为BAR
@@ -225,66 +483,68 @@
         2的内容。然而，软件并不会对BAR 2进行像对BAR
         1一样的低位bit的评估，因为软件仅仅是将BAR 2简单的当做BAR
         1发起的64bit地址请求的高32bit。表
-        4‑2中总结了本例中对两个BAR都写入全1后再进行配置读的读取结果。</p>
-        <p>\3.
-        这个过程中的最后一步就是系统软件为这一对BAR分配一个地址范围，因为对于软件来说现在已经知道了这一对BAR请求的地址空间的大小和类型。图
+        4‑2中总结了本例中对两个BAR都写入全1后再进行配置读的读取结果。</p></li>
+        <li><p>这个过程中的最后一步就是系统软件为这一对BAR分配一个地址范围，因为对于软件来说现在已经知道了这一对BAR请求的地址空间的大小和类型。图
         4‑5的（3）中展示了这两个BAR处于第三阶段的样子，软件已经通过两次配置写操作将分配的地址区域的64bit起始地址写入BAR
         1与BAR 2的组合体中。在本例中，高位BAR的bit 1（BAR pair的bit
         33）被置为1，低位BAR的bit 30（也是BAR pair的bit
-        30）也被置为1，这表示其实地址为2_4000_0000h。两个BAR中所有其他的可写bit都已被清零。</p>
+        30）也被置为1，这表示其实地址为2_4000_0000h。两个BAR中所有其他的可写bit都已被清零。</p></li>
+        </ol>
         <p>到这里为止，BAR Pair（BAR 1和BAR
         2）的配置就已经完成了。一旦软件启用了命令寄存器（Command
         register，偏移地址04h）中的内存地址译码，那么这个设备就会接受所有地址在2_4000_0000h-2_4300_0000h（64MB大小）这个范围内的memory请求。</p>
+        <p>图 4‑5设置建立64bit可预取内存的BAR</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image156-16402716284696.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑5设置建立64bit可预取内存的BAR</p>
+        <p>表 4‑2将两个BAR都写入为全1后的读取结果</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image158-16402716300217.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑2将两个BAR都写入为全1后的读取结果</p>
         <h4 id="bar示例3io地址空间请求">4.2.4
         BAR示例3——IO地址空间请求</h4>
         <p>让我们在前面两个例子的基础上继续，我们假设当前的Function还需要请求IO空间，如图
         4‑6所示。在图中，进行请求的BAR（本例中为BAR
         3）在配置过程中分为3个节点：</p>
-        <p>\1. 在图 4‑6中的（1），我们可以看到BAR
+        <ol type="1">
+        <li><p>在图 4‑6中的（1），我们可以看到BAR
         3处于未初始化的状态。系统软件此前已经将每一个BAR都写入了全1（写入BAR中可写的bit，不可写的不受影响），并且已经对BAR
         0、BAR 1 BAR 2组成的BAR
         Pair进行了评估。现在软件要继续看看设备是否还需要通过BAR
         3来请求更多的地址空间。图 4‑6中的状态（2）展示了BAR
-        3被写入全1后的样子。</p>
-        <p>\2. 软件现在将会读取BAR
+        3被写入全1后的样子。</p></li>
+        <li><p>软件现在将会读取BAR
         3的内容，以此来评估请求地址空间的大小和类型。表
-        4‑3中总结了本次配置读的读取结果。</p>
-        <p>\3. 读取BAR
+        4‑3中总结了本次配置读的读取结果。</p></li>
+        <li><p>读取BAR
         3的内容之后，软件就知道了这个地址空间请求是要请求256byte大小的IO地址空间，那么软件的最后一步操作就是要为设备分配一个IO地址空间范围，并将这个地址范围的起始地址写入BAR
         3。图 4‑6中的状态（3）所展示的BAR
         3就是完成了写入起始地址的样子。在我们的例子中，这个设备的起始地址为16KB，所以bit
-        14是被置为1的，也就是说基地址为4000h，所有的高位bit都是清0的。</p>
+        14是被置为1的，也就是说基地址为4000h，所有的高位bit都是清0的。</p></li>
+        </ol>
         <p>到目前为止，对BAR
         3的配置已经完成了。一旦软件启用了命令寄存器（Command
         register，偏移地址04h）中的IO地址译码，那么这个设备就会接受并响应所有地址在4000h-40FFh（256Byte大小）这个范围内的IO事务。</p>
+        <p>图 4‑6 IO BAR的设置建立</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image160-16402716319268.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑6 IO BAR的设置建立</p>
+        <p>表 4‑3 IO BAR被写入全1后再读取的读取结果</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image162.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑3 IO BAR被写入全1后再读取的读取结果</p>
         <h4 id="所有的bars都必须按顺序被评估">4.2.5
         所有的BARs都必须按顺序被评估</h4>
         <p>在讲解了前面的三个示例之后，我们可以很明显的发现，软件必须按顺序来对BARs进行评估，即BAR
@@ -319,20 +579,22 @@
         Header中有Base寄存器和Limit寄存器，而Bridge下方的地址范围将会被编程写入这两种寄存器。在每个Type
         1
         Header中可以看到有3套Base和Limit寄存器。之所以需要三套是因为一个Bridge下的地址范围可以被分成三类：</p>
-        <p>n 可预取内存空间（P-MMIO）</p>
-        <p>n 不可预取内存空间（NP-MMIO）</p>
-        <p>n IO空间（IO）</p>
+        <ul>
+        <li><p>可预取内存空间（P-MMIO）</p></li>
+        <li><p>不可预取内存空间（NP-MMIO）</p></li>
+        <li><p>IO空间（IO）</p></li>
+        </ul>
         <p>为了解释这些Base和Limit寄存器是如何工作的，让我们在上一节的例子上继续进行讲解，并将上一节例子中那个已经完成BAR配置的EP放在一个Switch的下方，如图
         4‑7所示。图中也列出了这个Function中各个BAR所拥有的地址范围。</p>
         <p>对于每个下方存在EP的Bridge来说，它的Base和Limit寄存器都需要被编程写入，但在开始这个写入过程之前，我们先来关注一下连接到我们示例EP的Bridge，也就是Switch的Port
         B。</p>
+        <p>图 4‑7设置建立Base和Limit寄存器值的示例的拓扑</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image164-16402716365549.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑7设置建立Base和Limit寄存器值的示例的拓扑</p>
         <h4 id="p-mmio可预取范围prefetchable-range">4.3.2
         P-MMIO可预取范围（Prefetchable Range）</h4>
         <p>Type 1
@@ -345,38 +607,46 @@
         B）下方的可预取地址范围为2_4000_0000h-2_43FF_FFFFh。这些寄存器的每个字段的含义都被总结在了表
         4‑4中。</p>
         <p>下面对表 4‑4中内容进行复述。</p>
-        <p>n Prefetchable Memory Base寄存器：</p>
-        <p>n 值为4001h。</p>
-        <p>n 用法为，寄存器的高12bit用来存放32bit
-        BASE地址的高12bit，也就是[31:20]。Base地址中的低20bit全是0，这意味着Base地址总是在1MB边界上对齐。</p>
-        <p>寄存器的低4bit用于指示Bridge中是否支持64bit地址译码，这4bit值为1则意味着Upper
-        Base/Limit寄存器要被启用。</p>
-        <p>n Prefetchable Memory Limit寄存器：</p>
-        <p>n 值为43F1h。</p>
-        <p>n 用法与Base寄存器相似，这个寄存器的高12bit用来存放32bit
-        LIMIT地址的高12bit，也就是[31:20]。Limit地址的低20bit为全1（16进制下都是F）。这个寄存器的低4bit和base寄存器的低4bit含义相同。</p>
-        <p>n Prefetchable Memory Base Upper 32bits寄存器：</p>
-        <p>n 值为00000002h。</p>
-        <p>n 用法为，这个寄存器用来存放这个端口下方可预取内存的64bit
-        BASE地址的高32bit。</p>
-        <p>n Prefetchable Memory Limit Upper 32bits寄存器：</p>
-        <p>n 值为00000002h。</p>
-        <p>n 用法为，这个寄存器用来存放这个端口下方可预取内存的64bit
-        Limit地址的高32bit。</p>
+        <p>Prefetchable Memory Base寄存器：</p>
+        <ul>
+        <li><p>值为4001h。</p></li>
+        <li><p>用法为，寄存器的高12bit用来存放32bit
+        BASE地址的高12bit，也就是[31:20]。Base地址中的低20bit全是0，这意味着Base地址总是在1MB边界上对齐。</p></li>
+        <li><p>寄存器的低4bit用于指示Bridge中是否支持64bit地址译码，这4bit值为1则意味着Upper
+        Base/Limit寄存器要被启用。</p></li>
+        </ul>
+        <p>Prefetchable Memory Limit寄存器：</p>
+        <ul>
+        <li>值为43F1h。</li>
+        <li>用法与Base寄存器相似，这个寄存器的高12bit用来存放32bit
+        LIMIT地址的高12bit，也就是[31:20]。Limit地址的低20bit为全1（16进制下都是F）。这个寄存器的低4bit和base寄存器的低4bit含义相同。</li>
+        </ul>
+        <p>Prefetchable Memory Base Upper 32bits寄存器：</p>
+        <ul>
+        <li>值为00000002h。</li>
+        <li>用法为，这个寄存器用来存放这个端口下方可预取内存的64bit
+        BASE地址的高32bit。</li>
+        </ul>
+        <p>Prefetchable Memory Limit Upper 32bits寄存器：</p>
+        <ul>
+        <li>值为00000002h。</li>
+        <li>用法为，这个寄存器用来存放这个端口下方可预取内存的64bit
+        Limit地址的高32bit。</li>
+        </ul>
+        <p>图 4‑8示例中Prefetchable Memory Base/Limit 寄存器的值</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image166-164027163851810.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑8示例中Prefetchable Memory Base/Limit 寄存器的值</p>
+        <p>表 4‑4示例中Prefetchable Memory Base/Limit 寄存器的含义</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image168-164027164073011.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑4示例中Prefetchable Memory Base/Limit 寄存器的含义</p>
         <h4 id="np-mmio不可预取范围non-prefetchable-range">4.3.3
         NP-MMIO不可预取范围（Non-Prefetchable Range）</h4>
         <p>不可预取内存空间只支持32bit地址，这一点不同于可预取内存空间范围。因此对于不可预取内存空间来说，只有1个base寄存器和1个limit寄存器。按照图
@@ -384,31 +654,35 @@
         Base/Limit寄存器应该被写入的值被展示在图
         4‑9中。这些寄存器的每个字段的含义都被总结在了表 4‑5中。</p>
         <p>下面对表 4‑5中内容进行复述。</p>
-        <p>n Non-Prefetchable Memory Base寄存器：</p>
-        <p>n 值为F900h。</p>
-        <p>n 用法为，寄存器的高12bit用来存放32bit
-        BASE地址的高12bit，也就是[31:20]。Base地址中的低20bit全是0，这意味着Base地址总是在1MB边界上对齐。</p>
-        <p>寄存器的低4bit必须要为0。</p>
-        <p>n Non-Prefetchable Memory Limit寄存器：</p>
-        <p>n 值为F900h。</p>
-        <p>n 用法与Base寄存器相似，这个寄存器的高12bit用来存放32bit
-        LIMIT地址的高12bit，也就是[31:20]。Limit地址的低20bit为全1（16进制下都是F）。这个寄存器的低4bit和base寄存器的低4bit含义相同。</p>
-        <p>寄存器的低4bit必须要为0。</p>
+        <p>Non-Prefetchable Memory Base寄存器：</p>
+        <ul>
+        <li><p>值为F900h。</p></li>
+        <li><p>用法为，寄存器的高12bit用来存放32bit
+        BASE地址的高12bit，也就是[31:20]。Base地址中的低20bit全是0，这意味着Base地址总是在1MB边界上对齐。</p></li>
+        <li><p>寄存器的低4bit必须要为0。</p></li>
+        </ul>
+        <p>Non-Prefetchable Memory Limit寄存器：</p>
+        <ul>
+        <li><p>值为F900h。</p></li>
+        <li><p>用法与Base寄存器相似，这个寄存器的高12bit用来存放32bit
+        LIMIT地址的高12bit，也就是[31:20]。Limit地址的低20bit为全1（16进制下都是F）。这个寄存器的低4bit和base寄存器的低4bit含义相同。</p></li>
+        <li><p>寄存器的低4bit必须要为0。</p></li>
+        </ul>
+        <p>图 4‑9示例中Non-Prefetchable Memory Base/Limit 寄存器的值</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image170-164027164235812.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑9示例中Non-Prefetchable Memory Base/Limit 寄存器的值</p>
+        <p>表 4‑5示例中Non-Prefetchable Memory Base/Limit
+        寄存器的含义</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image172-164027164398713.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑5示例中Non-Prefetchable Memory Base/Limit
-        寄存器的含义</p>
         <p>这个例子展示了一个很有趣的情况，那就是实际上Port
         B下方的EP所拥有的NP-MMIO范围大小为4KB，但是Port
         B的配置空间却表示出了1MB的范围，这远大于4KB。这是因为Type 1
@@ -426,38 +700,46 @@
         B）之下存在的IO地址范围为4000h-4FFFh。这些寄存器的每个字段的含义都被总结在了表
         4‑6中。</p>
         <p>下面对表 4‑6中内容进行复述。</p>
-        <p>n IO Base寄存器：</p>
-        <p>n 值为40h。</p>
-        <p>n 用法为，<strong>寄存器的高4bit</strong>用来存放16bit
-        BASE地址的高4bit，也就是[15:12]。Base地址中的低12bit全部被设置为0，这意味着Base地址总是在4KB边界上对齐。</p>
+        <p>IO Base寄存器：</p>
+        <ul>
+        <li><p>值为40h。</p></li>
+        <li><p>用法为，<strong>寄存器的高4bit</strong>用来存放16bit
+        BASE地址的高4bit，也就是[15:12]。Base地址中的低12bit全部被设置为0，这意味着Base地址总是在4KB边界上对齐。</p></li>
+        </ul>
         <p><strong>寄存器的低4bit</strong>用于指示Bridge中是否支持32bit地址译码，这4bit值为1则意味着Upper
         Base/Limit寄存器要被启用。</p>
-        <p>n IO Limit寄存器：</p>
-        <p>n 值为40h。</p>
-        <p>n 用法与Base寄存器相似，这个寄存器的高4bit用来存放16bit
-        LIMIT地址的高4bit，也就是[15:12]。Limit地址的低12bit为全1（16进制下都是F）。这个寄存器的低4bit和base寄存器的低4bit含义相同。</p>
-        <p>n IO Base Upper 32bits寄存器：</p>
-        <p>n 值为0000h。</p>
-        <p>n 用法为，这个寄存器用来存放这个端口下方IO地址空间的32bit
-        BASE地址的高16bit。</p>
-        <p>n IO Limit Upper 32bits寄存器：</p>
-        <p>n 值为0000h。</p>
-        <p>n 用法为，这个寄存器用来存放这个端口下方IO地址空间的32bit
-        Limit地址的高16bit。</p>
+        <p>IO Limit寄存器：</p>
+        <ul>
+        <li><p>值为40h。</p></li>
+        <li><p>用法与Base寄存器相似，这个寄存器的高4bit用来存放16bit
+        LIMIT地址的高4bit，也就是[15:12]。Limit地址的低12bit为全1（16进制下都是F）。这个寄存器的低4bit和base寄存器的低4bit含义相同。</p></li>
+        </ul>
+        <p>IO Base Upper 32bits寄存器：</p>
+        <ul>
+        <li><p>值为0000h。</p></li>
+        <li><p>用法为，这个寄存器用来存放这个端口下方IO地址空间的32bit
+        BASE地址的高16bit。</p></li>
+        </ul>
+        <p>IO Limit Upper 32bits寄存器：</p>
+        <ul>
+        <li><p>值为0000h。</p></li>
+        <li><p>用法为，这个寄存器用来存放这个端口下方IO地址空间的32bit
+        Limit地址的高16bit。</p></li>
+        </ul>
+        <p>图 4‑10示例中IO Memory Base/Limit 寄存器的值</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image174-164027164623614.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑10示例中IO Memory Base/Limit 寄存器的值</p>
+        <p>表 4‑6示例中IO Base/Limit 寄存器的含义</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image176-164027164779515.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑6示例中IO Base/Limit 寄存器的含义</p>
         <p>在这个例子中，我们又看到了一种情况，Bridge被编程写入的地址空间要远大于其下方的Function所拥有的的实际IO地址空间。例子中EP拥有的地址空间为256Byte（4000h-40FFh）。而Port
         B被编程写入的值却表示其下方存在的IO地址空间为4KB（4000h-4FFFh）。同前面讨论MMIO时一样，这也是Type
         1
@@ -480,32 +762,32 @@
         4‑11，以保证你对它们的正确认知。我们简单的对示例系统进行了扩展，在Switch的Port
         A下方加入了另一个EP以及它所请求的地址空间。要记得，Type 1
         Header中也含有2个BAR，它们也可以请求地址空间。而一个Bridge的Base/Limit寄存器表示的地址空间范围并不包括Bridge自身的BAR所请求的地址空间，也就是说Base/Limit寄存器只表示Bridge下方存在的地址空间。</p>
+        <p>图 4‑11最终的地址路由示例建立</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image178-164027165164416.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑11最终的地址路由示例建立</p>
         <h3 id="tlp路由基础tlp-routing-basics">4.5 TLP路由基础（TLP
         Routing Basics）</h3>
         <p>在前几个小节中所讲述的设置建立BARs和Base/Limit寄存器的目的，是为了确保流量（traffic）可以被正确的路由到它的目的Function，之后目的Function就可以看见这些流量中的事务并声明对这些事务的所有权。在例如PCI的这种共享总线（Share-Bus）结构中，所有的流量对于总线上的每个设备都是可见的。只有当流量的目的地在另一条总线，也就是必须跨越一个Bridge时，才会对请求进行路由。由于PCIe链路是点对点的（point-to-point），那么在设备间发送事务时就需要更多的路由操作了。</p>
+        <p>图 4‑12多端口的PCIe设备有进行路由的职责</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image180-164027165322617.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑12多端口的PCIe设备有进行路由的职责</p>
         <p>如图
         4‑12所展现的这样，一个PCIe拓扑使用独立的、点对点的链路来将各个设备与它们的一个或多个邻设备（neighbors）相连接。当流量到达链路接口的入站端（inbound
         side，或称为ingress
         port入口端口），这个端口将会进行错误校验，然后做出如下的三个决定中的一个：</p>
-        <p>\1. 接收这个流量并在自身内部使用它。</p>
-        <p>\2.
-        将这个流量转发至相应的出站（outbound，或者egress出口）端口。</p>
-        <p>\3.
-        拒绝这个流量，因为入口端口自身既不是这个流量的预期的目标，也不是一个用来对它进行转发的接口。（注意，还存在其他可能的原因导致流量被拒绝）</p>
+        <ol type="1">
+        <li><p>接收这个流量并在自身内部使用它。</p></li>
+        <li><p>将这个流量转发至相应的出站（outbound，或者egress出口）端口。</p></li>
+        <li><p>拒绝这个流量，因为入口端口自身既不是这个流量的预期的目标，也不是一个用来对它进行转发的接口。（注意，还存在其他可能的原因导致流量被拒绝）</p></li>
+        </ol>
         <h4
         id="接收器检查3种类型的流量recievers-check-for-three-types-of-traffic">4.5.1
         接收器检查3种类型的流量（Recievers Check For Three Types of
@@ -529,13 +811,13 @@
         <p>TLP可以被基于地址路由（Memory或IO），可以被基于ID路由（Bus—Device—Function），或者还可以被隐式路由（routed
         implicitly）。具体使用的路由办法要根据TLP类型来决定。表
         4‑7总结了TLP类型和路由方法的对应关系。</p>
+        <p>表 4‑7 PCIe TLP类型对应的路由方法</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image182-164027165596318.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑7 PCIe TLP类型对应的路由方法</p>
         <p>可以发现，Message是唯一一种支持多种路由方法的TLP类型。PCIe协议中定义的大多数message使用的是隐式路由，然而由厂商定义的message则根据需要也可以使用地址路由或者ID路由。</p>
         <h5
         id="隐式路由和message的目的purpose-of-implicit-routing-and-message">4.5.3.2
@@ -558,13 +840,13 @@
         Transaction
         Protocol），它允许一个目标设备接收一个或多个请求，然后再使用单独的完成包来对这些请求进行响应。相比于在PCI中使用等待态（wait-state）或是延迟传输（retry）来处理访问目标时出现的延迟，拆分事务协议是一种显著的进步。拆分事务协议不再使用通过试探目标是否处于ready才进行访问的高延迟传输机制，而是使用目标设备自己发起响应的方式，无论何时只要目标设备处于ready，它都能自己发起响应，而这个响应所对应的请求是此前就已经给到目标设备的了。这种方式使得每个事务的完成都至少需要两个单独的TLP——Request（请求包）和Completion（完成包），而我们后面将会讲到，对于一个单独的读请求，可能会有多个完成包返回。图
         4‑13展示了一个拆分事务中的Request-Completion的组成，这个例子的场景是软件从EP读取数据。</p>
+        <p>图 4‑13 PCIe事务中的请求TLP和完成TLP</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image184-164027165891119.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑13 PCIe事务中的请求TLP和完成TLP</p>
         <h4 id="posted与non-posted">4.5.5 Posted与Non-Posted</h4>
         <p>为了减少Request-Completion延迟所带来的开销和损失，MWr（Memory
         Write）事务是Posted的，这意味着从Requester的角度来说，当这个Posted事务刚从Requester发出去，就认为它已经完成了。如果想帮助理解，可以将术语“Posting（邮寄）”和邮政系统（postal
@@ -574,68 +856,80 @@
         <p>总结来说，Non-Posted事务需要完成包，Posted事务不需要完成包而且也永远不应该收到一个完成包。表
         4‑8列出了哪些PCIe事务是Posted的，哪些是Non-Posted的。</p>
         <p>下面对表 4‑8的内容进行复述：</p>
-        <p>n <strong>Memory Write</strong>：</p>
+        <ul>
+        <li><strong>Memory Write</strong>：</li>
+        </ul>
         <p>所有的Memory
         Write请求都是Posted的。不需要返回完成包（Completion）。</p>
-        <p>n <strong>Memory Read</strong>和<strong>Memory Read
-        Lock</strong>：</p>
+        <ul>
+        <li><strong>Memory Read</strong>和<strong>Memory Read
+        Lock</strong>：</li>
+        </ul>
         <p>所有的Memory
         Read请求都是Non-Posted的。需要由Completer返回一个带有数据的Completion（这个Completion由一个或多个TLP组成），Completer通过Completion来传递Requester所请求的数据以及当前Memory
         Read事务的状态。若发生了错误，那么返回的用于报告错误状态的Completion将不含有数据。</p>
-        <p>n <strong>AtomicOP</strong>：</p>
+        <ul>
+        <li><strong>AtomicOP</strong>：</li>
+        </ul>
         <p>所有的AtomicOP请求都是Non-Posted的。需要由Completer返回一个带有数据的Completion，这个Completion中包含了目标位置的原始值。</p>
-        <p>n <strong>IO Read</strong>和<strong>IO Write</strong>：</p>
+        <ul>
+        <li><strong>IO Read</strong>和<strong>IO Write</strong>：</li>
+        </ul>
         <p>所有的IO请求都是Non-Posted的。对于IO
         Write和失败的Read来说，需要返回一个不含有数据的Completion。而对于成功的Read来说，则需要返回一个带有数据的Completion。</p>
-        <p>n <strong>Configuration Read</strong>和<strong>Configuration
-        Write</strong>：</p>
+        <ul>
+        <li><strong>Configuration Read</strong>和<strong>Configuration
+        Write</strong>：</li>
+        </ul>
         <p>所有的Configuration请求都是Non-Posted的。与IO请求类似，对于Configuration
         Write和失败的Read来说，需要返回一个不含有数据的Completion。而对于成功的Read来说，则需要返回一个带有数据的Completion。</p>
-        <p>n <strong>Message</strong>：</p>
+        <ul>
+        <li><strong>Message</strong>：</li>
+        </ul>
         <p>所有的Message请求都是Posted的。虽然路由方法是取决于Message类型的，但是Message都被认为是posted请求。</p>
         <p>简单总结来说，只有Memory Write和Message是 Posted的。</p>
+        <p>表 4‑8 Posted和Non-Posted事务</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image186-164027166148320.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑8 Posted和Non-Posted事务</p>
         <h4 id="header中定义数据包格式和类型的字段">4.5.6
         Header中定义数据包格式和类型的字段</h4>
         <h5 id="整体说明general-4">4.5.6.1 整体说明（General）</h5>
         <p>如图
         4‑14所示，每个TLP都含有一个3个或4个DW（12或16byte）的Header。在TLP
         Header中含有Format和Type这两个字段，它们用来定义剩余的Header的内容，并决定这个TLP在拓扑结构中传递时所使用的路由方法。</p>
+        <p>图 4‑14 TLP通用的3DW和4DW Header</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image188-164027166280321.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑14 TLP通用的3DW和4DW Header</p>
         <h5 id="header中formattype字段的编码含义">4.5.6.2
         Header中Format/Type字段的编码含义</h5>
         <p>下方的表 4‑9中总结了TLP
         Header中的Format和Type字段的编码含义。</p>
+        <p>表 4‑9 TLP Header中Format和Type字段编码含义</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image190-164027166426622.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑9 TLP Header中Format和Type字段编码含义</p>
         <h4 id="tlp-header概述">4.5.7 TLP Header概述</h4>
         <p>当TLP在入口端口（ingress
         port）被接收到，首先要在物理层和数据链路层对TLP进行错误检查。如果检查无错，那么再由事务层来检查当前TLP使用的是哪种路由方法。基础的步骤为：</p>
-        <p>\1. Format和Type字段确定了TLP
-        Header的大小、数据包的格式和类型。</p>
-        <p>\2.
-        根据TLP所使用的路由方法（与Type相关），设备将确定这个TLP的预期接收者是否就是自己。如果确实就是自己，那么设备将接受（或者说是消耗）这个TLP，否则设备将会把这个TLP转发到相应的出口端口（egress
-        port）——根据该出口的排序和流控规则。</p>
-        <p>\3.
-        如果设备既不是TLP的预期接收方，且设备也并不位于前往预期接收方的路径上，那么它通常会通过一个状态字段为Unsupported
-        Request（UR）的完成包来拒绝这个TLP。</p>
+        <ol type="1">
+        <li><p>Format和Type字段确定了TLP
+        Header的大小、数据包的格式和类型。</p></li>
+        <li><p>根据TLP所使用的路由方法（与Type相关），设备将确定这个TLP的预期接收者是否就是自己。如果确实就是自己，那么设备将接受（或者说是消耗）这个TLP，否则设备将会把这个TLP转发到相应的出口端口（egress
+        port）——根据该出口的排序和流控规则。</p></li>
+        <li><p>如果设备既不是TLP的预期接收方，且设备也并不位于前往预期接收方的路径上，那么它通常会通过一个状态字段为Unsupported
+        Request（UR）的完成包来拒绝这个TLP。</p></li>
+        </ol>
         <h3 id="路由机制的应用方法applying-routing-mechanisms">4.6
         路由机制的应用方法（Applying Routing Mechanisms）</h3>
         <p>一旦配置完了系统地址并且也允许开始执行事务，设备将会检查输入的TLP并使用相应的配置字段域来对数据包进行路由。下面的小节将会对PCIe结构中的TLP路由机制基础特点和功能进行描述。</p>
@@ -645,18 +939,17 @@
         <h5 id="bus号device号function号的使用上限">4.6.1.1
         Bus号，Device号，Function号的使用上限</h5>
         <p>PCIe支持的拓扑结构的上限与PCI和PCI-X一样：</p>
-        <p>\1.
-        一个系统中可以存在的最大总线数量为256，因为Bus号是8bit位宽的。这个总线数量包括了Switch产生的内部总线。</p>
-        <p>\2.
-        每条总线上最多可以有32个设备，因为Device号是5bit位宽的。一个老式的PCI总线或是Switch、RC的内部总线的下方可以挂载不止一个设备，然而外部的PCIe链路（external
+        <ol type="1">
+        <li><p>一个系统中可以存在的最大总线数量为256，因为Bus号是8bit位宽的。这个总线数量包括了Switch产生的内部总线。</p></li>
+        <li><p>每条总线上最多可以有32个设备，因为Device号是5bit位宽的。一个老式的PCI总线或是Switch、RC的内部总线的下方可以挂载不止一个设备，然而外部的PCIe链路（external
         PCIe
         Links）就必须要是点到点的（point-to-point），也就是说外部PCIe链路下方只能挂载一个设备。下行端口（Switch或RC的下行端口）会强制将外部链路的Device号定为Device
         0，因此每个外部EP都总会是Device
         0。除非使用了替代路由ID解释（Alternative Routing-ID
         Interpretation，ARI），若使用了ARI那么这个外部Device将没有Device号，关于ARI的更多内容请参阅“IDO（ID-based
-        Ordering）”一节。</p>
-        <p>\3.
-        每个设备中最多可以有8个内部Function，因为Function号是3bit位宽的。</p>
+        Ordering）”一节。</p></li>
+        <li><p>每个设备中最多可以有8个内部Function，因为Function号是3bit位宽的。</p></li>
+        </ol>
         <h5 id="tlp-header中有关id路由的关键字段">4.6.1.2 TLP
         Header中有关ID路由的关键字段</h5>
         <p>如果一个收到的TLP中的Type字段表示了这个TLP要使用ID路由，那么TLP
@@ -665,20 +958,20 @@
         Header来进行ID路由（这只可能出现在Message路由中）。图
         4‑15展示的是一个用于ID路由的3DW Header，图
         4‑16展示的是一个用于ID路由的4DW Header。</p>
+        <p>图 4‑15 3DW TLP Header中的ID路由字段</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image192-164027166720623.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑15 3DW TLP Header中的ID路由字段</p>
+        <p>图 4‑16 4DW TLP Header中的ID路由字段</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image194-164027166875124.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑16 4DW TLP Header中的ID路由字段</p>
         <h5 id="ep进行一次检查endpointone-check">4.6.1.3
         EP进行一次检查（Endpoint：One Check）</h5>
         <p>对于ID路由，一个EP只会简单地根据自己的BDF来检查TLP
@@ -690,13 +983,13 @@
         ID就是这个完成包用来路由的信息。</p>
         <h5 id="switchesbridges每个端口进行两次检查">4.6.1.4
         Switches（Bridges）每个端口进行两次检查</h5>
+        <p>图 4‑17一个使用ID路由的入站TLP在进行Switch的路由检查</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image196-164027168053425.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑17一个使用ID路由的入站TLP在进行Switch的路由检查</p>
         <p>对于一个使用ID路由的TLP来说，一个Switch端口首先要检查这个TLP的预期目的地是不是端口自身，这种检查是通过将端口自身的BDF与TLP
         Header中的目标ID进行比较来进行的，如图
         4‑17中的（1）所示。与EP一样，每个Switch端口将会从上行端口发现的每次配置写（Type
@@ -719,28 +1012,28 @@
         Header中有关地址路由的关键字段</h5>
         <p>当TLP
         Header中的Type字段表示这个TLP使用地址路由时，那么就要用Header中的Address字段来执行路由检查。Address字段可以是32bit也可以是64bit的。</p>
-        <h6 id="l-使用32bit地址的tlp">l 使用32bit地址的TLP</h6>
+        <h6 id="使用32bit地址的tlp">4.6.2.1.1 使用32bit地址的TLP</h6>
         <p>对于IO和32bit的Memory请求，它们所使用的3DW Header如图
         4‑18所示。因此，这些TLP的目标内存映射寄存器（Memory-Mapped
         Registers）会存在于4GB内存边界以内。</p>
-        <h6 id="l-使用64bit地址的tlp">l 使用64bit地址的TLP</h6>
+        <h6 id="使用64bit地址的tlp">4.6.2.1.2 使用64bit地址的TLP</h6>
         <p>对于64bit的Memory请求，它们所使用的4DW Header如图
         4‑19所示。因此，这些TLP的目标内存映射寄存器（Memory-Mapped
         Registers）会存在于4GB内存边界之上。</p>
+        <p>图 4‑18 3DW TLP Header中的地址路由相关字段</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image198-164027168306826.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑18 3DW TLP Header中的地址路由相关字段</p>
+        <p>图 4‑19 4DW TLP Header中的地址路由相关字段</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image200-164027168441127.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑19 4DW TLP Header中的地址路由相关字段</p>
         <h5 id="ep对地址的检查">4.6.2.2 EP对地址的检查</h5>
         <p>如果一个EP收到了一个地址路由的TLP，那么EP将会用其自身配置Header中的每一个BAR（Base
         Address Register基地址寄存器）与TLP
@@ -748,13 +1041,13 @@
         4‑20所示。由于EP只有一个链路接口，因此它只会接受或者拒绝数据包，而不会对其进行转发。如果TLP
         Header中的Address字段与EP的某一个BAR所指示的地址范围相匹配，那么EP就会接受这个TLP。更多的关于BARs是怎么样被使用的内容请参阅“基地址寄存器BARs（Base
         Address Registers）”一节（原书126页）。</p>
+        <p>图 4‑20 EP对输入TLP的地址进行检查</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image202-164027168574628.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑20 EP对输入TLP的地址进行检查</p>
         <h5 id="switch进行路由switch-routing">4.6.2.3
         Switch进行路由（Switch Routing）</h5>
         <p>对于Switch端口来说，如果一个输入的TLP使用的是地址路由，那么端口会首先检查这个TLP的目标地址是否就是端口本身，这种检查是通过将Switch端口自身Type
@@ -765,33 +1058,33 @@
         4‑21中步骤2a所示。而如果Request的目标是Memory空间，那么端口将会检查不可预取Base/Limit寄存器和可预取Base/Limit寄存器，如图
         4‑21中步骤2b所示。更多关于Base/Limit寄存器对是如何被评估的信息，请参阅“Base寄存器和Limit寄存器（Base
         and Limit Registers）”一节。</p>
+        <p>图 4‑21 Switch检查使用地址路由的入站TLP的路由信息</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image204-164027168762129.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑21 Switch检查使用地址路由的入站TLP的路由信息</p>
         <p>为了能理解Switch中基于地址的TLP路由，最好要记住一点，每个Switch端口自身都是一个Bridge。下面的步骤描述的是一个Bridge（也就是Switch端口）接收一个基于地址路由的TLP：</p>
-        <h6 id="l-tlp向下行移动由switch主接口接收并向下转发">l
+        <h6 id="tlp向下行移动由switch主接口接收并向下转发">4.6.2.3.1
         TLP向下行移动（由Switch主接口接收并向下转发）</h6>
-        <p>\1.
-        如果TLP的目标地址与Switch端口的其中一个BAR地址范围相匹配，那么这个Bridge（Switch端口）就会消耗掉这个TLP，因为其自身就是这个TLP的目的地。</p>
-        <p>\2.
-        如果TLP的目标地址落在端口的Base/Limit寄存器所表示的范围内，那么这个TLP就会被转发到次级接口（Secondary
-        Interface），也就是向下转发。</p>
-        <p>\3. 若以上两个条件都不符，且主接口（Primary
+        <ol type="1">
+        <li><p>如果TLP的目标地址与Switch端口的其中一个BAR地址范围相匹配，那么这个Bridge（Switch端口）就会消耗掉这个TLP，因为其自身就是这个TLP的目的地。</p></li>
+        <li><p>如果TLP的目标地址落在端口的Base/Limit寄存器所表示的范围内，那么这个TLP就会被转发到次级接口（Secondary
+        Interface），也就是向下转发。</p></li>
+        <li><p>若以上两个条件都不符，且主接口（Primary
         Interface）上没有其他的Bridge声明拥有这个TLP，那么这个TLP将被Switch主接口当做UR（Unsupported
-        Request）来处理。</p>
-        <h6 id="l-tlp向上行移动由次级接口接收并向上转发">l
+        Request）来处理。</p></li>
+        </ol>
+        <h6 id="tlp向上行移动由次级接口接收并向上转发">4.6.2.3.2
         TLP向上行移动（由次级接口接收并向上转发）</h6>
-        <p>\1. 如果TLP的目标地址与当前Switch次级接口（Secondary
-        Interface）的其中一个BAR地址范围相匹配，那么这个Bridge（Switch端口）就会消耗掉这个TLP，因为其自身就是这个TLP的目的地。</p>
-        <p>\2.
-        如果TLP的目标地址落在端口的Base/Limit寄存器所表示的范围内，那么这个TLP将被Switch次级接口当做UR（Unsupported
-        Request）来处理（除非这个端口是Switch的上行端口，在这种情况下，这个数据包可能是一个Peer-to-Peer的事务，它将会被转发至下行的另一个端口上，而不是之前接收这个TLP的端口）。</p>
-        <p>\3.
-        若以上两个条件都不符，那么这个TLP将会被转发至主接口（上行端口），因为这个TLP目的地既不是当前的端口Bridge，也不是这个Bridge之下的任何一个Function。</p>
+        <ol type="1">
+        <li><p>如果TLP的目标地址与当前Switch次级接口（Secondary
+        Interface）的其中一个BAR地址范围相匹配，那么这个Bridge（Switch端口）就会消耗掉这个TLP，因为其自身就是这个TLP的目的地。</p></li>
+        <li><p>如果TLP的目标地址落在端口的Base/Limit寄存器所表示的范围内，那么这个TLP将被Switch次级接口当做UR（Unsupported
+        Request）来处理（除非这个端口是Switch的上行端口，在这种情况下，这个数据包可能是一个Peer-to-Peer的事务，它将会被转发至下行的另一个端口上，而不是之前接收这个TLP的端口）。</p></li>
+        <li><p>若以上两个条件都不符，那么这个TLP将会被转发至主接口（上行端口），因为这个TLP目的地既不是当前的端口Bridge，也不是这个Bridge之下的任何一个Function。</p></li>
+        </ol>
         <h5 id="多播能力multicast-capabilities">4.6.2.4
         多播能力（Multicast Capabilities）</h5>
         <p>在PCIe
@@ -808,52 +1101,54 @@
         <p>有些Messages使用地址或者ID路由，而不是隐式路由，那么对于这些Message来说，它们的路由机制就跟前面几节描述的ID路由和地址路由相同。然而，对于绝大多数Message来说，使用的路由机制是隐式路由。隐式路由的目的是为了模仿边带信号（side-band
         signal）的行为，之所以要这样是因为PCIe的设计目标之一就是要尽可能的把原本PCI中的边带信号都清除干净。PCI中的这些边带信号一般是用于Host将一个事件通知给所有的设备，或者是设备将一个事件通知给Host。在PCIe中，我们使用Message
         TLPs来传输这些事件，而不是通过边带信号。在PCIe中被定义了Message的事件类型有：</p>
-        <p>n 电源管理（Power Management）</p>
-        <p>n INTx传统中断信号（INTx legacy interrupt signaling）</p>
-        <p>n 错误信号（Error signaling）</p>
-        <p>n 锁定事务的支持（Locked Transaction support）</p>
-        <p>n 热插拔信号（Hot Plug signaling）</p>
-        <p>n 厂商特定信号（Vendor-specific signaling）</p>
-        <p>n 插入卡插槽功耗限制设置（Slot Power Limit settings）</p>
+        <ul>
+        <li><p>电源管理（Power Management）</p></li>
+        <li><p>INTx传统中断信号（INTx legacy interrupt
+        signaling）</p></li>
+        <li><p>错误信号（Error signaling）</p></li>
+        <li><p>锁定事务的支持（Locked Transaction support）</p></li>
+        <li><p>热插拔信号（Hot Plug signaling）</p></li>
+        <li><p>厂商特定信号（Vendor-specific signaling）</p></li>
+        <li><p>插入卡插槽功耗限制设置（Slot Power Limit
+        settings）</p></li>
+        </ul>
         <h5 id="tlp-header中有关隐式路由的关键字段">4.6.3.2 TLP
         Header中有关隐式路由的关键字段</h5>
         <p>对于隐式路由来说，使用TLP
         Header中的子字段（sub-field）来确定Message的目的地。图
         4‑22展示了一个使用隐式路由的Message TLP Header。</p>
+        <p>图 4‑22 4DW Message TLP Header中的隐式路由相关的字段</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image206-164027169088230.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 4‑22 4DW Message TLP Header中的隐式路由相关的字段</p>
         <h5 id="message的type字段总结">4.6.3.3
         Message的Type字段总结</h5>
         <p>表 4‑10展示了一个Message的TLP
         Header中Type字段的含义。如表中所示，最高的2bit用于指示这个数据包是一个Message，剩下的低3bit用于指示这个Message使用的路由方法。需要注意，Message
         TLP不管使用哪种路由操作，都只会使用4DW
         Header。若使用地址路由，那么就用byte8-15来组成64bit地址；若使用ID路由，那么就用byte8和9来组成目标BDF。</p>
+        <p>表 4‑10 Message请求Header中Type字段的用法</p>
         <figure>
         <img
         src="img/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1/clip_image208-164027169216631.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 4‑10 Message请求Header中Type字段的用法</p>
         <h5 id="ep的处理">4.6.3.4 EP的处理</h5>
         <p>对于隐式路由，EP会简单的检查路由子字段（sub-field）是否适合它。例如，EP会接受一个广播Message或是一个终止于EP接收端的Message，但是不会接受隐式目的地为RC的Message。</p>
         <h5 id="switch的处理">4.6.3.5 Switch的处理</h5>
         <p>像Switch这样的路由元件（Routing
         Element）需要考虑TLP到达了哪个端口，以及TLP的路由子字段是否对这个端口来说是合适的。举例来说：</p>
-        <p>\1.
-        一个Switch的上行端口可以合法的接收一个广播Message。上行端口将会把这个广播Message复制一份，并向它的所有下行端口都转发。如果一个Switch的下行端口接收了一个隐式路由的广播Message（这意味着这个Message将会向上行移动），这是一种错误，它将被当做畸形TLP（Malformed
-        TLP）来处理。</p>
-        <p>\2.
-        一个Switch的下行端口可以接收隐式路由目的地为RC的Message，下行端口将会把这个Message转发给上行端口，因为路由元件知道RC永远在上行。而Switch的上行端口并不会从外界接受一个隐式路由目的地为RC的Message，因为这意味着它会向下转发，但是RC却在拓扑结构的上方。</p>
-        <p>\3.
-        如果隐式路由Message表示它会终止在其接收者的位置，那么接收它的Switch端口将会消耗掉这个Message，而不是将其转发。</p>
-        <p>\4.
-        对于使用地址路由或者ID路由的Message来说，Switch会按照一般对地址或ID的检查方式来决定是接收它们还是转发它们。</p>
+        <ol type="1">
+        <li><p>一个Switch的上行端口可以合法的接收一个广播Message。上行端口将会把这个广播Message复制一份，并向它的所有下行端口都转发。如果一个Switch的下行端口接收了一个隐式路由的广播Message（这意味着这个Message将会向上行移动），这是一种错误，它将被当做畸形TLP（Malformed
+        TLP）来处理。</p></li>
+        <li><p>一个Switch的下行端口可以接收隐式路由目的地为RC的Message，下行端口将会把这个Message转发给上行端口，因为路由元件知道RC永远在上行。而Switch的上行端口并不会从外界接受一个隐式路由目的地为RC的Message，因为这意味着它会向下转发，但是RC却在拓扑结构的上方。</p></li>
+        <li><p>如果隐式路由Message表示它会终止在其接收者的位置，那么接收它的Switch端口将会消耗掉这个Message，而不是将其转发。</p></li>
+        <li><p>对于使用地址路由或者ID路由的Message来说，Switch会按照一般对地址或ID的检查方式来决定是接收它们还是转发它们。</p></li>
+        </ol>
         <h3 id="dllp和ordered-set不会被路由">4.7 DLLP和Ordered
         Set不会被路由</h3>
         <p>DLLP和Ordered
@@ -861,22 +1156,16 @@
         <p>DLLP起源于PCIe端口的数据链路层，先经过物理层，接着离开端口并在链路上传输，然后到达对端端口。在对端端口上，DLLP先经过物理层，然后最终到达数据链路层，DLLP在这里被处理和消耗。DLLP不会继续沿着端口向上到达事务层，因此它并不存在路由。</p>
         <p>相似的，Ordered-Set数据包起源于物理层，然后离开端口并通过链路传输，最终到达对端端口。在对端端口上，Ordered-Set在物理层就被处理和消耗。由于Ordered-Set也不会继续沿着端口向上到达数据链路层或者事务层，因此它也不存在路由。</p>
         <p>正如本章所讨论的那样，只有TLP会被Switch和RC进行路由，它们起源于源端口的事务层，结束于目的端口的事务层。</p>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： Michael ZZY</p>
-        <p>校对： Karl DGR</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="3 PCIe 配置概述.html">← 第 3 章 PCIe 配置概述</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -889,17 +1178,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

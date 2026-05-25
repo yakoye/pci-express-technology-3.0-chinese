@@ -8,52 +8,232 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="11 物理层-逻辑_Gen1和Gen2.html">← 第 11 章 物理层-逻辑（Gen1 和 Gen2）</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="11 物理层-逻辑_Gen1和Gen2.html">← 第 11 章 物理层-逻辑（Gen1 和 Gen2）</a>
+          </div>
+
+    <div class="topbar-title">
       第 12 章 物理层-逻辑（Gen3）
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="13 物理层-电气特性.html">第 13 章 物理层-电气特性 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="13 物理层-电气特性.html">第 13 章 物理层-电气特性 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 12 章 物理层-逻辑（Gen3）
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 12 章 物理层-逻辑（Gen3）</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="11 物理层-逻辑_Gen1和Gen2.html">← 第 11 章 物理层-逻辑（Gen1 和 Gen2）</a>
+      
+            <a class="drawer-link" href="13 物理层-电气特性.html">第 13 章 物理层-电气特性 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#物理层逻辑gen3physical-layer---logical-gen3"
+                id="toc-物理层逻辑gen3physical-layer---logical-gen3">12
+                物理层逻辑（Gen3）（Physical Layer - Logical
+                (Gen3)）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#gen3-简介" id="toc-gen3-简介">12.1 Gen3
+                简介</a>
+                <ul>
+                <li><a href="#新的编码模型" id="toc-新的编码模型">12.1.1
+                新的编码模型</a></li>
+                <li><a href="#更复杂的信号均衡模型"
+                id="toc-更复杂的信号均衡模型">12.1.2
+                更复杂的信号均衡模型</a></li>
+                </ul></li>
+                <li><a href="#gts-编码" id="toc-gts-编码">12.2 8.0 GT/s
+                编码</a>
+                <ul>
+                <li><a href="#通道层面的编码"
+                id="toc-通道层面的编码">12.2.1 通道层面的编码</a></li>
+                <li><a href="#块对齐" id="toc-块对齐">12.2.2
+                块对齐</a></li>
+                <li><a href="#有序集块" id="toc-有序集块">12.2.3
+                有序集块</a></li>
+                <li><a href="#数据流和数据块"
+                id="toc-数据流和数据块">12.2.4 数据流和数据块</a></li>
+                <li><a href="#数据块帧结构" id="toc-数据块帧结构">12.2.5
+                数据块帧结构</a></li>
+                </ul></li>
+                <li><a href="#gen3-物理层发送逻辑"
+                id="toc-gen3-物理层发送逻辑">12.3 Gen3
+                物理层发送逻辑</a>
+                <ul>
+                <li><a href="#多路复用器" id="toc-多路复用器">12.3.1
+                多路复用器</a></li>
+                <li><a href="#字节条带化byte-striping"
+                id="toc-字节条带化byte-striping">12.3.2 字节条带化（Byte
+                Striping）</a></li>
+                <li><a href="#加扰" id="toc-加扰">12.3.3 加扰</a></li>
+                <li><a href="#串行器" id="toc-串行器">12.3.4
+                串行器</a></li>
+                <li><a href="#用于同步头位的多路复用器"
+                id="toc-用于同步头位的多路复用器">12.3.5
+                用于同步头位的多路复用器</a></li>
+                </ul></li>
+                <li><a href="#gen3-物理层接收逻辑"
+                id="toc-gen3-物理层接收逻辑">12.4 Gen3
+                物理层接收逻辑</a>
+                <ul>
+                <li><a href="#差分接收" id="toc-差分接收">12.4.1
+                差分接收</a></li>
+                <li><a href="#cdr时钟和数据恢复逻辑"
+                id="toc-cdr时钟和数据恢复逻辑">12.4.2
+                CDR（时钟和数据恢复）逻辑</a></li>
+                <li><a href="#接收端时钟补偿逻辑"
+                id="toc-接收端时钟补偿逻辑">12.4.3
+                接收端时钟补偿逻辑</a></li>
+                <li><a href="#通道与通道之间的偏斜"
+                id="toc-通道与通道之间的偏斜">12.4.4
+                通道与通道之间的偏斜</a></li>
+                <li><a href="#解扰器" id="toc-解扰器">12.4.5
+                解扰器</a></li>
+                <li><a href="#字节拆分byte-un-striping"
+                id="toc-字节拆分byte-un-striping">12.4.6 字节拆分(Byte
+                Un-Striping)</a></li>
+                <li><a href="#数据包过滤" id="toc-数据包过滤">12.4.7
+                数据包过滤</a></li>
+                <li><a href="#接收缓冲区rx-buffer"
+                id="toc-接收缓冲区rx-buffer">12.4.8 接收缓冲区(RX
+                Buffer)</a></li>
+                </ul></li>
+                <li><a href="#关于-128b130b-loopback-的注意事项"
+                id="toc-关于-128b130b-loopback-的注意事项">12.5 关于
+                128b/130b Loopback 的注意事项</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#物理层逻辑gen3physical-layer---logical-gen3"
-            id="toc-物理层逻辑gen3physical-layer---logical-gen3">12
-            物理层逻辑（Gen3）（Physical Layer - Logical (Gen3)）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#gen3-简介" id="toc-gen3-简介">12.1 Gen3
-            简介</a></li>
-            <li><a href="#gts-编码" id="toc-gts-编码">12.2 8.0 GT/s
-            编码</a></li>
-            <li><a href="#gen3-物理层发送逻辑"
-            id="toc-gen3-物理层发送逻辑">12.3 Gen3
-            物理层发送逻辑</a></li>
-            <li><a href="#gen3-物理层接收逻辑"
-            id="toc-gen3-物理层接收逻辑">12.4 Gen3
-            物理层接收逻辑</a></li>
-            <li><a href="#关于-128b130b-loopback-的注意事项"
-            id="toc-关于-128b130b-loopback-的注意事项">12.5 关于
-            128b/130b Loopback 的注意事项</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#物理层逻辑gen3physical-layer---logical-gen3"
+                id="toc-物理层逻辑gen3physical-layer---logical-gen3">12
+                物理层逻辑（Gen3）（Physical Layer - Logical
+                (Gen3)）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#gen3-简介" id="toc-gen3-简介">12.1 Gen3
+                简介</a>
+                <ul>
+                <li><a href="#新的编码模型" id="toc-新的编码模型">12.1.1
+                新的编码模型</a></li>
+                <li><a href="#更复杂的信号均衡模型"
+                id="toc-更复杂的信号均衡模型">12.1.2
+                更复杂的信号均衡模型</a></li>
+                </ul></li>
+                <li><a href="#gts-编码" id="toc-gts-编码">12.2 8.0 GT/s
+                编码</a>
+                <ul>
+                <li><a href="#通道层面的编码"
+                id="toc-通道层面的编码">12.2.1 通道层面的编码</a></li>
+                <li><a href="#块对齐" id="toc-块对齐">12.2.2
+                块对齐</a></li>
+                <li><a href="#有序集块" id="toc-有序集块">12.2.3
+                有序集块</a></li>
+                <li><a href="#数据流和数据块"
+                id="toc-数据流和数据块">12.2.4 数据流和数据块</a></li>
+                <li><a href="#数据块帧结构" id="toc-数据块帧结构">12.2.5
+                数据块帧结构</a></li>
+                </ul></li>
+                <li><a href="#gen3-物理层发送逻辑"
+                id="toc-gen3-物理层发送逻辑">12.3 Gen3
+                物理层发送逻辑</a>
+                <ul>
+                <li><a href="#多路复用器" id="toc-多路复用器">12.3.1
+                多路复用器</a></li>
+                <li><a href="#字节条带化byte-striping"
+                id="toc-字节条带化byte-striping">12.3.2 字节条带化（Byte
+                Striping）</a></li>
+                <li><a href="#加扰" id="toc-加扰">12.3.3 加扰</a></li>
+                <li><a href="#串行器" id="toc-串行器">12.3.4
+                串行器</a></li>
+                <li><a href="#用于同步头位的多路复用器"
+                id="toc-用于同步头位的多路复用器">12.3.5
+                用于同步头位的多路复用器</a></li>
+                </ul></li>
+                <li><a href="#gen3-物理层接收逻辑"
+                id="toc-gen3-物理层接收逻辑">12.4 Gen3
+                物理层接收逻辑</a>
+                <ul>
+                <li><a href="#差分接收" id="toc-差分接收">12.4.1
+                差分接收</a></li>
+                <li><a href="#cdr时钟和数据恢复逻辑"
+                id="toc-cdr时钟和数据恢复逻辑">12.4.2
+                CDR（时钟和数据恢复）逻辑</a></li>
+                <li><a href="#接收端时钟补偿逻辑"
+                id="toc-接收端时钟补偿逻辑">12.4.3
+                接收端时钟补偿逻辑</a></li>
+                <li><a href="#通道与通道之间的偏斜"
+                id="toc-通道与通道之间的偏斜">12.4.4
+                通道与通道之间的偏斜</a></li>
+                <li><a href="#解扰器" id="toc-解扰器">12.4.5
+                解扰器</a></li>
+                <li><a href="#字节拆分byte-un-striping"
+                id="toc-字节拆分byte-un-striping">12.4.6 字节拆分(Byte
+                Un-Striping)</a></li>
+                <li><a href="#数据包过滤" id="toc-数据包过滤">12.4.7
+                数据包过滤</a></li>
+                <li><a href="#接收缓冲区rx-buffer"
+                id="toc-接收缓冲区rx-buffer">12.4.8 接收缓冲区(RX
+                Buffer)</a></li>
+                </ul></li>
+                <li><a href="#关于-128b130b-loopback-的注意事项"
+                id="toc-关于-128b130b-loopback-的注意事项">12.5 关于
+                128b/130b Loopback 的注意事项</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="物理层逻辑gen3physical-layer---logical-gen3">12
@@ -112,6 +292,7 @@
         编码模式下数据包的一般结构。图中的箭头强调了代表 8b/10b
         数据包帧符号的控制（K）字符。接收端通过识别这些控制字符，知道预期接收的数据包类型。请参阅第
         380 页的“8b/10b 编码” 节，了解这种编码方案的优势。</p>
+        <p>图 12-1 8b/10b 通道编码方式</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221001235640837.png"
@@ -119,7 +300,6 @@
         <figcaption
         aria-hidden="true">image-20221001235640837</figcaption>
         </figure>
-        <p>图 12-1 8b/10b 通道编码方式</p>
         <p>相比之下，第 410 页的图 12-2 展示了 128b/130b
         的编码方式。这种编码不影响正在传输的字节，而是将字符分组为 16
         个字节的块，每个块的开头有一个 2 比特的同步字段。2
@@ -127,6 +307,7 @@
         8b/10b
         版本类似，有序集必须在所有通道上被同时传输。这要求所有通道之间能够正确地同步，这也是训练过程的一部分（见第
         438 页“实现块对齐”）。</p>
+        <p>图 12-2 128b/130b 块编码方式</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002123110796.png"
@@ -134,7 +315,6 @@
         <figcaption
         aria-hidden="true">image-20221002123110796</figcaption>
         </figure>
-        <p>图 12-2 128b/130b 块编码方式</p>
         <h4 id="更复杂的信号均衡模型">12.1.2 更复杂的信号均衡模型</h4>
         <p>PCIe Gen3
         的第二项变化是在于物理层的电气子模块，包括在链路的发送端和接收端（可选的）进行更复杂的信号均衡。Gen1
@@ -158,6 +338,7 @@
         还是一个有序集 (01b)。你可能已经注意到图 12-3
         中的数据块的同步头值是 01b，而不是上面提到的 10b
         值。这是因为在链路上传输数据块时，首先发送同步头的最低有效位（LSB）。请注意，同步头后面的符号也会先以最低有效位发送。</p>
+        <p>图 12-3 同步头与数据块示例</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002124157089.png"
@@ -165,7 +346,6 @@
         <figcaption
         aria-hidden="true">image-20221002124157089</figcaption>
         </figure>
-        <p>图 12-3 同步头与数据块示例</p>
         <h4 id="块对齐">12.2.2 块对齐</h4>
         <p>与先前版本的实现方式一样，Gen3 首先进行位锁定（Bit
         Lock），然后尝试建立块对齐锁定（Block Alignment
@@ -176,6 +356,7 @@
         EIEOS 之前和之后（图 12-4
         中未显示）。关于这个过程的细节，请参见第 438
         页的“实现块对齐”。</p>
+        <p>图 12-4 Gen3 EIEOS 符号集</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002125046002.png"
@@ -183,7 +364,6 @@
         <figcaption
         aria-hidden="true">image-20221002125046002</figcaption>
         </figure>
-        <p>图 12-4 Gen3 EIEOS 符号集</p>
         <h4 id="有序集块">12.2.3 有序集块</h4>
         <p>有序集的含义与 Gen1 和 Gen2
         中的含义基本相同。它们用于管理通道协议（Lane
@@ -194,6 +374,7 @@
         8、12、16、20 或 24 字节长度都是合法的。</p>
         <p>有序集块的基本格式与数据块类似，只是同步头位数值是相反的，如第
         412 页图 12-5 所示。</p>
+        <p>图 12-5 Gen3x1 有序集块示例</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002134908883.png"
@@ -201,7 +382,6 @@
         <figcaption
         aria-hidden="true">image-20221002134908883</figcaption>
         </figure>
-        <p>图 12-5 Gen3x1 有序集块示例</p>
         <p>PCIe 规范为 Gen3 定义了七个有序集（比 Gen1 和 Gen2 PCIe
         多一个有序集）。在大多数情况下，它们的功能与前几代相同。</p>
         <ol type="1">
@@ -228,6 +408,7 @@
         有序集的组成，只能通过同步头才能把它识别为有序集，并通过该块中的第一个符号（Symbol）识别为
         FTS
         类型。图的右侧列出了有序集标识符（每个有序集的第一个符号），用于识别当前正在传输的有序集的类型。</p>
+        <p>图 12-6 Gen3 FTS 有序集示例</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002135421937.png"
@@ -235,7 +416,6 @@
         <figcaption
         aria-hidden="true">image-20221002135421937</figcaption>
         </figure>
-        <p>图 12-6 Gen3 FTS 有序集示例</p>
         <h4 id="数据流和数据块">12.2.4 数据流和数据块</h4>
         <p>链路通过发送一个 SDS 有序集，转换到 L0
         链路状态来开始数据流传输（Enter a Data
@@ -257,6 +437,7 @@
         <p>• 数据流结束（EDS） - 表示之后将从数据转换到有序集</p>
         <p>• End Bad (EDB) - 报告检测到无效的数据包</p>
         <p>图 12-7 提供了一个由单通道 TLP 传输组成的数据块的示例。</p>
+        <p>图 12-7 Gen3x1 帧结构示意图</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002145221015.png"
@@ -264,7 +445,6 @@
         <figcaption
         aria-hidden="true">image-20221002145221015</figcaption>
         </figure>
-        <p>图 12-7 Gen3x1 帧结构示意图</p>
         <p>总之，数据块的内容因链路当前的活动（activity）而异：</p>
         <p>• IDLs - 当没有数据包被传送时，数据块只由 IDL 组成。(规范将
         IDL 指定为标记之一）。</p>
@@ -295,6 +475,7 @@
         </ol>
         <p>规范中显示标记的方式与第 417 页图 12-8
         中显示的方式的不同之处在于，这幅图以小端（little-endian）顺序显示字节和位，而不是规范中使用的大端（big-endian）位表示。之所以这样显示，是为了说明各比特在通道上实际出现的顺序。</p>
+        <p>图 12-8 Gen3 帧标记示意图</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221002150236536.png"
@@ -302,7 +483,6 @@
         <figcaption
         aria-hidden="true">image-20221002150236536</figcaption>
         </figure>
-        <p>图 12-8 Gen3 帧标记示意图</p>
         <h5 id="数据包">12.2.5.2 数据包</h5>
         <p>STP 和 SDP，表示一个数据包的开始，如图 12-7 所示</p>
         <p>• TLPs。一个 STP 标记开端是一个全 1
@@ -442,6 +622,7 @@
         机制，直接导致数据链路层发起的恢复活动。（译注：很多情况下，从帧错误中恢复将会在物理层解决）当然，如果
         TLP 由于错误而丢失或损坏，那么将需要触发重放事件（replay
         event）。</p>
+        <p>图 12-9 AER 可恢复错误寄存器</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221004095218494.png"
@@ -449,7 +630,6 @@
         <figcaption
         aria-hidden="true">image-20221004095218494</figcaption>
         </figure>
-        <p>图 12-9 AER 可恢复错误寄存器</p>
         <h3 id="gen3-物理层发送逻辑">12.3 Gen3 物理层发送逻辑</h3>
         <p>第 422 页的图 12-10 展示了支持 Gen3
         速率的物理层传输逻辑的概念框图。整体设计与 Gen2
@@ -459,6 +639,7 @@
         Gen3
         实现在整个过程中所做的更改。与之前一样，需要指出的是，下述的物理层实现讨论仅从教学目的出发，不是为了展示实际的
         Gen3 物理层实现。</p>
+        <p>图 12-10 Gen3 物理层发送逻辑细节</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221004095440864.png"
@@ -466,7 +647,6 @@
         <figcaption
         aria-hidden="true">image-20221004095440864</figcaption>
         </figure>
-        <p>图 12-10 Gen3 物理层发送逻辑细节</p>
         <h4 id="多路复用器">12.3.1 多路复用器</h4>
         <p>TLP 和 DLLP
         来自顶部的数据链路层。多路复用器会在数据输入中添加构建完整 TLP
@@ -491,6 +671,7 @@
         <p>首先考虑第 424 页图 12-11 所示的示例，其中说明了 4
         通道链路。注意，当一个新的块开始时，同步头位同时出现在所有通道上，并定义了块的类型（本例中是数据块）。块编码对于每个通道都是独立处理的，但字节（或符号）在所有通道上都是条带化（striped）的，就像早期几代
         PCIe 一样。</p>
+        <p>图 12-11 Gen3 x4 比特条带化示例</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221004101701986.png"
@@ -498,7 +679,6 @@
         <figcaption
         aria-hidden="true">image-20221004101701986</figcaption>
         </figure>
-        <p>图 12-11 Gen3 x4 比特条带化示例</p>
         <h5 id="字节条带化-x8-示例">12.3.2.1 字节条带化 x8 示例</h5>
         <p>接下来，考虑第 425 页图 12-12 所示的 x8
         链路，这是基于的规范中的一个示例重新绘制的，以便于阅读。注意这里的比特流是垂直绘制的，而不是像之前的图
@@ -510,6 +690,7 @@
         的结束边界） 。相反，接收端统计双字（来找到 TLP
         的结束边界），如果没有观察到 EDB（End Bad），则认为 TLP
         是正常的。在这种情况下，TLP 在符号 3 的通道 3 处结束。</p>
+        <p>图 12-12 Gen x8 示例：TLP 分跨块边界</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221004101852697.png"
@@ -517,7 +698,6 @@
         <figcaption
         aria-hidden="true">image-20221004101852697</figcaption>
         </figure>
-        <p>图 12-12 Gen x8 示例：TLP 分跨块边界</p>
         <p>接下来，从通道 4 和 5 上的 SDP 标记开始发送 DLLP。由于 DLLP
         的长度始终为 8 个符号，因此它将在符号 4 的通道 3
         结束。暂时，没有其他数据包要发送，因此 IDL
@@ -547,6 +727,7 @@
         TLP 已经无效，应该被丢弃。请注意，EDB
         字节不包括在数据包长度字段中，因为当发生错误时，它们会动态地添加到传输中的数据包中（译注：此时原
         TLP 的长度已经在 STP 中传输给了对端，想改也不能改了）。</p>
+        <p>图 12-13 Gen3 x8 无效报文</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005205417711.png"
@@ -554,7 +735,6 @@
         <figcaption
         aria-hidden="true">image-20221005205417711</figcaption>
         </figure>
-        <p>图 12-13 Gen3 x8 无效报文</p>
         <h5 id="有序集示例-sos">12.3.2.3 有序集示例 – SOS</h5>
         <p>现在我们来考虑一个有序集传输的示例。如第 427 页图 12-14
         所示，一个有序集的特征是其 2 位同步首部值为
@@ -566,6 +746,7 @@
         的链路中继器设备，SOS 将由 16 个字节组成。（译注：原文如此
         <strong>In the absence</strong> of a Link repart device that
         <strong>does not</strong> add or delete SKP）</p>
+        <p>图 12-14 Gen3 x1 有序集结构</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005205517564.png"
@@ -573,7 +754,6 @@
         <figcaption
         aria-hidden="true">image-20221005205517564</figcaption>
         </figure>
-        <p>图 12-14 Gen3 x1 有序集结构</p>
         <p>让我们以一个 SOS
         为例来，说明有序集各种特性以及它们是如何一起工作的。注意第 428
         页的图 12-15，图中数据块后面跟着的是
@@ -595,10 +775,15 @@
         的末尾始终有 4 个符号，包含了当前 24 位加扰器 LFSR 状态。在符号
         12 中，接收端知道 SKP
         字符已经结束，同时也知道该块还有三个字节要在每条通道上传输。这些是加扰逻辑
-        LFSR 的输出，如第 428 页的表 12-2 所示。 <img
-        src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005205335623.png"
-        alt="image-20221005205335623" /></p>
+        LFSR 的输出，如第 428 页的表 12-2 所示。</p>
         <p>图 12-15 Gen3 x8 SOS 示例</p>
+        <figure>
+        <img
+        src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005205335623.png"
+        alt="image-20221005205335623" />
+        <figcaption
+        aria-hidden="true">image-20221005205335623</figcaption>
+        </figure>
         <p>表 12-2 Gen3 16 位 Skip Ordered Set 编码</p>
         <table>
         <colgroup>
@@ -708,6 +893,7 @@
         x8
         通道为例，为每个通道分配的，共计八个不同的种子值需要八个不同的
         LFSR，通道 0 到 7 各一个。</p>
+        <p>图 12-16 Gen3 各通道独立 LFSR 的加扰逻辑</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005205609441.png"
@@ -715,7 +901,6 @@
         <figcaption
         aria-hidden="true">image-20221005205609441</figcaption>
         </figure>
-        <p>图 12-16 Gen3 各通道独立 LFSR 的加扰逻辑</p>
         <p>第 432 页的表 12-3 列出了每个通道的 24
         位种子值。后续序列将重复先前的数值，这意味着通道 8
         的种子值将与通道 0 相同，因此这里仅列出前 8
@@ -749,6 +934,7 @@
         <p>单 LFSR 解决方案使用的逻辑门数比多 LFSR 版本少，但 XOR
         过程产生了额外的延迟，相较于多 LFSR
         方案，提供了一个不同的成本/性能选择。</p>
+        <p>图 12-17 Gen3 使用单个 LFSR 的加扰逻辑</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005211244823.png"
@@ -756,7 +942,6 @@
         <figcaption
         aria-hidden="true">image-20221005211244823</figcaption>
         </figure>
-        <p>图 12-17 Gen3 使用单个 LFSR 的加扰逻辑</p>
         <p>表 12-4 单 LFSR 方案抽头表达式</p>
         <figure>
         <img
@@ -827,6 +1012,7 @@
         底部向上描述每个部分。重点是描述为 8.0GT/s
         改变的物理层的各个方面。本节将不会描述那些相比 Gen1/Gen2
         协议没有变化的子块。</p>
+        <p>图 12-18 Gen3 物理层接收逻辑详细框图</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005215640803.png"
@@ -834,11 +1020,11 @@
         <figcaption
         aria-hidden="true">image-20221005215640803</figcaption>
         </figure>
-        <p>图 12-18 Gen3 物理层接收逻辑详细框图</p>
         <h4 id="差分接收">12.4.1 差分接收</h4>
         <p>差分接收端的逻辑没有变化，但有用于改善信号完整性的电气变化（参见第
         468 页的 “信号补偿”），以及建立信号均衡的训练变化，这在第 577
         页的 “链路均衡概述” 中有所介绍。</p>
+        <p>图 12-19 Gen3 CDR 逻辑</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005220548027.png"
@@ -846,7 +1032,6 @@
         <figcaption
         aria-hidden="true">image-20221005220548027</figcaption>
         </figure>
-        <p>图 12-19 Gen3 CDR 逻辑</p>
         <h4 id="cdr时钟和数据恢复逻辑">12.4.2
         CDR（时钟和数据恢复）逻辑</h4>
         <h5 id="rx-时钟恢复">12.4.2.1 RX 时钟恢复</h5>
@@ -929,6 +1114,7 @@
         SOS 到达时追加四个额外的 SKP
         来补偿，以快速重新填充缓冲区。另一方面，如果恢复的时钟运行得更快，缓冲区将接近溢出状态，逻辑将通过删除四个
         SKP 来补偿溢出情况，以便在看到 SOS 时快速排空缓冲区。</p>
+        <p>图 12-21 Gen3 弹性缓存逻辑</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221005232359283.png"
@@ -936,7 +1122,6 @@
         <figcaption
         aria-hidden="true">image-20221005232359283</figcaption>
         </figure>
-        <p>图 12-21 Gen3 弹性缓存逻辑</p>
         <p>Gen3 发送端每 370 至 375 个块安排一次
         SOS，但和早先协议版本一样，只能在块边界发送 SOS。如果在安排 SOS
         时，有一个数据包正在传输，它们会被累积并在下一个数据包边界插入。然而，与较低的数据速率协议版本不同的是，在
@@ -1008,6 +1193,7 @@
         没有这个选项，但有序集仍然需要同时出现在所有通道上，如 SOS、SDS
         和
         EIEOS。因此，尽管在对通道进行去偏斜时要寻找的数据图样不同，但过程可以是相同的。</p>
+        <p>图 12-22 接收端去偏斜逻辑</p>
         <figure>
         <img
         src="img/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91(gen3)/image-20221006203652191.png"
@@ -1015,7 +1201,6 @@
         <figcaption
         aria-hidden="true">image-20221006203652191</figcaption>
         </figure>
-        <p>图 12-22 接收端去偏斜逻辑</p>
         <h4 id="解扰器">12.4.5 解扰器</h4>
         <h5 id="综述">12.4.5.1 综述</h5>
         <p>接收端遵循与发送端完全相同的加扰多项式生成规则，并简单地将相同的值再次与输入数据进行
@@ -1058,25 +1243,16 @@
         在环回中都有明确的用途，应该避免使用。</p>
         <p>•
         如果从机无法获取块对齐，它将无法按照收到的所有位进行环回，并允许根据需要添加或删除符号以继续操作。</p>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： Brook</p>
-        <p>校对: LJGibbs</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>Gitee：</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
-        <p>Github：</p>
-        <p>https://github.com/ljgibbslf/Chinese-Translation-of-PCI-Express-Technology-</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="11 物理层-逻辑_Gen1和Gen2.html">← 第 11 章 物理层-逻辑（Gen1 和 Gen2）</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1089,17 +1265,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

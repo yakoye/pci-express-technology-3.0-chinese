@@ -8,65 +8,326 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="5 TLP 元素.html">← 第 5 章 TLP 元素</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="5 TLP 元素.html">← 第 5 章 TLP 元素</a>
+          </div>
+
+    <div class="topbar-title">
       第 6 章 流量控制
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="7 QoS 服务质量.html">第 7 章 QoS 服务质量 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="7 QoS 服务质量.html">第 7 章 QoS 服务质量 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 6 章 流量控制
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 6 章 流量控制</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="5 TLP 元素.html">← 第 5 章 TLP 元素</a>
+      
+            <a class="drawer-link" href="7 QoS 服务质量.html">第 7 章 QoS 服务质量 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#流量控制flow-control"
+                id="toc-流量控制flow-control">6 流量控制（Flow
+                Control）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#流量控制概念flow-control-concept"
+                id="toc-流量控制概念flow-control-concept">6.1
+                流量控制概念（Flow Control Concept）</a></li>
+                <li><a
+                href="#流量控制-buffer-和-creditflow-control-buffer-and-credits"
+                id="toc-流量控制-buffer-和-creditflow-control-buffer-and-credits">6.2
+                流量控制 Buffer 和 Credit（Flow Control Buffer and
+                Credits）</a>
+                <ul>
+                <li><a
+                href="#vc-流量控制-buffer-的组成vc-flow-control-buffer-organization"
+                id="toc-vc-流量控制-buffer-的组成vc-flow-control-buffer-organization">6.2.1
+                VC 流量控制 Buffer 的组成（VC Flow Control Buffer
+                Organization）</a></li>
+                <li><a href="#流控-creditflow-control-credits"
+                id="toc-流控-creditflow-control-credits">6.2.2 流控
+                Credit（Flow Control Credits）</a></li>
+                </ul></li>
+                <li><a
+                href="#初始流量控制通告initial-flow-control-advertisement"
+                id="toc-初始流量控制通告initial-flow-control-advertisement">6.3
+                初始流量控制通告（Initial Flow Control
+                Advertisement）</a>
+                <ul>
+                <li><a
+                href="#流控通告的最大值和最小值minimum-and-maximum-flow-control-advertisement"
+                id="toc-流控通告的最大值和最小值minimum-and-maximum-flow-control-advertisement">6.3.1
+                流控通告的最大值和最小值（Minimum and Maximum Flow
+                Control Advertisement）</a></li>
+                <li><a href="#无限-creditinfinite-credits"
+                id="toc-无限-creditinfinite-credits">6.3.2 无限
+                Credit（Infinite Credits）</a></li>
+                <li><a href="#无限-credit-通告的特殊用法"
+                id="toc-无限-credit-通告的特殊用法">6.3.3 无限 Credit
+                通告的特殊用法</a></li>
+                </ul></li>
+                <li><a href="#流量控制初始化flow-control-initialization"
+                id="toc-流量控制初始化flow-control-initialization">6.4
+                流量控制初始化（Flow Control Initialization）</a>
+                <ul>
+                <li><a href="#整体说明general"
+                id="toc-整体说明general">6.4.1
+                整体说明（General）</a></li>
+                <li><a
+                href="#流控初始化流程the-fc-initialization-sequence"
+                id="toc-流控初始化流程the-fc-initialization-sequence">6.4.2
+                流控初始化流程（The FC Initialization
+                Sequence）</a></li>
+                <li><a href="#fc_init1-详细说明fc_init1-details"
+                id="toc-fc_init1-详细说明fc_init1-details">6.4.3
+                FC_Init1 详细说明（FC_Init1 Details）</a></li>
+                <li><a href="#fc_init2-详细说明fc_init2-details"
+                id="toc-fc_init2-详细说明fc_init2-details">6.4.4
+                FC_Init2 详细说明（FC_Init2 Details）</a></li>
+                <li><a
+                href="#fc_init1-和-fc_init2-的传输速率rate-of-fc_init1-and-fc_init2-transmission"
+                id="toc-fc_init1-和-fc_init2-的传输速率rate-of-fc_init1-and-fc_init2-transmission">6.4.5
+                FC_INIT1 和 FC_INIT2 的传输速率（Rate of FC_INIT1 and
+                FC_INIT2 Transmission）</a></li>
+                <li><a href="#流控初始化协议违例"
+                id="toc-流控初始化协议违例">6.4.6
+                流控初始化协议违例</a></li>
+                </ul></li>
+                <li><a
+                href="#流控机制的介绍introduction-to-flow-control-mechanism"
+                id="toc-流控机制的介绍introduction-to-flow-control-mechanism">6.5
+                流控机制的介绍（Introduction to Flow Control
+                Mechanism）</a>
+                <ul>
+                <li><a href="#整体说明general-1"
+                id="toc-整体说明general-1">6.5.1
+                整体说明（General）</a></li>
+                <li><a href="#流控相关元素the-flow-control-elements"
+                id="toc-流控相关元素the-flow-control-elements">6.5.2
+                流控相关元素（The Flow Control Elements）</a></li>
+                </ul></li>
+                <li><a href="#流控示例flow-control-example"
+                id="toc-流控示例flow-control-example">6.6 流控示例（Flow
+                Control Example）</a>
+                <ul>
+                <li><a
+                href="#阶段一初始化后的流控flow-control-following-initialization"
+                id="toc-阶段一初始化后的流控flow-control-following-initialization">6.6.1
+                阶段一——初始化后的流控（Flow Control Following
+                Initialization）</a></li>
+                <li><a
+                href="#阶段二流控-buffer-已满flow-control-buffer-fills-up"
+                id="toc-阶段二流控-buffer-已满flow-control-buffer-fills-up">6.6.2
+                阶段二——流控 Buffer 已满（Flow Control Buffer Fills
+                Up）</a></li>
+                <li><a href="#阶段三计数器翻转为-0counters-roll-over"
+                id="toc-阶段三计数器翻转为-0counters-roll-over">6.6.3
+                阶段三——计数器翻转为 0（Counters Roll Over）</a></li>
+                <li><a
+                href="#阶段四流控-buffer-溢出错误检查fc-buffer-overflow-error-check"
+                id="toc-阶段四流控-buffer-溢出错误检查fc-buffer-overflow-error-check">6.6.4
+                阶段四——流控 Buffer 溢出错误检查（FC Buffer Overflow
+                Error Check）</a></li>
+                </ul></li>
+                <li><a href="#流控更新flow-control-update"
+                id="toc-流控更新flow-control-update">6.7 流控更新（Flow
+                Control Update）</a>
+                <ul>
+                <li><a
+                href="#流控更新-dllp-格式和内容fc_update-dllp-format-and-content"
+                id="toc-流控更新-dllp-格式和内容fc_update-dllp-format-and-content">6.7.1
+                流控更新 DLLP 格式和内容（FC_Update DLLP Format and
+                Content）</a></li>
+                <li><a href="#流控更新频率flow-control-update-frequency"
+                id="toc-流控更新频率flow-control-update-frequency">6.7.2
+                流控更新频率（Flow Control Update Frequency）</a></li>
+                <li><a
+                href="#错误检测计时器一个软要求error-detection-timera-pseudo-requirement"
+                id="toc-错误检测计时器一个软要求error-detection-timera-pseudo-requirement">6.7.3
+                错误检测计时器——一个软要求（Error Detection Timer——A
+                Pseudo Requirement）</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#流量控制flow-control"
-            id="toc-流量控制flow-control">6 流量控制（Flow Control）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#流量控制概念flow-control-concept"
-            id="toc-流量控制概念flow-control-concept">6.1
-            流量控制概念（Flow Control Concept）</a></li>
-            <li><a
-            href="#流量控制-buffer-和-creditflow-control-buffer-and-credits"
-            id="toc-流量控制-buffer-和-creditflow-control-buffer-and-credits">6.2
-            流量控制 Buffer 和 Credit（Flow Control Buffer and
-            Credits）</a></li>
-            <li><a
-            href="#初始流量控制通告initial-flow-control-advertisement"
-            id="toc-初始流量控制通告initial-flow-control-advertisement">6.3
-            初始流量控制通告（Initial Flow Control
-            Advertisement）</a></li>
-            <li><a href="#流量控制初始化flow-control-initialization"
-            id="toc-流量控制初始化flow-control-initialization">6.4
-            流量控制初始化（Flow Control Initialization）</a></li>
-            <li><a
-            href="#流控机制的介绍introduction-to-flow-control-mechanism"
-            id="toc-流控机制的介绍introduction-to-flow-control-mechanism">6.5
-            流控机制的介绍（Introduction to Flow Control
-            Mechanism）</a></li>
-            <li><a href="#流控示例flow-control-example"
-            id="toc-流控示例flow-control-example">6.6 流控示例（Flow
-            Control Example）</a></li>
-            <li><a href="#流控更新flow-control-update"
-            id="toc-流控更新flow-control-update">6.7 流控更新（Flow
-            Control Update）</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#流量控制flow-control"
+                id="toc-流量控制flow-control">6 流量控制（Flow
+                Control）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#流量控制概念flow-control-concept"
+                id="toc-流量控制概念flow-control-concept">6.1
+                流量控制概念（Flow Control Concept）</a></li>
+                <li><a
+                href="#流量控制-buffer-和-creditflow-control-buffer-and-credits"
+                id="toc-流量控制-buffer-和-creditflow-control-buffer-and-credits">6.2
+                流量控制 Buffer 和 Credit（Flow Control Buffer and
+                Credits）</a>
+                <ul>
+                <li><a
+                href="#vc-流量控制-buffer-的组成vc-flow-control-buffer-organization"
+                id="toc-vc-流量控制-buffer-的组成vc-flow-control-buffer-organization">6.2.1
+                VC 流量控制 Buffer 的组成（VC Flow Control Buffer
+                Organization）</a></li>
+                <li><a href="#流控-creditflow-control-credits"
+                id="toc-流控-creditflow-control-credits">6.2.2 流控
+                Credit（Flow Control Credits）</a></li>
+                </ul></li>
+                <li><a
+                href="#初始流量控制通告initial-flow-control-advertisement"
+                id="toc-初始流量控制通告initial-flow-control-advertisement">6.3
+                初始流量控制通告（Initial Flow Control
+                Advertisement）</a>
+                <ul>
+                <li><a
+                href="#流控通告的最大值和最小值minimum-and-maximum-flow-control-advertisement"
+                id="toc-流控通告的最大值和最小值minimum-and-maximum-flow-control-advertisement">6.3.1
+                流控通告的最大值和最小值（Minimum and Maximum Flow
+                Control Advertisement）</a></li>
+                <li><a href="#无限-creditinfinite-credits"
+                id="toc-无限-creditinfinite-credits">6.3.2 无限
+                Credit（Infinite Credits）</a></li>
+                <li><a href="#无限-credit-通告的特殊用法"
+                id="toc-无限-credit-通告的特殊用法">6.3.3 无限 Credit
+                通告的特殊用法</a></li>
+                </ul></li>
+                <li><a href="#流量控制初始化flow-control-initialization"
+                id="toc-流量控制初始化flow-control-initialization">6.4
+                流量控制初始化（Flow Control Initialization）</a>
+                <ul>
+                <li><a href="#整体说明general"
+                id="toc-整体说明general">6.4.1
+                整体说明（General）</a></li>
+                <li><a
+                href="#流控初始化流程the-fc-initialization-sequence"
+                id="toc-流控初始化流程the-fc-initialization-sequence">6.4.2
+                流控初始化流程（The FC Initialization
+                Sequence）</a></li>
+                <li><a href="#fc_init1-详细说明fc_init1-details"
+                id="toc-fc_init1-详细说明fc_init1-details">6.4.3
+                FC_Init1 详细说明（FC_Init1 Details）</a></li>
+                <li><a href="#fc_init2-详细说明fc_init2-details"
+                id="toc-fc_init2-详细说明fc_init2-details">6.4.4
+                FC_Init2 详细说明（FC_Init2 Details）</a></li>
+                <li><a
+                href="#fc_init1-和-fc_init2-的传输速率rate-of-fc_init1-and-fc_init2-transmission"
+                id="toc-fc_init1-和-fc_init2-的传输速率rate-of-fc_init1-and-fc_init2-transmission">6.4.5
+                FC_INIT1 和 FC_INIT2 的传输速率（Rate of FC_INIT1 and
+                FC_INIT2 Transmission）</a></li>
+                <li><a href="#流控初始化协议违例"
+                id="toc-流控初始化协议违例">6.4.6
+                流控初始化协议违例</a></li>
+                </ul></li>
+                <li><a
+                href="#流控机制的介绍introduction-to-flow-control-mechanism"
+                id="toc-流控机制的介绍introduction-to-flow-control-mechanism">6.5
+                流控机制的介绍（Introduction to Flow Control
+                Mechanism）</a>
+                <ul>
+                <li><a href="#整体说明general-1"
+                id="toc-整体说明general-1">6.5.1
+                整体说明（General）</a></li>
+                <li><a href="#流控相关元素the-flow-control-elements"
+                id="toc-流控相关元素the-flow-control-elements">6.5.2
+                流控相关元素（The Flow Control Elements）</a></li>
+                </ul></li>
+                <li><a href="#流控示例flow-control-example"
+                id="toc-流控示例flow-control-example">6.6 流控示例（Flow
+                Control Example）</a>
+                <ul>
+                <li><a
+                href="#阶段一初始化后的流控flow-control-following-initialization"
+                id="toc-阶段一初始化后的流控flow-control-following-initialization">6.6.1
+                阶段一——初始化后的流控（Flow Control Following
+                Initialization）</a></li>
+                <li><a
+                href="#阶段二流控-buffer-已满flow-control-buffer-fills-up"
+                id="toc-阶段二流控-buffer-已满flow-control-buffer-fills-up">6.6.2
+                阶段二——流控 Buffer 已满（Flow Control Buffer Fills
+                Up）</a></li>
+                <li><a href="#阶段三计数器翻转为-0counters-roll-over"
+                id="toc-阶段三计数器翻转为-0counters-roll-over">6.6.3
+                阶段三——计数器翻转为 0（Counters Roll Over）</a></li>
+                <li><a
+                href="#阶段四流控-buffer-溢出错误检查fc-buffer-overflow-error-check"
+                id="toc-阶段四流控-buffer-溢出错误检查fc-buffer-overflow-error-check">6.6.4
+                阶段四——流控 Buffer 溢出错误检查（FC Buffer Overflow
+                Error Check）</a></li>
+                </ul></li>
+                <li><a href="#流控更新flow-control-update"
+                id="toc-流控更新flow-control-update">6.7 流控更新（Flow
+                Control Update）</a>
+                <ul>
+                <li><a
+                href="#流控更新-dllp-格式和内容fc_update-dllp-format-and-content"
+                id="toc-流控更新-dllp-格式和内容fc_update-dllp-format-and-content">6.7.1
+                流控更新 DLLP 格式和内容（FC_Update DLLP Format and
+                Content）</a></li>
+                <li><a href="#流控更新频率flow-control-update-frequency"
+                id="toc-流控更新频率flow-control-update-frequency">6.7.2
+                流控更新频率（Flow Control Update Frequency）</a></li>
+                <li><a
+                href="#错误检测计时器一个软要求error-detection-timera-pseudo-requirement"
+                id="toc-错误检测计时器一个软要求error-detection-timera-pseudo-requirement">6.7.3
+                错误检测计时器——一个软要求（Error Detection Timer——A
+                Pseudo Requirement）</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="流量控制flow-control">6 流量控制（Flow Control）</h2>
@@ -134,13 +395,13 @@
         的发送操作就会被阻塞直至获知的更多的足够的流量控制
         credit。</p></li>
         </ul>
+        <p>图 6‑1 流量控制逻辑所处的位置</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image258-16402718651011.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑1 流量控制逻辑所处的位置</p>
         <h3
         id="流量控制-buffer-和-creditflow-control-buffer-and-credits">6.2
         流量控制 Buffer 和 Credit（Flow Control Buffer and
@@ -165,13 +426,13 @@
         <p>除此之外，每个既有 Header 也有数据荷载的事务类别，都会被分成
         Header 和数据两部分。这将产出 6 种不同的 Buffer，每个 Buffer
         都实现自己的流控。（见图 6‑2）。</p>
+        <p>图 6‑2 流控 Buffer 组成</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image260.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑2 流控 Buffer 组成</p>
         <p>对于有些事务，例如读请求，它只由 Header
         组成，而像写请求就既有 Header 也有数据荷载。发送者必须确认
         Header 的 Buffer 空间和数据荷载的 Buffer
@@ -212,6 +473,7 @@
         数量的最小值，表 6‑1 列出了这些 Buffer 类型对应的 Credit
         最小值。然而，设备一般通告的 Credit 数量会远大于最小值，表 6‑2
         列出了协议所允许的 Credit 数量通告的最大值。</p>
+        <p>表 6‑1 流控通告最小值</p>
         <table>
         <colgroup>
         <col style="width: 50%" />
@@ -264,7 +526,7 @@
         </tr>
         </tbody>
         </table>
-        <p>表 6‑1 流控通告最小值</p>
+        <p>表 6‑2 流控通告最大值</p>
         <table>
         <colgroup>
         <col style="width: 50%" />
@@ -320,7 +582,6 @@
         </tr>
         </tbody>
         </table>
-        <p>表 6‑2 流控通告最大值</p>
         <h4 id="无限-creditinfinite-credits">6.3.2 无限 Credit（Infinite
         Credits）</h4>
         <p>可以注意到，如果流控 Credit 值为
@@ -350,13 +611,13 @@
         是不能在链路上进行发送的。流控初始化会发生于系统中的每一个链路，其过程主要为链路两端设备之间的一次握手。这一过程会在物理层的链路训练（link
         training）完成后就开始进行。链路层观察 LinkUp
         信号是否有效，获知物理层何时处于 Ready 状态，如图 6‑3 所示。</p>
+        <p>图 6‑3 物理层报告自己已经 Ready</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image262.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑3 物理层报告自己已经 Ready</p>
         <p>一旦流量控制初始化开始，那么这个过程从根本上来说在各个虚拟通道（VC）上都是一样的，当一个
         VC 被启用时，硬件就负责控制它的流量控制初始化过程。VC0
         默认总是启用，因此它的初始化过程是自动的。这使得配置事务可以遍历整个拓扑结构，并进行枚举过程。其他的
@@ -375,13 +636,13 @@
         Ready 状态。当物理层 Ready 后，将会使得 DLCMSM 跳转至 DL_Init
         状态，它包含两级子状态用于处理流控初始化：FC_INIT1 和
         FC_INIT2。</p>
+        <p>图 6‑4 DLCMSM 数据链路控制与管理状态机</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image264.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑4 DLCMSM 数据链路控制与管理状态机</p>
         <h4 id="fc_init1-详细说明fc_init1-details">6.4.3 FC_Init1
         详细说明（FC_Init1 Details）</h4>
         <p>在 FC_Init1 状态中，设备会连续的发送一系列的 3 种 InitFC1
@@ -399,20 +660,20 @@
         状态了。要进行跳出的操作，设备需要将接收到的值记录在传输计数器（transmit
         counter）中，置起一个内部的 flag 信号（FL1），然后就可以跳转到
         FC_INIT2 状态来进行初始化操作中的第二步。</p>
+        <p>图 6‑5 INIT1 流控 DLLP 格式及内容</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image266.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑5 INIT1 流控 DLLP 格式及内容</p>
+        <p>图 6‑6 设备在 DL_Init 状态下发送 InitFC1 DLLP</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image268.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑6 设备在 DL_Init 状态下发送 InitFC1 DLLP</p>
         <h4 id="fc_init2-详细说明fc_init2-details">6.4.4 FC_Init2
         详细说明（FC_Init2 Details）</h4>
         <p>在 FC_Init2 这个状态中，设备需要连续的发送 InitFC2 DLLP。发送
@@ -436,13 +697,13 @@
         之后被置起的。当链路两端的设备都完成了这些步骤并且都发送出了
         InitFC2 DLLP 之后，DLCMSM 将会跳转至 DL_Active
         状态，链路层初始化完成。</p>
+        <p>图 6‑7 FC 值已经寄存-接下来发送 InitFC2 并报告 DL_Up</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image270.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑7 FC 值已经寄存-接下来发送 InitFC2 并报告 DL_Up</p>
         <h4
         id="fc_init1-和-fc_init2-的传输速率rate-of-fc_init1-and-fc_init2-transmission">6.4.5
         FC_INIT1 和 FC_INIT2 的传输速率（Rate of FC_INIT1 and FC_INIT2
@@ -477,20 +738,20 @@
         <p>与管理流控相关的最后一个元素是流控更新 DLLP（Flow Control
         Update），它也是在链路正常传输期间唯一可使用的流控包。FC Update
         包的格式如图 6‑9 所示</p>
+        <p>图 6‑8 流控元素</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image272.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑8 流控元素</p>
+        <p>图 6‑9 流控 DLLP 的类型和包格式</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image276.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑9 流控 DLLP 的类型和包格式</p>
         <h5 id="发送方流控元素transmitter-elements">6.5.2.1
         发送方流控元素（Transmitter Elements）</h5>
         <ul>
@@ -585,13 +846,13 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
+        <p>图 6‑10 初始化后的流控元素</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image282.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑10 初始化后的流控元素</p>
         <p>在本例中，将当前 CREDITS_CONSUMED 计数值（CC）加上 PTLP
         所需的 Credit（Header 需要 1 Credit，也就是 PTLP 所需的 Credit
         数量=01h），以此来确定 CREDITS_REQUIRED（CR），也就是
@@ -632,13 +893,13 @@
         128，满足此条件我们就认为接收 Buffer
         有足够的空间，可以发送当前的数据包。这其中只使用一半的计数器值的做法可以避免潜在的计数错误的问题，参阅“Stage3—Counter
         Roll Over”一节。</p>
+        <p>图 6‑11 第一个 TLP 发送后的流控元素</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image290.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑11 第一个 TLP 发送后的流控元素</p>
         <h4
         id="阶段二流控-buffer-已满flow-control-buffer-fills-up">6.6.2
         阶段二——流控 Buffer 已满（Flow Control Buffer Fills Up）</h4>
@@ -671,13 +932,13 @@
         <p>00h&lt;=80h 成立，可以发送数据包。这里之所以 CREDIT_LIMIT
         值加 1 就够用是因为我们是使用 Non-Posted Header 流控
         Buffer，Header 只占 1 个 Credit。</p>
+        <p>图 6‑12 流控 Buffer 填满后的流控元素</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image296.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑12 流控 Buffer 填满后的流控元素</p>
         <h4 id="阶段三计数器翻转为-0counters-roll-over">6.6.3
         阶段三——计数器翻转为 0（Counters Roll Over）</h4>
         <p>由于 Credit Limit（CL）和 Credit
@@ -688,13 +949,13 @@
         2 的补码进行减法运算时，是可以得到正确的处理结果的。图 6‑13
         展示了 CL 翻转前后，CL 与 CR 的值，以及 CL-CR 的 2
         的补码减法运算结果。</p>
+        <p>图 6‑13 流控计数器翻转问题</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image298.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑13 流控计数器翻转问题</p>
         <h4
         id="阶段四流控-buffer-溢出错误检查fc-buffer-overflow-error-check">6.6.4
         阶段四——流控 Buffer 溢出错误检查（FC Buffer Overflow Error
@@ -725,13 +986,13 @@
         数量已经超过了可用的数量，也就是说发生了溢出。注意在 PCIe 1.0a
         版本中定义的公式中使用的是≥而不是＞。这是一个错误，因为
         CA=CR（Credits Received）时并没有发生溢出。</p>
+        <p>图 6‑14 Buffer 溢出错误检查</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image302.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑14 Buffer 溢出错误检查</p>
         <h3 id="流控更新flow-control-update">6.7 流控更新（Flow Control
         Update）</h3>
         <p>当接收方的 Buffer 内有事务被移除时，也就说明这一部分 Buffer
@@ -757,13 +1018,13 @@
         依然可以完成计数值的同步更新。虽然这种情况有时会浪费一些时间，比如发送方需要在一个
         DLLP 发送失败时等待下一个 DLLP 来更新流控
         Credit，但是并不会有信息的丢失出现。</p>
+        <p>图 6‑15 流控更新示例</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image304.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑15 流控更新示例</p>
         <h4
         id="流控更新-dllp-格式和内容fc_update-dllp-format-and-content">6.7.1
         流控更新 DLLP 格式和内容（FC_Update DLLP Format and
@@ -772,28 +1033,28 @@
         字段，一个是 Header Credit 字段，一个是 Data Credit 字段，如图
         6‑16 所示。接收方报告在 HdrFC 和 DataFC 字段的 Credit
         值可能已经更新了很多次，也有可能自从上次发送更新包后就没有变过。</p>
+        <p>图 6‑16 流控更新包的格式和内容</p>
         <figure>
         <img
         src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image306.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 6‑16 流控更新包的格式和内容</p>
         <h4 id="流控更新频率flow-control-update-frequency">6.7.2
         流控更新频率（Flow Control Update Frequency）</h4>
         <p>针对流控更新 DLLP
         应该如何发送，协议规范定义了各种规则以及建议的实现方式。它们是为了：</p>
         <ul>
-        <li><p>尽可能早的将最新的
-        CREDITS_ALLOCATED（CA）告知给发送方，特别是当有事务已经被阻塞的时候。</p></li>
-        <li><p>确立 FC 包之间的延时最坏情况。</p></li>
-        <li><p>平衡各相关的流控操作的需求，例如：</p></li>
-        </ul>
-        <p>— 需要足够频繁的报告 Credit 信息，以此来避免事务阻塞</p>
-        <p>— 希望减少流控更新 DLLP 所需要的链路带宽</p>
-        <p>— 选择最优的 Buffer 大小</p>
-        <p>— 选择最大的数据荷载大小</p>
+        <li>尽可能早的将最新的
+        CREDITS_ALLOCATED（CA）告知给发送方，特别是当有事务已经被阻塞的时候。</li>
+        <li>确立 FC 包之间的延时最坏情况。</li>
+        <li>平衡各相关的流控操作的需求，例如：
         <ul>
+        <li>需要足够频繁的报告 Credit 信息，以此来避免事务阻塞</li>
+        <li>希望减少流控更新 DLLP 所需要的链路带宽</li>
+        <li>选择最优的 Buffer 大小</li>
+        <li>选择最大的数据荷载大小</li>
+        </ul></li>
         <li>检测流控包之间关于最大时延的违例情况。</li>
         </ul>
         <p>流控更新仅在链路处于活跃状态（active state，L0 or
@@ -864,17 +1125,11 @@
         L0s
         电源管理状态时相关的延时（<strong>译注</strong>：前面提到过仅在
         active 状态才可以使用流控更新）。</p>
-        <figure>
-        <img
-        src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image310.jpg"
-        alt="img" />
-        <figcaption aria-hidden="true">img</figcaption>
-        </figure>
         <p>表 6‑3 PCIe Gen1 原生未调整的 AckNak_LATENCY_TIMER 值（单位为
         Symbol time）</p>
         <figure>
         <img
-        src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image312.jpg"
+        src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image310.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
@@ -882,12 +1137,18 @@
         Symbol time）</p>
         <figure>
         <img
-        src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image314.jpg"
+        src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image312.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
         <p>表 6‑5 PCIe Gen3 原生未调整的 AckNak_LATENCY_TIMER 值（单位为
         Symbol time）</p>
+        <figure>
+        <img
+        src="img/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/clip_image314.jpg"
+        alt="img" />
+        <figcaption aria-hidden="true">img</figcaption>
+        </figure>
         <blockquote>
         <p><strong>译注</strong>：译者对上面三个表格进行举例说明，选取
         PCIe Gen1，Max Payload=256，x2
@@ -925,22 +1186,16 @@
         LTSSM（链路训练和状态状态机，Link Training and Status State
         Machine）的恢复状态（Recovery State）。</p></li>
         </ul>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： Michael ZZY</p>
-        <p>校对： LJGibbs</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="5 TLP 元素.html">← 第 5 章 TLP 元素</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -953,17 +1208,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

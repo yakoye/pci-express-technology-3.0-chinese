@@ -8,64 +8,294 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="12 物理层-逻辑(gen3).html">← 第 12 章 物理层-逻辑（Gen3）</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="12 物理层-逻辑(gen3).html">← 第 12 章 物理层-逻辑（Gen3）</a>
+          </div>
+
+    <div class="topbar-title">
       第 13 章 物理层-电气特性
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="14 链路初始化与训练.html">第 14 章 链路初始化与训练 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="14 链路初始化与训练.html">第 14 章 链路初始化与训练 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 13 章 物理层-电气特性
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 13 章 物理层-电气特性</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="12 物理层-逻辑(gen3).html">← 第 12 章 物理层-逻辑（Gen3）</a>
+      
+            <a class="drawer-link" href="14 链路初始化与训练.html">第 14 章 链路初始化与训练 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#物理层---电气特性physical-layer---electrical"
+                id="toc-物理层---电气特性physical-layer---electrical">13
+                物理层 - 电气特性（Physical Layer - Electrical）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#向后兼容性" id="toc-向后兼容性">13.1
+                向后兼容性</a></li>
+                <li><a href="#组件接口" id="toc-组件接口">13.2
+                组件接口</a></li>
+                <li><a href="#物理层电气概述"
+                id="toc-物理层电气概述">13.3 物理层电气概述</a></li>
+                <li><a href="#高速信号传输" id="toc-高速信号传输">13.4
+                高速信号传输</a></li>
+                <li><a href="#时钟要求" id="toc-时钟要求">13.5
+                时钟要求</a>
+                <ul>
+                <li><a href="#通用" id="toc-通用">13.5.1 通用</a></li>
+                <li><a href="#ssc扩频时钟" id="toc-ssc扩频时钟">13.5.2
+                SSC（扩频时钟）</a></li>
+                <li><a href="#参考时钟概述" id="toc-参考时钟概述">13.5.3
+                参考时钟概述</a></li>
+                <li><a href="#gts" id="toc-gts">13.5.3.1 2.5
+                GT/s</a></li>
+                <li><a href="#gts-1" id="toc-gts-1">13.5.3.2 5.0
+                GT/s</a></li>
+                <li><a href="#gts-2" id="toc-gts-2">13.5.3.3 8.0
+                GT/s</a></li>
+                </ul></li>
+                <li><a href="#发送器tx规格" id="toc-发送器tx规格">13.6
+                发送器（Tx）规格</a>
+                <ul>
+                <li><a href="#测量-tx-信号" id="toc-测量-tx-信号">13.6.1
+                测量 Tx 信号</a></li>
+                <li><a href="#发送器阻抗要求"
+                id="toc-发送器阻抗要求">13.6.2 发送器阻抗要求</a></li>
+                <li><a href="#静电放电与短路要求"
+                id="toc-静电放电与短路要求">13.6.3
+                静电放电与短路要求</a></li>
+                <li><a href="#接收器检测" id="toc-接收器检测">13.6.4
+                接收器检测</a></li>
+                <li><a href="#发送器电压" id="toc-发送器电压">13.6.5
+                发送器电压</a></li>
+                </ul></li>
+                <li><a href="#接收器rx规格" id="toc-接收器rx规格">13.7
+                接收器（Rx）规格</a>
+                <ul>
+                <li><a href="#接收器阻抗" id="toc-接收器阻抗">13.7.1
+                接收器阻抗</a></li>
+                <li><a href="#接收器直流共模电压"
+                id="toc-接收器直流共模电压">13.7.2
+                接收器直流共模电压</a></li>
+                <li><a href="#传输损耗" id="toc-传输损耗">13.7.3
+                传输损耗</a></li>
+                <li><a href="#交流耦合" id="toc-交流耦合">13.7.4
+                交流耦合</a></li>
+                </ul></li>
+                <li><a href="#信号补偿" id="toc-信号补偿">13.8
+                信号补偿</a>
+                <ul>
+                <li><a href="#与-gen1-和-gen2-pcie-相关的去加重"
+                id="toc-与-gen1-和-gen2-pcie-相关的去加重">13.8.1 与
+                Gen1 和 Gen2 PCIe 相关的去加重</a></li>
+                <li><a href="#gts-解决方案发送器均衡"
+                id="toc-gts-解决方案发送器均衡">13.8.2 8.0 GT/s
+                解决方案——发送器均衡</a></li>
+                <li><a href="#信标信号" id="toc-信标信号">13.8.3
+                信标信号</a></li>
+                <li><a href="#通用-2" id="toc-通用-2">13.8.3.1
+                通用</a></li>
+                <li><a href="#信标信号的特性"
+                id="toc-信标信号的特性">13.8.3.2 信标信号的特性</a></li>
+                </ul></li>
+                <li><a href="#眼图" id="toc-眼图">13.9 眼图</a>
+                <ul>
+                <li><a href="#抖动噪声与信号衰减"
+                id="toc-抖动噪声与信号衰减">13.9.1
+                抖动、噪声与信号衰减</a></li>
+                <li><a href="#眼图测试" id="toc-眼图测试">13.9.2
+                眼图测试</a></li>
+                <li><a href="#正常眼图" id="toc-正常眼图">13.9.3
+                正常眼图</a></li>
+                <li><a href="#抖动的影响" id="toc-抖动的影响">13.9.4
+                抖动的影响</a></li>
+                </ul></li>
+                <li><a href="#发送器驱动特性"
+                id="toc-发送器驱动特性">13.10 发送器驱动特性</a></li>
+                <li><a href="#接收器特性" id="toc-接收器特性">13.11
+                接收器特性</a>
+                <ul>
+                <li><a href="#压力眼图测试"
+                id="toc-压力眼图测试">13.11.1 压力眼图测试</a></li>
+                <li><a href="#接收端rx均衡"
+                id="toc-接收端rx均衡">13.11.2 接收端（Rx）均衡</a></li>
+                <li><a href="#连续时间线性均衡ctle"
+                id="toc-连续时间线性均衡ctle">13.11.2.1
+                连续时间线性均衡（CTLE）</a></li>
+                <li><a href="#决策反馈均衡dfe"
+                id="toc-决策反馈均衡dfe">13.13.2.2
+                决策反馈均衡（DFE）</a></li>
+                </ul></li>
+                <li><a href="#接收器特性-1" id="toc-接收器特性-1">13.12
+                接收器特性</a></li>
+                <li><a href="#链路电源管理状态"
+                id="toc-链路电源管理状态">13.13
+                链路电源管理状态</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#物理层---电气特性physical-layer---electrical"
-            id="toc-物理层---电气特性physical-layer---electrical">13
-            物理层 - 电气特性（Physical Layer - Electrical）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#向后兼容性" id="toc-向后兼容性">13.1
-            向后兼容性</a></li>
-            <li><a href="#组件接口" id="toc-组件接口">13.2
-            组件接口</a></li>
-            <li><a href="#物理层电气概述" id="toc-物理层电气概述">13.3
-            物理层电气概述</a></li>
-            <li><a href="#高速信号传输" id="toc-高速信号传输">13.4
-            高速信号传输</a></li>
-            <li><a href="#时钟要求" id="toc-时钟要求">13.5
-            时钟要求</a></li>
-            <li><a href="#发送器tx规格" id="toc-发送器tx规格">13.6
-            发送器（Tx）规格</a></li>
-            <li><a href="#接收器rx规格" id="toc-接收器rx规格">13.7
-            接收器（Rx）规格</a></li>
-            <li><a href="#信号补偿" id="toc-信号补偿">13.8
-            信号补偿</a></li>
-            <li><a href="#眼图" id="toc-眼图">13.9 眼图</a></li>
-            <li><a href="#发送器驱动特性" id="toc-发送器驱动特性">13.10
-            发送器驱动特性</a></li>
-            <li><a href="#接收器特性" id="toc-接收器特性">13.11
-            接收器特性</a></li>
-            <li><a href="#接收器特性-1" id="toc-接收器特性-1">13.12
-            接收器特性</a></li>
-            <li><a href="#链路电源管理状态"
-            id="toc-链路电源管理状态">13.13 链路电源管理状态</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#物理层---电气特性physical-layer---electrical"
+                id="toc-物理层---电气特性physical-layer---electrical">13
+                物理层 - 电气特性（Physical Layer - Electrical）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#向后兼容性" id="toc-向后兼容性">13.1
+                向后兼容性</a></li>
+                <li><a href="#组件接口" id="toc-组件接口">13.2
+                组件接口</a></li>
+                <li><a href="#物理层电气概述"
+                id="toc-物理层电气概述">13.3 物理层电气概述</a></li>
+                <li><a href="#高速信号传输" id="toc-高速信号传输">13.4
+                高速信号传输</a></li>
+                <li><a href="#时钟要求" id="toc-时钟要求">13.5
+                时钟要求</a>
+                <ul>
+                <li><a href="#通用" id="toc-通用">13.5.1 通用</a></li>
+                <li><a href="#ssc扩频时钟" id="toc-ssc扩频时钟">13.5.2
+                SSC（扩频时钟）</a></li>
+                <li><a href="#参考时钟概述" id="toc-参考时钟概述">13.5.3
+                参考时钟概述</a></li>
+                <li><a href="#gts" id="toc-gts">13.5.3.1 2.5
+                GT/s</a></li>
+                <li><a href="#gts-1" id="toc-gts-1">13.5.3.2 5.0
+                GT/s</a></li>
+                <li><a href="#gts-2" id="toc-gts-2">13.5.3.3 8.0
+                GT/s</a></li>
+                </ul></li>
+                <li><a href="#发送器tx规格" id="toc-发送器tx规格">13.6
+                发送器（Tx）规格</a>
+                <ul>
+                <li><a href="#测量-tx-信号" id="toc-测量-tx-信号">13.6.1
+                测量 Tx 信号</a></li>
+                <li><a href="#发送器阻抗要求"
+                id="toc-发送器阻抗要求">13.6.2 发送器阻抗要求</a></li>
+                <li><a href="#静电放电与短路要求"
+                id="toc-静电放电与短路要求">13.6.3
+                静电放电与短路要求</a></li>
+                <li><a href="#接收器检测" id="toc-接收器检测">13.6.4
+                接收器检测</a></li>
+                <li><a href="#发送器电压" id="toc-发送器电压">13.6.5
+                发送器电压</a></li>
+                </ul></li>
+                <li><a href="#接收器rx规格" id="toc-接收器rx规格">13.7
+                接收器（Rx）规格</a>
+                <ul>
+                <li><a href="#接收器阻抗" id="toc-接收器阻抗">13.7.1
+                接收器阻抗</a></li>
+                <li><a href="#接收器直流共模电压"
+                id="toc-接收器直流共模电压">13.7.2
+                接收器直流共模电压</a></li>
+                <li><a href="#传输损耗" id="toc-传输损耗">13.7.3
+                传输损耗</a></li>
+                <li><a href="#交流耦合" id="toc-交流耦合">13.7.4
+                交流耦合</a></li>
+                </ul></li>
+                <li><a href="#信号补偿" id="toc-信号补偿">13.8
+                信号补偿</a>
+                <ul>
+                <li><a href="#与-gen1-和-gen2-pcie-相关的去加重"
+                id="toc-与-gen1-和-gen2-pcie-相关的去加重">13.8.1 与
+                Gen1 和 Gen2 PCIe 相关的去加重</a></li>
+                <li><a href="#gts-解决方案发送器均衡"
+                id="toc-gts-解决方案发送器均衡">13.8.2 8.0 GT/s
+                解决方案——发送器均衡</a></li>
+                <li><a href="#信标信号" id="toc-信标信号">13.8.3
+                信标信号</a></li>
+                <li><a href="#通用-2" id="toc-通用-2">13.8.3.1
+                通用</a></li>
+                <li><a href="#信标信号的特性"
+                id="toc-信标信号的特性">13.8.3.2 信标信号的特性</a></li>
+                </ul></li>
+                <li><a href="#眼图" id="toc-眼图">13.9 眼图</a>
+                <ul>
+                <li><a href="#抖动噪声与信号衰减"
+                id="toc-抖动噪声与信号衰减">13.9.1
+                抖动、噪声与信号衰减</a></li>
+                <li><a href="#眼图测试" id="toc-眼图测试">13.9.2
+                眼图测试</a></li>
+                <li><a href="#正常眼图" id="toc-正常眼图">13.9.3
+                正常眼图</a></li>
+                <li><a href="#抖动的影响" id="toc-抖动的影响">13.9.4
+                抖动的影响</a></li>
+                </ul></li>
+                <li><a href="#发送器驱动特性"
+                id="toc-发送器驱动特性">13.10 发送器驱动特性</a></li>
+                <li><a href="#接收器特性" id="toc-接收器特性">13.11
+                接收器特性</a>
+                <ul>
+                <li><a href="#压力眼图测试"
+                id="toc-压力眼图测试">13.11.1 压力眼图测试</a></li>
+                <li><a href="#接收端rx均衡"
+                id="toc-接收端rx均衡">13.11.2 接收端（Rx）均衡</a></li>
+                <li><a href="#连续时间线性均衡ctle"
+                id="toc-连续时间线性均衡ctle">13.11.2.1
+                连续时间线性均衡（CTLE）</a></li>
+                <li><a href="#决策反馈均衡dfe"
+                id="toc-决策反馈均衡dfe">13.13.2.2
+                决策反馈均衡（DFE）</a></li>
+                </ul></li>
+                <li><a href="#接收器特性-1" id="toc-接收器特性-1">13.12
+                接收器特性</a></li>
+                <li><a href="#链路电源管理状态"
+                id="toc-链路电源管理状态">13.13
+                链路电源管理状态</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="物理层---电气特性physical-layer---electrical">13 物理层
@@ -130,7 +360,7 @@
         <p>与每个通道相关联的电气子模块（如图 13-1 第 450
         页所示）提供了链路的物理接口，并包含差分发送器和接收器。发送器通过将比特流转换为两个极性相反的单端电信号，在每个通道上输出外发符号。接收器对这两个信号进行比较，当差值足够正或足够负时，内部生成
         1 或 0，以向物理层的其余部分表示预期的串行比特流。</p>
-        <p>图 36：图 13-1：物理层的电气子模块</p>
+        <p>图 13-1：物理层的电气子模块</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-094.jpg"
@@ -163,14 +393,14 @@
         电路板和连接器上工作。该目标通过将编码方案从原有的 8b/10b
         改为新的
         128b/130b，以在提升有效带宽的同时保持相对较低的频率来实现。该目标可能会在下一代速率（Gen4）发生变化。</p>
-        <p>图 37：图 13-2：差分发送器/接收器</p>
+        <p>图 13-2：差分发送器/接收器</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-095.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 38：图 13-3：差分共模噪声抑制</p>
+        <p>图 13-3：差分共模噪声抑制</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-096.jpg"
@@ -210,21 +440,21 @@
         偏差限制依然有效。规范指出，尽管非强制要求，但大多数实现方案需要两个链路伙伴使用相同的时钟源。实现方式之一为双方均采用调制版本的
         Refclk 来生成各自时钟（参见第 456 页的“公共 Refclk”章节）。</li>
         </ul>
-        <p>图 39：图 13-4：SSC 动机</p>
+        <p>图 13-4：SSC 动机</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-098.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 40：图 13-5：信号速率低于时钟速率的一半</p>
+        <p>图 13-5：信号速率低于时钟速率的一半</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-098-1778244042299-1.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 41：图 13-6：展频时钟调制示例</p>
+        <p>图 13-6：展频时钟调制示例</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-099.jpg"
@@ -253,7 +483,7 @@
         期间，参考时钟（Refclk）仍然可用，这使得接收端的时钟数据恢复电路（CDR）即使在缺乏提供数据边沿的比特流时，也能维持恢复时钟的某种形态。这进而使得本地锁相环（PLL）的漂移幅度远低于其他情况，从而相比其他时钟方案，能够缩短恢复到
         L0 状态的时间。</li>
         </ul>
-        <p>图 42：图 13-7：共享参考时钟架构</p>
+        <p>图 13-7：共享参考时钟架构</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-100.jpg"
@@ -267,7 +497,7 @@
         ppm）时保持锁定，这可能需要更复杂的逻辑。其次，仍需维持最大 600
         ppm
         的时钟频率偏差，但在缺乏共同参考时钟的情况下，如何实现这一要求尚不明确。</p>
-        <p>图 43：图 13-8：数据时钟接收架构</p>
+        <p>图 13-8：数据时钟接收架构</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-101.jpg"
@@ -279,7 +509,7 @@
         页）所示。然而，这种实现方式对参考时钟提出了更严格的要求，因为接收端看到的抖动将是两者抖动的均方根（RSS）组合，这使得时序预算变得困难。在这种模式下，管理
         SSC 也变得更加复杂，因此规范明确指出在这种情况下必须关闭
         SSC。总体而言，规范给人的印象是这是最不可取的选择，并且声明它没有明确定义这种架构的要求。</p>
-        <p>图 44：图 13-9：分离参考时钟架构</p>
+        <p>图 13-9：分离参考时钟架构</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-101-1778244042300-2.jpg"
@@ -302,7 +532,7 @@
         所示。需要注意的是，必须为被测设备提供低抖动时钟源，以确保输出端观测到的抖动仅由设备自身引入。规范还强调，测试时应尽可能让设备同时使用其多个通道及其他输出，以最佳方式模拟真实系统环境。</p>
         <p>由于引出通道会对信号引入一些影响，因此对于
         而言，必须能够测量这些影响并将其从被测信号中去除（去嵌入）。实现这一目标的方法之一是让测试板提供另一条与器件引脚所用通道非常相似的信号路径。用已知信号表征这条”复制通道”可获取通道所需的特性信息，从而将其对被测器件信号的影响去嵌入，恢复出器件引脚处的原始信号。</p>
-        <p>图 45：图 13-10：测试电路测量通道</p>
+        <p>图 13-10：测试电路测量通道</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-102.jpg"
@@ -360,7 +590,7 @@
         <p>规范中提到了一个潜在问题：正确的负载可能只出现在差分信号之一上，而另一个信号上没有，如果检测未同时检查两者，则可能误判情况。避免此问题的简单方法是对
         D+ 和 D- 均执行检测操作。3.0 规范并未要求这样做。
         但提到未来的规范修订版可能会。因此，在新设计中加入此功能将是明智之举。</p>
-        <p>图 46：图 13-11：接收器检测机制</p>
+        <p>图 13-11：接收器检测机制</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-105.jpg"
@@ -402,7 +632,7 @@
         0，以及电气空闲状态。高频下预期的信号损耗意味着</p>
         <p>接收器必须能够感知信号的衰减版本，该值定义为
         <code>VRX-DIFFp-p</code>（参见第 498 页表 13-5）。</p>
-        <p>图 47：图 13-12：差分信号传输</p>
+        <p>图 13-12：差分信号传输</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-107.jpg"
@@ -432,7 +662,7 @@
         为 1200 mV。对于 2.5 GT/s 和 5.0 GT/s，允许的
         <code>VDIFFp-p</code> 范围为 800 mV 至 1200 mV；对于 8.0
         GT/s，在均衡前为 800 mV 至 1300 mV。</p>
-        <p>图 48：图 13-13：差分峰峰值（）与峰值（）电压</p>
+        <p>图 13-13：差分峰峰值（）与峰值（）电压</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-108.jpg"
@@ -462,7 +692,7 @@
         个等级。这些等级的具体数值未定义，也不要求全部实现。默认值全为
         0，代表正常工作范围。</p>
         <p>需要注意的是，该字段仅用于调试和合规性测试目的，在此期间软件才允许对其进行修改。在其他所有时间，该值必须设置为全零的默认值。</p>
-        <p>图 49：图 13-14：链路控制 2 寄存器中的发送裕量字段</p>
+        <p>图 13-14：链路控制 2 寄存器中的发送裕量字段</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-109.jpg"
@@ -491,7 +721,7 @@
         将采用外置形式，因其体积过大而无法集成。</p>
         <p>第 467 页图 13-15
         中的示意图还展示了接收端一组可选的电阻，标注为“未规定”，因为规范中并未提及。这里的情况是，接收端设计者不喜欢使用零共模电压，原因很简单：这通常需要他们实现两个参考电压，一个高于零，一个低于零。更优的实现方式是将信号完全偏移到零以上或以下，这样只需一个参考电压即可。虚线框内的电路通过添加一个小型串联电容来实现这一目标，该电容将导线上信号的直流分量与接收端自身的直流分量去耦。随后，一个电阻分压器将接收端的共模电压向某一方向偏移，从而达成目标。</p>
-        <p>图 50：图 13-15：接收端直流共模电压调整</p>
+        <p>图 13-15：接收端直流共模电压调整</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-111.jpg"
@@ -536,7 +766,7 @@
         <li>信标信号也采用了去加重处理，但规则略有不同（参见第 483
         页的“信标信号”）。</li>
         </ul>
-        <p>图 51：图 13-16：采用去加重技术的传输</p>
+        <p>图 13-16：采用去加重技术的传输</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-113.jpg"
@@ -560,7 +790,7 @@
         <p>在插图的下面部分，捕获了一个弱化版本的信号并与原始信号进行比较。我们可以看到，降低重复比特的电压可以防止电压过度充电，从而获得更清晰的信号，因为后续比特受前序比特的影响较小。无论是连续
         2 个比特还是连续 5
         个比特的情况，过度充电问题都得到了缓解，从而改善了时序抖动和电压电平。因此，启用去加重后，问题比特的表现显著改善，接收信号在该比特时间内接近正常的电压摆幅。</p>
-        <p>图 52：图 13-17：接收端去加重的优势</p>
+        <p>图 13-17：接收端去加重的优势</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-115.jpg"
@@ -569,7 +799,7 @@
         </figure>
         <p>在第 472 页的图 13-18
         中，展示了差分信号的正负两种版本，以说明由此产生的眼图张开度。去加重带来的信号质量改善显而易见，因为下方轨迹中问题时刻的眼图张开度远大于上方轨迹中未使用去加重的情况。</p>
-        <p>图 53：图 13-18：接收端去加重对差分信号的改善效果</p>
+        <p>图 13-18：接收端去加重对差分信号的改善效果</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-116.jpg"
@@ -590,7 +820,7 @@
         度量相差两倍：3 dB 衰减代表功率变化约 1/2，但仅代表电压变化约
         0.707。</li>
         </ol>
-        <p>图 54：图 13-19：5.0 GT/s 下的去加重选项</p>
+        <p>图 13-19：5.0 GT/s 下的去加重选项</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-117.jpg"
@@ -604,7 +834,7 @@
         13-20 第 474
         页下半部分所示），并将电压摆幅降低约一半以节省功耗。此模式还通过完全关闭去加重功能提供第三种去加重选项，这合乎逻辑——因为如前所述，它产生的信号失真不会因路径损耗而减弱，导致接收端信号质量更差。</li>
         </ol>
-        <p>图 55：图 13-20：5.0 GT/s 无去加重减摆幅选项</p>
+        <p>图 13-20：5.0 GT/s 无去加重减摆幅选项</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-118.jpg"
@@ -632,7 +862,7 @@
         页）所示，可见输出电压是输入信号的三个版本的叠加：原始输入、延迟一个比特时间的版本以及再延迟一个比特时间的第三个版本。此类
         FIR 滤波器常用于 以上的其他 SERDES 应用中，并且对 PCIe
         很有帮助，因为它补偿了信道将信号在更长时间内扩散这一现象。另一种理解方式是，某个比特会受到其前一个比特值以及后一个比特值的影响。</p>
-        <p>图 56：图 13-21：三抽头发送端均衡器</p>
+        <p>图 13-21：三抽头发送端均衡器</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-119.jpg"
@@ -647,7 +877,7 @@
         <p>该滤波器根据分配给每个抽头的系数值（或称抽头权重）对输出进行整形。三个系数幅值的绝对值之和被定义为
         1，因此只需给定其中两个系数，第三个即可计算得出。因此，规格中仅给出
         和，而 始终隐含且恒为正值。</p>
-        <p>图 57：图 13-22：发送端三抽头均衡器对输出脉冲的整形</p>
+        <p>图 13-22：发送端三抽头均衡器对输出脉冲的整形</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-120.jpg"
@@ -676,7 +906,7 @@
         <li>极性变化前的最后一个重复比特使用 Vc，即比最低电压 Vb
         高一级的电压。</li>
         </ul>
-        <p>图 58：图 13-23：8.0 GT/s 发送端电压电平</p>
+        <p>图 13-23：8.0 GT/s 发送端电压电平</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-121.jpg"
@@ -693,7 +923,7 @@
         P4 为例，该预设不使用去加重或
         Pre-shoot（预冲），因此所有电压值均等于最大值，比率均为
         1.000。</p>
-        <p>表 22：表 13-1：带系数和电压比的发送端预设编码</p>
+        <p>表 13-1：带系数和电压比的发送端预设编码</p>
         <table>
         <colgroup>
         <col style="width: 12%" />
@@ -853,7 +1083,7 @@
         9.5。对于减摆幅情况，边界为 3.5 dB。表格左侧和顶部边缘的 6
         个阴影条目（最远至 4/24）是全摆幅或减摆幅信号支持的预设值。其他
         4 个阴影条目仅为全摆幅信号支持的预设值。</p>
-        <p>表 23：表 13-2：发送端系数表</p>
+        <p>表 13-2：发送端系数表</p>
         <table style="width:100%;">
         <colgroup>
         <col style="width: 10%" />
@@ -1009,7 +1239,7 @@
         <p>最后，底部迹线显示了将所有三个输入相加的结果，以得出实际发送到导线上的最终信号。在图中，该信号与第
         477 页图 13-23
         中的单端输出波形叠加，以显示其相当接近真实捕获结果。我们通过之前的示例展示了一些电压计算，以说明最终电压是如何得出的。</p>
-        <p>图 59：图 13-24：发送端 3 抽头均衡器输出</p>
+        <p>图 13-24：发送端 3 抽头均衡器输出</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-126.jpg"
@@ -1037,7 +1267,7 @@
         WAKE#信号。信标信号的示例波形如图 13-25（第 484
         页）所示。该版本展示了差分信号以相反方向脉冲并衰减的过程，类似于闪烁的
         Beacon（信标）灯。Beacon（信标）还有其他可选实现方式，但此示例很好地说明了其概念。</p>
-        <p>图 60：图 13-25：信标信号示例</p>
+        <p>图 13-25：信标信号示例</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-128.jpg"
@@ -1093,7 +1323,7 @@
         <p>理想的迹线捕获应绘制出与第 486 页图 13-26
         中心标注为”正常”的轮廓相匹配的眼图。只要该图案完全位于该区域内，发送器和链路即处于容差范围内。请注意，所示差分电压参数和数值为峰值电压，而非规范中使用的峰峰值电压，因为眼图中只能表示峰值电压。第
         488 页图 13-27 展示了一个良好眼图的屏幕截图。</p>
-        <p>图 61：图 13-26：发送器眼图</p>
+        <p>图 13-26：发送器眼图</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-130.jpg"
@@ -1119,14 +1349,14 @@
         DDj 的一个示例。 第 488 页图 13-28 展示了 2.5 GT/s
         速率下不良眼图的屏幕截图。由于该截图是在未启用去加重的情况下捕获的，所有迹线应保持在最小眼图区域（屏幕上以中间梯形形状显示）之外。此示例说明抖动会影响边沿到达时间和电压电平，导致部分迹线实例侵入眼图的禁止区域。</li>
         </ol>
-        <p>图 62：图 13-27：接收端正常眼图（无去加重）</p>
+        <p>图 13-27：接收端正常眼图（无去加重）</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-132.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 63：图 13-28：接收端不良眼图（无去加重）</p>
+        <p>图 13-28：接收端不良眼图（无去加重）</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-132-1778244042300-3.jpg"
@@ -1137,7 +1367,7 @@
         <p>本页上的表 13-3
         列出了一些发送器驱动特性。此表并非旨在复制规范中的表格，而是提供一些基本参数，以说明不同数据速率之间的差异（例如
         UI），并显示某些参数保持不变（例如发送器共模电压）。</p>
-        <p>表 24：表 13-3：发送器规格</p>
+        <p>表 13-3：发送器规格</p>
         <table>
         <colgroup>
         <col style="width: 8%" />
@@ -1224,7 +1454,7 @@
         </tr>
         </tbody>
         </table>
-        <p>表 25：表 13-3：发送器规格（续）</p>
+        <p>表 13-3：发送器规格（续）</p>
         <table>
         <colgroup>
         <col style="width: 13%" />
@@ -1298,7 +1528,7 @@
         </tr>
         </tbody>
         </table>
-        <p>表 26：表 13-3：发送器规格（续）</p>
+        <p>表 13-3：发送器规格（续）</p>
         <table>
         <colgroup>
         <col style="width: 1%" />
@@ -1347,7 +1577,7 @@
         </tr>
         </tbody>
         </table>
-        <p>表 27：表 13-4：8.0 GT/s 特有参数</p>
+        <p>表 13-4：8.0 GT/s 特有参数</p>
         <table>
         <colgroup>
         <col style="width: 14%" />
@@ -1435,7 +1665,7 @@
         滤波器，与发送器使用的滤波器类似，通过波形整形来补偿信道失真。其不同之处在于，前端采用采样保持（S&amp;H）电路，将模拟输入电压在采样值上保持一段时间，而非让其持续变化。规范中未提及
         DLE，原因可能包括其相比 CTLE 成本更高、功耗更大。与发送器 FIR
         滤波器类似，更多抽头能提供更好的波形整形，但会增加成本，因此实际应用中仅采用少量抽头。</p>
-        <p>图 64：图 13-29：接收器离散时间线性均衡器（DLE）</p>
+        <p>图 13-29：接收器离散时间线性均衡器（DLE）</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-138.jpg"
@@ -1449,7 +1679,7 @@
         13-31（第 495 页）展示了 CTLE
         高通滤波器对接收信号低频分量（例如连续的 1 或连续的
         0）的衰减效果。</p>
-        <p>图 65：图 13-30：接收端连续时间线性均衡器（CTLE）</p>
+        <p>图 13-30：接收端连续时间线性均衡器（CTLE）</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-138-1778244042300-4.jpg"
@@ -1458,14 +1688,14 @@
         </figure>
         <p>图
         13-31：接收端连续时间线性均衡器（CTLE）对接收信号的影响</p>
-        <p>图 66：CTLE 处理前</p>
+        <p>CTLE 处理前</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-139.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 67：CTLE 之后</p>
+        <p>CTLE 之后</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-139-1778244042300-5.jpg"
@@ -1478,8 +1708,7 @@
         页）所示，可见接收信号与反馈值相加后，被送入数据“切片器”。切片器是一种模数转换电路，它将模拟形式的输入信号转换为干净、全摆幅的数字信号供内部使用。该电路会进行最佳判断，决定输入信号为正还是负，并输出+1
         或-1。此判决结果被送入仅含一个抽头的 FIR
         滤波器，该滤波器本质上是根据系数设置加权的延迟版本。该滤波器的输出随后被反馈并与接收信号相加，作为数据切片器的新输入。</p>
-        <p>图 68：图 13-32：Rx 1-Tap
-        DFE（接收端单抽头判决反馈均衡器）</p>
+        <p>图 13-32：Rx 1-Tap DFE（接收端单抽头判决反馈均衡器）</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-139-1778244042300-6.jpg"
@@ -1496,7 +1725,7 @@
         衰减量形式提供提示，作为选择这些系数的起始参考点。</p>
         <p>由于规范未作要求，接收器在信号补偿方面的具体实现方式将取决于具体设计。行业文献指出，DFE（判决反馈均衡器）在配合开放眼图时效果更佳，因此通常在线性均衡器之后使用，该均衡器负责对输入信号进行初步处理，使其达到适合
         DFE 工作的状态。</p>
-        <p>图 69：图 13-33：接收器 2 抽头 DFE</p>
+        <p>图 13-33：接收器 2 抽头 DFE</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-141.jpg"
@@ -1506,7 +1735,7 @@
         <h3 id="接收器特性-1">13.12 接收器特性</h3>
         <p>第 498 页表 13-5 列出了部分选定的接收器特性。第 499 页图
         13-34 中的接收器眼图也展示了表中列出的部分参数。</p>
-        <p>表 28：表 13-5：常见接收器特性</p>
+        <p>表 13-5：常见接收器特性</p>
         <table>
         <colgroup>
         <col style="width: 8%" />
@@ -1594,7 +1823,7 @@
         </tr>
         </tbody>
         </table>
-        <p>表 29：表 13-5：通用接收器特性（续）</p>
+        <p>表 13-5：通用接收器特性（续）</p>
         <table>
         <colgroup>
         <col style="width: 2%" />
@@ -1642,7 +1871,7 @@
         </tr>
         </tbody>
         </table>
-        <p>图 70：图 13-34：2.5 GT/s 接收器眼图</p>
+        <p>图 13-34：2.5 GT/s 接收器眼图</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-143.jpg"
@@ -1652,35 +1881,35 @@
         <h3 id="链路电源管理状态">13.13 链路电源管理状态</h3>
         <p>第 500 页的图 13-35 至第 504 页的图 13-39
         展示了物理层在链路处于不同电源管理状态时的电气状态，并描述了若干特性。其中一项特性是发送端和接收端的端接，这些端接有时以有源逻辑方式实现。</p>
-        <p>图 71：图 13-35：L0 全开链路状态</p>
+        <p>图 13-35：L0 全开链路状态</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-144.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 72：图 13-36：L0s 低功耗链路状态</p>
+        <p>图 13-36：L0s 低功耗链路状态</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-145.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 73：图 13-37：L1 低功耗链路状态</p>
+        <p>图 13-37：L1 低功耗链路状态</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-146.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 74：图 13-38：L2 低功耗链路状态</p>
+        <p>图 13-38：L2 低功耗链路状态</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-147.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 75：图 13-39：L3 链路关闭状态</p>
+        <p>图 13-39：L3 链路关闭状态</p>
         <figure>
         <img
         src="img/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7/9539abd1-072d-4435-80b2-c3b7a078e696-148.jpg"
@@ -1689,13 +1918,14 @@
         </figure>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="12 物理层-逻辑(gen3).html">← 第 12 章 物理层-逻辑（Gen3）</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1708,17 +1938,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

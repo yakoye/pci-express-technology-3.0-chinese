@@ -8,57 +8,268 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="15 错误检测与处理.html">← 第 15 章 错误检测与处理</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="15 错误检测与处理.html">← 第 15 章 错误检测与处理</a>
+          </div>
+
+    <div class="topbar-title">
       第 16 章 电源管理
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="17 中断支持.html">第 17 章 中断支持 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="17 中断支持.html">第 17 章 中断支持 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 16 章 电源管理
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 16 章 电源管理</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="15 错误检测与处理.html">← 第 15 章 错误检测与处理</a>
+      
+            <a class="drawer-link" href="17 中断支持.html">第 17 章 中断支持 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#电源管理power-management"
+                id="toc-电源管理power-management">16 电源管理（Power
+                Management）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#引言" id="toc-引言">16.1 引言</a></li>
+                <li><a href="#电源管理入门指南"
+                id="toc-电源管理入门指南">16.2 电源管理入门指南</a>
+                <ul>
+                <li><a href="#pci-电源管理基础"
+                id="toc-pci-电源管理基础">16.2.1 PCI
+                电源管理基础</a></li>
+                <li><a href="#acpi-规范定义了整体电源管理"
+                id="toc-acpi-规范定义了整体电源管理">16.2.2 ACPI
+                规范定义了整体电源管理</a></li>
+                <li><a href="#设备类别特定的-pm-规范"
+                id="toc-设备类别特定的-pm-规范">16.2.2.4 设备类别特定的
+                PM 规范</a></li>
+                <li><a href="#电源管理策略所有者"
+                id="toc-电源管理策略所有者">16.2.2.5
+                电源管理策略所有者</a></li>
+                <li><a href="#pci-express-电源管理与-acpi-对比"
+                id="toc-pci-express-电源管理与-acpi-对比">16.2.3 PCI
+                Express 电源管理与 ACPI 对比</a></li>
+                </ul></li>
+                <li><a href="#功能电源管理" id="toc-功能电源管理">16.3
+                功能电源管理</a>
+                <ul>
+                <li><a href="#pm-能力寄存器集"
+                id="toc-pm-能力寄存器集">16.3.1 PM 能力寄存器集</a></li>
+                <li><a href="#设备电源管理状态-1"
+                id="toc-设备电源管理状态-1">16.3.2
+                设备电源管理状态</a></li>
+                <li><a href="#pci-pm-寄存器详细描述"
+                id="toc-pci-pm-寄存器详细描述">16.3.3 PCI-PM
+                寄存器详细描述</a></li>
+                </ul></li>
+                <li><a href="#链路电源管理简介"
+                id="toc-链路电源管理简介">16.4 链路电源管理简介</a></li>
+                <li><a href="#主动状态电源管理aspm"
+                id="toc-主动状态电源管理aspm">16.5
+                主动状态电源管理（ASPM）</a>
+                <ul>
+                <li><a href="#电气空闲" id="toc-电气空闲">16.5.1
+                电气空闲</a></li>
+                <li><a href="#l0s-状态" id="toc-l0s-状态">16.5.2 L0s
+                状态</a></li>
+                <li><a href="#l1-aspm-状态" id="toc-l1-aspm-状态">16.5.3
+                L1 ASPM 状态</a></li>
+                <li><a href="#aspm-退出延迟"
+                id="toc-aspm-退出延迟">16.5.4 ASPM 退出延迟</a></li>
+                </ul></li>
+                <li><a href="#软件发起的链路电源管理"
+                id="toc-软件发起的链路电源管理">16.6
+                软件发起的链路电源管理</a>
+                <ul>
+                <li><a href="#d1d2d3-与-l1-状态"
+                id="toc-d1d2d3-与-l1-状态">16.6.1 D1/D2/D3 与 L1
+                状态</a></li>
+                <li><a href="#l2l3-就绪移除链路电源"
+                id="toc-l2l3-就绪移除链路电源">16.6.2 L2/L3
+                就绪——移除链路电源</a></li>
+                </ul></li>
+                <li><a href="#链路唤醒协议与-pme-生成"
+                id="toc-链路唤醒协议与-pme-生成">16.7 链路唤醒协议与 PME
+                生成</a>
+                <ul>
+                <li><a href="#pme-消息" id="toc-pme-消息">16.7.1 PME
+                消息</a></li>
+                <li><a href="#pme-序列" id="toc-pme-序列">16.7.2 PME
+                序列</a></li>
+                <li><a href="#pme-消息背压死锁避免"
+                id="toc-pme-消息背压死锁避免">16.7.3 PME
+                消息背压死锁避免</a></li>
+                <li><a href="#pme-上下文-1" id="toc-pme-上下文-1">16.7.4
+                PME 上下文</a></li>
+                <li><a href="#唤醒非通信链路"
+                id="toc-唤醒非通信链路">16.7.5 唤醒非通信链路</a></li>
+                <li><a href="#辅助电源" id="toc-辅助电源">16.7.6
+                辅助电源</a></li>
+                </ul></li>
+                <li><a href="#提升-pm-效率" id="toc-提升-pm-效率">16.8
+                提升 PM 效率</a>
+                <ul>
+                <li><a href="#背景-1" id="toc-背景-1">16.8.1
+                背景</a></li>
+                <li><a href="#obff优化缓冲区刷新与填充"
+                id="toc-obff优化缓冲区刷新与填充">16.8.2
+                OBFF（优化缓冲区刷新与填充）</a></li>
+                <li><a href="#ltr延迟容忍度报告"
+                id="toc-ltr延迟容忍度报告">16.8.3
+                LTR（延迟容忍度报告）</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#电源管理power-management"
-            id="toc-电源管理power-management">16 电源管理（Power
-            Management）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#引言" id="toc-引言">16.1 引言</a></li>
-            <li><a href="#电源管理入门指南"
-            id="toc-电源管理入门指南">16.2 电源管理入门指南</a></li>
-            <li><a href="#功能电源管理" id="toc-功能电源管理">16.3
-            功能电源管理</a></li>
-            <li><a href="#链路电源管理简介"
-            id="toc-链路电源管理简介">16.4 链路电源管理简介</a></li>
-            <li><a href="#主动状态电源管理aspm"
-            id="toc-主动状态电源管理aspm">16.5
-            主动状态电源管理（ASPM）</a></li>
-            <li><a href="#软件发起的链路电源管理"
-            id="toc-软件发起的链路电源管理">16.6
-            软件发起的链路电源管理</a></li>
-            <li><a href="#链路唤醒协议与-pme-生成"
-            id="toc-链路唤醒协议与-pme-生成">16.7 链路唤醒协议与 PME
-            生成</a></li>
-            <li><a href="#提升-pm-效率" id="toc-提升-pm-效率">16.8 提升
-            PM 效率</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#电源管理power-management"
+                id="toc-电源管理power-management">16 电源管理（Power
+                Management）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#引言" id="toc-引言">16.1 引言</a></li>
+                <li><a href="#电源管理入门指南"
+                id="toc-电源管理入门指南">16.2 电源管理入门指南</a>
+                <ul>
+                <li><a href="#pci-电源管理基础"
+                id="toc-pci-电源管理基础">16.2.1 PCI
+                电源管理基础</a></li>
+                <li><a href="#acpi-规范定义了整体电源管理"
+                id="toc-acpi-规范定义了整体电源管理">16.2.2 ACPI
+                规范定义了整体电源管理</a></li>
+                <li><a href="#设备类别特定的-pm-规范"
+                id="toc-设备类别特定的-pm-规范">16.2.2.4 设备类别特定的
+                PM 规范</a></li>
+                <li><a href="#电源管理策略所有者"
+                id="toc-电源管理策略所有者">16.2.2.5
+                电源管理策略所有者</a></li>
+                <li><a href="#pci-express-电源管理与-acpi-对比"
+                id="toc-pci-express-电源管理与-acpi-对比">16.2.3 PCI
+                Express 电源管理与 ACPI 对比</a></li>
+                </ul></li>
+                <li><a href="#功能电源管理" id="toc-功能电源管理">16.3
+                功能电源管理</a>
+                <ul>
+                <li><a href="#pm-能力寄存器集"
+                id="toc-pm-能力寄存器集">16.3.1 PM 能力寄存器集</a></li>
+                <li><a href="#设备电源管理状态-1"
+                id="toc-设备电源管理状态-1">16.3.2
+                设备电源管理状态</a></li>
+                <li><a href="#pci-pm-寄存器详细描述"
+                id="toc-pci-pm-寄存器详细描述">16.3.3 PCI-PM
+                寄存器详细描述</a></li>
+                </ul></li>
+                <li><a href="#链路电源管理简介"
+                id="toc-链路电源管理简介">16.4 链路电源管理简介</a></li>
+                <li><a href="#主动状态电源管理aspm"
+                id="toc-主动状态电源管理aspm">16.5
+                主动状态电源管理（ASPM）</a>
+                <ul>
+                <li><a href="#电气空闲" id="toc-电气空闲">16.5.1
+                电气空闲</a></li>
+                <li><a href="#l0s-状态" id="toc-l0s-状态">16.5.2 L0s
+                状态</a></li>
+                <li><a href="#l1-aspm-状态" id="toc-l1-aspm-状态">16.5.3
+                L1 ASPM 状态</a></li>
+                <li><a href="#aspm-退出延迟"
+                id="toc-aspm-退出延迟">16.5.4 ASPM 退出延迟</a></li>
+                </ul></li>
+                <li><a href="#软件发起的链路电源管理"
+                id="toc-软件发起的链路电源管理">16.6
+                软件发起的链路电源管理</a>
+                <ul>
+                <li><a href="#d1d2d3-与-l1-状态"
+                id="toc-d1d2d3-与-l1-状态">16.6.1 D1/D2/D3 与 L1
+                状态</a></li>
+                <li><a href="#l2l3-就绪移除链路电源"
+                id="toc-l2l3-就绪移除链路电源">16.6.2 L2/L3
+                就绪——移除链路电源</a></li>
+                </ul></li>
+                <li><a href="#链路唤醒协议与-pme-生成"
+                id="toc-链路唤醒协议与-pme-生成">16.7 链路唤醒协议与 PME
+                生成</a>
+                <ul>
+                <li><a href="#pme-消息" id="toc-pme-消息">16.7.1 PME
+                消息</a></li>
+                <li><a href="#pme-序列" id="toc-pme-序列">16.7.2 PME
+                序列</a></li>
+                <li><a href="#pme-消息背压死锁避免"
+                id="toc-pme-消息背压死锁避免">16.7.3 PME
+                消息背压死锁避免</a></li>
+                <li><a href="#pme-上下文-1" id="toc-pme-上下文-1">16.7.4
+                PME 上下文</a></li>
+                <li><a href="#唤醒非通信链路"
+                id="toc-唤醒非通信链路">16.7.5 唤醒非通信链路</a></li>
+                <li><a href="#辅助电源" id="toc-辅助电源">16.7.6
+                辅助电源</a></li>
+                </ul></li>
+                <li><a href="#提升-pm-效率" id="toc-提升-pm-效率">16.8
+                提升 PM 效率</a>
+                <ul>
+                <li><a href="#背景-1" id="toc-背景-1">16.8.1
+                背景</a></li>
+                <li><a href="#obff优化缓冲区刷新与填充"
+                id="toc-obff优化缓冲区刷新与填充">16.8.2
+                OBFF（优化缓冲区刷新与填充）</a></li>
+                <li><a href="#ltr延迟容忍度报告"
+                id="toc-ltr延迟容忍度报告">16.8.3
+                LTR（延迟容忍度报告）</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="电源管理power-management">16 电源管理（Power
@@ -2911,13 +3122,14 @@
         </figure>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="15 错误检测与处理.html">← 第 15 章 错误检测与处理</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -2930,17 +3142,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

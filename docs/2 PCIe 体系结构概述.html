@@ -8,49 +8,196 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="1 背景.html">← 第 1 章 背景</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="1 背景.html">← 第 1 章 背景</a>
+          </div>
+
+    <div class="topbar-title">
       第 2 章 PCIe 体系结构概述
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="3 PCIe 配置概述.html">第 3 章 PCIe 配置概述 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="3 PCIe 配置概述.html">第 3 章 PCIe 配置概述 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 2 章 PCIe 体系结构概述
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 2 章 PCIe 体系结构概述</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="1 背景.html">← 第 1 章 背景</a>
+      
+            <a class="drawer-link" href="3 PCIe 配置概述.html">第 3 章 PCIe 配置概述 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#pcie体系结构概述pcie-architecture-overview"
+                id="toc-pcie体系结构概述pcie-architecture-overview">2
+                PCIe体系结构概述（PCIe Architecture Overview）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a
+                href="#pci-express-简介-introduction-to-pci-express"
+                id="toc-pci-express-简介-introduction-to-pci-express">2.1
+                PCI Express 简介 (Introduction to PCI express)</a>
+                <ul>
+                <li><a
+                href="#软件的后向兼容性-software-backward-compatibility"
+                id="toc-软件的后向兼容性-software-backward-compatibility">2.1.1
+                软件的后向兼容性 (Software Backward
+                Compatibility)</a></li>
+                <li><a href="#串行传输-serial-transport"
+                id="toc-串行传输-serial-transport">2.1.2 串行传输
+                (Serial Transport)</a></li>
+                <li><a href="#链路和通道-links-and-lanes"
+                id="toc-链路和通道-links-and-lanes">2.1.3 链路和通道
+                (Links and Lanes)</a></li>
+                <li><a href="#关于-pcie-拓扑的一些定义-some-definitions"
+                id="toc-关于-pcie-拓扑的一些定义-some-definitions">2.1.4
+                关于 PCIe 拓扑的一些定义 (Some Definitions)</a></li>
+                </ul></li>
+                <li><a
+                href="#设备层次介绍-introduction-to-device-layers"
+                id="toc-设备层次介绍-introduction-to-device-layers">2.2
+                设备层次介绍 (Introduction to Device Layers)</a>
+                <ul>
+                <li><a href="#设备核心层软件层device-coresoftware-layer"
+                id="toc-设备核心层软件层device-coresoftware-layer">2.2.1
+                设备核心层/软件层（Device Core/Software Layer）</a></li>
+                <li><a href="#事务层transaction-layer"
+                id="toc-事务层transaction-layer">2.2.2
+                事务层（Transaction Layer）</a></li>
+                <li><a href="#数据链路层data-link-layer"
+                id="toc-数据链路层data-link-layer">2.2.3
+                数据链路层（Data Link Layer）</a></li>
+                <li><a href="#物理层physical-layer"
+                id="toc-物理层physical-layer">2.2.4 物理层（Physical
+                Layer）</a></li>
+                </ul></li>
+                <li><a href="#协议回顾protocol-review-example"
+                id="toc-协议回顾protocol-review-example">2.3
+                协议回顾（Protocol Review Example）</a>
+                <ul>
+                <li><a href="#内存读请求memory-read-request"
+                id="toc-内存读请求memory-read-request">2.3.1
+                内存读请求（Memory Read Request）</a></li>
+                <li><a href="#cpldcompletion-with-data-带有数据的完成包"
+                id="toc-cpldcompletion-with-data-带有数据的完成包">2.3.2
+                Cpld（Completion with Data, 带有数据的完成包）</a></li>
+                </ul></li>
+                <li><a href="#术语翻译"
+                id="toc-术语翻译">术语翻译</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#pcie体系结构概述pcie-architecture-overview"
-            id="toc-pcie体系结构概述pcie-architecture-overview">2
-            PCIe体系结构概述（PCIe Architecture Overview）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#pci-express-简介-introduction-to-pci-express"
-            id="toc-pci-express-简介-introduction-to-pci-express">2.1
-            PCI Express 简介 (Introduction to PCI express)</a></li>
-            <li><a href="#设备层次介绍-introduction-to-device-layers"
-            id="toc-设备层次介绍-introduction-to-device-layers">2.2
-            设备层次介绍 (Introduction to Device Layers)</a></li>
-            <li><a href="#协议回顾protocol-review-example"
-            id="toc-协议回顾protocol-review-example">2.3
-            协议回顾（Protocol Review Example）</a></li>
-            <li><a href="#术语翻译" id="toc-术语翻译">术语翻译</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#pcie体系结构概述pcie-architecture-overview"
+                id="toc-pcie体系结构概述pcie-architecture-overview">2
+                PCIe体系结构概述（PCIe Architecture Overview）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a
+                href="#pci-express-简介-introduction-to-pci-express"
+                id="toc-pci-express-简介-introduction-to-pci-express">2.1
+                PCI Express 简介 (Introduction to PCI express)</a>
+                <ul>
+                <li><a
+                href="#软件的后向兼容性-software-backward-compatibility"
+                id="toc-软件的后向兼容性-software-backward-compatibility">2.1.1
+                软件的后向兼容性 (Software Backward
+                Compatibility)</a></li>
+                <li><a href="#串行传输-serial-transport"
+                id="toc-串行传输-serial-transport">2.1.2 串行传输
+                (Serial Transport)</a></li>
+                <li><a href="#链路和通道-links-and-lanes"
+                id="toc-链路和通道-links-and-lanes">2.1.3 链路和通道
+                (Links and Lanes)</a></li>
+                <li><a href="#关于-pcie-拓扑的一些定义-some-definitions"
+                id="toc-关于-pcie-拓扑的一些定义-some-definitions">2.1.4
+                关于 PCIe 拓扑的一些定义 (Some Definitions)</a></li>
+                </ul></li>
+                <li><a
+                href="#设备层次介绍-introduction-to-device-layers"
+                id="toc-设备层次介绍-introduction-to-device-layers">2.2
+                设备层次介绍 (Introduction to Device Layers)</a>
+                <ul>
+                <li><a href="#设备核心层软件层device-coresoftware-layer"
+                id="toc-设备核心层软件层device-coresoftware-layer">2.2.1
+                设备核心层/软件层（Device Core/Software Layer）</a></li>
+                <li><a href="#事务层transaction-layer"
+                id="toc-事务层transaction-layer">2.2.2
+                事务层（Transaction Layer）</a></li>
+                <li><a href="#数据链路层data-link-layer"
+                id="toc-数据链路层data-link-layer">2.2.3
+                数据链路层（Data Link Layer）</a></li>
+                <li><a href="#物理层physical-layer"
+                id="toc-物理层physical-layer">2.2.4 物理层（Physical
+                Layer）</a></li>
+                </ul></li>
+                <li><a href="#协议回顾protocol-review-example"
+                id="toc-协议回顾protocol-review-example">2.3
+                协议回顾（Protocol Review Example）</a>
+                <ul>
+                <li><a href="#内存读请求memory-read-request"
+                id="toc-内存读请求memory-read-request">2.3.1
+                内存读请求（Memory Read Request）</a></li>
+                <li><a href="#cpldcompletion-with-data-带有数据的完成包"
+                id="toc-cpldcompletion-with-data-带有数据的完成包">2.3.2
+                Cpld（Completion with Data, 带有数据的完成包）</a></li>
+                </ul></li>
+                <li><a href="#术语翻译"
+                id="toc-术语翻译">术语翻译</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="pcie体系结构概述pcie-architecture-overview">2
@@ -82,25 +229,25 @@
         展示了这种模型。因为数据流可以同时进行双向传输，因此在技术层面上来说两个设备间的通信其实是全双工的，但是
         PCIe
         协议规范依然使用双单工这个术语，这是因为这种称呼对实际通信信道也进行了一点描述。</p>
+        <p>图2‑1 双单工链路</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image042.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑1 双单工链路</p>
         <p>用于描述设备之间信号传输路径的术语为“链路（Link）”，它由一个或以上的接收发送对组成。这样的一对接收和发送被称为一个“通道（Lane）”，协议规范允许一条链路内有
         1、2、4、8、12、16 或 32
         个通道。链路内通道的数量称为链路宽度，通常用 x1、x2、x4、x8、x16
         以及 x32
         来进行表示。用于权衡在实际设计中使用多少通道的思路其实很简单：使用更多的通道可以增加带宽，但是也会增加成本、增加空间占用以及增加功耗。更多关于这方面的信息，可以阅读“链路与通道”这一节。</p>
+        <p>图2‑2 一个通道</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image044.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑2 一个通道</p>
         <h4 id="软件的后向兼容性-software-backward-compatibility">2.1.1
         软件的后向兼容性 (Software Backward Compatibility)</h4>
         <p>PCIe 设计目标中极为重要的一点就是要保持对 PCI
@@ -121,13 +268,13 @@
         <p><strong>克服问题.</strong> 通过上一章对 PCI
         历史的回顾，我们知道，并行总线的性能被一些问题所限制，图2‑3
         展示了其中的三个问题。首先，回想一下，并行总线使用公共时钟；信号在一个时钟沿被输出，然后在下一个时钟沿被接收方接收。这个模型的第一个问题来自于信号从发送端传输到接收端所花费的时间，称为渡越时间。渡越时间必须小于一个时钟周期，否则将会出问题，这使得难以通过继续减小时钟周期来提升速度。因为若需要继续减小时钟周期，为了让信号渡越时间依然小于时钟周期，需要更短的布线并减少负载的设备数量，但是最终这样的做法都会到达极限并且越来越不现实。第二个造成并行模型性能受限的因素是使用公共时钟时，时钟到达发送方和接收方的时刻不一致，这称为时钟偏斜。电路板设计人员尽力去减小时钟偏斜的值，因为时钟偏斜将会降低信号传输时序预算，但是这种偏斜永远无法彻底消除。第三个因素是信号偏斜，它指的是多比特位宽数据的各个位到达接收端的时刻存在差异。显然，这样的多位宽数据在所有的比特都到达且稳定之前都不能被接收方采样，这使得我们必须去等待最慢的那一比特。</p>
+        <p>图2‑3 并行总线的局限</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image046.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑3 并行总线的局限</p>
         <p>PCIe
         这样的串行传输方法是如何处理这些问题的呢？首先，信号渡越时间将不再是一个问题，因为用于指示接收端锁存数据的时钟现在已经被内置入数据流中，不在需要额外传输线来传输参考时钟。因此，无论再小的时钟周期，或是再长的信号传输时间都不会产生以前的问题了，这是因为内置在数据流中的时钟必然能与数据一起到达接收方。同样地，时钟偏斜的问题将不再存在，这还是因为时钟被内置入数据流中，接收方通过恢复出数据流中的时钟来进行数据采样，自然不存在时钟偏斜的问题。最后，信号偏斜的问题在一个通道内被消除了，因为一个通道一次只传输
         1
@@ -152,13 +299,13 @@
         编码（关于这个内容的更多信息，可以阅读“物理层-逻辑（Gen
         3）”章节）。表 2‑1 列出了当前几代 PCIe
         的各种通道数量情况下的带宽，展示出了链路对应情况下的峰值吞吐量。</p>
+        <p>表 2‑1 PCIe Gen1,Gen2,Gen3 的各种链路宽度下的带宽汇总</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image048.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 2‑1 PCIe Gen1,Gen2,Gen3 的各种链路宽度下的带宽汇总</p>
         <h5 id="pcie-带宽计算方法-pcie-bandwidth-calculation">2.1.2.2
         PCIe 带宽计算方法 (PCIe Bandwidth Calculation)</h5>
         <p>要计算上述表格中的 PCIe
@@ -188,13 +335,13 @@
         和 D-，这两种信号振幅相同相位相反），如图2‑4
         所示。当然，这样会将引脚增加一倍，但是相对于单端信号而言，差分信号在高速传输上的两个明显的优点足以抵消其引脚数方面的不足：它提高了噪声容限，并降低了信号电压。</p>
         <p>差分信号的接收端将会接收这一对相位相反的信号，用正信号的电压减去其反相信号的电压，得到它们的差值，以此来判定这个比特的逻辑电平值。差分传输设计内置了抗噪声干扰的设计，因为它要求成对的差分信号必须位于每个设备的相邻的引脚上，它们的走线也必须彼此非常靠近，以保持合适的传输线阻抗。因此，任何因素在影响差分对中的一个信号的时候，都会同等程度且同样方向地影响到另一个信号。但是接收端所在意的是它们的差值，而这些噪声干扰并不会改变这个差值，所以带来的结果就是大多数情况下噪声对信号的影响并不会引起接收端对比特值的错误判别。</p>
+        <p>图2‑4 差分信号示意图</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image050.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑4 差分信号示意图</p>
         <h5 id="不再使用公共时钟-no-common-clock">2.1.2.4
         不再使用公共时钟 (No Common Clock)</h5>
         <p>在先前的内容中有提到，PCIe 链路不再像 PCI
@@ -216,13 +363,13 @@
         编码中的设计目标之一就是要确保比特流中连续的 1 或者 0
         的数量不能超过 5 个（想获得更多关于这部分的内容，请参考“8b/10b
         编码”一节）</p>
+        <p>图2‑5 简单的锁相环图示</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image052.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑5 简单的锁相环图示</p>
         <p>一旦时钟被恢复出来，就可以使用它来锁存输入数据流的比特，并将锁存到的结果给到解串器。有时候学生们可能想知道这个恢复时钟能否作为接收端的所有逻辑所使用的工作时钟，但是这个问题的答案是“不行”。一个原因是，接收端不能指望用于恢复出时钟的比特流参考时钟一直存在且活跃，因为当链路的低功耗状态就包括了停止数据传输，此时必然也就无法继续恢复时钟。因此，接收端必须要有自己本地生成的内部时钟。</p>
         <h5 id="基于数据包的协议体系-packet-based-protocol">2.1.2.5
         基于数据包的协议体系 (Packet-based Protocol)</h5>
@@ -255,13 +402,13 @@
         PCIe 拓扑的一些定义 (Some Definitions)</h4>
         <p>如图2‑6 展示了一个简单的 PCIe
         拓扑示例，它将有助于我们对本节的一些定义内容进行讲解。</p>
+        <p>图2‑6 PCIe 拓扑示例</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image054.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑6 PCIe 拓扑示例</p>
         <h5 id="拓扑特征-topology-characteristics">2.1.4.1 拓扑特征
         (Topology Characteristics)</h5>
         <p>在图的最上方是一个 CPU 。这里需要指出，CPU 被认为是 PCIe
@@ -310,13 +457,13 @@
         软件兼容特性 (Software Compatibility Characteristics)</h5>
         <p>一种保持软件兼容性的方法是保持端点和桥的配置首部（Header）与
         PCI 一致，如图2‑7 所示。</p>
+        <p>图2‑7 配置首部</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image056.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑7 配置首部</p>
         <p>有一点不同，现在 PCIe
         中的桥经常会被整合进交换机和根组件，但是遗留的 PCI
         软件无需关注这种区别，它只把这些内含桥的设备简单的当做桥。在这里我们先对一些概念进行熟悉，所以我们不会在这里讨论这些寄存器的细节。配置是一个相当大的主题，关于它的具体介绍将在“配置综述”这一节进行。</p>
@@ -328,13 +475,13 @@
         端口将被视作是 PCI-to-PCI 桥。这种内部结构其实并不是一个实际的
         PCI 总线，但是它在软件中看起来就是这种结构。因为这个总线是在 RC
         内部的，所以它实际的逻辑设计并不需要遵循任何的标准，这里是可以由供应商来进行自定义的。</p>
+        <p>图2‑8 拓扑结构示例</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image058.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑8 拓扑结构示例</p>
         <p>类似的，PCIe
         交换机的内部结构对于软件来说，就是简单地几个桥共享一条公共总线，如图2‑9
         所示。这样做的主要优点就是使得事务的路由方法能够与 PCI
@@ -343,13 +490,13 @@
         PCI
         中相同。在稍后的内容中我们将通过一些例子来讲述枚举是如何工作的。一旦枚举完成，系统中的总线号就将按照图2‑9
         所示的方式进行分配。</p>
+        <p>图2‑9 系统枚举结果的示例</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image060.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑9 系统枚举结果的示例</p>
         <h5 id="系统示例-system-examples">2.1.4.6 系统示例 (System
         Examples)</h5>
         <p>如图2‑10 中举例说明了一个基于 PCIe
@@ -375,31 +522,31 @@
         的一部分。正如图2‑11 中虚线所框出的，RC
         由多个组件的一部分共同组成。这种 RC
         的组成方式可能将会是未来很长一段时间内的系统的设计方式。</p>
+        <p>图2‑10 低成本的 PCIe 系统</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image062.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑10 低成本的 PCIe 系统</p>
+        <p>图2‑11 服务器 PCIe 系统</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image064.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑11 服务器 PCIe 系统</p>
         <h3 id="设备层次介绍-introduction-to-device-layers">2.2
         设备层次介绍 (Introduction to Device Layers)</h3>
         <p>如图2‑12 所示，PCIe
         定义了一种分层的体系结构。可以认为这些层在逻辑上是相互独立的部分，因为他们各自都有一个用于发出信息流的发送端和一个接收信息流的接收端。这种分层的设计方法对硬件设计者来说有不少的优点，因为如果在设计中对逻辑进行了仔细的划分，那么就可以在以后升级到新的协议规范版本时仅改变原设计中的某一层即可，而不会影响或者变动其它层。虽然如此，但是需要注意的是，这些层只是定义了接口的工作职责，而实际设计并不要求为了符合规范而将设计严格按照层级来分成几个部分。本节的目的在于描述各个层的功能职责，以及描述完成一次数据传输时的事件流程。</p>
+        <p>图2‑12 PCI Express 设备层次示意图</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image066.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑12 PCI Express 设备层次示意图</p>
         <p>图2‑12 所展示的 PCIe 设备内部层次包括：</p>
         <ul>
         <li><p>设备核心层以及它与事务层的接口。设备核心层实现设备的主要功能。如果设备是一个端点，那么它最多可以包含
@@ -428,22 +575,22 @@
         </ul>
         <p>每个 PCIe 接口都支持这些层的功能，包括交换机端口，如图2‑13
         所示。在早期大家经常会产生一个疑问，那就是一个交换机端口是否还需要实现所有的层次呢，毕竟它通常只用于转发数据包。答案是需要，因为对包的内容进行解析来确定它们的路由是需要查看数据包的内部细节的，而这件事情是在事务层中完成的。</p>
+        <p>图2‑13 交换机端口的层次结构</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image068.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑13 交换机端口的层次结构</p>
         <p>原则上，本设备上的每个层都与链路对端设备的各自对应层进行通信，例如本设备的事务层与对端的事务层通信、本设备的数据链路层与对端的数据链路层通信。上面的两层通过在数据包内添加一串特定的比特信息，产生一个接收端的对应层可以识别的字段样式来实现对应层之间的通信。数据包通过其他层的转发，从而做到到达或者离开链路。物理层也直接与另一个设备中的物理层通信，但是方式与此不同。</p>
         <p>在我们讲的更深入之前，先大致了解一下这些层是如何交互的。从广义上说，设备所发出的请求包或者完成包是在事务层进行组包的，组包所用到的信息是由设备核心层所提供的，有时我们将设备核心层称为软件层（尽管协议规范中并没有使用这一术语）。它提供的组包信息通常包括期望的命令类型、目标设备的地址、请求的属性特征等等。刚组好的数据包会被存入一个被称为虚拟通道缓存，直到这个包可以被发往下一个层级。当这个包被向下发给数据链路层后，数据链路层会在数据包中加入额外的信息以供对端的接收方进行错误检查，而且这个数据包会在本地储存下来，这样我们就可以在对端检测到传输出错时重新发送这个数据包。当数据包到达物理层后，它被编码，并使用链路上的所有可用的通道、以差分信号的形式进行传输。</p>
+        <p>图2‑14 PCIe 设备层次结构的详细框图</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image070.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑14 PCIe 设备层次结构的详细框图</p>
         <p>接收端对物理层的输入比特进行解码，检查本层级所能发现的错误，如果没有检查到错误，那么就将接收到的数据包向上转发到数据链路层。在数据链路层，数据包进行不同于物理层的错误检查，如果没有发现错误就向上转发给事务层。在事务层数据包被缓存，检查错误，并拆解成原始信息（命令、属性等），以便将这些数据传输到接收设备的核心层。接下来，让我们更深入的探索每一个层必须要做什么才能让上述过程正常工作，这个操作过程在图2‑14
         进行了展示。我们从最顶端开始。</p>
         <h4 id="设备核心层软件层device-coresoftware-layer">2.2.1
@@ -468,13 +615,13 @@
         <p>前三种在 PCI 和 PCI-X 中就已经得到支持，但是消息是 PCIe
         中的一个新的请求种类。一个请求包向目标设备传送命令，目标设备作为响应请求而发回的一个或多个完成包，这二者组合起来就是对一个事务的定义，即一个事务由一个请求包以及所有返回的完成包共同组成。如表2‑2
         列出了 PCIe 请求的类型。</p>
+        <p>表2‑2 PCIe请求类型</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image072.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表2‑2 PCIe请求类型</p>
         <p>这些请求还可以被归为两类，如上表的右边一列：非报告和报告（<strong>non‐posted</strong>
         and
         <strong>posted</strong>）。对于非报告式请求，发起方首先向完成方发送一个请求数据包，完成方应该产生一个完成包作为响应。读者们应该认出来了，这就是从
@@ -489,34 +636,34 @@
         协议”。</p>
         <h5 id="tlp-基础内容">2.2.2.1 TLP 基础内容</h5>
         <p>PCIe 请求包和完成包的包类型被罗列在表2‑3 中。</p>
+        <p>表2‑3 PCIe 的 TLP 类型</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image074.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表2‑3 PCIe 的 TLP 类型</p>
         <p>TLPs 起始于发送方的事务层，终止于接收方的事务层，如图2‑15
         所示。当 TLP
         途经发送方的数据链路层以及物理层时，这两层分别会向数据包中添加一些信息，接收方的数据链路层和物理层会分别根据发送方对应层所添加的信息来进行校验，以此确认数据包是否在链路传输中依旧保持正确没有出错。</p>
+        <p>图2‑15 TLP 的起点与目的地</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image076.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑15 TLP 的起点与目的地</p>
         <p><strong>TLP 组包.</strong> 如图2‑16 展示了一个封装完成的 TLP
         的各个部分是如何在链路上进行传输的，我们可以从中发现这个数据包中的不同部分是分别由不同的层来添加的。为了更容易看出这个数据包是怎么构成的，我们将
         TLP
         的不同部分用不同的颜色进行标识，以此来表示对应的部分是由哪一层添加的：红色代表事务层，蓝色代表数据链路层，绿色代表物理层。</p>
+        <p>图2‑16 TLP 组包形式</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image078.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑16 TLP 组包形式</p>
         <p>设备核心层负责将组成 TLP
         的核心部分的信息发送给事务层，即上图中的首部和数据。每个 TLP
         都会有一个首部，而有些 TLP 会没有数据部分，例如读请求。</p>
@@ -568,13 +715,13 @@
         进行错误校验。若 TLP
         到达了最终的目的设备，而且校验无错，那么在事务层中将把这个 ECRC
         字段剥除，使得整个数据包只剩下首部和数据部分，并将这些剩余部分转发给软件层。</p>
+        <p>图2‑17 TLP 的拆包</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image080.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑17 TLP 的拆包</p>
         <h5 id="非报告式事务-non-posted-transactions">2.2.2.2
         非报告式事务 (Non-Posted Transactions)</h5>
         <p><strong>普通读（Ordinary Reads）.</strong> 如图2‑18
@@ -623,13 +770,13 @@
         MRdLk（锁定读）来发起事务。根据定义这样的请求仅允许来自
         CPU，因此在 PCIe 中仅有根组件的端口可以发起这种事务。</p>
         <p>这个锁定请求使用目标内存地址作为路由信息，并最终到达了传统设备的端点。当数据包经过沿途的每个路由设备时（称为服务点），数据包的出口端口被锁定，这意味着在被解锁之前这条路径都不能通过其他的数据包。</p>
+        <p>图2‑19 非报告式锁定读事务协议</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image084.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑19 非报告式锁定读事务协议</p>
         <p>当完成方接收到这个请求包并将其内容进行译码，它将收集请求所需要的数据，并使用这些数据产生一个或多个锁定完成包。这些完成包将会被路由回到发起方，使用的路由信息是发起方
         ID，完成包路径上的出口端口也会被锁定。</p>
         <p>如果完成方遇到了一些问题，无法正常响应请求，那么它将向发起方返回一个不含有数据的锁定完成包（正常的读请求完成包应该含有要返回的数据，而这里不包含数据那么我们就知道出现了一些问题），并使用完成包的状态指示区域来标识发生的错误的一些信息。发起方接收到这样的完成包就明白了这个锁定请求失败了，它就会取消这个事务的执行，然后由软件来决定接下来要做什么。</p>
@@ -643,13 +790,13 @@
         IO
         写请求完成了之后，允许执行指令序列中的下一个指令，即想表达的是需要确认这个写请求成功了才允许继续执行下一条指令。这很好的总结了非报告式写的目的：不同于一个内存写（MWr
         是报告式的），非报告式写不能仅仅知道数据被送往了目的方，还必须要知道数据真的到达了目的方才行，否则在逻辑上不能继续执行下一步。又如同锁定操作一样，非报告式写请求只能由处理器发出。</p>
+        <p>图2‑20 非报告式写事务协议</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image086.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑20 非报告式写事务协议</p>
         <h5 id="报告式写-posted-writes">2.2.2.3 报告式写 (Posted
         Writes)</h5>
         <p><strong>内存写（Memory Writes）.</strong>
@@ -657,13 +804,13 @@
         所示，请求包使用内存地址作为路由信息在系统中进行路由转发，并最终到达完成方。一旦链路成功的将这个请求发送过去（这里的成功是指把数据包传输了过去，而不需要得到完成方的成功确认），这个事务在链路上就已经结束了，链路上就可以继续传输其他的数据包了。最终，完成方接收写请求包中的数据，这个事务才真正完成。当然，这种事务执行方法在提升效率的同时也舍弃了一些东西，因为完成方不需要发送完成包，所以这也意味着它无法将错误报告给发起方。如果完成方发生了错误，那么它可以记录下这个错误，并向
         RC
         发一个消息来通知系统软件这些情况，但是发起方对这些是完全不知情的。</p>
+        <p>图2‑21 报告式内存写事务协议</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image088.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑21 报告式内存写事务协议</p>
         <p><strong>消息写（Message Writes）.</strong>
         十分有趣的是，消息不同于我们前面所说的那些请求事务，它有好几种路由方法（前面的都是通过内存地址、IO
         地址中的一种），在消息内部专门有一个区域来标识使用的是哪一种路由方式。例如，有一些消息是报告式写请求，其目的方为特定的完成方；有一些是根组件向所有端点广播的请求；还有一些是端点发出的要自动路由到根组件的请求。想要学习更多关于不同的路由类型的内容，请参阅第四章“地址空间和事务路由”。</p>
@@ -697,13 +844,13 @@
         数据需要正确无误的进行传输，但是对于它来说传输需要的时间长短并不是那么重要。显然，当视频数据和SCSI数据同时需要被发送时，视频数据流应当具有更高的优先级。QoS
         指的是系统的一种能力，是系统为数据包分配不同优先级并将这些数据包按照确定性的延时、带宽在系统拓扑中进行路由的能力。想了解更多关于
         QoS 的细节，请参阅第七章“服务质量”。</p>
+        <p>图2‑22 QoS 示例</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image090.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑22 QoS 示例</p>
         <h5 id="事务排序transaction-ordering">2.2.2.5
         事务排序（Transaction Ordering）</h5>
         <p>在一个 VC (Virtual Channels)
@@ -727,13 +874,13 @@
         的可用缓冲区空间进行更新，但是当A的接收缓冲区满导致它又无法接收来自B的可用缓冲区报告，这样就出现了一个死循环。而
         DLLP
         可以不管缓冲区状态就进行收发，这样就避免了死锁的问题。这样的流量控制协议由硬件级进行自动管理，对于软件来说是透明的。</p>
+        <p>图2‑23 流量控制基础操作</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image092.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑23 流量控制基础操作</p>
         <p>如图2‑23 所示，接收方内的 VC 缓冲区内缓存了接收到的
         TLP。接收方将自己的缓冲区大小通过流量控制 DLLP
         来告知发送方。发送方将会跟踪接收方的可用缓冲区空间的值，并且不允许发出大于这个可用空间的数据包。当接收方对缓冲区中的
@@ -750,13 +897,13 @@
         DLLPs数据链路层包（Data Link Layer Packet）</h5>
         <p>DLLP
         是一种在位于同一条链路上的本端设备的数据链路层与对端设备的数据链路层之间传输的数据包。事务层对这些数据包并无感知，它们只在两个相临近的设备之间传输，不会被路由到任何其他地方。DLLP通常要小于TLP，大部分情况下DLLP只有8Bytes，这是一件好事，因为DLLP的大小也影响着维护链路所需要的开销。</p>
+        <p>图2‑24 DLLP的起始地和目的地</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image094.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑24 DLLP的起始地和目的地</p>
         <h6 id="dllp-组包dllp-assembly">2.2.3.1.1 DLLP 组包（DLLP
         Assembly）</h6>
         <p>如图2‑24 所示，一个 DLLP
@@ -790,20 +937,20 @@
         进行重传，并通过重传获得一个完好的
         TLP。由于错误检测通常是十分迅速的操作，因此从错误检测开始到发起重传的时间也比较短，这样就可以在较短的时间内纠正发生的错误。这一操作过程被称为
         Ack/Nak（Acknowledge/NotAcknowledge） 协议。</p>
+        <p>图2‑25 数据链路层重传机制</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image096.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑25 数据链路层重传机制</p>
+        <p>图2‑26 在数据链路层中的 TLP 与 DLLP 的包结构</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image098.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑26 在数据链路层中的 TLP 与 DLLP 的包结构</p>
         <p>一个 DLLP 的基础形式如图2‑26 所示，它由 4 字节的 DLLP
         类型域以及 2 字节 CRC 组成，其中 DLLP
         类型域中包含了一些其他的信息。</p>
@@ -845,13 +992,13 @@
         的副本丢弃。发起方将校验 ECRC
         字段域（这个字段是可选的，不是必需的），校验未出错则将完成包里的数据向上呈交给设备核心层逻辑。</p></li>
         </ol>
+        <p>图2‑27 使用 Ack/Nak 协议的非报告式事务</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image100.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑27 使用 Ack/Nak 协议的非报告式事务</p>
         <h5 id="流量控制flow-control-1">2.2.3.3 流量控制（Flow
         Control）</h5>
         <p>数据链路层的第二个主要功能就是流量控制。在系统上电和复位之后，流量控制机制被数据链路层的硬件自动初始化，并在整个运行过程中更新。关于这些内容的概述已经在
@@ -873,13 +1020,13 @@
         被物理层中的缓存所记录，在这个缓存中会对这些数据包加上包起始字符和包结束字符，这两个字符将有助于接收端用来检测数据包的边界。由于包起始字符和包结束字符分别出现在数据包的两端（头和尾），因此他们也被称作“组帧”字符。如图2‑28
         展示了组帧字符被添加在 TLP 和 DLLP
         上，它也展示了这两种字符的字段长度。</p>
+        <p>图2‑28 物理层中的 TLP 与 DLLP 的结构</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image102.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑28 物理层中的 TLP 与 DLLP 的结构</p>
         <p>在物理层中，数据包中的每一个字节都将被分割到链路所使用的所有通道，这一过程被称为字节条带化（byte
         striping）。实际上，每个通道在链路上都扮演着一个独立的串行传输路径，这些通道们各自传输的数据会在接收端被聚合。每个字节都进行了扰码，以此来减少在传输线上传输连续重复的“0”或“1”，这有助于减少链路上的
         EMI（electro-magnetic interference，电磁干扰）。</p>
@@ -933,13 +1080,13 @@
         耦合（交流耦合）”，意思是两个设备相连接的物理路径上放置有电容，它用于让信号的高频部分（AC
         交流）通过，而阻塞低频（DC
         直流）部分。许多串行传输方式中都使用了这种方法，因为它允许发送端和接收端的共模电压不同（共模电压指的是0、1电平交界处的电压），这意味着发送端和接收端可以使用不同的参考电压。当两个设备的物理连接距离很近时，这一特性优势并不明显，而若它们距离较远，例如位于不同的大楼里，那么它们将很难使用一个完全相同的公共的参考电压。</p>
+        <p>图2‑29 电气物理层</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image104.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑29 电气物理层</p>
         <h5 id="字符集ordered-sets">2.2.4.5 字符集（Ordered Sets）</h5>
         <p>最后要介绍的一种只使用物理层在设备之间发送的流。尽管这种信息对于接收端来说很容易进行识别，但是它并没有被做成数据包的形式，原因是比如它没有包起始字符和包结束字符。因此作为一种替代方法，这种信息被组织成了一种被叫做“字符集（Ordered
         Sets）”的东西，它起始于发送端的物理层，终止于接收端的物理层，如图2‑30
@@ -954,21 +1101,21 @@
         格式了。更多详细内容请见第十四章“链路初始化和训练”。字符集永远只会终止于链路的对端设备，而不会被交换机路由转发至
         PCIe
         网络中，也就是说对端设备如果是交换机那么它的最终目的地就是交换机。</p>
+        <p>图2‑30 字符集的出发地和目的地</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image106.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑30 字符集的出发地和目的地</p>
         <p>字符集在链路训练过程中同样有应用，请参阅第十四章“链路初始化和训练”。它们也被用于补偿发送端和接收端内部时钟的轻微差异，这一过程被称为时钟容忍度补偿。最后一点，字符集还可以用于指示链路进入或者退出低功耗状态。</p>
+        <p>图2‑31 字符集结构</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image108.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑31 字符集结构</p>
         <h3 id="协议回顾protocol-review-example">2.3 协议回顾（Protocol
         Review Example）</h3>
         <p>现在，让我们通过一个示例来回顾整个链路协议，这个例子将从发起方发起一个内存读请求（MRd）开始，直到发起方从完成方获得所请求的数据为止，讲解这过程中所发生的操作步骤。</p>
@@ -977,13 +1124,13 @@
         <p>关于我们开始讨论的第一部分，请参考图2‑32。发起方的设备核心层或者说是软件层将会向事务层发起一个请求，这个请求中包含了这些信息：32
         比特或 64
         比特的内存地址、事务类型、需要读取的数量总量（以dw为单位计数）、流量类型、字节使能、属性等等。</p>
+        <p>图2‑32 内存读请求的各阶段</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image110.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑32 内存读请求的各阶段</p>
         <p>事务层使用上面所述的那些信息来构建一个 MRd TLP。关于 TLP
         内部格式的细节我们稍后再进行描述，目前我们只需要知道 TLP 的
         Header 大小为 3DW 或 4DW，这取决于它的地址字段的大小（32
@@ -1033,13 +1180,13 @@
         Data，带有数据的完成包）请求，这个完成包请求中包含了与 MRd
         请求中相同的发起方
         ID、Tag，还包含了事务类型以及另外的完成包头内容，并且完成包中还包含了被请求的数据。</p>
+        <p>图2‑33 带有数据的完成包的各阶段</p>
         <figure>
         <img
         src="img/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0/clip_image112.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图2‑33 带有数据的完成包的各阶段</p>
         <p>事务层使用 CplD 请求中的这些信息来构建一个 CplD TLP，这种 TLP
         的 Header 固定为3DW（这是由于 CplD TLP 使用发起方
         ID作为路由信息，因此不会需要用到 64
@@ -1253,22 +1400,16 @@
         </tr>
         </tbody>
         </table>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： Michael ZZY</p>
-        <p>校对： XTang</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="1 背景.html">← 第 1 章 背景</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1281,17 +1422,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

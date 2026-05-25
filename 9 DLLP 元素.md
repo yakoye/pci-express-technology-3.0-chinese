@@ -12,9 +12,11 @@
 
 数据链路层可以被认为是更低逻辑层次上的链路协议管理者。数据链路层的主要职责是确保 TLP 在设备之间的完整传输，并且也参与到 TLP 流量控制、链路初始化、功耗管理以及为其上层的事务层和下层的物理层之间传递信息等功能。数据链路层通过与其他设备之间交换 DLLP（Data Link Layer Packet），数据链路层包，来完成上述功能。DLLP 会在各个设备的数据链路层之间传输通信，图 9-1 展示了 DLLP 在设备间的传输路径。
 
+图 9-1 数据链路层发送 DLLP 示意图
+
 ![image-20220503172711135](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503172711135.png)
 
-图 9-1 数据链路层发送 DLLP 示意图
+
 
 ### 9.2 DLLP 是本地流量（DLLPs Are Local Traffic）
 
@@ -39,9 +41,11 @@ DLLP 的数据包格式非常简单，算上组帧字节，整个 DLLP 的长度
 
 发送方在数据链路层生成 DLLP 包，然后将其传输给物理层。如果是 Gen1/Gen2 模式，使用 8b/10b 编码，那么会在 DLLP 的开头和结尾都加上组帧符号。在 Gen3 模式中，2字节的 SDP 令牌会被添加到 DLLP 前部，但是不会在结尾处添加 END 符号。图 9-2 描述了一个 Gen1/Gen2 模式的 DLLP 发送过程，可以看到在 DLLP 的内容前后加上了组帧符号。 
 
+图 9-2 原生数据链路层数据包格式
+
 ![image-20220503182506839](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503182506839.png)
 
-图 9-2 原生数据链路层数据包格式
+
 
 #### 9.4.2 DLLP 包大小固定为 8 字节（DLLP Packet Size is Fixed at 8 Bytes）
 
@@ -74,42 +78,34 @@ DLLP 包共有 4 种类型，分别用于 Ack/Nak、电源管理、流控以及�
 
 #### 9.5.2 Power Management DLLP Format
 
-图 9-4 是电源管理相关的 DLLP 包格式信息，表 9-3 是它的字段描述信息。关于 电源管理的更多细节，可以参照 Chapter 16, ʺPower Managementʺ ，此处不再展开描述相关的字段含义。
+图 9-4 是电源管理相关的 DLLP 包格式信息，表 9-3 是它的字段描述信息。关于电源管理的更多细节，可以参照 Chapter 16, ʺPower Managementʺ ，此处不再展开描述相关的字段含义。
+
+图 9-4 电源管理相关的 DLLP 包格式信息，表 9-3 字段描述信息
 
 ![image-20220503202738475](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202738475.png)
 
-图 9-4 电源管理相关的 DLLP 包格式信息，表 9-3 字段描述信息
+
 
 #### 9.5.3 Flow Control DLLP Format 
 
 和其他许多串行传输协议类似， PCIe 通过基于 credit 的流量控制机制提高了传输的效率。相关的话题在 Chapter 6, ʺFlow Controlʺ 中进行了讨论。DLLP 在流量控制机制中用于通信双方 credit 信息的交换。有多种不同的 DLLP 包用于流量控制机制的 credit 信息初始化，以及另一类用于传输过程中 credit 更新的 DLLP，当接收方缓存恢复时，将用这类 DLLP 通知对端 credit 信息的更新。共有两种流控初始化 DLLP，分别为 InitFC1 和 InitFC2，以及一种流控更新 DLLP，称为 UpdateFC。
 
-图 9-5 是流控相关的 DLLP 包格式信息，表 9-4 是它的字段描述信息。
+图 9-5 是流控相关的 DLLP 包格式信息
 
 ![image-20220503202756680](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202756680-16515808868911.png)
+
+表 9-4 是它的字段描述信息
 
 ![image-20220503202809717](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202809717.png)
 
 ![image-20220503202818960](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202818960.png)
 
-图 9-5 流控相关的 DLLP 包格式信息，表 9-4 字段描述信息。
+
 
 #### 9.5.4 Vendor-Specific DLLP Format 
 
 最后一类 DLLP 用于厂商定制化用途。因此，协议只定义了此类 DLLP 的类型字段值（0011 0000b），剩下的属性字段的含义留给厂商自行定义。
 
+图 9-6 厂商自定义 DLLP 包格式信息
+
 ![image-20220503202827947](img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202827947.png)
-
-图 9-5 厂商自定义 DLLP 包格式信息
-
-------
-
-原文： Mindshare
-
-译者： LJGibbs
-
-校对:	
-
-欢迎参与 《Mindshare PCI Express Technology 3.0 一书的中文翻译计划》
-
-https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology

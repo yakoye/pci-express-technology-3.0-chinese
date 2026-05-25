@@ -8,84 +8,486 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="13 物理层-电气特性.html">← 第 13 章 物理层-电气特性</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="13 物理层-电气特性.html">← 第 13 章 物理层-电气特性</a>
+          </div>
+
+    <div class="topbar-title">
       第 14 章 链路初始化与训练
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="15 错误检测与处理.html">第 15 章 错误检测与处理 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="15 错误检测与处理.html">第 15 章 错误检测与处理 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 14 章 链路初始化与训练
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 14 章 链路初始化与训练</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="13 物理层-电气特性.html">← 第 13 章 物理层-电气特性</a>
+      
+            <a class="drawer-link" href="15 错误检测与处理.html">第 15 章 错误检测与处理 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#链路初始化与训练link-initialization-training"
+                id="toc-链路初始化与训练link-initialization-training">14
+                链路初始化与训练（Link Initialization &amp;
+                Training）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#总览" id="toc-总览">14.1 总览</a></li>
+                <li><a href="#链路训练中的有序集"
+                id="toc-链路训练中的有序集">14.2 链路训练中的有序集</a>
+                <ul>
+                <li><a href="#概要" id="toc-概要">14.2.1 概要</a></li>
+                <li><a href="#ts1-以及-ts2-有序集"
+                id="toc-ts1-以及-ts2-有序集">14.2.2 TS1 以及 TS2
+                有序集</a></li>
+                </ul></li>
+                <li><a
+                href="#链路训练与状态机ltssmlink-training-and-status-state-machine"
+                id="toc-链路训练与状态机ltssmlink-training-and-status-state-machine">14.3
+                链路训练与状态机（LTSSM，Link Training and Status State
+                Machine）</a>
+                <ul>
+                <li><a href="#概要-1" id="toc-概要-1">14.3.1
+                概要</a></li>
+                <li><a href="#ltssm-状态概要链路训练与状态机状态概要"
+                id="toc-ltssm-状态概要链路训练与状态机状态概要">14.3.2
+                LTSSM 状态概要（链路训练与状态机状态概要）</a></li>
+                <li><a href="#介绍示例与状态次状态"
+                id="toc-介绍示例与状态次状态">14.3.3
+                介绍，示例与状态/次状态</a></li>
+                </ul></li>
+                <li><a href="#检测状态detect-state"
+                id="toc-检测状态detect-state">14.4 检测状态（Detect
+                State）</a>
+                <ul>
+                <li><a href="#简介" id="toc-简介">14.4.1 简介</a></li>
+                <li><a href="#detect-次状态细节讨论"
+                id="toc-detect-次状态细节讨论">14.4.1 Detect
+                次状态细节讨论</a></li>
+                </ul></li>
+                <li><a href="#轮询状态polling-state"
+                id="toc-轮询状态polling-state">14.5 轮询状态（Polling
+                State）</a>
+                <ul>
+                <li><a href="#简介-1" id="toc-简介-1">14.5.1
+                简介</a></li>
+                <li><a href="#polling次状态细节讨论"
+                id="toc-polling次状态细节讨论">14.5.1
+                Polling次状态细节讨论</a></li>
+                </ul></li>
+                <li><a href="#配置状态configuration-state"
+                id="toc-配置状态configuration-state">14.6
+                配置状态（Configuration State）</a>
+                <ul>
+                <li><a href="#configuration-状态综述"
+                id="toc-configuration-状态综述">14.6.1 Configuration
+                状态综述</a></li>
+                <li><a href="#设计支持链路合并的设备"
+                id="toc-设计支持链路合并的设备">14.6.2
+                设计支持链路合并的设备</a></li>
+                <li><a href="#configuration-状态训练示例"
+                id="toc-configuration-状态训练示例">14.6.3 Configuration
+                状态训练示例</a></li>
+                <li><a href="#configuration-状态各次状态详细讨论"
+                id="toc-configuration-状态各次状态详细讨论">14.6.4
+                Configuration 状态各次状态详细讨论</a></li>
+                </ul></li>
+                <li><a href="#l0-状态正常工作状态"
+                id="toc-l0-状态正常工作状态">14.7 L0
+                状态（正常工作状态）</a>
+                <ul>
+                <li><a href="#速率切换" id="toc-速率切换">14.7.1
+                速率切换</a></li>
+                <li><a href="#链路宽度切换" id="toc-链路宽度切换">14.7.2
+                链路宽度切换</a></li>
+                <li><a href="#链路伙伴发起链路改变的情形"
+                id="toc-链路伙伴发起链路改变的情形">14.7.3
+                链路伙伴发起链路改变的情形</a></li>
+                </ul></li>
+                <li><a href="#恢复状态recovery-state"
+                id="toc-恢复状态recovery-state">14.8 恢复状态（Recovery
+                State）</a>
+                <ul>
+                <li><a href="#几个进入-recovery-状态的理由"
+                id="toc-几个进入-recovery-状态的理由">14.8.1 几个进入
+                Recovery 状态的理由</a></li>
+                <li><a href="#初始化-recovery-状态"
+                id="toc-初始化-recovery-状态">14.8.2 初始化 Recovery
+                状态</a></li>
+                <li><a href="#recovery-状态各次状态详细讨论"
+                id="toc-recovery-状态各次状态详细讨论">14.8.3 Recovery
+                状态各次状态详细讨论</a></li>
+                <li><a href="#一次速率变换示例"
+                id="toc-一次速率变换示例">14.8.4
+                一次速率变换示例</a></li>
+                <li><a href="#链路均衡概览" id="toc-链路均衡概览">14.8.5
+                链路均衡概览</a></li>
+                <li><a href="#均衡次状态详览"
+                id="toc-均衡次状态详览">14.8.6 均衡次状态详览</a></li>
+                </ul></li>
+                <li><a href="#l0s-状态低功耗空闲状态"
+                id="toc-l0s-状态低功耗空闲状态">14.9 L0s
+                状态（低功耗空闲状态）</a>
+                <ul>
+                <li><a href="#l0s-发送端状态机"
+                id="toc-l0s-发送端状态机">14.9.1 L0s
+                发送端状态机</a></li>
+                <li><a href="#l0s-接收端状态机"
+                id="toc-l0s-接收端状态机">14.9.2 L0s
+                接收端状态机</a></li>
+                </ul></li>
+                <li><a href="#l1-状态l1-state"
+                id="toc-l1-状态l1-state">14.10 L1 状态（L1 State）</a>
+                <ul>
+                <li><a href="#l1-entry-状态"
+                id="toc-l1-entry-状态">14.10.1 L1 Entry 状态</a></li>
+                <li><a href="#l1-idle-状态"
+                id="toc-l1-idle-状态">14.10.2 L1 Idle 状态</a></li>
+                </ul></li>
+                <li><a href="#l2-状态l2-state"
+                id="toc-l2-状态l2-state">14.11 L2 状态（L2 State）</a>
+                <ul>
+                <li><a href="#l2.idle-状态"
+                id="toc-l2.idle-状态">14.11.1 L2.Idle 状态</a></li>
+                <li><a href="#l2.transmitwake-状态"
+                id="toc-l2.transmitwake-状态">14.11.2 L2.TransmitWake
+                状态</a></li>
+                </ul></li>
+                <li><a href="#热复位状态hot-reset-state"
+                id="toc-热复位状态hot-reset-state">14.12 热复位状态（Hot
+                Reset State）</a>
+                <ul>
+                <li><a href="#热复位期间" id="toc-热复位期间">14.12.1
+                热复位期间</a></li>
+                <li><a href="#转移至-detect-状态"
+                id="toc-转移至-detect-状态">14.12.2 转移至 Detect
+                状态</a></li>
+                </ul></li>
+                <li><a href="#disable-状态disable-state"
+                id="toc-disable-状态disable-state">14.13 Disable
+                状态（Disable State）</a>
+                <ul>
+                <li><a href="#disable-期间"
+                id="toc-disable-期间">14.13.1 Disable 期间</a></li>
+                <li><a href="#转移至-detect-状态-1"
+                id="toc-转移至-detect-状态-1">14.13.2 转移至 Detect
+                状态</a></li>
+                </ul></li>
+                <li><a href="#回环状态loopback-state"
+                id="toc-回环状态loopback-state">14.14 回环状态（Loopback
+                State）</a>
+                <ul>
+                <li><a href="#loopback.entry"
+                id="toc-loopback.entry">14.14.1 Loopback.Entry</a></li>
+                <li><a href="#loopback-master"
+                id="toc-loopback-master">14.14.2 Loopback
+                Master</a></li>
+                <li><a href="#loopback-slave"
+                id="toc-loopback-slave">14.14.3 Loopback Slave</a></li>
+                <li><a href="#loopback.active"
+                id="toc-loopback.active">14.14.4
+                Loopback.Active</a></li>
+                <li><a href="#loopback.exit"
+                id="toc-loopback.exit">14.14.5 Loopback.Exit</a></li>
+                </ul></li>
+                <li><a href="#动态带宽改变dynamic-bandwidth-changes"
+                id="toc-动态带宽改变dynamic-bandwidth-changes">14.15
+                动态带宽改变（Dynamic Bandwidth Changes）</a>
+                <ul>
+                <li><a href="#动态链路速率改变"
+                id="toc-动态链路速率改变">14.15.1
+                动态链路速率改变</a></li>
+                <li><a href="#usp-发起的速率改变"
+                id="toc-usp-发起的速率改变">14.15.2 USP
+                发起的速率改变</a></li>
+                <li><a href="#速率改变示例"
+                id="toc-速率改变示例">14.15.3 速率改变示例</a></li>
+                <li><a href="#速率改变的软件控制"
+                id="toc-速率改变的软件控制">14.15.4
+                速率改变的软件控制</a></li>
+                <li><a href="#动态链路宽度改变"
+                id="toc-动态链路宽度改变">14.15.5
+                动态链路宽度改变</a></li>
+                <li><a href="#链路宽度改变示例"
+                id="toc-链路宽度改变示例">14.15.6
+                链路宽度改变示例</a></li>
+                </ul></li>
+                <li><a
+                href="#相关配置寄存器related-configuration-registers"
+                id="toc-相关配置寄存器related-configuration-registers">14.16
+                相关配置寄存器（Related Configuration Registers）</a>
+                <ul>
+                <li><a href="#链路能力寄存器"
+                id="toc-链路能力寄存器">14.16.1 链路能力寄存器</a></li>
+                <li><a href="#链路能力-2-寄存器"
+                id="toc-链路能力-2-寄存器">14.16.2 链路能力 2
+                寄存器</a></li>
+                <li><a href="#链路状态寄存器"
+                id="toc-链路状态寄存器">14.16.3 链路状态寄存器</a></li>
+                <li><a href="#链路控制寄存器"
+                id="toc-链路控制寄存器">14.16.4 链路控制寄存器</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#链路初始化与训练link-initialization-training"
-            id="toc-链路初始化与训练link-initialization-training">14
-            链路初始化与训练（Link Initialization &amp; Training）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#总览" id="toc-总览">14.1 总览</a></li>
-            <li><a href="#链路训练中的有序集"
-            id="toc-链路训练中的有序集">14.2 链路训练中的有序集</a></li>
-            <li><a
-            href="#链路训练与状态机ltssmlink-training-and-status-state-machine"
-            id="toc-链路训练与状态机ltssmlink-training-and-status-state-machine">14.3
-            链路训练与状态机（LTSSM，Link Training and Status State
-            Machine）</a></li>
-            <li><a href="#检测状态detect-state"
-            id="toc-检测状态detect-state">14.4 检测状态（Detect
-            State）</a></li>
-            <li><a href="#轮询状态polling-state"
-            id="toc-轮询状态polling-state">14.5 轮询状态（Polling
-            State）</a></li>
-            <li><a href="#配置状态configuration-state"
-            id="toc-配置状态configuration-state">14.6
-            配置状态（Configuration State）</a></li>
-            <li><a href="#l0-状态正常工作状态"
-            id="toc-l0-状态正常工作状态">14.7 L0
-            状态（正常工作状态）</a></li>
-            <li><a href="#恢复状态recovery-state"
-            id="toc-恢复状态recovery-state">14.8 恢复状态（Recovery
-            State）</a></li>
-            <li><a href="#l0s-状态低功耗空闲状态"
-            id="toc-l0s-状态低功耗空闲状态">14.9 L0s
-            状态（低功耗空闲状态）</a></li>
-            <li><a href="#l1-状态l1-state"
-            id="toc-l1-状态l1-state">14.10 L1 状态（L1 State）</a></li>
-            <li><a href="#l2-状态l2-state"
-            id="toc-l2-状态l2-state">14.11 L2 状态（L2 State）</a></li>
-            <li><a href="#热复位状态hot-reset-state"
-            id="toc-热复位状态hot-reset-state">14.12 热复位状态（Hot
-            Reset State）</a></li>
-            <li><a href="#disable-状态disable-state"
-            id="toc-disable-状态disable-state">14.13 Disable
-            状态（Disable State）</a></li>
-            <li><a href="#回环状态loopback-state"
-            id="toc-回环状态loopback-state">14.14 回环状态（Loopback
-            State）</a></li>
-            <li><a href="#动态带宽改变dynamic-bandwidth-changes"
-            id="toc-动态带宽改变dynamic-bandwidth-changes">14.15
-            动态带宽改变（Dynamic Bandwidth Changes）</a></li>
-            <li><a href="#相关配置寄存器related-configuration-registers"
-            id="toc-相关配置寄存器related-configuration-registers">14.16
-            相关配置寄存器（Related Configuration Registers）</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#链路初始化与训练link-initialization-training"
+                id="toc-链路初始化与训练link-initialization-training">14
+                链路初始化与训练（Link Initialization &amp;
+                Training）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#总览" id="toc-总览">14.1 总览</a></li>
+                <li><a href="#链路训练中的有序集"
+                id="toc-链路训练中的有序集">14.2 链路训练中的有序集</a>
+                <ul>
+                <li><a href="#概要" id="toc-概要">14.2.1 概要</a></li>
+                <li><a href="#ts1-以及-ts2-有序集"
+                id="toc-ts1-以及-ts2-有序集">14.2.2 TS1 以及 TS2
+                有序集</a></li>
+                </ul></li>
+                <li><a
+                href="#链路训练与状态机ltssmlink-training-and-status-state-machine"
+                id="toc-链路训练与状态机ltssmlink-training-and-status-state-machine">14.3
+                链路训练与状态机（LTSSM，Link Training and Status State
+                Machine）</a>
+                <ul>
+                <li><a href="#概要-1" id="toc-概要-1">14.3.1
+                概要</a></li>
+                <li><a href="#ltssm-状态概要链路训练与状态机状态概要"
+                id="toc-ltssm-状态概要链路训练与状态机状态概要">14.3.2
+                LTSSM 状态概要（链路训练与状态机状态概要）</a></li>
+                <li><a href="#介绍示例与状态次状态"
+                id="toc-介绍示例与状态次状态">14.3.3
+                介绍，示例与状态/次状态</a></li>
+                </ul></li>
+                <li><a href="#检测状态detect-state"
+                id="toc-检测状态detect-state">14.4 检测状态（Detect
+                State）</a>
+                <ul>
+                <li><a href="#简介" id="toc-简介">14.4.1 简介</a></li>
+                <li><a href="#detect-次状态细节讨论"
+                id="toc-detect-次状态细节讨论">14.4.1 Detect
+                次状态细节讨论</a></li>
+                </ul></li>
+                <li><a href="#轮询状态polling-state"
+                id="toc-轮询状态polling-state">14.5 轮询状态（Polling
+                State）</a>
+                <ul>
+                <li><a href="#简介-1" id="toc-简介-1">14.5.1
+                简介</a></li>
+                <li><a href="#polling次状态细节讨论"
+                id="toc-polling次状态细节讨论">14.5.1
+                Polling次状态细节讨论</a></li>
+                </ul></li>
+                <li><a href="#配置状态configuration-state"
+                id="toc-配置状态configuration-state">14.6
+                配置状态（Configuration State）</a>
+                <ul>
+                <li><a href="#configuration-状态综述"
+                id="toc-configuration-状态综述">14.6.1 Configuration
+                状态综述</a></li>
+                <li><a href="#设计支持链路合并的设备"
+                id="toc-设计支持链路合并的设备">14.6.2
+                设计支持链路合并的设备</a></li>
+                <li><a href="#configuration-状态训练示例"
+                id="toc-configuration-状态训练示例">14.6.3 Configuration
+                状态训练示例</a></li>
+                <li><a href="#configuration-状态各次状态详细讨论"
+                id="toc-configuration-状态各次状态详细讨论">14.6.4
+                Configuration 状态各次状态详细讨论</a></li>
+                </ul></li>
+                <li><a href="#l0-状态正常工作状态"
+                id="toc-l0-状态正常工作状态">14.7 L0
+                状态（正常工作状态）</a>
+                <ul>
+                <li><a href="#速率切换" id="toc-速率切换">14.7.1
+                速率切换</a></li>
+                <li><a href="#链路宽度切换" id="toc-链路宽度切换">14.7.2
+                链路宽度切换</a></li>
+                <li><a href="#链路伙伴发起链路改变的情形"
+                id="toc-链路伙伴发起链路改变的情形">14.7.3
+                链路伙伴发起链路改变的情形</a></li>
+                </ul></li>
+                <li><a href="#恢复状态recovery-state"
+                id="toc-恢复状态recovery-state">14.8 恢复状态（Recovery
+                State）</a>
+                <ul>
+                <li><a href="#几个进入-recovery-状态的理由"
+                id="toc-几个进入-recovery-状态的理由">14.8.1 几个进入
+                Recovery 状态的理由</a></li>
+                <li><a href="#初始化-recovery-状态"
+                id="toc-初始化-recovery-状态">14.8.2 初始化 Recovery
+                状态</a></li>
+                <li><a href="#recovery-状态各次状态详细讨论"
+                id="toc-recovery-状态各次状态详细讨论">14.8.3 Recovery
+                状态各次状态详细讨论</a></li>
+                <li><a href="#一次速率变换示例"
+                id="toc-一次速率变换示例">14.8.4
+                一次速率变换示例</a></li>
+                <li><a href="#链路均衡概览" id="toc-链路均衡概览">14.8.5
+                链路均衡概览</a></li>
+                <li><a href="#均衡次状态详览"
+                id="toc-均衡次状态详览">14.8.6 均衡次状态详览</a></li>
+                </ul></li>
+                <li><a href="#l0s-状态低功耗空闲状态"
+                id="toc-l0s-状态低功耗空闲状态">14.9 L0s
+                状态（低功耗空闲状态）</a>
+                <ul>
+                <li><a href="#l0s-发送端状态机"
+                id="toc-l0s-发送端状态机">14.9.1 L0s
+                发送端状态机</a></li>
+                <li><a href="#l0s-接收端状态机"
+                id="toc-l0s-接收端状态机">14.9.2 L0s
+                接收端状态机</a></li>
+                </ul></li>
+                <li><a href="#l1-状态l1-state"
+                id="toc-l1-状态l1-state">14.10 L1 状态（L1 State）</a>
+                <ul>
+                <li><a href="#l1-entry-状态"
+                id="toc-l1-entry-状态">14.10.1 L1 Entry 状态</a></li>
+                <li><a href="#l1-idle-状态"
+                id="toc-l1-idle-状态">14.10.2 L1 Idle 状态</a></li>
+                </ul></li>
+                <li><a href="#l2-状态l2-state"
+                id="toc-l2-状态l2-state">14.11 L2 状态（L2 State）</a>
+                <ul>
+                <li><a href="#l2.idle-状态"
+                id="toc-l2.idle-状态">14.11.1 L2.Idle 状态</a></li>
+                <li><a href="#l2.transmitwake-状态"
+                id="toc-l2.transmitwake-状态">14.11.2 L2.TransmitWake
+                状态</a></li>
+                </ul></li>
+                <li><a href="#热复位状态hot-reset-state"
+                id="toc-热复位状态hot-reset-state">14.12 热复位状态（Hot
+                Reset State）</a>
+                <ul>
+                <li><a href="#热复位期间" id="toc-热复位期间">14.12.1
+                热复位期间</a></li>
+                <li><a href="#转移至-detect-状态"
+                id="toc-转移至-detect-状态">14.12.2 转移至 Detect
+                状态</a></li>
+                </ul></li>
+                <li><a href="#disable-状态disable-state"
+                id="toc-disable-状态disable-state">14.13 Disable
+                状态（Disable State）</a>
+                <ul>
+                <li><a href="#disable-期间"
+                id="toc-disable-期间">14.13.1 Disable 期间</a></li>
+                <li><a href="#转移至-detect-状态-1"
+                id="toc-转移至-detect-状态-1">14.13.2 转移至 Detect
+                状态</a></li>
+                </ul></li>
+                <li><a href="#回环状态loopback-state"
+                id="toc-回环状态loopback-state">14.14 回环状态（Loopback
+                State）</a>
+                <ul>
+                <li><a href="#loopback.entry"
+                id="toc-loopback.entry">14.14.1 Loopback.Entry</a></li>
+                <li><a href="#loopback-master"
+                id="toc-loopback-master">14.14.2 Loopback
+                Master</a></li>
+                <li><a href="#loopback-slave"
+                id="toc-loopback-slave">14.14.3 Loopback Slave</a></li>
+                <li><a href="#loopback.active"
+                id="toc-loopback.active">14.14.4
+                Loopback.Active</a></li>
+                <li><a href="#loopback.exit"
+                id="toc-loopback.exit">14.14.5 Loopback.Exit</a></li>
+                </ul></li>
+                <li><a href="#动态带宽改变dynamic-bandwidth-changes"
+                id="toc-动态带宽改变dynamic-bandwidth-changes">14.15
+                动态带宽改变（Dynamic Bandwidth Changes）</a>
+                <ul>
+                <li><a href="#动态链路速率改变"
+                id="toc-动态链路速率改变">14.15.1
+                动态链路速率改变</a></li>
+                <li><a href="#usp-发起的速率改变"
+                id="toc-usp-发起的速率改变">14.15.2 USP
+                发起的速率改变</a></li>
+                <li><a href="#速率改变示例"
+                id="toc-速率改变示例">14.15.3 速率改变示例</a></li>
+                <li><a href="#速率改变的软件控制"
+                id="toc-速率改变的软件控制">14.15.4
+                速率改变的软件控制</a></li>
+                <li><a href="#动态链路宽度改变"
+                id="toc-动态链路宽度改变">14.15.5
+                动态链路宽度改变</a></li>
+                <li><a href="#链路宽度改变示例"
+                id="toc-链路宽度改变示例">14.15.6
+                链路宽度改变示例</a></li>
+                </ul></li>
+                <li><a
+                href="#相关配置寄存器related-configuration-registers"
+                id="toc-相关配置寄存器related-configuration-registers">14.16
+                相关配置寄存器（Related Configuration Registers）</a>
+                <ul>
+                <li><a href="#链路能力寄存器"
+                id="toc-链路能力寄存器">14.16.1 链路能力寄存器</a></li>
+                <li><a href="#链路能力-2-寄存器"
+                id="toc-链路能力-2-寄存器">14.16.2 链路能力 2
+                寄存器</a></li>
+                <li><a href="#链路状态寄存器"
+                id="toc-链路状态寄存器">14.16.3 链路状态寄存器</a></li>
+                <li><a href="#链路控制寄存器"
+                id="toc-链路控制寄存器">14.16.4 链路控制寄存器</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="链路初始化与训练link-initialization-training">14
@@ -110,6 +512,7 @@
         对可纠正、非致命以及致命错误的处理机制。</p>
         <h3 id="总览">14.1 总览</h3>
         <p>链路初始化和训练是由物理层控制的，基于硬件（而非软件）的过程。该过程配置和初始化设备的链路和端口，使链路上能够进行正常的数据报文通信。</p>
+        <p>图 14-1 LTSSM 在 PCIe 架构中所处的位置</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20211221215807738.png"
@@ -117,7 +520,6 @@
         <figcaption aria-hidden="true">图 14-1 LTSSM
         所处的位置</figcaption>
         </figure>
-        <p>图 14-1 LTSSM 在 PCIe 架构中所处的位置</p>
         <p>完整的训练过程在复位后由硬件自动启动，并由 LTSSM 管理，如 506
         页图14-1 所示。</p>
         <p>在链路初始化和训练过程中包括了几项步骤。让我们思考下它们都有哪些作用，并提前引入一些术语。</p>
@@ -179,6 +581,7 @@
         D10.2，或者在 TS2 中收到了 D26.5 而不是预期的
         D5.2，这代表当前通道差分对极性反转，需要进行纠正。与通道翻转不同的是，极性反转纠正是一项必须的特性，而不是可选的。</li>
         </ul>
+        <p>图 14-3 极性反转示例（强制支持特性）</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221007223058238.png"
@@ -186,7 +589,6 @@
         <figcaption
         aria-hidden="true">image-20221007223058238</figcaption>
         </figure>
-        <p>图 14-3 极性反转示例（强制支持特性）</p>
         <ul>
         <li><p><strong>链路数据速率（Link Data Rate）</strong>:
         在复位后，链路初始化与训练状态机总是会先将数据速率设置为默认的
@@ -209,6 +611,7 @@
         TS1 以及 TS2 。图 14-4 中是 Gen1 以及 Gen2
         模式下的有序集格式。图 14-5 是 Gen3
         模式中所使用有序集的格式。接下来我们来进一步详细讨论他们。</p>
+        <p>图 14-4 Gen1/Gen2 中的 TS1/TS2 格式</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20211225215148969.png"
@@ -216,7 +619,6 @@
         <figcaption
         aria-hidden="true">image-20211225215148969</figcaption>
         </figure>
-        <p>图 14-4 Gen1/Gen2 中的 TS1/TS2 格式</p>
         <h4 id="ts1-以及-ts2-有序集">14.2.2 TS1 以及 TS2 有序集</h4>
         <p>从图中 14-4 中可以看到，TS1/TS2 由 16
         个符号（译注：字节）组成。在 LTSSM
@@ -230,6 +632,7 @@
         字段中的填充字符（PAD character）使用 K23.7 ，而在 Gen3
         中使用的是
         F7h。我们后续的讨论中不会特别提及两者的差异，而统一表示为填充字符，因为这不重要。</p>
+        <p>图 14-5 Gen3 中的 TS1/TS2 格式</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20211225215638284.png"
@@ -237,7 +640,6 @@
         <figcaption
         aria-hidden="true">image-20211225215638284</figcaption>
         </figure>
-        <p>图 14-5 Gen3 中的 TS1/TS2 格式</p>
         <p>表 14-1 TS1 有序集内容汇总</p>
         <table>
         <colgroup>
@@ -609,6 +1011,7 @@
         <p>此外，软件可以直接使链路进入一些其他状态，比如禁用状态（Disabled），回环状态（Loopback
         State）（Loopback）或者热复位（Hot
         Reset）状态。这里，这些状态被归纳为<strong>其他状态</strong>。</p>
+        <p>图 14-6 LTSSM 状态跳转图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220105205407630.png"
@@ -616,7 +1019,6 @@
         <figcaption
         aria-hidden="true">image-20220105205407630</figcaption>
         </figure>
-        <p>图 14-6 LTSSM 状态跳转图</p>
         <h4 id="ltssm-状态概要链路训练与状态机状态概要">14.3.2 LTSSM
         状态概要（链路训练与状态机状态概要）</h4>
         <p>以下是对 11 个 LTSSM 状态的高层次概要介绍。</p>
@@ -733,6 +1135,7 @@
         14-7 高亮了初始链路训练过程中涉及的状态。支持更高速率 5.0 或者
         8.0 GT/s 的设备，必须进行 Recovery
         状态，才能够进行速率切换。</p>
+        <p>图 14-7 2.5Gb/s 速率下，初始链路训练涉及的状态</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220105215954695.png"
@@ -740,7 +1143,6 @@
         <figcaption
         aria-hidden="true">image-20220105215954695</figcaption>
         </figure>
-        <p>图 14-7 2.5Gb/s 速率下，初始链路训练涉及的状态</p>
         <h3 id="检测状态detect-state">14.4 检测状态（Detect State）</h3>
         <h4 id="简介">14.4.1 简介</h4>
         <p>图 14-8 展示了与 Detect 状态相关的状态跳变，以及 Detect
@@ -749,6 +1151,7 @@
         Detect 只有 2
         个次状态，所以行为比较简单，本节就直接讨论两个次状态的细节，不再讨论
         Detect 状态本身了。</p>
+        <p>图 14-8 检测状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220108120331857.png"
@@ -756,7 +1159,6 @@
         <figcaption
         aria-hidden="true">image-20220108120331857</figcaption>
         </figure>
-        <p>图 14-8 检测状态机</p>
         <h4 id="detect-次状态细节讨论">14.4.1 Detect 次状态细节讨论</h4>
         <h5 id="detect.quiet">14.4.1.1 Detect.Quiet</h5>
         <p>Quiet 次状态是除了功能级复位（FLR，Function Level
@@ -842,6 +1244,7 @@
         有序集。轮询状态的主要目的是使链路两端的设备能够听懂对方在说些什么，换句话说，他们需要各自在对方的发送比特流上，建立比特和符号锁定状态，并且解决极性翻转（polarity
         inversion）恢复之类的事宜。在这些工作完成后，设备们能够正确地接收对方发出的
         TS1 和 TS2 有序集。图 14-9 展示了轮询状态的各个次状态。</p>
+        <p>图 14-9 轮询状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220112221703513.png"
@@ -849,7 +1252,6 @@
         <figcaption
         aria-hidden="true">image-20220112221703513</figcaption>
         </figure>
-        <p>图 14-9 轮询状态机</p>
         <h4 id="polling次状态细节讨论">14.5.1 Polling次状态细节讨论</h4>
         <h5 id="polling.active">14.5.1.1 Polling.Active</h5>
         <p><em>Polling.Active 期间</em></p>
@@ -954,6 +1356,8 @@
         状态进行动态速率调节是不适合的，因此动态速率调节的功能被移出了
         Polling 阶段，而设置于 Recovery 阶段中。具体可见原文 528 页的图
         14-10。</p>
+        <p>图 14-10 Polling 状态机，包含历史上的 Polling.speed
+        次状态</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220131214053877.png"
@@ -961,8 +1365,6 @@
         <figcaption
         aria-hidden="true">image-20220131214053877</figcaption>
         </figure>
-        <p>图 14-10 Polling 状态机，包含历史上的 Polling.speed
-        次状态</p>
         <p>现今，LTSSM 在复位之后会总是会将速率训练为 2.5
         GT/s，哪怕支持更高的速率。在 LTSSM 状态机进入 L0
         状态之后，一旦有更高的可用速率，状态机进入 Recovery
@@ -972,31 +1374,30 @@
         Polling.Speed
         次状态，但会将其标注为不会进入（unreachable）的状态。</p>
         <h5 id="polling.compliance">14.5.1.3 Polling.Compliance</h5>
-        <p>Compliance
-        次状态用于测试。发送方会发送特定的码字组合（pattern），构建一种码间干扰和串扰接近最严重的场景，用于链路信号质量分析。在该次状态中，可以发送两类码字，分别是
-        Compliance pattern 和 modified compliance pattern。</p>
+        <p>Polling.Compliance
+        次状态仅用于测试。发送方在该状态下发送特定测试码型（pattern），用于构造接近最差情况的码间干扰（ISI，Inter-Symbol
+        Interference）和串扰（crosstalk）条件，便于分析链路信号质量。在该次状态中，可以发送两类码型：<strong>Compliance
+        Pattern</strong> 和 <strong>Modified Compliance
+        Pattern</strong>。</p>
         <h6 id="用于-8b10b-编码的-compliance-pattern">用于 8b/10b 编码的
-        Compliance pattern</h6>
-        <p>该码字包括 4
-        个符号（Symbol），码字中这四个符号将按照顺序不停重复，他们分别是：K28.5-，D21.5+，K28.5+
-        以及 D10.2，他们名字中的 (-) 表示负极性的校验结果以及
-        RCD（//TODO，negative <strong>current running disparity</strong>
-        or CRD，<strong>CRD</strong> means???），而 (+) 表示正极性的
-        CRD（由于 CRD
-        是强制的，在码字组合开始时，允许出现校验错误）。如果链路由多条通道组成，那么四个延迟符号（Delay
-        symbol，看上去 Delay 只标识了那些名字以 D
-        开头的符号，但其实也包括了 K28.5 符号）首先在通道 0
-        上注入，与前后两个 compliance pattern 保持 2
-        个符号的间隔（//TODO <strong>two</strong> before the next
-        compliance pattern and two after the compliance
-        pattern）。在通道 0 上发送了最后一个延迟符号之后，转至通道 1
-        发送（同样地，与前后两个 compliance pattern 保持 2
-        个符号的间隔）。重复这个过程直到所有 8
-        个通道发送完毕，再回到通道 0 重新开始，整个过程可以参见原文 529
-        页上的 表14-3，Compliance pattern 用灰色背景标识。每 8 个通道为
-        1
-        组，重复上述的码字组合发送方式。通过以上述规则循环重复发送延迟符号可以确保相邻通道之间存在信号串扰，提供一个最接近最差情况的测试环境。</p>
-        <p>表 14-3及其续表 8b/10b 编码的 compliance pattern</p>
+        Compliance Pattern</h6>
+        <p>该码型由 4
+        个符号（Symbol）按顺序重复组成，分别是：<code>K28.5-</code>、<code>D21.5+</code>、<code>K28.5+</code>
+        和 <code>D10.2-</code>。其中 <code>-</code>
+        表示负的当前运行差异（CRD，Current Running
+        Disparity），<code>+</code> 表示正的 CRD。由于该码型会强制指定
+        CRD，所以在码型开始处允许出现 disparity error。</p>
+        <p>如果链路由多条通道组成，那么还会注入 4 个延迟符号（Delay
+        Symbol）。表中的 <code>D</code> 不是普通的 D 字符，而是 Delay
+        Symbol 的占位标记，实际是额外插入的 <code>K28.5</code>
+        符号。Delay Symbol 首先插入到 Lane 0：其中 2 个位于下一组
+        Compliance Pattern 之前，2 个位于该组 Compliance Pattern
+        之后。Lane 0 上最后一个 Delay Symbol
+        发送完成后，再以同样方式转移到 Lane 1；随后依次传播到 Lane
+        7，之后再回到 Lane 0 重新开始。每 8 条通道为一组重复该行为。</p>
+        <p>这种让 Delay Symbol 在相邻 Lane
+        之间移动的方式，可以增加相邻通道之间的干扰，从而形成更适合测试的接近最差情况的信号条件。</p>
+        <p>表 14-3 及其续表：8b/10b 编码的 Compliance Pattern</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220201161743327.png"
@@ -1012,56 +1413,870 @@
         aria-hidden="true">image-20220201161752175</figcaption>
         </figure>
         <h6 id="用于-128b130b-编码的-compliance-pattern">用于 128b/130b
-        编码的 Compliance pattern</h6>
-        <p>TODO</p>
+        编码的 Compliance Pattern</h6>
+        <p>用于 128b/130b 编码的 Compliance Pattern 由 36 个 Block
+        组成，并按如下顺序循环重复：</p>
+        <ol type="1">
+        <li>第 1 个 Block：同步头（Sync Header）为
+        <code>01b</code>，未加扰载荷由 64 个 <code>1</code> 后跟 64 个
+        <code>0</code> 组成。</li>
+        <li>第 2 个 Block：同步头为 <code>01b</code>，未加扰载荷如表
+        14-4 所示。</li>
+        <li>第 3 个 Block：同步头为 <code>01b</code>，未加扰载荷如表
+        14-5 所示。</li>
+        <li>第 4 个 Block：EIEOS Block。</li>
+        <li>后续 32 个 Data Block：每个 Block 包含 16 个经过加扰的 IDL
+        符号（<code>00h</code>）。</li>
+        </ol>
+        <p>表 14-4 和表 14-5 中的码型每 8 条 Lane
+        后重复一次。<code>P</code> 表示当前使用的 4-bit 发送端 Preset
+        编码，<code>~P</code> 表示该 Preset 编码的逐位取反值。</p>
+        <p>表 14-4：128b/130b Compliance Pattern 的第 2 个 Block</p>
+        <table style="width:100%;">
+        <colgroup>
+        <col style="width: 14%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th style="text-align: right;">Symbol</th>
+        <th>Lane 0</th>
+        <th>Lane 1</th>
+        <th>Lane 2</th>
+        <th>Lane 3</th>
+        <th>Lane 4</th>
+        <th>Lane 5</th>
+        <th>Lane 6</th>
+        <th>Lane 7</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style="text-align: right;">0</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">1</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">2</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">3</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>FFh</td>
+        <td>C0h</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>F0h</td>
+        <td>F0h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">4</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>FFh</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>00h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">5</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>C0h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>E0h</td>
+        <td>00h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">6</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">7</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">8</td>
+        <td>00h</td>
+        <td>1Eh</td>
+        <td>2Dh</td>
+        <td>3Ch</td>
+        <td>4Bh</td>
+        <td>5Ah</td>
+        <td>69h</td>
+        <td>78h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">9</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>F0h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">10</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">11</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">12</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>0Fh</td>
+        <td>0Fh</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>07h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">13</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">14</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>7Fh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">15</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>00h</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>表 14-5：128b/130b Compliance Pattern 的第 3 个 Block</p>
+        <table style="width:100%;">
+        <colgroup>
+        <col style="width: 14%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th style="text-align: right;">Symbol</th>
+        <th>Lane 0</th>
+        <th>Lane 1</th>
+        <th>Lane 2</th>
+        <th>Lane 3</th>
+        <th>Lane 4</th>
+        <th>Lane 5</th>
+        <th>Lane 6</th>
+        <th>Lane 7</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style="text-align: right;">0</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">1</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">2</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">3</td>
+        <td>F0h</td>
+        <td>F0h</td>
+        <td>55h</td>
+        <td>F0h</td>
+        <td>F0h</td>
+        <td>F0h</td>
+        <td>55h</td>
+        <td>F0h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">4</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">5</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">6</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">7</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        <td>{P,~P}</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">8</td>
+        <td>00h</td>
+        <td>1Eh</td>
+        <td>2Dh</td>
+        <td>3Ch</td>
+        <td>4Bh</td>
+        <td>5Ah</td>
+        <td>69h</td>
+        <td>78h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">9</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">10</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">11</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>00h</td>
+        <td>55h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">12</td>
+        <td>FFh</td>
+        <td>0Fh</td>
+        <td>0Fh</td>
+        <td>55h</td>
+        <td>0Fh</td>
+        <td>0Fh</td>
+        <td>0Fh</td>
+        <td>55h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">13</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">14</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">15</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>FFh</td>
+        <td>55h</td>
+        </tr>
+        </tbody>
+        </table>
         <h6 id="用于-8b10b-编码的-modified-compliance-pattern">用于
-        8b/10b 编码的 Modified Compliance pattern</h6>
-        <p>TODO</p>
+        8b/10b 编码的 Modified Compliance Pattern</h6>
+        <p>Modified Compliance Pattern 在 Compliance Pattern
+        的基础上增加了错误状态字段，用于报告设备在 Polling.Compliance
+        状态下检测到的 Receiver Error 数量。</p>
+        <p>在 8b/10b 模式中，原始 Compliance Pattern
+        仍然会被使用，但会增加 2 个用于报告错误状态的符号。之所以使用 2
+        个符号而不是 1 个，是为了避免破坏该序列所要求的 disparity
+        关系。随后还会在末尾增加 2 个 <code>K28.5</code>
+        符号，因此基本码型总长度变为 8 个符号。</p>
+        <p>表 14-6：8b/10b Modified Compliance Pattern 的符号序列</p>
+        <table>
+        <thead>
+        <tr>
+        <th style="text-align: right;">Symbol</th>
+        <th>Lane 0</th>
+        <th>Lane 1</th>
+        <th>Lane 2</th>
+        <th>…</th>
+        <th>Lane 8</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style="text-align: right;">0</td>
+        <td>D</td>
+        <td>K28.5-</td>
+        <td>K28.5-</td>
+        <td>…</td>
+        <td>D</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">1</td>
+        <td>D</td>
+        <td>K21.5</td>
+        <td>K21.5</td>
+        <td>…</td>
+        <td>D</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">2</td>
+        <td>D</td>
+        <td>K28.5+</td>
+        <td>K28.5+</td>
+        <td>…</td>
+        <td>D</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">3</td>
+        <td>D</td>
+        <td>D10.2</td>
+        <td>D10.2</td>
+        <td>…</td>
+        <td>D</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">4</td>
+        <td>K28.5-</td>
+        <td>ERR</td>
+        <td>ERR</td>
+        <td>…</td>
+        <td>K28.5-</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">5</td>
+        <td>K21.5</td>
+        <td>ERR</td>
+        <td>ERR</td>
+        <td>…</td>
+        <td>K21.5</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">6</td>
+        <td>K28.5+</td>
+        <td>K28.5-</td>
+        <td>K28.5-</td>
+        <td>…</td>
+        <td>K28.5+</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">7</td>
+        <td>D10.2</td>
+        <td>K28.5+</td>
+        <td>K28.5+</td>
+        <td>…</td>
+        <td>D10.2</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">8</td>
+        <td>ERR</td>
+        <td>K28.5-</td>
+        <td>K28.5-</td>
+        <td>…</td>
+        <td>ERR</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">9</td>
+        <td>ERR</td>
+        <td>K21.5</td>
+        <td>K21.5</td>
+        <td>…</td>
+        <td>ERR</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">10</td>
+        <td>K28.5-</td>
+        <td>K28.5+</td>
+        <td>K28.5+</td>
+        <td>…</td>
+        <td>K28.5-</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">11</td>
+        <td>K28.5+</td>
+        <td>D10.2</td>
+        <td>D10.2</td>
+        <td>…</td>
+        <td>K28.5+</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">12</td>
+        <td>K28.7-</td>
+        <td>ERR</td>
+        <td>ERR</td>
+        <td>…</td>
+        <td>K28.7-</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">13</td>
+        <td>K28.7-</td>
+        <td>ERR</td>
+        <td>ERR</td>
+        <td>…</td>
+        <td>K28.7-</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">14</td>
+        <td>K28.7-</td>
+        <td>K28.5-</td>
+        <td>K28.5-</td>
+        <td>…</td>
+        <td>K28.7-</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">15</td>
+        <td>K28.7-</td>
+        <td>K28.5+</td>
+        <td>K28.5+</td>
+        <td>…</td>
+        <td>K28.7-</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">16</td>
+        <td>K28.5-</td>
+        <td>D</td>
+        <td>K28.5-</td>
+        <td>…</td>
+        <td>K28.5-</td>
+        </tr>
+        </tbody>
+        </table>
+        <p><code>ERR[6:0]</code> 是 Receiver Error Count，用于表示
+        Pattern Lock 置位后检测到的错误数量。<code>ERR[7]</code> 是
+        Pattern Lock 指示位，表示接收端已经锁定到输入的 Modified
+        Compliance Pattern。</p>
+        <p>该码型的 Delay 序列也与普通 Compliance Pattern
+        不同：它会在序列开头连续增加 4 个 <code>K28.5</code>
+        符号（表中用 <code>D</code> 表示），并在 8-symbol
+        基本码型末尾增加 4 个 <code>K28.7</code> 符号，因此在 Delay
+        Pattern 转移到下一条 Lane 之前，总共会发送 16 个符号。与普通
+        Compliance Pattern
+        类似，基础码型会在相邻通道之间移动，以形成更合适的测试条件。</p>
         <h6 id="用于-128b130b-编码的-modified-compliance-pattern">用于
-        128b/130b 编码的 Modified Compliance pattern</h6>
-        <p>TODO</p>
-        <p><em>进入 Polling.Compliance 状态</em></p>
-        <p>在进入 Polling.Active
-        状态后，用于设置发送方的电压范围的链路控制寄存器2 （Link Control
-        2 register）的发送余量（Transmit Margin）字段生效。</p>
-        <p>去加重等级（De-emphasis level）和速率的关系如下文中的表 14-7
-        所示。因为相关设置都取决于链路控制寄存器2 的字段，图 14-11
-        罗列出了该寄存器的各项字段，用于参考。</p>
+        128b/130b 编码的 Modified Compliance Pattern</h6>
+        <p>用于 128b/130b 编码的 Modified Compliance Pattern 由 65792 个
+        Block 组成，并按如下结构循环：</p>
+        <ol type="1">
+        <li>1 个 EIEOS Block。</li>
+        <li>256 个 Data Block，每个 Data Block 包含 16 个经过加扰的 IDL
+        符号（<code>00h</code>）。</li>
+        <li>后续 255 组序列，每组包括：
         <ul>
-        <li>如果该端口只支持 2.5 GT/s 速率，那么数据速率会固定为 2.5
-        GT/s,去加重等级会固定为 -3.5dB。</li>
-        <li>否则，如果进入该次状态是因为收到了连续 8 个 TS1 序列，其
-        Compliance Receive 比特为 1b，并且 Loopback 比特为 0b (分别为
-        TS1 符号 5 的比特 2 和
-        4)，那么速率会设置为链路任意一方所支持的最高速率。select_deemphasis
-        变量设置必须与 TS1 符号 4 中的去加重比特相匹配。如果选择的速率是
-        8.0 GT/s，每条通道上的 select_preset 变量来自接下来一个 TS1
-        序列的符号 6 的对应比特。在 Gen3 速率下，那些没有接收到 8 个连续
-        TS1 序列的通道，这些 TS1 包含了 Preset
-        信息，可以自由地选择任意支持的 Preset。</li>
-        <li>再否则，如果</li>
+        <li>1 个 SOS；</li>
+        <li>256 个 Data Block，每个 Data Block 包含 16 个经过加扰的 IDL
+        符号。</li>
+        </ul></li>
+        </ol>
+        <p>由于这些 Data Block 的载荷全为
+        0，最终链路上看到的主要就是对应 Lane
+        的加扰器输出。需要注意，扰码器不会因为 Sync Header
+        比特而推进，并且会由 EIEOS 初始化。由于扰码器种子值依赖于 Lane
+        编号，因此 Lane 编号必须被正确理解。</p>
+        <p>如果链路先完成了训练，随后软件通过设置 Link Control 2
+        寄存器中的 Enter Compliance 比特使 LTSSM 进入
+        Polling.Compliance，那么应使用训练期间已经分配好的 Lane
+        编号以及极性反转结果。如果某条 Lane
+        在训练期间并未激活，或者以其他方式进入该次状态，则使用端口默认分配的
+        Lane 编号。</p>
+        <p>此外，该码型中的 Data Block 并不构成 Data
+        Stream，因此不需要满足 Data Stream 的相关要求，例如不需要发送
+        SDS Ordered Set，也不需要发送 EDS Token。</p>
+        <p>在 128b/130b 模式中，错误状态不再像 8b/10b 模式那样以单独 ERR
+        Symbol 的形式突出显示，而是包含在 SOS 中。SOS 的最后 2
+        个字节用于报告 Polling.Compliance 期间的 Receiver Error
+        Count。</p>
+        <h6 id="进入-polling.compliance-状态">进入 Polling.Compliance
+        状态</h6>
+        <p>与进入 Polling.Active 时类似，进入 Polling.Compliance
+        后，Link Control 2 寄存器中的 Transmit Margin
+        字段会用于设置本次状态下发送端使用的电压范围。</p>
+        <p>数据速率以及去加重（De-emphasis）/Preset 的选择方式如下：</p>
+        <ul>
+        <li>如果端口只支持 2.5 GT/s，那么数据速率固定为 2.5
+        GT/s，去加重等级固定为 -3.5 dB。</li>
+        <li>否则，如果进入该次状态是因为接收到 8 个连续 TS1，并且这些
+        TS1 的 Compliance Receive 比特为 1b、Loopback 比特为 0b（分别为
+        TS1 Symbol 5 的 bit 4 和 bit 2），则数据速率选择任意 Lane
+        上双方都支持的最高速率。<code>select_deemphasis</code>
+        变量必须与 TS1 Symbol 4 中的 Selectable De-emphasis
+        比特匹配。如果选择的速率是 8.0 GT/s，则每条 Lane 的
+        <code>select_preset</code> 变量来自连续 TS1 中 Symbol 6 的发送端
+        Preset 信息；对于没有收到 8 个包含 Transmitter Preset 信息的连续
+        TS1 的 Lane，可自由选择任意支持的 Preset。</li>
+        <li>否则，如果 Link Control 2 寄存器中的 Enter Compliance 比特为
+        1b，则 Compliance Pattern 按 Target Link Speed
+        字段给定的速率发送。如果目标速率是 5.0 GT/s，当 Compliance
+        Preset/De-emphasis 字段等于 <code>0001b</code>
+        时，<code>select_deemphasis</code> 变量置位；如果目标速率是 8.0
+        GT/s，则每条 Lane 的 <code>select_preset</code> 变量清为
+        <code>0b</code>，发送端必须使用 Compliance Preset/De-emphasis
+        字段指定的 Preset，前提是该字段不是保留编码。</li>
+        <li>最后，如果以上条件都不满足，则数据速率、Preset 和
+        De-emphasis 会按照组件支持的最高速率以及以这种方式进入
+        Polling.Compliance 的次数循环变化。第一次进入时使用 Setting
+        Number 1，之后每重新进入一次就递增一个设置；如果重新进入超过 14
+        次，则循环重复该序列。这样可以方便地依次测试组件支持的各类发送设置：进入
+        Polling.Compliance 测试当前设置，回到 Polling.Active，再进入
+        Polling.Compliance 测试下一项设置。</li>
         </ul>
-        <figure>
-        <img
-        src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220201163230245.png"
-        alt="image-20220201163230245" />
-        <figcaption
-        aria-hidden="true">image-20220201163230245</figcaption>
-        </figure>
-        <figure>
-        <img
-        src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220201163240783.png"
-        alt="image-20220201163240783" />
-        <figcaption
-        aria-hidden="true">image-20220201163240783</figcaption>
-        </figure>
-        <figure>
-        <img
-        src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220201163250837.png"
-        alt="image-20220201163250837" />
-        <figcaption
-        aria-hidden="true">image-20220201163250837</figcaption>
-        </figure>
+        <p>表 14-7：Compliance 发送设置序列</p>
+        <table>
+        <thead>
+        <tr>
+        <th style="text-align: right;">Setting Number</th>
+        <th style="text-align: right;">Data Rate</th>
+        <th style="text-align: right;">De-emphasis</th>
+        <th>Tx Preset Encoding</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style="text-align: right;">1</td>
+        <td style="text-align: right;">2.5</td>
+        <td style="text-align: right;">-3.5</td>
+        <td>n/a</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">2</td>
+        <td style="text-align: right;">5.0</td>
+        <td style="text-align: right;">-3.5</td>
+        <td>n/a</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">3</td>
+        <td style="text-align: right;">5.0</td>
+        <td style="text-align: right;">-6.0</td>
+        <td>n/a</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">4</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0000b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">5</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0001b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">6</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0010b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">7</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0011b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">8</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0100b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">9</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0101b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">10</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0110b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">11</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>0111b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">12</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>1000b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">13</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>1001b</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">14</td>
+        <td style="text-align: right;">8.0</td>
+        <td style="text-align: right;">n/a</td>
+        <td>1010b</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>如果最终选择的数据速率不是 2.5
+        GT/s，还需要额外满足以下要求：</p>
+        <ul>
+        <li>如果 Polling.Active 中曾经发送过 TS1，则发送端在进入
+        Electrical Idle 之前必须发送 1 个或 2 个连续 EIOS。</li>
+        <li>如果 Polling.Active 中没有发送过 TS1，则发送端可以不发送
+        EIOS，直接进入 Electrical Idle。</li>
+        <li>Electrical Idle 持续时间必须大于 1 ms 且小于 2
+        ms。在此期间，端口切换并稳定到新的数据速率。如果速率为 5.0
+        GT/s，De-emphasis 等级由 <code>select_deemphasis</code>
+        变量决定：<code>0b</code> 表示 -3.5 dB，<code>1b</code> 表示
+        -6.0 dB。如果速率为 8.0 GT/s，则由 <code>select_preset</code>
+        变量决定发送端 Preset。</li>
+        </ul>
+        <h6 id="polling.compliance-状态期间">Polling.Compliance
+        状态期间</h6>
+        <p>确定数据速率以及 De-emphasis/Preset 后，Polling.Compliance
+        状态中的行为遵循以下规则。</p>
+        <p><strong>发送 Compliance Pattern</strong></p>
+        <p>如果进入 Polling.Compliance 不是因为 TS Ordered Set 中
+        Compliance Receive 比特为 1b 且 Loopback 比特为 0b，也不是因为
+        Link Control 2 寄存器中的 Enter Compliance 和 Enter Modified
+        Compliance 两个比特同时置位，那么发送端会在所有已检测到的 Lane
+        上发送 Compliance Pattern。</p>
+        <p>退出到 Polling.Active 的条件如下：</p>
+        <ol type="1">
+        <li>任意已检测到 Lane 的接收端检测到退出 Electrical Idle，并且
+        Enter Compliance 比特为 0b。</li>
+        <li>自进入 Polling.Compliance 以来，Enter Compliance
+        比特已经被清为 0b。</li>
+        <li>对于上游端口（Upstream Port），Enter Compliance 比特为
+        1b，且任意 Lane 上检测到 EIOS。该条件也会使 Enter Compliance
+        比特清为 0b。</li>
+        </ol>
+        <p>如果进入 Polling.Compliance 时数据速率不是 2.5
+        GT/s，或者进入时 Enter Compliance 比特为 1b，那么发送端在转换到
+        Polling.Active 之前，需要发送 8 个连续 EIOS 并进入 Electrical
+        Idle。在 Electrical Idle 期间，端口切换回 2.5 GT/s，并使用 -3.5
+        dB 去加重，持续时间应在 1 ms 到 2 ms 之间。发送多个 EIOS
+        的目的，是提高对端至少检测到一个 EIOS 并退出 Polling.Compliance
+        的概率，尤其是在通过 Enter Compliance 比特进入该状态时。</p>
+        <p><strong>发送 Modified Compliance Pattern</strong></p>
+        <p>如果进入 Polling.Compliance 是由 TS1 指示触发，并且
+        Compliance Receive 比特为 1b、Loopback 比特为 0b，或者 Link
+        Control 2 寄存器中的 Enter Compliance 与 Enter Modified
+        Compliance 比特同时置位，则发送端会在所有已检测到的 Lane 上发送
+        Modified Compliance Pattern，并且初始时将错误状态符号清为全
+        0。</p>
+        <p>当速率为 2.5 GT/s 或 5.0 GT/s 时：</p>
+        <ul>
+        <li>每条 Lane 在看到一个 Modified Compliance Pattern
+        实例后，即可认为已经成功锁定到输入码型，并在自己回发的 Modified
+        Compliance Pattern 中置位 Pattern Lock 位（即 8-bit
+        错误状态符号的 bit 7）。</li>
+        <li>错误状态符号不能参与锁定过程，因为在对端尚未锁定之前，这些符号本身的含义可能尚未定义。</li>
+        <li>一个码型实例指前文所述的 4
+        个符号序列：<code>K28.5</code>、<code>D21.5</code>、<code>K28.5</code>、<code>D10.2</code>，或者这些符号的补码形式（表示极性反转）。</li>
+        <li>被测设备必须在收到对端 Modified Compliance Pattern 后 1 ms
+        内，在自己发送的 Modified Compliance Pattern 中置位 Pattern Lock
+        位。</li>
+        <li>某条 Lane 上每出现一个接收错误，该 Lane 的错误计数加
+        1；计数达到 127 后饱和，不再继续增大，也不会回绕。</li>
+        </ul>
+        <p>当速率为 8.0 GT/s 时：</p>
+        <ul>
+        <li>进入该次状态时，<code>Error_Status</code> 字段设置为
+        <code>00h</code>。</li>
+        <li>被测设备必须在收到对端 Modified Compliance Pattern 后 4 ms
+        内，在自己发送的 Modified Compliance Pattern 中置位 Pattern Lock
+        位。</li>
+        <li>每条 Lane 在完成 Block Alignment 后独立置位 Pattern
+        Lock。此后，Data Block 中的符号应为
+        IDL（<code>00h</code>）；任何不匹配的符号都会使错误计数加
+        1。Receiver Error Count 在 127 处饱和，并通过该码型中 SOS 的最后
+        2 个符号发送。</li>
+        <li>Modified Compliance Pattern
+        的加扰规则与普通情况相同：扰码器种子值按 Lane 设置，由 EIEOS
+        初始化，SOS 不推进 LFSR。</li>
+        <li>规范提示，设备在获得 Block Alignment
+        前应等待足够长时间，以确保接收端已经稳定并且不会出现 bit
+        slip；在置位 Pattern Lock 位之前，也可以重新验证 Block
+        Alignment。</li>
+        </ul>
+        <p>退出到 Polling.Active 的条件如下：</p>
+        <ul>
+        <li>如果进入 Polling.Compliance 时 Enter Compliance 比特为
+        1b，并且之后 Enter Compliance 比特被清为
+        0b；或者对于上游端口，在任意 Lane 上接收到 EIOS，则退出到
+        Polling.Active，同时 Enter Compliance 比特清为 0b。</li>
+        <li>如果进入 Polling.Compliance 时数据速率不是 2.5
+        GT/s，或者进入时 Enter Compliance 比特为 1b，那么发送端在转换到
+        Polling.Active 前发送 8 个连续 EIOS 并进入 Electrical Idle。在
+        Electrical Idle 期间，端口切换回 2.5 GT/s、-3.5 dB
+        De-emphasis，并保持 1 ms 到 2 ms。</li>
+        </ul>
+        <p>退出到 Detect State 的条件如下：</p>
+        <ul>
+        <li>如果 Link Control 2 寄存器中的 Enter Compliance 比特被清为
+        0b，并且设备被指示退出该次状态，则退出到 Detect State。</li>
+        </ul>
         <h3 id="配置状态configuration-state">14.6
         配置状态（Configuration State）</h3>
         <p>设备初始化时，Configuration 状态在 2.5 GT/s
@@ -1090,6 +2305,7 @@
         序列中会反映分配的链路以及通道编号，如原文 540 页的图 14-13
         红圈部分所示，这两个数值域在被分配具体的数值前，使用填充符号（PAD
         symbol）作为占位符。</p>
+        <p>图 14-13 TS1/TS2 中链路编号和通道编号的编码示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221011234540282.png"
@@ -1097,7 +2313,6 @@
         <figcaption
         aria-hidden="true">image-20221011234540282</figcaption>
         </figure>
-        <p>图 14-13 TS1/TS2 中链路编号和通道编号的编码示意图</p>
         <h4 id="设计支持链路合并的设备">14.6.2
         设计支持链路合并的设备</h4>
         <p>设计者一般根据性能与成本的考虑，决定在一条链路上实现多少个通道。PCIe
@@ -1111,6 +2326,7 @@
         4 个面向下游的逻辑桥，以支持 4
         个面向下游的端口。然而，如果这个交换机如图右方式连接的话，那么剩下的两个逻辑桥就将不工作。在链路训练期间，每个
         DSP 中的 LTSSM 将决定具体实现哪些其所支持的连接选项。</p>
+        <p>图 14-14 链路聚合（Link Merging），将通道聚合成更宽的链路</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221012233247598.png"
@@ -1118,7 +2334,6 @@
         <figcaption
         aria-hidden="true">image-20221012233247598</figcaption>
         </figure>
-        <p>图 14-14 链路聚合（Link Merging），将通道聚合成更宽的链路</p>
         <h4 id="configuration-状态训练示例">14.6.3 Configuration
         状态训练示例</h4>
         <h5 id="引言">14.6.3.1 引言</h5>
@@ -1148,6 +2363,7 @@
         ，所以四个通道被配置为同一个链路。通道编号的值 ‘N’
         是一个由具体实现决定的值，这个值不会保存在任何协议定义的寄存器中，并且与通道编号等其他值无关。</li>
         </ol>
+        <p>图 14-15 示例 1 中的 step1 与 step2</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221013204755686.png"
@@ -1155,7 +2371,6 @@
         <figcaption
         aria-hidden="true">image-20221013204755686</figcaption>
         </figure>
-        <p>图 14-15 示例 1 中的 step1 与 step2</p>
         <p><strong>通道编号协商</strong></p>
         <ol start="3" type="1">
         <li>DSP 开始在各个通道上发送链路编号相同，但是为各通道各自分配了
@@ -1171,6 +2386,7 @@
         DSP
         支持可选的通道顺序颠倒特性，因为这项特性是可选的，那么有可能会出现这么一种情况，通道连接顺序被颠倒，却没有任何一方的设备有能力将其纠正。这是一项重大的电路板设计失误，此时链路配置可能将无法完成。</li>
         </ol>
+        <p>图 14-16 示例 1 中的 step3 与 step4</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221013210137287.png"
@@ -1178,7 +2394,6 @@
         <figcaption
         aria-hidden="true">image-20221013210137287</figcaption>
         </figure>
-        <p>图 14-16 示例 1 中的 step3 与 step4</p>
         <p><strong>确认链路与通道编号</strong></p>
         <ol start="5" type="1">
         <li>因为 DSP
@@ -1193,6 +2408,7 @@
         <li>双方端口在收到至少 8 个 TS2 以及至少发送 16 个 TS2
         后，发送一些逻辑空闲数据后，转移状态到 L0。</li>
         </ol>
+        <p>图 14-17 示例 1 中的 step5 与 step6</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221013214216141.png"
@@ -1200,7 +2416,6 @@
         <figcaption
         aria-hidden="true">image-20221013214216141</figcaption>
         </figure>
-        <p>图 14-17 示例 1 中的 step5 与 step6</p>
         <h5 id="链路配置示例-2">14.6.3.3 链路配置示例 2</h5>
         <p>第二个需要掌握的例子，首先还是那个有 4
         个面向下游通道的设备，不过不同的是，这个例子中这个设备可以配置为单个
@@ -1226,6 +2441,7 @@
         DSP 此时并不知道和它连接的对端设备情况，在这个过程中 DSP
         将尽力去搞清楚每个通道可实现的连接方式。</li>
         </ol>
+        <p>图 14-18 示例 2 中的 step 1</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221013233718527.png"
@@ -1233,7 +2449,6 @@
         <figcaption
         aria-hidden="true">image-20221013233718527</figcaption>
         </figure>
-        <p>图 14-18 示例 2 中的 step 1</p>
         <ol start="2" type="1">
         <li>在收到 USP 返回的 TS1 序列后（译注：如图 14-19
         所示，四个通道分成了两组，分别有不同的的链路编号），DSP
@@ -1241,6 +2456,7 @@
         USP，也就意味当前的 DSP 将需要分为两个 DSP。每个 DSP 拥有 0 和 1
         两个通道，如原文 548 图 14-20 所示。</li>
         </ol>
+        <p>图 14-19 示例 2 中的 step 2</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221014000627322.png"
@@ -1248,7 +2464,6 @@
         <figcaption
         aria-hidden="true">image-20221014000627322</figcaption>
         </figure>
-        <p>图 14-19 示例 2 中的 step 2</p>
         <p><strong>通道编号协商</strong></p>
         <ol start="3" type="1">
         <li>各个通道上的通道编号协商会独立进行，不过他们的过程是相同：
@@ -1278,6 +2493,7 @@
         支持这项特性，那么它会纠正自身通道逻辑编号的顺序，并在 TS2
         中发送纠正后的通道编号作为确认。</li>
         </ol>
+        <p>图 14-20 示例 2 中的 step 3、4、5</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221015132641506.png"
@@ -1285,7 +2501,6 @@
         <figcaption
         aria-hidden="true">image-20221015132641506</figcaption>
         </figure>
-        <p>图 14-20 示例 2 中的 step 3、4、5</p>
         <p><strong>确认链路与通道编号</strong></p>
         <ol start="6" type="1">
         <li>DSP 在接收到链路编号和通道编号与所通告编号一致的 TS1
@@ -1319,6 +2534,7 @@
         发送端继续发送链路编号和通道编号都为填充字符的 TS1，如原文 550
         页图 14-21 所示。</li>
         </ol>
+        <p>图 14-21 示例 3 的 step 1 和 2</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221015143957174.png"
@@ -1326,7 +2542,6 @@
         <figcaption
         aria-hidden="true">image-20221015143957174</figcaption>
         </figure>
-        <p>图 14-21 示例 3 的 step 1 和 2</p>
         <p><strong>通道编号协商</strong></p>
         <ol start="3" type="1">
         <li>DSP 在收到通道 0、1、3 发送的带有相同链路编号的 TS1
@@ -1342,6 +2557,7 @@
         则是继续）发送链路编号和通道编号都使用填充字符的 TS1，如原文 551
         页图 14-22 所示。</li>
         </ol>
+        <p>图 14-22 示例 3 的 step 3 和 4</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221015152056658.png"
@@ -1349,7 +2565,6 @@
         <figcaption
         aria-hidden="true">image-20221015152056658</figcaption>
         </figure>
-        <p>图 14-22 示例 3 的 step 3 和 4</p>
         <p><strong>确认链路与通道编号</strong></p>
         <ol start="5" type="1">
         <li>因为在通道 0 和 1 上收到的 TS1
@@ -1362,6 +2577,7 @@
         状态。而在其他通道上继续发送链路编号和通道编号都使用填充字符的
         TS1，如原文 552 页图 14-23 所示。</li>
         </ol>
+        <p>图 14-23 示例 3 的 step 5 和 6</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221015154134317.png"
@@ -1369,7 +2585,6 @@
         <figcaption
         aria-hidden="true">image-20221015154134317</figcaption>
         </figure>
-        <p>图 14-23 图 14-22 示例 3 的 step 5 和 6</p>
         <p>在双方端口在收到至少 8 个 TS2 以及至少发送 16 个 TS2
         后，发送一些逻辑空闲数据后，转移状态到
         L0。其他未完成配置的通道，如本例中的通道 2 和
@@ -1380,6 +2595,7 @@
         <p>本小节将详细讨论 Configuration 各次状态，其如原文 553 页图
         14-24
         所示。在前一小节讨论过链路训练的例子之后，这些次状态应该很容易理解。</p>
+        <p>图 14-24 Configuration 状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221015154755609.png"
@@ -1387,7 +2603,6 @@
         <figcaption
         aria-hidden="true">image-20221015154755609</figcaption>
         </figure>
-        <p>图 14-24 Configuration 状态机</p>
         <h5 id="configuration.linkwidth.start">14.6.4.1
         Configuration.Linkwidth.Start</h5>
         <p>有两种情况会进入该状态，一种是 Polling
@@ -1975,6 +3190,7 @@
         状态中从未通告过比 2.5 GT/s
         更高的速率，那么当前端口不会发起速率改变（也就是不会设置
         directed_speed_change 变量）。</p>
+        <p>图 14-25 链路控制寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221207000703021.png"
@@ -1982,7 +3198,7 @@
         <figcaption
         aria-hidden="true">image-20221207000703021</figcaption>
         </figure>
-        <p>图 14-25 链路控制寄存器</p>
+        <p>图 14-26 链路控制寄存器 2</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221207000727764.png"
@@ -1990,7 +3206,6 @@
         <figcaption
         aria-hidden="true">image-20221207000727764</figcaption>
         </figure>
-        <p>图 14-26 链路控制寄存器 2</p>
         <h4 id="链路宽度切换">14.7.2 链路宽度切换</h4>
         <p>当变量 upconfigure_capable 设置为 1b 时，上层的逻辑（Upper
         layer）一般只会减少链路宽度，用于恢复链路的原始宽度。如果禁止硬件自主决定位宽（Hardware
@@ -2091,6 +3306,7 @@
         序列完成锁定（如果有需要的话），然后按照需求进入各个次状态。Recovery
         各个次状态如原文 573 页图 14-27
         所示，本节后续将详细讨论各个次状态中都进行了哪些操作。</p>
+        <p>图 14-27 Recovery 状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20220521212650955.png"
@@ -2098,7 +3314,6 @@
         <figcaption
         aria-hidden="true">image-20220521212650955</figcaption>
         </figure>
-        <p>图 14-27 Recovery 状态机</p>
         <h4 id="recovery-状态各次状态详细讨论">14.8.3 Recovery
         状态各次状态详细讨论</h4>
         <h5 id="recovery.rcvrlock-状态期间"><em>Recovery.RcvrLock
@@ -2277,6 +3492,7 @@
         <p>整个均衡过程包括四个阶段，将在下文中详细讨论。一旦速率改变为
         8.0 GT/s 后，当前所处的均衡阶段由接收的 TS1 中的
         EC（Equalization Control）字段通知，如图 14-28 所示。</p>
+        <p>图 14-28 8.0 GT/s 速率 TS1/TS2 中的 EC 字段示意</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221219233513774.png"
@@ -2284,7 +3500,6 @@
         <figcaption
         aria-hidden="true">image-20221219233513774</figcaption>
         </figure>
-        <p>图 14-28 8.0 GT/s 速率 TS1/TS2 中的 EC 字段示意</p>
         <h5 id="phase-0">14.8.5.1 Phase 0</h5>
         <p>当 DSP 准备好从低速率转换到 8.0 GT/s 时，DSP 进入
         Recovery.RcvrCfg 次状态，通过 EQ TS2 向 USP 发送 Tx Presets 以及
@@ -2298,6 +3513,7 @@
         端数值给本地发送端使用，并可选的将在本地接收端应用 DSP
         数值。在转为更高速率时，DSP 会将寄存器中的 USP 数值发送给 USP
         使用。</p>
+        <p>图 14-29 均衡控制寄存器示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221220233542633.png"
@@ -2305,7 +3521,6 @@
         <figcaption
         aria-hidden="true">image-20221220233542633</figcaption>
         </figure>
-        <p>图 14-29 均衡控制寄存器示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221220233711994.png"
@@ -2313,6 +3528,7 @@
         <figcaption
         aria-hidden="true">image-20221220233711994</figcaption>
         </figure>
+        <p>表 14-8 Tx Preset 编码方式</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221220233724191.png"
@@ -2320,7 +3536,7 @@
         <figcaption
         aria-hidden="true">image-20221220233724191</figcaption>
         </figure>
-        <p>表 14-8 Tx Preset 编码方式</p>
+        <p>表 14-9 Rx Preset Hint 编码方式’</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221220233755765.png"
@@ -2328,7 +3544,6 @@
         <figcaption
         aria-hidden="true">image-20221220233755765</figcaption>
         </figure>
-        <p>表 14-9 Rx Preset Hint 编码方式’</p>
         <p>一旦进入速率切换流程，DSP 会进入均衡阶段 1（Phase
         1），并且发送 EC = 01b 的 TS1，接下来就等待 USP 回应 EC
         数值相同的 TS 了。</p>
@@ -2342,6 +3557,7 @@
         BER=10-4 需求（Bit Error Ratio，也就是每 10000
         个比特的错误小于一个比特）。接下来，USP 将其发送的 TS1 中的 EC
         数值改为 01b，并进入 Phase 1，将控制权转回给 DSP。</p>
+        <p>图 14-30 均衡过程：开始阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221220235107264.png"
@@ -2349,7 +3565,6 @@
         <figcaption
         aria-hidden="true">image-20221220235107264</figcaption>
         </figure>
-        <p>图 14-30 均衡过程：开始阶段</p>
         <h5 id="phase-1">14.8.5.2 Phase 1</h5>
         <p>DSP 采取和 USP 一样的措施，通过检测背靠背连续的 TS1 来达到
         10-4 的误码率。在此期间，DSP 与对端交流其 Tx presets 以及 FS
@@ -2388,6 +3603,7 @@
         TS1 后，双方端口都进入 Phase 2。如果一切顺利的话，DSP
         可能认为当前的信号质量已经足够好了，不需要更进一步的调整。在这种情况下，DSP
         发送 EC=00b 的 TS1 以退出均衡过程。</p>
+        <p>图 14-31 均衡过程：开始阶段2</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221224173235812.png"
@@ -2395,7 +3611,6 @@
         <figcaption
         aria-hidden="true">image-20221224173235812</figcaption>
         </figure>
-        <p>图 14-31 均衡过程：开始阶段2</p>
         <h5 id="phase-2">14.8.5.3 Phase 2</h5>
         <p>此时，信号质量足够链路双方从信号中读取出 TS1
         序列，但是不足以维持长时间的运行。一旦双方端口都处于 Phase2，USP
@@ -2426,6 +3641,7 @@
         11b，表示其已经准备好进入下一均衡阶段。</li>
         </ul></li>
         </ul>
+        <p>图 14-32：均衡参数交换示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221225114805265.png"
@@ -2433,7 +3649,7 @@
         <figcaption
         aria-hidden="true">image-20221225114805265</figcaption>
         </figure>
-        <p>图 14-32：均衡参数交换示意图</p>
+        <p>图 14-33 三抽头发送均衡器示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221225120900204.png"
@@ -2441,7 +3657,7 @@
         <figcaption
         aria-hidden="true">image-20221225120900204</figcaption>
         </figure>
-        <p>图 14-33 三抽头发送均衡器示意图</p>
+        <p>图 14-34 均衡过程：Phase 2 阶段的调整</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221225121112626.png"
@@ -2449,7 +3665,6 @@
         <figcaption
         aria-hidden="true">image-20221225121112626</figcaption>
         </figure>
-        <p>图 14-34 均衡过程：Phase 2 阶段的调整</p>
         <h5 id="phase-3">14.8.5.4 Phase 3</h5>
         <p>DSP 发送 EC = 11b 的 TS1 作为对 USP 进入 Phase 3
         的回应，此时可以对 UPS 发送端进行同样的信号评估过程。同样地，DSP
@@ -2460,6 +3675,7 @@
         500ns 加上信号在发送逻辑和接收逻辑之间的来回时间。DSP
         可以尝试不同的均衡设置，直到发现其中某个设置取得了预期中的信号质量。此时，DSP
         通过发送 EC = 00b，表示退出均衡状态。</p>
+        <p>图 14-35 均衡过程：Phase 3 阶段的调整</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221225160119098.png"
@@ -2467,7 +3683,6 @@
         <figcaption
         aria-hidden="true">image-20221225160119098</figcaption>
         </figure>
-        <p>图 14-35 均衡过程：Phase 3 阶段的调整</p>
         <h5 id="均衡过程中的注意事项">14.8.5.5 均衡过程中的注意事项</h5>
         <p>此节整理了协议中和均衡过程相关的其他事项，如下：</p>
         <ul>
@@ -2500,7 +3715,7 @@
         状态机也不会进入该次状态。因为均衡是 PCIe
         一个新的，并且复杂的话题，所以在上一节 ”14.8.5 链路均衡概览“
         中，从更抽象的层次描述了整个均衡过程。接下来，让我们通过遍历每个次状态来看整个均衡的详细过程。</p>
-        <p><strong>面向下游通道// Downstream Lanes</strong></p>
+        <p><strong>面向下游通道（Downstream Lanes）</strong></p>
         <p>DSP 从 Phase 1
         开始整个均衡过程。在开始时，一些寄存器状态比特标志位需要被清除，包括链路状态寄存器
         2 （Link Status 2 register，原文 588 页 图
@@ -2516,6 +3731,7 @@
         Equalization 比特和内部变量 start_equalization_w_preset
         也会被清除为 0b。变量 equalization_done_8GT_data_rate 置位为
         1b。</p>
+        <p>图 14-36 链路状态 2 寄存器示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221225193327134.png"
@@ -2523,7 +3739,7 @@
         <figcaption
         aria-hidden="true">image-20221225193327134</figcaption>
         </figure>
-        <p>图 14-36 链路状态 2 寄存器示意图</p>
+        <p>图 14-37 链路控制 3 寄存器示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221225194550320.png"
@@ -2531,7 +3747,6 @@
         <figcaption
         aria-hidden="true">image-20221225194550320</figcaption>
         </figure>
-        <p>图 14-37 链路控制 3 寄存器示意图</p>
         <h5 id="phase-1-downstream">Phase 1 Downstream</h5>
         <p>DSP 发送 EC = 01b 的 TS1
         序列，其中均衡相关字段填充通道均衡控制寄存器（Lane Equalization
@@ -2587,6 +3802,7 @@
         <p>如果直到 32ms 超时，仍然没能转换到 Phase 3，那么接下来转入
         Recovery.Speed 状态，successful_speed_negotiation 标志清除为
         0b，并将均衡完成（Equalization Complete）状态比特设置为 1b。</p>
+        <p>图 14-38 参数拒绝数值域示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20221231213955536.png"
@@ -2594,7 +3810,6 @@
         <figcaption
         aria-hidden="true">image-20221231213955536</figcaption>
         </figure>
-        <p>图 14-38 参数拒绝数值域示意图</p>
         <h5 id="phase-3-downstream">Phase 3 Downstream</h5>
         <p>DSP 发送 EC = 11b 的
         TS1序列，为每个通道开始单独的面向上游（Upstream）发送设置评估的过程。</p>
@@ -2857,6 +4072,7 @@
         <li>否则，链路带宽管理状态比特（Link Bandwidth Management Status
         bit）置为 1b。</li>
         </ul>
+        <p>图 14-39 链路状态寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230101154928452.png"
@@ -2864,7 +4080,6 @@
         <figcaption
         aria-hidden="true">image-20230101154928452</figcaption>
         </figure>
-        <p>图 14-39 链路状态寄存器</p>
         <p><strong><em>转换至具体的 Recovery 次状态</em></strong></p>
         <p>在超时触发后，下一个次状态是 Recovery.RcvrLock。</p>
         <p>如果当前的次状态是从 Recovery.RcvrLock
@@ -3091,6 +4306,7 @@
         <p>链路地发送端和接收端有不同的 L0s 次状态，首先讨论发送端的 L0s
         各次状态。如原文 603 页地图 14-40 所示，L0s
         状态的发送端状态机是一个非常简单的结构。</p>
+        <p>图 14-40 L0s 发送端状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230102172928981.png"
@@ -3098,7 +4314,6 @@
         <figcaption
         aria-hidden="true">image-20230102172928981</figcaption>
         </figure>
-        <p>图 14-40 L0s 发送端状态机</p>
         <h5 id="tx_l0s.entry.-状态">14.9.1.1 Tx_L0s.Entry. 状态</h5>
         <p>发送端在上层逻辑的命令下进入 L0s
         状态。协议没有具体规定发送端进入 L0s
@@ -3143,6 +4358,7 @@
         状态机示意图。如果接收端的 Link Capability 寄存器表示支持 ASPM
         功能，那么接收端必须实现 L0s 状态功能。当然，即使不支持 ASPM
         功能，接收端也可以实现 L0s 状态。</p>
+        <p>图 14-41 接收端 L0s 状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230102194656932.png"
@@ -3150,7 +4366,6 @@
         <figcaption
         aria-hidden="true">image-20230102194656932</figcaption>
         </figure>
-        <p>图 14-41 接收端 L0s 状态机</p>
         <h5 id="rx_l0s.entry.-状态">14.9.2.1 Rx_L0s.Entry. 状态</h5>
         <p>如果接收端接收端支持 L0s 状态，在不满足进入 L1 或者 L2
         的条件的情况下，在收到 EIOS 后进入该状态。</p>
@@ -3213,6 +4428,7 @@
         状态的改变，通过将设备电源状态改变为更低功耗的状态（D1，D2，或者
         D3）做到这一点。L1 状态和 L0s 状态的不同点还在于，L1
         状态会影响链路双向的状态，而 L0s 只作用于链路单个方向。</p>
+        <p>图 14-42 L1 状态机</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230107122121817.png"
@@ -3220,7 +4436,6 @@
         <figcaption
         aria-hidden="true">image-20230107122121817</figcaption>
         </figure>
-        <p>图 14-42 L1 状态机</p>
         <p>当设备在检测到链路进入电气空闲状态时，会认为链路伙伴希望将链路转为
         L0s，L1 或者 L2
         等低功耗状态，为了区分到底应该进入哪种低功耗状态，在进入 L1
@@ -3297,6 +4512,7 @@
         Management）一节提供了这套机制更多的细节，有兴趣的读者可以参阅。原文
         611 页的图 14-43 展示了 L2
         状态相关的状态跳转关系，我们将在后一节中展开讨论。</p>
+        <p>图 14-43 L2 状态机示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230107154607535.png"
@@ -3304,7 +4520,6 @@
         <figcaption
         aria-hidden="true">image-20230107154607535</figcaption>
         </figure>
-        <p>图 14-43 L2 状态机示意图</p>
         <h4 id="l2.idle-状态">14.11.1 L2.Idle 状态</h4>
         <p>进入该次状态前，所有必须的握手流程必须已经在链路上的两个端口之间完成，并且端口已经发送或者接收到所需的
         EIOS 序列。</p>
@@ -3559,6 +4774,7 @@
         页的图 14-45 提供了 LTSSM 粗略的状态转移图。在最早的 Gen1
         协议中，速率切换被规划在 Polling 状态进行，但是在随后的 Gen2
         中，速率转换行为被改在 Recovery 状态进行。</p>
+        <p>图 14-45 LTSSM 状态概览</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230109214025144.png"
@@ -3566,7 +4782,6 @@
         <figcaption
         aria-hidden="true">image-20230109214025144</figcaption>
         </figure>
-        <p>图 14-45 LTSSM 状态概览</p>
         <p>在 Polling 状态期间，链路双方交换 TS1
         序列，其中携带的信息如原文 621 图 14-46
         所示。其中最有趣的部分在于 Byte4 的速率标识符（Rate
@@ -3580,6 +4795,7 @@
         通过将比特 7 置 1 以发起速率改变请求。TS1 中的各个域及其含义和
         TS2 的非常近似，但是 TS2 中的比特 6
         有其他含义，和自发的链路宽度改变有关，我们将在下一节讨论这个问题。</p>
+        <p>图 14-46 TS1 含义</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230109220202200.png"
@@ -3587,7 +4803,7 @@
         <figcaption
         aria-hidden="true">image-20230109220202200</figcaption>
         </figure>
-        <p>图 14-46 TS1 含义</p>
+        <p>图 14-47 TS2 含义</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230109220234097.png"
@@ -3595,7 +4811,6 @@
         <figcaption
         aria-hidden="true">image-20230109220234097</figcaption>
         </figure>
-        <p>图 14-47 TS2 含义</p>
         <h4 id="usp-发起的速率改变">14.15.2 USP 发起的速率改变</h4>
         <p>速率改变必须由 USP （面向上游的端口，一般指 EP
         设备）发起，发起后进入 Recovery 状态。Recovery
@@ -3603,6 +4818,7 @@
         所示，其中与本节相关的部分，使用椭圆圈出高亮了。接下来的讨论将会在高层次的速率改变过程展开，将不会深入讨论
         LTSSM 的行为细节。如果想要了解其中的细节，可以参见原文 571 页的
         “Recovery State” 一节。</p>
+        <p>图 14-48 Recovery 状态次状态示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230109220843227.png"
@@ -3610,7 +4826,6 @@
         <figcaption
         aria-hidden="true">image-20230109220843227</figcaption>
         </figure>
-        <p>图 14-48 Recovery 状态次状态示意图</p>
         <h4 id="速率改变示例">14.15.3 速率改变示例</h4>
         <p>通过原文 623 页的图 14-49
         展示的速率改变示例，我们能更清楚地了解整个过程。注意，该示例中略去了均衡（Equalization）相关状态，以使整个示例的示意图更加简单和容易理解。考虑到示例展示的是从
@@ -3632,6 +4847,7 @@
         内部变量 Directed Speed Change 标志位也被置起，这样一来 RC DSP
         发送的 TS1 序列中的 Speed Change
         比特同样会被置起。因为链路之后会尝试进入双方所同时支持的最高速率，所以，如果某个设备希望链路使用更低的速率，其只需要在宣告的速率列表中，不要列出它不想使用的更高速率即可。</p>
+        <p>图 14-49 速率改变示例 - 发起阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230122234814609.png"
@@ -3639,7 +4855,6 @@
         <figcaption
         aria-hidden="true">image-20230122234814609</figcaption>
         </figure>
-        <p>图 14-49 速率改变示例 - 发起阶段</p>
         <p><strong>第二阶段</strong>，当 USP 检测到返回的 TS1
         序列输入后，USP 状态机跳变为 Recovery.RcvrCfg 次状态，并开始发送
         Speed Change 比特仍然置起的 TS2 序列，过程如原文 624 页图 14-50
@@ -3649,6 +4864,7 @@
         Recovery.RcvrCfg 次状态，并向 USP 返回 Speed Change 比特置起的
         TS2。不过，DSP 发送的 TS2 中的自主带宽改变比特数值与接收到的 TS2
         中的数值相反（译注：此例中，取反为 0）。</p>
+        <p>图 14-50 速率改变示例 - 第二阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123103005358.png"
@@ -3656,7 +4872,6 @@
         <figcaption
         aria-hidden="true">image-20230123103005358</figcaption>
         </figure>
-        <p>图 14-50 速率改变示例 - 第二阶段</p>
         <p><strong>第三阶段</strong>，在每个端口都接收到 8 个连续的
         Speed Change 比特置起的 TS2
         后，链路双方意识到下一步是双方一起进入 Recovery.Speed
@@ -3671,6 +4886,7 @@
         Enable）比特，寄存器域如原文 626 页图 14-54
         所示。注意有两种不同的带宽改变情况：自主带宽改变（autonomous）和带宽管理（bandwidth
         management）。自主带宽改变意味着并不是因为链路可靠性问题，所以才改变链路带宽（速率），而带宽管理指的就是为解决可靠性问题，改变链路带宽（速率）。</p>
+        <p>图 14-51 速率改变-第三阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123104458237.png"
@@ -3678,7 +4894,7 @@
         <figcaption
         aria-hidden="true">image-20230123104458237</figcaption>
         </figure>
-        <p>图 14-51 速率改变-第三阶段</p>
+        <p>图 14-52 带宽改变状态比特</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123104542541.png"
@@ -3686,7 +4902,7 @@
         <figcaption
         aria-hidden="true">image-20230123104542541</figcaption>
         </figure>
-        <p>图 14-52 带宽改变状态比特</p>
+        <p>图 14-53 带宽通知 Capability</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123104604049.png"
@@ -3694,7 +4910,7 @@
         <figcaption
         aria-hidden="true">image-20230123104604049</figcaption>
         </figure>
-        <p>图 14-53 带宽通知 Capability</p>
+        <p>图 14-54 链路控制寄存器（原文图注有误）</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123104657879.png"
@@ -3702,7 +4918,6 @@
         <figcaption
         aria-hidden="true">image-20230123104657879</figcaption>
         </figure>
-        <p>图 14-54 链路控制寄存器（原文图注有误）</p>
         <p><strong>结束阶段</strong>，在进入 Recovery.Speed
         次状态后，链路会在两个方向上都被置于电气空闲状态，并调整内部电路的速率。调整后的速率是双方在
         TS1 以及 TS2 中发送的支持速率列表（Rate ID
@@ -3720,6 +4935,7 @@
         <p>如果速率改变因为一些原因失败，设备不被允许在失败并返回 L0 的
         200ms
         内重新协商该速率或者更高速率，或者等待链路伙伴通告其支持新的更高速率，才能重新发起速率改变协商。</p>
+        <p>图 14-55 速率改变-结束阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123110336814.png"
@@ -3727,7 +4943,6 @@
         <figcaption
         aria-hidden="true">image-20230123110336814</figcaption>
         </figure>
-        <p>图 14-55 速率改变-结束阶段</p>
         <h4 id="速率改变的软件控制">14.15.4 速率改变的软件控制</h4>
         <p>当硬件已经决定改变链路速率后，软件无法再控制速率改变流程，但是软件可以限制或者禁止硬件的速率改变行为。通过原文
         628 页图 14-56 所示的链路控制 2 （Link Control
@@ -3741,6 +4956,7 @@
         14-57
         所示。另外，如前文所述，软件可以通过链路带宽通知机制得知任何硬件完成的链路速率或者带宽变化。最后，软件可以通过设置<strong>禁止硬件自发速率改变</strong>（Hardware
         Autonomous Speed Disable）比特关闭硬件的自动速率改变功能。</p>
+        <p>图 14-56 链路控制 2 寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123111643639.png"
@@ -3748,7 +4964,7 @@
         <figcaption
         aria-hidden="true">image-20230123111643639</figcaption>
         </figure>
-        <p>图 14-56 链路控制 2 寄存器</p>
+        <p>图 14-57 链路控制寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123111727117.png"
@@ -3756,7 +4972,6 @@
         <figcaption
         aria-hidden="true">image-20230123111727117</figcaption>
         </figure>
-        <p>图 14-57 链路控制寄存器</p>
         <h4 id="动态链路宽度改变">14.15.5 动态链路宽度改变</h4>
         <p>链路宽度改变的基本过程和速率改变相同，但是位宽改变的过程会相对更加复杂，因为牵涉到更多的
         LTSSM
@@ -3765,6 +4980,7 @@
         ID 域的比特 6 位置通告他们是否支持这一特性，如原文 630 页图
         14-58
         所示。如果对端设备不支持这一特性，那么意味着将链路宽度改小会是一锤子买卖（无法恢复回原来将宽的链路宽度），此时只会在出现链路可靠性问题时，才会减小链路宽度。</p>
+        <p>图 14-58 TS2 序列内容</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123112734464.png"
@@ -3772,7 +4988,6 @@
         <figcaption
         aria-hidden="true">image-20230123112734464</figcaption>
         </figure>
-        <p>图 14-58 TS2 序列内容</p>
         <h4 id="链路宽度改变示例">14.15.6 链路宽度改变示例</h4>
         <p>让我来看一个示例，示例基于如原文 631 页图 14-59
         所示的连接拓扑，一个根端口（Root Port）连接到一个
@@ -3784,6 +4999,7 @@
         状态，如原文 631 页图 14-60 所述。Configuration
         状态包含多个次状态，原文 632 页的图 14-60
         给出了一个简化版的状态跳变过程示意图。接下来，我们会一一讨论各个步骤。</p>
+        <p>图 14-59 链路宽度改变示例拓扑连接图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123124950510.png"
@@ -3791,7 +5007,7 @@
         <figcaption
         aria-hidden="true">image-20230123124950510</figcaption>
         </figure>
-        <p>图 14-59 链路宽度改变示例拓扑连接图</p>
+        <p>图 14-60 链路宽度改变 LTSSM 状态变化过程</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123124958034.png"
@@ -3799,7 +5015,7 @@
         <figcaption
         aria-hidden="true">image-20230123124958034</figcaption>
         </figure>
-        <p>图 14-60 链路宽度改变 LTSSM 状态变化过程</p>
+        <p>图 14-61 简化后的 Configuration 次状态跳变示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123125128812.png"
@@ -3807,7 +5023,6 @@
         <figcaption
         aria-hidden="true">image-20230123125128812</figcaption>
         </figure>
-        <p>图 14-61 简化后的 Configuration 次状态跳变示意图</p>
         <p>如前文所述速率变化的过程相同，USP 进入 Recovery
         状态发起链路宽度改变请求，并发送 TS1 序列，其中 Speed Change
         比特并未置起，如原文 631 页图 14-59所示，示例中以太网设备作为
@@ -3816,6 +5031,7 @@
         中的链路和通道编号保持不变，仍为先前链路训练的结果值。根据前文中位于原文
         622 页的图 14-48，此时，接下来一个次状态是
         Recovery.RcvrCfg，在该次状态双方会交换 TS2。</p>
+        <p>图 14-62 链路宽度改变 - 开始阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123125900995.png"
@@ -3823,7 +5039,6 @@
         <figcaption
         aria-hidden="true">image-20230123125900995</figcaption>
         </figure>
-        <p>图 14-62 链路宽度改变 - 开始阶段</p>
         <p>因为此时没有请求速率变换（TS 中的 Speed Change 比特为
         0），所以接下来直接进入 Recovery.Idle
         状态。在该次状态中，双方一般发送逻辑空闲信号（即全零信号），如原文
@@ -3832,6 +5047,7 @@
         TS1。DSP 识别到接收的 TS1 中，原本已经完成配置的通道编号变成了
         PAD，意识到对端想要改变位宽，所以接下来进入 Configuration
         的第一个次状态：Config.Linkwidth.Start。</p>
+        <p>图 14-63 链路宽度改变 - Recovery Idle 阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123130323416.png"
@@ -3839,7 +5055,6 @@
         <figcaption
         aria-hidden="true">image-20230123130323416</figcaption>
         </figure>
-        <p>图 14-63 链路宽度改变 - Recovery Idle 阶段</p>
         <p>DSP 在 Configuration 状态中发起对 USP 通道的配置工作，向 USP
         发送 TS1
         序列，其中链路编号域为原协商链路编号，但是所有通道上发送的 TS1
@@ -3849,6 +5064,7 @@
         在接收到这些 TS1 回复后，转入 Config.Linkwidth.Accept
         次状态。注意，此时所有 TS1 的自主改变（Autonomous
         Change）比特均为 1。</p>
+        <p>图 14-64 USP 标识所需激活的通道</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123140009775.png"
@@ -3856,7 +5072,6 @@
         <figcaption
         aria-hidden="true">image-20230123140009775</figcaption>
         </figure>
-        <p>图 14-64 USP 标识所需激活的通道</p>
         <p>作为回应，RP 在那些已激活通道上，转而发送带有合适通道编号的
         TS1 序列，而在那些非激活通道上则发送链路和通道编号都是 PAD 的
         TS1 序列。USP 则回应相同的 TS1 序列，如原文 636 页图 14-65
@@ -3864,6 +5079,7 @@
         次状态。此时，RP
         更新其寄存器中的状态比特，表示检测到一次自发的带宽改变，并将状态转移为
         Config.Complete 次状态。</p>
+        <p>图 14-65 DSP/USP 响应通道编号变化</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123222905275.png"
@@ -3871,7 +5087,6 @@
         <figcaption
         aria-hidden="true">image-20230123222905275</figcaption>
         </figure>
-        <p>图 14-65 DSP/USP 响应通道编号变化</p>
         <p>下一步中，RP 开始在那些激活通道上发送 TS2
         序列，并将非激活通道改变为电气空闲状态。让我们回忆一下，TS2
         会在其相关字段中通报该设备是否支持 “upconfigure”
@@ -3882,6 +5097,7 @@
         状态，并在激活通道上发送逻辑空闲信号。EP
         以相同的行为作为回应，并将其状态机改变回到 L0
         工作状态。此时，链路已经恢复了正常的工作状态，只是或许为了省电，减少通道降低了带宽。</p>
+        <p>图 14-66 链路宽度改变 - 结束阶段</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123223455113.png"
@@ -3889,11 +5105,11 @@
         <figcaption
         aria-hidden="true">image-20230123223455113</figcaption>
         </figure>
-        <p>图 14-66 链路宽度改变 - 结束阶段</p>
         <p>和动态速率改变时一样，软件不能够发起链路宽度改变，但是可以通过设置链路控制（Link
         Control）寄存器中的相应比特禁止硬件发起该请求，如原文 638 页的图
         14-67
         所示。但和速率改变的时不同的情况是，没有相应的软件机制能够将链路宽度设为特定值。</p>
+        <p>图 14-67 链路控制寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230123223743198.png"
@@ -3901,7 +5117,6 @@
         <figcaption
         aria-hidden="true">image-20230123223743198</figcaption>
         </figure>
-        <p>图 14-67 链路控制寄存器</p>
         <h3 id="相关配置寄存器related-configuration-registers">14.16
         相关配置寄存器（Related Configuration Registers）</h3>
         <p>我们在前文中多次提及一些和链路初始化和训练相关的配置寄存器（Configuration
@@ -3909,6 +5124,7 @@
         <h4 id="链路能力寄存器">14.16.1 链路能力寄存器</h4>
         <p>链路能力寄存器各比特含义如原文 639 页图 14-68
         所示，本节详细描述了和链路初始化和训练相关比特的含义。</p>
+        <p>图 14-68 链路能力寄存器各比特含义示意图</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230124205246881.png"
@@ -3916,7 +5132,6 @@
         <figcaption
         aria-hidden="true">image-20230124205246881</figcaption>
         </figure>
-        <p>图 14-68 链路能力寄存器各比特含义示意图</p>
         <h5 id="max-link-speed-30">Max Link Speed [3:0]</h5>
         <p>此处描述的是链路的最高速率，其值是一个指向链路能力 2 （Link
         Capabilities 2）寄存器的链路支持速率向量（Supported Link Speeds
@@ -3942,6 +5157,7 @@
         14-69 所示，具体定义如下：</p>
         <p>• Bit 0 = 2.5 GT/s • Bit 1 = 5.0 GT/s • Bit 2 = 8.0 GT/s •
         Bits 6:3 RsvdP (reserved 并 preserved)</p>
+        <p>图 14-69 链路能力 2 寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230124210352578.png"
@@ -3949,9 +5165,9 @@
         <figcaption
         aria-hidden="true">image-20230124210352578</figcaption>
         </figure>
-        <p>图 14-69 链路能力 2 寄存器</p>
         <h4 id="链路状态寄存器">14.16.3 链路状态寄存器</h4>
         <p>链路状态寄存器如原文 597 页的图 14-39 所示：</p>
+        <p>图 14-39 链路状态寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230124210554310.png"
@@ -3959,7 +5175,6 @@
         <figcaption
         aria-hidden="true">image-20230124210554310</figcaption>
         </figure>
-        <p>图 14-39 链路状态寄存器</p>
         <h5 id="current-link-speed30">Current Link Speed[3:0]</h5>
         <p>该只读寄存器表示当前的链路速度。在链路首次进入 L0
         状态时，链路速度始终为 2.5
@@ -3996,6 +5211,7 @@
         处于训练过程中必须对软件可见，所以该比特只对 DSP 有意义，所以在
         EP，桥设备和交换机的 USP 中没有作用，该比特必须硬连线固定为
         0b。</p>
+        <p>图 14-70 链路状态寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230124213046483.png"
@@ -4003,7 +5219,6 @@
         <figcaption
         aria-hidden="true">image-20230124213046483</figcaption>
         </figure>
-        <p>图 14-70 链路状态寄存器</p>
         <h4 id="链路控制寄存器">14.16.4 链路控制寄存器</h4>
         <p>链路状态寄存器各域如原文 644 页图 14-71
         所示，其中有三个我们感兴趣的寄存器域。</p>
@@ -4024,6 +5239,7 @@
         L0s 时，此时置起该比特会在退出 L0s 时，强制发送 4096 个
         FTS。另一个场景是在 Recovery 状态中，在进入 Recovery.RcvrCfg
         之前，置起该比特会强制发送 1024 个 TS1 序列。</p>
+        <p>图 14-71 链路控制寄存器</p>
         <figure>
         <img
         src="img/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83/image-20230124215322806.png"
@@ -4031,16 +5247,16 @@
         <figcaption
         aria-hidden="true">image-20230124215322806</figcaption>
         </figure>
-        <p>图 14-71 链路控制寄存器</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="13 物理层-电气特性.html">← 第 13 章 物理层-电气特性</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -4053,17 +5269,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

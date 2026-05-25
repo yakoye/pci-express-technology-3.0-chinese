@@ -8,51 +8,162 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="8 事务排序.html">← 第 8 章 事务排序</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="8 事务排序.html">← 第 8 章 事务排序</a>
+          </div>
+
+    <div class="topbar-title">
       第 9 章 DLLP 元素
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="10 Ack-Nak_协议.html">第 10 章 Ack/Nak 协议 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="10 Ack-Nak_协议.html">第 10 章 Ack/Nak 协议 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 9 章 DLLP 元素
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 9 章 DLLP 元素</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="8 事务排序.html">← 第 8 章 事务排序</a>
+      
+            <a class="drawer-link" href="10 Ack-Nak_协议.html">第 10 章 Ack/Nak 协议 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#dllp-元素dllp-element"
+                id="toc-dllp-元素dllp-element">9 DLLP 元素（DLLP
+                Element）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#概述general" id="toc-概述general">9.1
+                概述（General）</a></li>
+                <li><a href="#dllp-是本地流量dllps-are-local-traffic"
+                id="toc-dllp-是本地流量dllps-are-local-traffic">9.2 DLLP
+                是本地流量（DLLPs Are Local Traffic）</a></li>
+                <li><a href="#dllp-接收与处理receiver-handling-of-dllps"
+                id="toc-dllp-接收与处理receiver-handling-of-dllps">9.3
+                DLLP 接收与处理（Receiver handling of DLLPs）</a></li>
+                <li><a href="#发送-dllpsending-dllps"
+                id="toc-发送-dllpsending-dllps">9.4 发送 DLLP（Sending
+                DLLPs）</a>
+                <ul>
+                <li><a href="#概述general-1"
+                id="toc-概述general-1">9.4.1 概述（General）</a></li>
+                <li><a
+                href="#dllp-包大小固定为-8-字节dllp-packet-size-is-fixed-at-8-bytes"
+                id="toc-dllp-包大小固定为-8-字节dllp-packet-size-is-fixed-at-8-bytes">9.4.2
+                DLLP 包大小固定为 8 字节（DLLP Packet Size is Fixed at 8
+                Bytes）</a></li>
+                </ul></li>
+                <li><a href="#dllp-包类型dllp-packet-types"
+                id="toc-dllp-包类型dllp-packet-types">9.5 DLLP
+                包类型（DLLP Packet Types）</a>
+                <ul>
+                <li><a href="#acknak-dllp-format"
+                id="toc-acknak-dllp-format">9.5.1 Ack/Nak DLLP
+                Format</a></li>
+                <li><a href="#power-management-dllp-format"
+                id="toc-power-management-dllp-format">9.5.2 Power
+                Management DLLP Format</a></li>
+                <li><a href="#flow-control-dllp-format"
+                id="toc-flow-control-dllp-format">9.5.3 Flow Control
+                DLLP Format</a></li>
+                <li><a href="#vendor-specific-dllp-format"
+                id="toc-vendor-specific-dllp-format">9.5.4
+                Vendor-Specific DLLP Format</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#dllp-元素dllp-element"
-            id="toc-dllp-元素dllp-element">9 DLLP 元素（DLLP
-            Element）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#概述general" id="toc-概述general">9.1
-            概述（General）</a></li>
-            <li><a href="#dllp-是本地流量dllps-are-local-traffic"
-            id="toc-dllp-是本地流量dllps-are-local-traffic">9.2 DLLP
-            是本地流量（DLLPs Are Local Traffic）</a></li>
-            <li><a href="#dllp-接收与处理receiver-handling-of-dllps"
-            id="toc-dllp-接收与处理receiver-handling-of-dllps">9.3 DLLP
-            接收与处理（Receiver handling of DLLPs）</a></li>
-            <li><a href="#发送-dllpsending-dllps"
-            id="toc-发送-dllpsending-dllps">9.4 发送 DLLP（Sending
-            DLLPs）</a></li>
-            <li><a href="#dllp-包类型dllp-packet-types"
-            id="toc-dllp-包类型dllp-packet-types">9.5 DLLP 包类型（DLLP
-            Packet Types）</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#dllp-元素dllp-element"
+                id="toc-dllp-元素dllp-element">9 DLLP 元素（DLLP
+                Element）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#概述general" id="toc-概述general">9.1
+                概述（General）</a></li>
+                <li><a href="#dllp-是本地流量dllps-are-local-traffic"
+                id="toc-dllp-是本地流量dllps-are-local-traffic">9.2 DLLP
+                是本地流量（DLLPs Are Local Traffic）</a></li>
+                <li><a href="#dllp-接收与处理receiver-handling-of-dllps"
+                id="toc-dllp-接收与处理receiver-handling-of-dllps">9.3
+                DLLP 接收与处理（Receiver handling of DLLPs）</a></li>
+                <li><a href="#发送-dllpsending-dllps"
+                id="toc-发送-dllpsending-dllps">9.4 发送 DLLP（Sending
+                DLLPs）</a>
+                <ul>
+                <li><a href="#概述general-1"
+                id="toc-概述general-1">9.4.1 概述（General）</a></li>
+                <li><a
+                href="#dllp-包大小固定为-8-字节dllp-packet-size-is-fixed-at-8-bytes"
+                id="toc-dllp-包大小固定为-8-字节dllp-packet-size-is-fixed-at-8-bytes">9.4.2
+                DLLP 包大小固定为 8 字节（DLLP Packet Size is Fixed at 8
+                Bytes）</a></li>
+                </ul></li>
+                <li><a href="#dllp-包类型dllp-packet-types"
+                id="toc-dllp-包类型dllp-packet-types">9.5 DLLP
+                包类型（DLLP Packet Types）</a>
+                <ul>
+                <li><a href="#acknak-dllp-format"
+                id="toc-acknak-dllp-format">9.5.1 Ack/Nak DLLP
+                Format</a></li>
+                <li><a href="#power-management-dllp-format"
+                id="toc-power-management-dllp-format">9.5.2 Power
+                Management DLLP Format</a></li>
+                <li><a href="#flow-control-dllp-format"
+                id="toc-flow-control-dllp-format">9.5.3 Flow Control
+                DLLP Format</a></li>
+                <li><a href="#vendor-specific-dllp-format"
+                id="toc-vendor-specific-dllp-format">9.5.4
+                Vendor-Specific DLLP Format</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="dllp-元素dllp-element">9 DLLP 元素（DLLP Element）</h2>
@@ -78,6 +189,7 @@
         Packet），数据链路层包，来完成上述功能。DLLP
         会在各个设备的数据链路层之间传输通信，图 9-1 展示了 DLLP
         在设备间的传输路径。</p>
+        <p>图 9-1 数据链路层发送 DLLP 示意图</p>
         <figure>
         <img
         src="img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503172711135.png"
@@ -85,7 +197,6 @@
         <figcaption
         aria-hidden="true">image-20220503172711135</figcaption>
         </figure>
-        <p>图 9-1 数据链路层发送 DLLP 示意图</p>
         <h3 id="dllp-是本地流量dllps-are-local-traffic">9.2 DLLP
         是本地流量（DLLPs Are Local Traffic）</h3>
         <p>DLLP 的数据包格式非常简单，算上组帧字节，整个 DLLP
@@ -126,6 +237,7 @@
         令牌会被添加到 DLLP 前部，但是不会在结尾处添加 END 符号。图 9-2
         描述了一个 Gen1/Gen2 模式的 DLLP 发送过程，可以看到在 DLLP
         的内容前后加上了组帧符号。</p>
+        <p>图 9-2 原生数据链路层数据包格式</p>
         <figure>
         <img
         src="img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503182506839.png"
@@ -133,7 +245,6 @@
         <figcaption
         aria-hidden="true">image-20220503182506839</figcaption>
         </figure>
-        <p>图 9-2 原生数据链路层数据包格式</p>
         <h4
         id="dllp-包大小固定为-8-字节dllp-packet-size-is-fixed-at-8-bytes">9.4.2
         DLLP 包大小固定为 8 字节（DLLP Packet Size is Fixed at 8
@@ -193,8 +304,10 @@
         <h4 id="power-management-dllp-format">9.5.2 Power Management
         DLLP Format</h4>
         <p>图 9-4 是电源管理相关的 DLLP 包格式信息，表 9-3
-        是它的字段描述信息。关于 电源管理的更多细节，可以参照 Chapter
-        16, ʺPower Managementʺ ，此处不再展开描述相关的字段含义。</p>
+        是它的字段描述信息。关于电源管理的更多细节，可以参照 Chapter 16,
+        ʺPower Managementʺ ，此处不再展开描述相关的字段含义。</p>
+        <p>图 9-4 电源管理相关的 DLLP 包格式信息，表 9-3
+        字段描述信息</p>
         <figure>
         <img
         src="img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202738475.png"
@@ -202,8 +315,6 @@
         <figcaption
         aria-hidden="true">image-20220503202738475</figcaption>
         </figure>
-        <p>图 9-4 电源管理相关的 DLLP 包格式信息，表 9-3
-        字段描述信息</p>
         <h4 id="flow-control-dllp-format">9.5.3 Flow Control DLLP
         Format</h4>
         <p>和其他许多串行传输协议类似， PCIe 通过基于 credit
@@ -214,8 +325,7 @@
         DLLP，当接收方缓存恢复时，将用这类 DLLP 通知对端 credit
         信息的更新。共有两种流控初始化 DLLP，分别为 InitFC1 和
         InitFC2，以及一种流控更新 DLLP，称为 UpdateFC。</p>
-        <p>图 9-5 是流控相关的 DLLP 包格式信息，表 9-4
-        是它的字段描述信息。</p>
+        <p>图 9-5 是流控相关的 DLLP 包格式信息</p>
         <figure>
         <img
         src="img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202756680-16515808868911.png"
@@ -223,6 +333,7 @@
         <figcaption
         aria-hidden="true">image-20220503202756680</figcaption>
         </figure>
+        <p>表 9-4 是它的字段描述信息</p>
         <figure>
         <img
         src="img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202809717.png"
@@ -237,12 +348,12 @@
         <figcaption
         aria-hidden="true">image-20220503202818960</figcaption>
         </figure>
-        <p>图 9-5 流控相关的 DLLP 包格式信息，表 9-4 字段描述信息。</p>
         <h4 id="vendor-specific-dllp-format">9.5.4 Vendor-Specific DLLP
         Format</h4>
         <p>最后一类 DLLP 用于厂商定制化用途。因此，协议只定义了此类 DLLP
         的类型字段值（0011
         0000b），剩下的属性字段的含义留给厂商自行定义。</p>
+        <p>图 9-6 厂商自定义 DLLP 包格式信息</p>
         <figure>
         <img
         src="img/9%20DLLP%20%E5%85%83%E7%B4%A0/image-20220503202827947.png"
@@ -250,23 +361,16 @@
         <figcaption
         aria-hidden="true">image-20220503202827947</figcaption>
         </figure>
-        <p>图 9-5 厂商自定义 DLLP 包格式信息</p>
-        <hr />
-        <p>原文： Mindshare</p>
-        <p>译者： LJGibbs</p>
-        <p>校对:</p>
-        <p>欢迎参与 《Mindshare PCI Express Technology 3.0
-        一书的中文翻译计划》</p>
-        <p>https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="8 事务排序.html">← 第 8 章 事务排序</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -279,17 +383,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

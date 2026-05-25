@@ -8,127 +8,274 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="7 QoS 服务质量.html">← 第 7 章 QoS 服务质量</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="7 QoS 服务质量.html">← 第 7 章 QoS 服务质量</a>
+          </div>
+
+    <div class="topbar-title">
       第 8 章 事务排序
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="9 DLLP 元素.html">第 9 章 DLLP 元素 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="9 DLLP 元素.html">第 9 章 DLLP 元素 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 8 章 事务排序
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 8 章 事务排序</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="7 QoS 服务质量.html">← 第 7 章 QoS 服务质量</a>
+      
+            <a class="drawer-link" href="9 DLLP 元素.html">第 9 章 DLLP 元素 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#事务排序transaction-ordering"
+                id="toc-事务排序transaction-ordering">8
+                事务排序（Transaction Ordering）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#介绍introduction"
+                id="toc-介绍introduction">8.1
+                介绍（Introduction）</a></li>
+                <li><a href="#定义definitions"
+                id="toc-定义definitions">8.2
+                定义（Definitions）</a></li>
+                <li><a href="#简化后的排序规则simplified-ordering-rules"
+                id="toc-简化后的排序规则simplified-ordering-rules">8.3
+                简化后的排序规则（Simplified Ordering Rules）</a>
+                <ul>
+                <li><a
+                href="#排序规则与流量类别ordering-rules-and-traffic-classes"
+                id="toc-排序规则与流量类别ordering-rules-and-traffic-classes">8.3.1
+                排序规则与流量类别（Ordering Rules and Traffic
+                Classes）</a></li>
+                <li><a
+                href="#基于数据包类型的排序规则ordering-rules-based-on-packet-type"
+                id="toc-基于数据包类型的排序规则ordering-rules-based-on-packet-type">8.3.2
+                基于数据包类型的排序规则（Ordering Rules Based on Packet
+                Type）</a></li>
+                <li><a
+                href="#简化后的排序规则表the-simplified-ordering-rules-table"
+                id="toc-简化后的排序规则表the-simplified-ordering-rules-table">8.3.3
+                简化后的排序规则表（The Simplified Ordering Rules
+                Table）</a></li>
+                </ul></li>
+                <li><a href="#生产者消费者模型producerconsumer-model"
+                id="toc-生产者消费者模型producerconsumer-model">8.4
+                生产者/消费者模型（Producer/Consumer Model）</a>
+                <ul>
+                <li><a
+                href="#正确的生产者消费者流程producerconsumer-sequence---no-errors"
+                id="toc-正确的生产者消费者流程producerconsumer-sequence---no-errors">8.4.1
+                正确的生产者/消费者流程（Producer/Consumer Sequence - No
+                Errors）</a></li>
+                <li><a
+                href="#出错的生产者消费者排序producerconsumer-sequence---errors"
+                id="toc-出错的生产者消费者排序producerconsumer-sequence---errors">8.4.2
+                出错的生产者/消费者排序（Producer/Consumer Sequence -
+                Errors）</a></li>
+                </ul></li>
+                <li><a href="#宽松排序relaxed-ordering"
+                id="toc-宽松排序relaxed-ordering">8.5 宽松排序（Relaxed
+                Ordering）</a>
+                <ul>
+                <li><a
+                href="#ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message"
+                id="toc-ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message">8.5.1
+                RO 对 MWr 和 Message 的影响（RO Effects on MWr and
+                Message）</a></li>
+                <li><a
+                href="#ro-对-mrd-事务的影响ro-effects-on-mrd-transactions"
+                id="toc-ro-对-mrd-事务的影响ro-effects-on-mrd-transactions">8.5.2
+                RO 对 MRd 事务的影响（RO Effects on MRd
+                Transactions）</a></li>
+                </ul></li>
+                <li><a href="#弱排序weak-ordering"
+                id="toc-弱排序weak-ordering">8.6 弱排序（Weak
+                Ordering）</a>
+                <ul>
+                <li><a
+                href="#事务排序与流量控制transaction-ordering-and-flow-control"
+                id="toc-事务排序与流量控制transaction-ordering-and-flow-control">8.6.1
+                事务排序与流量控制（Transaction Ordering and Flow
+                Control）</a></li>
+                <li><a href="#事务暂停transaction-stalls"
+                id="toc-事务暂停transaction-stalls">8.6.2
+                事务暂停（Transaction Stalls）</a></li>
+                <li><a
+                href="#vc-缓冲区提供的优势vc-buffers-offer-an-advantage"
+                id="toc-vc-缓冲区提供的优势vc-buffers-offer-an-advantage">8.6.3
+                VC 缓冲区提供的优势（VC Buffers Offer an
+                Advantage）</a></li>
+                </ul></li>
+                <li><a href="#基于-id-的排序id-based-ordering-ido"
+                id="toc-基于-id-的排序id-based-ordering-ido">8.7 基于 ID
+                的排序（ID-Based Ordering, IDO）</a>
+                <ul>
+                <li><a href="#解决方案the-solution"
+                id="toc-解决方案the-solution">8.7.1 解决方案（The
+                Solution）</a></li>
+                <li><a href="#何时使用-idowhen-to-use-ido"
+                id="toc-何时使用-idowhen-to-use-ido">8.7.2 何时使用
+                IDO（When to Use IDO）</a></li>
+                <li><a href="#软件控制software-control"
+                id="toc-软件控制software-control">8.7.3
+                软件控制（Software Control）</a></li>
+                </ul></li>
+                <li><a href="#死锁避免deadlock-avoidance"
+                id="toc-死锁避免deadlock-avoidance">8.8
+                死锁避免（Deadlock Avoidance）</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#事务排序transaction-ordering"
-            id="toc-事务排序transaction-ordering">8
-            事务排序（Transaction Ordering）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            </ul></li>
-            <li><a href="#介绍introduction"
-            id="toc-介绍introduction">8.1 介绍（Introduction）</a></li>
-            <li><a href="#定义definitions" id="toc-定义definitions">8.2
-            定义（Definitions）</a></li>
-            <li><a href="#简化后的排序规则simplified-ordering-rules"
-            id="toc-简化后的排序规则simplified-ordering-rules">8.3
-            简化后的排序规则（Simplified Ordering Rules）</a>
-            <ul>
-            <li><a
-            href="#排序规则与流量类别ordering-rules-and-traffic-classes"
-            id="toc-排序规则与流量类别ordering-rules-and-traffic-classes">8.3.1
-            排序规则与流量类别（Ordering Rules and Traffic
-            Classes）</a></li>
-            <li><a
-            href="#基于数据包类型的排序规则ordering-rules-based-on-packet-type"
-            id="toc-基于数据包类型的排序规则ordering-rules-based-on-packet-type">8.3.2
-            基于数据包类型的排序规则（Ordering Rules Based on Packet
-            Type）</a></li>
-            <li><a
-            href="#简化后的排序规则表the-simplified-ordering-rules-table"
-            id="toc-简化后的排序规则表the-simplified-ordering-rules-table">8.3.3
-            简化后的排序规则表（The Simplified Ordering Rules
-            Table）</a></li>
-            </ul></li>
-            <li><a href="#生产者消费者模型producerconsumer-model"
-            id="toc-生产者消费者模型producerconsumer-model">8.4
-            生产者/消费者模型（Producer/Consumer Model）</a>
-            <ul>
-            <li><a
-            href="#正确的生产者消费者流程producerconsumer-sequence---no-errors"
-            id="toc-正确的生产者消费者流程producerconsumer-sequence---no-errors">8.4.1
-            正确的生产者/消费者流程（Producer/Consumer Sequence - No
-            Errors）</a></li>
-            <li><a
-            href="#出错的生产者消费者排序producerconsumer-sequence---errors"
-            id="toc-出错的生产者消费者排序producerconsumer-sequence---errors">8.4.2
-            出错的生产者/消费者排序（Producer/Consumer Sequence -
-            Errors）</a></li>
-            </ul></li>
-            <li><a href="#宽松排序relaxed-ordering"
-            id="toc-宽松排序relaxed-ordering">8.5 宽松排序（Relaxed
-            Ordering）</a>
-            <ul>
-            <li><a
-            href="#ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message"
-            id="toc-ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message">8.5.1
-            RO 对 MWr 和 Message 的影响（RO Effects on MWr and
-            Message）</a></li>
-            <li><a
-            href="#ro-对-mrd-事务的影响ro-effects-on-mrd-transactions"
-            id="toc-ro-对-mrd-事务的影响ro-effects-on-mrd-transactions">8.5.2
-            RO 对 MRd 事务的影响（RO Effects on MRd
-            Transactions）</a></li>
-            </ul></li>
-            <li><a href="#弱排序weak-ordering"
-            id="toc-弱排序weak-ordering">8.6 弱排序（Weak Ordering）</a>
-            <ul>
-            <li><a
-            href="#事务排序与流量控制transaction-ordering-and-flow-control"
-            id="toc-事务排序与流量控制transaction-ordering-and-flow-control">8.6.1
-            事务排序与流量控制（Transaction Ordering and Flow
-            Control）</a></li>
-            <li><a href="#事务暂停transaction-stalls"
-            id="toc-事务暂停transaction-stalls">8.6.2
-            事务暂停（Transaction Stalls）</a></li>
-            <li><a
-            href="#vc-缓冲区提供的优势vc-buffers-offer-an-advantage"
-            id="toc-vc-缓冲区提供的优势vc-buffers-offer-an-advantage">8.6.3
-            VC 缓冲区提供的优势（VC Buffers Offer an
-            Advantage）</a></li>
-            </ul></li>
-            <li><a href="#基于-id-的排序id-based-ordering-ido"
-            id="toc-基于-id-的排序id-based-ordering-ido">8.7 基于 ID
-            的排序（ID-Based Ordering, IDO）</a>
-            <ul>
-            <li><a href="#解决方案the-solution"
-            id="toc-解决方案the-solution">8.7.1 解决方案（The
-            Solution）</a></li>
-            <li><a href="#何时使用-idowhen-to-use-ido"
-            id="toc-何时使用-idowhen-to-use-ido">8.7.2 何时使用
-            IDO（When to Use IDO）</a></li>
-            <li><a href="#软件控制software-control"
-            id="toc-软件控制software-control">8.7.3 软件控制（Software
-            Control）</a></li>
-            </ul></li>
-            <li><a href="#死锁避免deadlock-avoidance"
-            id="toc-死锁避免deadlock-avoidance">8.8 死锁避免（Deadlock
-            Avoidance）</a></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#事务排序transaction-ordering"
+                id="toc-事务排序transaction-ordering">8
+                事务排序（Transaction Ordering）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#介绍introduction"
+                id="toc-介绍introduction">8.1
+                介绍（Introduction）</a></li>
+                <li><a href="#定义definitions"
+                id="toc-定义definitions">8.2
+                定义（Definitions）</a></li>
+                <li><a href="#简化后的排序规则simplified-ordering-rules"
+                id="toc-简化后的排序规则simplified-ordering-rules">8.3
+                简化后的排序规则（Simplified Ordering Rules）</a>
+                <ul>
+                <li><a
+                href="#排序规则与流量类别ordering-rules-and-traffic-classes"
+                id="toc-排序规则与流量类别ordering-rules-and-traffic-classes">8.3.1
+                排序规则与流量类别（Ordering Rules and Traffic
+                Classes）</a></li>
+                <li><a
+                href="#基于数据包类型的排序规则ordering-rules-based-on-packet-type"
+                id="toc-基于数据包类型的排序规则ordering-rules-based-on-packet-type">8.3.2
+                基于数据包类型的排序规则（Ordering Rules Based on Packet
+                Type）</a></li>
+                <li><a
+                href="#简化后的排序规则表the-simplified-ordering-rules-table"
+                id="toc-简化后的排序规则表the-simplified-ordering-rules-table">8.3.3
+                简化后的排序规则表（The Simplified Ordering Rules
+                Table）</a></li>
+                </ul></li>
+                <li><a href="#生产者消费者模型producerconsumer-model"
+                id="toc-生产者消费者模型producerconsumer-model">8.4
+                生产者/消费者模型（Producer/Consumer Model）</a>
+                <ul>
+                <li><a
+                href="#正确的生产者消费者流程producerconsumer-sequence---no-errors"
+                id="toc-正确的生产者消费者流程producerconsumer-sequence---no-errors">8.4.1
+                正确的生产者/消费者流程（Producer/Consumer Sequence - No
+                Errors）</a></li>
+                <li><a
+                href="#出错的生产者消费者排序producerconsumer-sequence---errors"
+                id="toc-出错的生产者消费者排序producerconsumer-sequence---errors">8.4.2
+                出错的生产者/消费者排序（Producer/Consumer Sequence -
+                Errors）</a></li>
+                </ul></li>
+                <li><a href="#宽松排序relaxed-ordering"
+                id="toc-宽松排序relaxed-ordering">8.5 宽松排序（Relaxed
+                Ordering）</a>
+                <ul>
+                <li><a
+                href="#ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message"
+                id="toc-ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message">8.5.1
+                RO 对 MWr 和 Message 的影响（RO Effects on MWr and
+                Message）</a></li>
+                <li><a
+                href="#ro-对-mrd-事务的影响ro-effects-on-mrd-transactions"
+                id="toc-ro-对-mrd-事务的影响ro-effects-on-mrd-transactions">8.5.2
+                RO 对 MRd 事务的影响（RO Effects on MRd
+                Transactions）</a></li>
+                </ul></li>
+                <li><a href="#弱排序weak-ordering"
+                id="toc-弱排序weak-ordering">8.6 弱排序（Weak
+                Ordering）</a>
+                <ul>
+                <li><a
+                href="#事务排序与流量控制transaction-ordering-and-flow-control"
+                id="toc-事务排序与流量控制transaction-ordering-and-flow-control">8.6.1
+                事务排序与流量控制（Transaction Ordering and Flow
+                Control）</a></li>
+                <li><a href="#事务暂停transaction-stalls"
+                id="toc-事务暂停transaction-stalls">8.6.2
+                事务暂停（Transaction Stalls）</a></li>
+                <li><a
+                href="#vc-缓冲区提供的优势vc-buffers-offer-an-advantage"
+                id="toc-vc-缓冲区提供的优势vc-buffers-offer-an-advantage">8.6.3
+                VC 缓冲区提供的优势（VC Buffers Offer an
+                Advantage）</a></li>
+                </ul></li>
+                <li><a href="#基于-id-的排序id-based-ordering-ido"
+                id="toc-基于-id-的排序id-based-ordering-ido">8.7 基于 ID
+                的排序（ID-Based Ordering, IDO）</a>
+                <ul>
+                <li><a href="#解决方案the-solution"
+                id="toc-解决方案the-solution">8.7.1 解决方案（The
+                Solution）</a></li>
+                <li><a href="#何时使用-idowhen-to-use-ido"
+                id="toc-何时使用-idowhen-to-use-ido">8.7.2 何时使用
+                IDO（When to Use IDO）</a></li>
+                <li><a href="#软件控制software-control"
+                id="toc-软件控制software-control">8.7.3
+                软件控制（Software Control）</a></li>
+                </ul></li>
+                <li><a href="#死锁避免deadlock-avoidance"
+                id="toc-死锁避免deadlock-avoidance">8.8
+                死锁避免（Deadlock Avoidance）</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="事务排序transaction-ordering">8 事务排序（Transaction
@@ -146,7 +293,7 @@
         的用途、格式、数据包类型定义以及相关字段的细节。DLLP 可用于支持
         ACK/NAK
         协议、电源管理、流量控制机制，也可用于厂商自定义用途。</p>
-        <h2 id="介绍introduction">8.1 介绍（Introduction）</h2>
+        <h3 id="介绍introduction">8.1 介绍（Introduction）</h3>
         <p>和其他协议一样，对于同时在 PCIe
         结构中传输、且具有相同流量类别（Traffic Class, TC）的事务，PCI
         Express 会施加排序规则。具有不同 TC
@@ -169,7 +316,7 @@
         IDO）选项。该选项允许交换机让某个设备的请求先于另一个设备的请求前进，因为这两个设备正在执行互不相关的执行线程。</li>
         <li>用于避免死锁并支持 PCI 传统实现的机制。</li>
         </ol>
-        <h2 id="定义definitions">8.2 定义（Definitions）</h2>
+        <h3 id="定义definitions">8.2 定义（Definitions）</h3>
         <p>在一个流量流中，事务排序通常有三种通用模型：</p>
         <ol type="1">
         <li><strong>强排序（Strong Ordering）</strong>：PCI Express
@@ -186,8 +333,8 @@
         <li><strong>宽松排序（Relaxed
         Ordering）</strong>：事务可以被重新排序，但只能在某些受控条件下进行。它的好处是可以像弱排序模型一样提升性能，但只有在软件明确指定时才允许这样做，从而避免依赖关系问题。缺点是只有部分事务能够获得性能优化，且软件需要额外开销来为事务启用宽松排序（RO）。</li>
         </ol>
-        <h2 id="简化后的排序规则simplified-ordering-rules">8.3
-        简化后的排序规则（Simplified Ordering Rules）</h2>
+        <h3 id="简化后的排序规则simplified-ordering-rules">8.3
+        简化后的排序规则（Simplified Ordering Rules）</h3>
         <p>PCIe 2.1 规范引入了一种简化版排序规则表，如表 8-1
         所示。该表可以按主题划分为以下几类：</p>
         <ul>
@@ -198,9 +345,9 @@
         <li>死锁避免</li>
         </ul>
         <p>后续小节会给出与各类排序模型、操作方式、基本原理、适用条件和要求相关的细节。</p>
-        <h3
+        <h4
         id="排序规则与流量类别ordering-rules-and-traffic-classes">8.3.1
-        排序规则与流量类别（Ordering Rules and Traffic Classes）</h3>
+        排序规则与流量类别（Ordering Rules and Traffic Classes）</h4>
         <p>PCI Express
         中的排序规则适用于具有相同流量类别（TC）的事务。对于在 PCIe
         结构中传输、但具有不同 TC
@@ -217,10 +364,10 @@
         内的所有数据包，即使该 VC 中可能映射了多个 TC。</p>
         <p>显然，映射到不同 VC 的数据包之间不存在排序关系，无论它们的 TC
         如何。</p>
-        <h3
+        <h4
         id="基于数据包类型的排序规则ordering-rules-based-on-packet-type">8.3.2
         基于数据包类型的排序规则（Ordering Rules Based on Packet
-        Type）</h3>
+        Type）</h4>
         <p>PCIe 规范定义的排序关系基于 TLP 类型。TLP 被分为三类：</p>
         <ol type="1">
         <li>Posted TLP</li>
@@ -234,9 +381,9 @@
         <p>下一小节中的表 8-1
         描述了事务排序规则。可以看到，该表按照上述三类 TLP
         列出数据包，并定义它们之间的排序关系。</p>
-        <h3
+        <h4
         id="简化后的排序规则表the-simplified-ordering-rules-table">8.3.3
-        简化后的排序规则表（The Simplified Ordering Rules Table）</h3>
+        简化后的排序规则表（The Simplified Ordering Rules Table）</h4>
         <p>该表采用“行是否可以越过列（Row Pass
         Column）”的方式组织。所有排序规则都在表 8-1
         之后进行总结。每条规则或每组规则都定义了相应要求。</p>
@@ -247,13 +394,13 @@
         所代表的先前事务。表中的 “No” 表示行事务不允许越过列事务；“Yes”
         表示为避免死锁，必须允许行事务越过列事务；“Yes/No”
         表示行事务可以越过列事务，但并不强制要求这样做。表中各条目的含义如下。</p>
+        <p>表 8-1：简化后的排序规则表</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image374.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 8-1：简化后的排序规则表</p>
         <ul>
         <li><strong>A2a、B2a、C2a、D2a</strong>：为了执行
         Producer/Consumer 模型，后到达的事务不允许越过先前的 Posted
@@ -281,8 +428,8 @@
         不能相互越过，必须保持原顺序。这是为了保证当单个请求返回多个
         Completion 时，它们仍能保持地址递增顺序。</li>
         </ul>
-        <h2 id="生产者消费者模型producerconsumer-model">8.4
-        生产者/消费者模型（Producer/Consumer Model）</h2>
+        <h3 id="生产者消费者模型producerconsumer-model">8.4
+        生产者/消费者模型（Producer/Consumer Model）</h3>
         <p>本节描述
         Producer/Consumer（生产者/消费者）模型的工作方式，以及为保证该模型正确运行所需的排序规则。图
         8-1
@@ -303,17 +450,17 @@
         <p>规范指出，无论这些相关元素如何排列放置，Producer/Consumer
         模型都应能够正常工作。在本例中，Flag 和 Status
         元素位于同一个物理设备中，但它们也可以位于不同设备中。</p>
+        <p>图 8-1：生产者/消费者拓扑示例</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image376.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-1：生产者/消费者拓扑示例</p>
-        <h3
+        <h4
         id="正确的生产者消费者流程producerconsumer-sequence---no-errors">8.4.1
         正确的生产者/消费者流程（Producer/Consumer Sequence - No
-        Errors）</h3>
+        Errors）</h4>
         <p>以下讨论请参照图 8-2。该示例假设一开始 Flag 和 Status
         元素均已清零。这两个信号量在本例中位于同一个设备中。下面带序号的事件流程，以及图
         8-2 所示的流程，都反映了正确排序规则下流程的第一部分。</p>
@@ -361,24 +508,24 @@
         <li>Producer 发起 MWr，将 Status 信号量清零。</li>
         <li>Producer 重复从步骤 1 开始的一系列事件。</li>
         </ol>
+        <p>图 8-2：生产者/消费者流程示例——第一部分</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image378.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-2：生产者/消费者流程示例——第一部分</p>
+        <p>图 8-3：生产者/消费者流程示例——第二部分</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image380.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-3：生产者/消费者流程示例——第二部分</p>
-        <h3
+        <h4
         id="出错的生产者消费者排序producerconsumer-sequence---errors">8.4.2
         出错的生产者/消费者排序（Producer/Consumer Sequence -
-        Errors）</h3>
+        Errors）</h4>
         <p>前面的例子在未详细讨论排序规则的情况下正确执行了
         Producer/Consumer 模型，但从中也可以看出，竞争条件可能导致
         Producer/Consumer 流程失败。图 8-4
@@ -407,15 +554,15 @@
         和步骤 4 的 MRd 事务时，交换机上游端口处的 Virtual PCI Bridge
         不能允许包含 Flag 内容的 Completion（步骤 4）先于此前的 Posted
         数据被转发。这种情况对应表 8-1 中的 D2a。</p>
+        <p>图 8-4：出错的生产者/消费者流程</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image382.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-4：出错的生产者/消费者流程</p>
-        <h2 id="宽松排序relaxed-ordering">8.5 宽松排序（Relaxed
-        Ordering）</h2>
+        <h3 id="宽松排序relaxed-ordering">8.5 宽松排序（Relaxed
+        Ordering）</h3>
         <p>PCI Express 支持 PCI-X 引入的宽松排序机制（Relaxed Ordering,
         RO）。RO 允许 Requester 与 Completer
         之间路径上的交换机在某些事务重新排序能够提升性能时执行重新排序。</p>
@@ -433,17 +580,17 @@
         5。随后，当软件请求发送一个数据包时，请求包可以按照软件指示使用该属性位。当交换机或
         RC 看到某个数据包的 RO 位为 1
         时，它们被允许对该数据包进行重新排序，但并不强制要求必须这样做。</p>
+        <p>图 8-5：32 位头部中的宽松排序位</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image384.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-5：32 位头部中的宽松排序位</p>
-        <h3
+        <h4
         id="ro-对-mwr-和-message-的影响ro-effects-on-mwr-and-message">8.5.1
         RO 对 MWr 和 Message 的影响（RO Effects on MWr and
-        Message）</h3>
+        Message）</h4>
         <p>交换机和 RC 必须观察事务中的 RO 位设置。MWr 和 Message 都是
         Posted 写事务，都会进入同一个 Posted
         缓冲区，并遵循相同的排序要求。当 RO 位被置位时，交换机和 RC
@@ -463,9 +610,9 @@
         RC 接收到 RO = 1
         的写事务时，可以按照任意地址顺序将各个字节写入内存。</li>
         </ul>
-        <h3
+        <h4
         id="ro-对-mrd-事务的影响ro-effects-on-mrd-transactions">8.5.2 RO
-        对 MRd 事务的影响（RO Effects on MRd Transactions）</h3>
+        对 MRd 事务的影响（RO Effects on MRd Transactions）</h4>
         <p>PCI Express 中所有读事务都按拆分事务（Split
         Transaction）处理。当某个设备发出 RO = 1 的 MRd
         请求时，Completer 会通过一个或多个拆分 Completion 事务返回
@@ -488,21 +635,21 @@
         就可以越过这些写事务，而无需等待写事务阻塞解除。这种情况下，RO
         可以改进读操作性能。表 8-2 总结了交换机允许的宽松排序行为。</li>
         </ol>
+        <p>表 8-2：因宽松排序而允许重新排序的事务</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image386.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>表 8-2：因宽松排序而允许重新排序的事务</p>
-        <h2 id="弱排序weak-ordering">8.6 弱排序（Weak Ordering）</h2>
+        <h3 id="弱排序weak-ordering">8.6 弱排序（Weak Ordering）</h3>
         <p>当严格执行强排序规则时，可能会出现暂时的事务阻塞问题。在不违反
         Producer/Consumer
         编程模型的前提下，可以对强排序模型进行一定修改，以消除部分阻塞情况并提升链路效率。实现弱排序模型（Weakly-Ordered
         model）可以缓解这一问题。</p>
-        <h3
+        <h4
         id="事务排序与流量控制transaction-ordering-and-flow-control">8.6.1
-        事务排序与流量控制（Transaction Ordering and Flow Control）</h3>
+        事务排序与流量控制（Transaction Ordering and Flow Control）</h4>
         <p>将给定 VC 的缓冲区拆分成 Posted、Non-Posted 和 Completion
         三类受流控管理的子缓冲区，其动机在于：一旦 TLP
         被解析或归入各自的缓冲区，就可以简化事务排序规则的处理。事务排序处理逻辑随后只需要在这三个子缓冲区之间，或在每个子缓冲区内部应用排序规则。</p>
@@ -510,8 +657,8 @@
         会被归入各自的三类子缓冲区以便处理事务排序规则，因此必须在链路两端相邻端口之间，为每个虚拟通道子缓冲区（P、NP、Cpl）定义流量控制机制。实际上，你可能还记得，对于每个
         VC 中的每类子缓冲区（P、NP、Cpl）来说，其 Header（Hdr）和
         Data（D）子缓冲区之间也有独立的流控机制。</p>
-        <h3 id="事务暂停transaction-stalls">8.6.2 事务暂停（Transaction
-        Stalls）</h3>
+        <h4 id="事务暂停transaction-stalls">8.6.2 事务暂停（Transaction
+        Stalls）</h4>
         <p>强排序规则可能导致单个接收缓冲区满而阻塞所有事务。例如，Producer/Consumer
         模型相关事务的排序要求不能改变，但与该模型无关的事务排序可以进行调整。为了改善性能，可以考虑一种弱排序方案，即对事务排序施加最低限度要求的方案。</p>
         <p>下面的例子（图 8-6）展示了单个 VC
@@ -519,13 +666,13 @@
         VC 中，每种事务类型（Posted、Non-Posted 和
         Completion）都有独立的流控机制。发送缓冲区内的数字表示这些事务发出的顺序，此时
         Non-Posted 接收缓冲区已经满了。</p>
+        <p>图 8-6：强排序规则导致的临时事务暂停</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image388.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-6：强排序规则导致的临时事务暂停</p>
         <p>考虑下面的流程：</p>
         <ol type="1">
         <li>事务 1（MRd）是下一个要发送的事务，但此时没有足够的
@@ -536,20 +683,20 @@
         <li>这种约束也会应用于后续所有事务，结果导致它们全部暂停，直到事务
         1 完成。</li>
         </ol>
-        <h3 id="vc-缓冲区提供的优势vc-buffers-offer-an-advantage">8.6.3
-        VC 缓冲区提供的优势（VC Buffers Offer an Advantage）</h3>
+        <h4 id="vc-缓冲区提供的优势vc-buffers-offer-an-advantage">8.6.3
+        VC 缓冲区提供的优势（VC Buffers Offer an Advantage）</h4>
         <p>事务排序在虚拟通道缓冲区内进行管理。这些缓冲区按照事务类型分为
         Posted、Non-Posted 和 Completion
         三组，并且每组都有独立的流控管理。因此，弱排序更加有用：正如上面的例子，即使一个缓冲区已满，其他缓冲区仍可能有可用空间。</p>
-        <h2 id="基于-id-的排序id-based-ordering-ido">8.7 基于 ID
-        的排序（ID-Based Ordering, IDO）</h2>
+        <h3 id="基于-id-的排序id-based-ordering-ido">8.7 基于 ID
+        的排序（ID-Based Ordering, IDO）</h3>
         <p>另一种优化排序并提升性能的机会与流量流（traffic
         stream）的性质有关。来自不同 Requester
         的数据包通常不太可能存在依赖关系。毕竟，一个设备很难仅根据排序关系判断另一个设备何时完成某些步骤，因为它们可能通过不同路径访问共享资源。考虑到这一点，PCIe
         2.1 规范引入了基于 ID 的排序（ID-Based Ordering,
         IDO），用于提升性能。</p>
-        <h3 id="解决方案the-solution">8.7.1 解决方案（The
-        Solution）</h3>
+        <h4 id="解决方案the-solution">8.7.1 解决方案（The
+        Solution）</h4>
         <p>如果事务排序没有考虑数据包来源，性能就可能受到影响，如图 8-7
         所示。在该图中，事务 1
         从自己的事务源到达交换机上游端口，但当它要继续前进到 RC
@@ -567,15 +714,15 @@
         IDO，交换机端口也就可以识别这些数据包属于不同的 TLP
         流。这通过设置设备控制 2 寄存器（Device Control 2
         Register）中的使能位来实现。</p>
+        <p>图 8-7：不同数据源之间通常没有相互依赖关系</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image390.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-7：不同数据源之间通常没有相互依赖关系</p>
-        <h3 id="何时使用-idowhen-to-use-ido">8.7.2 何时使用 IDO（When to
-        Use IDO）</h3>
+        <h4 id="何时使用-idowhen-to-use-ido">8.7.2 何时使用 IDO（When to
+        Use IDO）</h4>
         <p>规范强烈建议在安全可行的情况下同时使用 IDO 和
         RO。例如，当端点只与一个实体（例如 Root
         Complex）直接通信时，端点对所有 TLP 使用 IDO
@@ -590,8 +737,8 @@
         traffic）的数据包，使用 RO 也并不安全。</p>
         <p>对于 Completer，如果已经启用 IDO，规范建议对所有 Completion
         使用 IDO，除非存在明确原因不应这样做。</p>
-        <h3 id="软件控制software-control">8.7.3 软件控制（Software
-        Control）</h3>
+        <h4 id="软件控制software-control">8.7.3 软件控制（Software
+        Control）</h4>
         <p>软件可以通过设置某个端口的设备控制 2 寄存器（Device Control 2
         Register）中的相应位，使能该端口发出的 Request 或 Completion
         使用 IDO。与 RO 类似，设备中没有能力位（capability
@@ -604,15 +751,15 @@
         中的所有属性位，但 IDO 不一定如此，因为 Completer 可以独立启用
         IDO。换句话说，即使发起它的 Request 未使用 IDO，对应 Completion
         仍然可以使用 IDO。</p>
+        <p>图 8-8：64 位头部中的 IDO 属性位</p>
         <figure>
         <img
         src="img/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F/clip_image392.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 8-8：64 位头部中的 IDO 属性位</p>
-        <h2 id="死锁避免deadlock-avoidance">8.8 死锁避免（Deadlock
-        Avoidance）</h2>
+        <h3 id="死锁避免deadlock-avoidance">8.8 死锁避免（Deadlock
+        Avoidance）</h3>
         <p>由于 PCI 总线采用延迟事务（delayed transaction），以及 PCI
         Express 内存读请求可能因为缺少流控 Credit
         而被阻塞，因此可能产生多种死锁场景。PCI Express
@@ -635,13 +782,14 @@
         请求，否则就可能发生死锁。</strong></p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="7 QoS 服务质量.html">← 第 7 章 QoS 服务质量</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -654,17 +802,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

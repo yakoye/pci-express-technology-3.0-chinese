@@ -8,70 +8,284 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="18 系统复位.html">← 第 18 章 系统复位</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="18 系统复位.html">← 第 18 章 系统复位</a>
+          </div>
+
+    <div class="topbar-title">
       第 19 章 热插拔和功耗预算管理
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="20 规范2.1版本更新.html">第 20 章 规范 2.1 版本更新 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="20 规范2.1版本更新.html">第 20 章 规范 2.1 版本更新 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 19 章 热插拔和功耗预算管理
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 19 章 热插拔和功耗预算管理</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="18 系统复位.html">← 第 18 章 系统复位</a>
+      
+            <a class="drawer-link" href="20 规范2.1版本更新.html">第 20 章 规范 2.1 版本更新 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#热插拔与功耗预算管理hot-plug-and-power-budgeting"
+                id="toc-热插拔与功耗预算管理hot-plug-and-power-budgeting">19
+                热插拔与功耗预算管理（Hot Plug and Power Budgeting）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#背景" id="toc-背景">19.1 背景</a></li>
+                <li><a href="#pci-express-环境中的热插拔"
+                id="toc-pci-express-环境中的热插拔">19.2 PCI Express
+                环境中的热插拔</a>
+                <ul>
+                <li><a href="#意外移除通知" id="toc-意外移除通知">19.2.1
+                意外移除通知</a></li>
+                <li><a href="#pci-与-pcie-热插拔的区别"
+                id="toc-pci-与-pcie-热插拔的区别">19.2.2 PCI 与 PCIe
+                热插拔的区别</a></li>
+                </ul></li>
+                <li><a href="#支持热插拔所需的要素"
+                id="toc-支持热插拔所需的要素">19.3
+                支持热插拔所需的要素</a>
+                <ul>
+                <li><a href="#软件要素" id="toc-软件要素">19.3.1
+                软件要素</a></li>
+                <li><a href="#硬件要素" id="toc-硬件要素">19.3.2
+                硬件要素</a></li>
+                </ul></li>
+                <li><a href="#板卡移除与插入流程"
+                id="toc-板卡移除与插入流程">19.4 板卡移除与插入流程</a>
+                <ul>
+                <li><a href="#on-和-off-状态"
+                id="toc-on-和-off-状态">19.4.1 On 和 Off 状态</a></li>
+                <li><a href="#板卡移除流程" id="toc-板卡移除流程">19.4.2
+                板卡移除流程</a></li>
+                <li><a href="#插卡流程" id="toc-插卡流程">19.4.3
+                插卡流程</a></li>
+                </ul></li>
+                <li><a href="#标准化使用模型"
+                id="toc-标准化使用模型">19.5 标准化使用模型</a>
+                <ul>
+                <li><a href="#背景-1" id="toc-背景-1">19.5.1
+                背景</a></li>
+                <li><a href="#标准用户界面" id="toc-标准用户界面">19.5.2
+                标准用户界面</a></li>
+                </ul></li>
+                <li><a href="#标准热插拔控制器信号接口"
+                id="toc-标准热插拔控制器信号接口">19.6
+                标准热插拔控制器信号接口</a></li>
+                <li><a href="#热插拔控制器编程接口"
+                id="toc-热插拔控制器编程接口">19.7
+                热插拔控制器编程接口</a>
+                <ul>
+                <li><a href="#插槽能力" id="toc-插槽能力">19.7.1
+                插槽能力</a></li>
+                <li><a href="#插槽功率限制控制"
+                id="toc-插槽功率限制控制">19.7.2
+                插槽功率限制控制</a></li>
+                <li><a href="#插槽控制" id="toc-插槽控制">19.7.3
+                插槽控制</a></li>
+                <li><a href="#插槽状态与事件管理"
+                id="toc-插槽状态与事件管理">19.7.4
+                插槽状态与事件管理</a></li>
+                <li><a href="#附加卡能力" id="toc-附加卡能力">19.7.5
+                附加卡能力</a></li>
+                </ul></li>
+                <li><a href="#静默化板卡与驱动程序"
+                id="toc-静默化板卡与驱动程序">19.8
+                静默化板卡与驱动程序</a>
+                <ul>
+                <li><a href="#概述" id="toc-概述">19.8.1 概述</a></li>
+                <li><a href="#暂停驱动程序可选"
+                id="toc-暂停驱动程序可选">19.8.2
+                暂停驱动程序（可选）</a></li>
+                </ul></li>
+                <li><a href="#原语" id="toc-原语">19.9 原语</a></li>
+                <li><a href="#电源预算简介" id="toc-电源预算简介">19.10
+                电源预算简介</a></li>
+                <li><a href="#电源预算管理要素"
+                id="toc-电源预算管理要素">19.11 电源预算管理要素</a>
+                <ul>
+                <li><a href="#系统固件" id="toc-系统固件">19.11.1
+                系统固件</a></li>
+                <li><a href="#电源预算管理器"
+                id="toc-电源预算管理器">19.11.2 电源预算管理器</a></li>
+                <li><a href="#扩展端口" id="toc-扩展端口">19.11.3
+                扩展端口</a></li>
+                <li><a href="#附加设备" id="toc-附加设备">19.11.4
+                附加设备</a></li>
+                </ul></li>
+                <li><a href="#插槽功率限制控制-1"
+                id="toc-插槽功率限制控制-1">19.12 插槽功率限制控制</a>
+                <ul>
+                <li><a href="#扩展端口传递插槽功率限制"
+                id="toc-扩展端口传递插槽功率限制">19.12.1
+                扩展端口传递插槽功率限制</a></li>
+                <li><a href="#扩展设备限制功耗"
+                id="toc-扩展设备限制功耗">19.12.2
+                扩展设备限制功耗</a></li>
+                </ul></li>
+                <li><a href="#功率预算能力寄存器组"
+                id="toc-功率预算能力寄存器组">19.13
+                功率预算能力寄存器组</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a
-            href="#热插拔与功耗预算管理hot-plug-and-power-budgeting"
-            id="toc-热插拔与功耗预算管理hot-plug-and-power-budgeting">19
-            热插拔与功耗预算管理（Hot Plug and Power Budgeting）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#背景" id="toc-背景">19.1 背景</a></li>
-            <li><a href="#pci-express-环境中的热插拔"
-            id="toc-pci-express-环境中的热插拔">19.2 PCI Express
-            环境中的热插拔</a></li>
-            <li><a href="#支持热插拔所需的要素"
-            id="toc-支持热插拔所需的要素">19.3
-            支持热插拔所需的要素</a></li>
-            <li><a href="#板卡移除与插入流程"
-            id="toc-板卡移除与插入流程">19.4 板卡移除与插入流程</a></li>
-            <li><a href="#标准化使用模型" id="toc-标准化使用模型">19.5
-            标准化使用模型</a></li>
-            <li><a href="#标准热插拔控制器信号接口"
-            id="toc-标准热插拔控制器信号接口">19.6
-            标准热插拔控制器信号接口</a></li>
-            <li><a href="#热插拔控制器编程接口"
-            id="toc-热插拔控制器编程接口">19.7
-            热插拔控制器编程接口</a></li>
-            <li><a href="#静默化板卡与驱动程序"
-            id="toc-静默化板卡与驱动程序">19.8
-            静默化板卡与驱动程序</a></li>
-            <li><a href="#原语" id="toc-原语">19.9 原语</a></li>
-            <li><a href="#电源预算简介" id="toc-电源预算简介">19.10
-            电源预算简介</a></li>
-            <li><a href="#电源预算管理要素"
-            id="toc-电源预算管理要素">19.11 电源预算管理要素</a></li>
-            <li><a href="#插槽功率限制控制-1"
-            id="toc-插槽功率限制控制-1">19.12 插槽功率限制控制</a></li>
-            <li><a href="#功率预算能力寄存器组"
-            id="toc-功率预算能力寄存器组">19.13
-            功率预算能力寄存器组</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a
+                href="#热插拔与功耗预算管理hot-plug-and-power-budgeting"
+                id="toc-热插拔与功耗预算管理hot-plug-and-power-budgeting">19
+                热插拔与功耗预算管理（Hot Plug and Power Budgeting）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#背景" id="toc-背景">19.1 背景</a></li>
+                <li><a href="#pci-express-环境中的热插拔"
+                id="toc-pci-express-环境中的热插拔">19.2 PCI Express
+                环境中的热插拔</a>
+                <ul>
+                <li><a href="#意外移除通知" id="toc-意外移除通知">19.2.1
+                意外移除通知</a></li>
+                <li><a href="#pci-与-pcie-热插拔的区别"
+                id="toc-pci-与-pcie-热插拔的区别">19.2.2 PCI 与 PCIe
+                热插拔的区别</a></li>
+                </ul></li>
+                <li><a href="#支持热插拔所需的要素"
+                id="toc-支持热插拔所需的要素">19.3
+                支持热插拔所需的要素</a>
+                <ul>
+                <li><a href="#软件要素" id="toc-软件要素">19.3.1
+                软件要素</a></li>
+                <li><a href="#硬件要素" id="toc-硬件要素">19.3.2
+                硬件要素</a></li>
+                </ul></li>
+                <li><a href="#板卡移除与插入流程"
+                id="toc-板卡移除与插入流程">19.4 板卡移除与插入流程</a>
+                <ul>
+                <li><a href="#on-和-off-状态"
+                id="toc-on-和-off-状态">19.4.1 On 和 Off 状态</a></li>
+                <li><a href="#板卡移除流程" id="toc-板卡移除流程">19.4.2
+                板卡移除流程</a></li>
+                <li><a href="#插卡流程" id="toc-插卡流程">19.4.3
+                插卡流程</a></li>
+                </ul></li>
+                <li><a href="#标准化使用模型"
+                id="toc-标准化使用模型">19.5 标准化使用模型</a>
+                <ul>
+                <li><a href="#背景-1" id="toc-背景-1">19.5.1
+                背景</a></li>
+                <li><a href="#标准用户界面" id="toc-标准用户界面">19.5.2
+                标准用户界面</a></li>
+                </ul></li>
+                <li><a href="#标准热插拔控制器信号接口"
+                id="toc-标准热插拔控制器信号接口">19.6
+                标准热插拔控制器信号接口</a></li>
+                <li><a href="#热插拔控制器编程接口"
+                id="toc-热插拔控制器编程接口">19.7
+                热插拔控制器编程接口</a>
+                <ul>
+                <li><a href="#插槽能力" id="toc-插槽能力">19.7.1
+                插槽能力</a></li>
+                <li><a href="#插槽功率限制控制"
+                id="toc-插槽功率限制控制">19.7.2
+                插槽功率限制控制</a></li>
+                <li><a href="#插槽控制" id="toc-插槽控制">19.7.3
+                插槽控制</a></li>
+                <li><a href="#插槽状态与事件管理"
+                id="toc-插槽状态与事件管理">19.7.4
+                插槽状态与事件管理</a></li>
+                <li><a href="#附加卡能力" id="toc-附加卡能力">19.7.5
+                附加卡能力</a></li>
+                </ul></li>
+                <li><a href="#静默化板卡与驱动程序"
+                id="toc-静默化板卡与驱动程序">19.8
+                静默化板卡与驱动程序</a>
+                <ul>
+                <li><a href="#概述" id="toc-概述">19.8.1 概述</a></li>
+                <li><a href="#暂停驱动程序可选"
+                id="toc-暂停驱动程序可选">19.8.2
+                暂停驱动程序（可选）</a></li>
+                </ul></li>
+                <li><a href="#原语" id="toc-原语">19.9 原语</a></li>
+                <li><a href="#电源预算简介" id="toc-电源预算简介">19.10
+                电源预算简介</a></li>
+                <li><a href="#电源预算管理要素"
+                id="toc-电源预算管理要素">19.11 电源预算管理要素</a>
+                <ul>
+                <li><a href="#系统固件" id="toc-系统固件">19.11.1
+                系统固件</a></li>
+                <li><a href="#电源预算管理器"
+                id="toc-电源预算管理器">19.11.2 电源预算管理器</a></li>
+                <li><a href="#扩展端口" id="toc-扩展端口">19.11.3
+                扩展端口</a></li>
+                <li><a href="#附加设备" id="toc-附加设备">19.11.4
+                附加设备</a></li>
+                </ul></li>
+                <li><a href="#插槽功率限制控制-1"
+                id="toc-插槽功率限制控制-1">19.12 插槽功率限制控制</a>
+                <ul>
+                <li><a href="#扩展端口传递插槽功率限制"
+                id="toc-扩展端口传递插槽功率限制">19.12.1
+                扩展端口传递插槽功率限制</a></li>
+                <li><a href="#扩展设备限制功耗"
+                id="toc-扩展设备限制功耗">19.12.2
+                扩展设备限制功耗</a></li>
+                </ul></li>
+                <li><a href="#功率预算能力寄存器组"
+                id="toc-功率预算能力寄存器组">19.13
+                功率预算能力寄存器组</a></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="热插拔与功耗预算管理hot-plug-and-power-budgeting">19
@@ -1299,13 +1513,14 @@
         时，表示表格结束。</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="18 系统复位.html">← 第 18 章 系统复位</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1318,17 +1533,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

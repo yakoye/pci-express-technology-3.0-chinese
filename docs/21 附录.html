@@ -8,105 +8,440 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="20 规范2.1版本更新.html">← 第 20 章 规范 2.1 版本更新</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="20 规范2.1版本更新.html">← 第 20 章 规范 2.1 版本更新</a>
+          </div>
+
+    <div class="topbar-title">
       第 21 章 附录
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="22 术语表.html">术语表 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="22 术语表.html">术语表 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 21 章 附录
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 21 章 附录</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="20 规范2.1版本更新.html">← 第 20 章 规范 2.1 版本更新</a>
+      
+            <a class="drawer-link" href="22 术语表.html">术语表 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#附录appendices" id="toc-附录appendices">21
+                附录（Appendices）</a>
+                <ul>
+                <li><a href="#附录-a使用-lecroy-工具调试-pcie-流量"
+                id="toc-附录-a使用-lecroy-工具调试-pcie-流量">21.1 附录
+                A：使用 LeCroy 工具调试 PCIe 流量</a>
+                <ul>
+                <li><a href="#概述" id="toc-概述">21.1.1 概述</a></li>
+                <li><a href="#硅前调试" id="toc-硅前调试">21.1.2
+                硅前调试</a>
+                <ul>
+                <li><a href="#rtl-仿真视角"
+                id="toc-rtl-仿真视角">21.1.2.1 RTL 仿真视角</a></li>
+                <li><a href="#pci-express-rtl-总线监视器"
+                id="toc-pci-express-rtl-总线监视器">21.1.2.2 PCI Express
+                RTL 总线监视器</a></li>
+                <li><a href="#rtl-向量导出至-petracer-应用程序"
+                id="toc-rtl-向量导出至-petracer-应用程序">21.1.2.3 RTL
+                向量导出至 PETracer 应用程序</a></li>
+                </ul></li>
+                <li><a href="#硅后调试" id="toc-硅后调试">21.1.3
+                硅后调试</a>
+                <ul>
+                <li><a href="#示波器" id="toc-示波器">21.1.3.1
+                示波器</a></li>
+                <li><a href="#协议分析仪" id="toc-协议分析仪">21.1.3.2
+                协议分析仪</a></li>
+                <li><a href="#逻辑分析仪" id="toc-逻辑分析仪">21.1.3.3
+                逻辑分析仪</a></li>
+                </ul></li>
+                <li><a href="#使用协议分析仪的探测选项"
+                id="toc-使用协议分析仪的探测选项">21.1.4
+                使用协议分析仪的探测选项</a></li>
+                <li><a href="#使用-petracer-应用程序查看流量"
+                id="toc-使用-petracer-应用程序查看流量">21.1.5 使用
+                PETracer 应用程序查看流量</a>
+                <ul>
+                <li><a href="#catc-trace-viewer"
+                id="toc-catc-trace-viewer">21.1.5.1 CATC Trace
+                Viewer</a></li>
+                <li><a href="#ltssm-图表" id="toc-ltssm-图表">21.1.5.2
+                LTSSM 图表</a></li>
+                <li><a href="#流量控制信用跟踪"
+                id="toc-流量控制信用跟踪">21.1.5.3
+                流量控制信用跟踪</a></li>
+                <li><a href="#bittracer" id="toc-bittracer">21.1.5.4
+                BitTracer</a></li>
+                <li><a href="#分析概述" id="toc-分析概述">21.1.5.5
+                分析概述</a></li>
+                </ul></li>
+                <li><a href="#流量生成" id="toc-流量生成">21.1.6
+                流量生成</a>
+                <ul>
+                <li><a href="#硅前验证阶段"
+                id="toc-硅前验证阶段">21.1.6.1 硅前验证阶段</a></li>
+                <li><a href="#后硅验证阶段"
+                id="toc-后硅验证阶段">21.1.6.2 后硅验证阶段</a></li>
+                <li><a href="#ptc-卡" id="toc-ptc-卡">21.1.6.2.2 PTC
+                卡</a></li>
+                </ul></li>
+                <li><a href="#结论" id="toc-结论">21.1.7 结论</a></li>
+                </ul></li>
+                <li><a href="#附录-bpci-express-的市场与应用"
+                id="toc-附录-bpci-express-的市场与应用">21.2 附录 B：PCI
+                Express 的市场与应用</a>
+                <ul>
+                <li><a href="#引言" id="toc-引言">21.2.1 引言</a></li>
+                <li><a href="#pci-express-io-虚拟化解决方案"
+                id="toc-pci-express-io-虚拟化解决方案">21.2.2 PCI
+                Express I/O 虚拟化解决方案</a></li>
+                <li><a href="#多根mrpcie-交换机解决方案"
+                id="toc-多根mrpcie-交换机解决方案">21.2.3 多根（MR）PCIe
+                交换机解决方案</a></li>
+                <li><a href="#超越芯片间互连的-pcie"
+                id="toc-超越芯片间互连的-pcie">21.2.4 超越芯片间互连的
+                PCIe</a></li>
+                <li><a href="#ssd存储-io-扩展箱"
+                id="toc-ssd存储-io-扩展箱">21.2.5 SSD/存储 I/O
+                扩展箱</a></li>
+                <li><a href="#服务器-ssd-模块中的-pcie"
+                id="toc-服务器-ssd-模块中的-pcie">21.2.6 服务器 SSD
+                模块中的 PCIe</a></li>
+                <li><a href="#结论-1" id="toc-结论-1">21.2.7
+                结论</a></li>
+                </ul></li>
+                <li><a
+                href="#附录-c利用-pci-express-技术实现智能适配器与多主机系统"
+                id="toc-附录-c利用-pci-express-技术实现智能适配器与多主机系统">21.3
+                附录 C：利用 PCI Express
+                技术实现智能适配器与多主机系统</a>
+                <ul>
+                <li><a href="#引言-1" id="toc-引言-1">21.3.1
+                引言</a></li>
+                <li><a href="#使用模型" id="toc-使用模型">21.3.2
+                使用模型</a>
+                <ul>
+                <li><a href="#智能适配器" id="toc-智能适配器">21.3.2.1
+                智能适配器</a></li>
+                <li><a href="#主机故障切换"
+                id="toc-主机故障切换">21.3.2.2 主机故障切换</a></li>
+                <li><a href="#多处理器系统"
+                id="toc-多处理器系统">21.3.2.3 多处理器系统</a></li>
+                </ul></li>
+                <li><a href="#基于-pci-的多处理器实现发展史"
+                id="toc-基于-pci-的多处理器实现发展史">21.3.3 基于 PCI
+                的多处理器实现发展史</a></li>
+                <li><a
+                href="#在-pci-express-基础系统中实现多主机智能适配器"
+                id="toc-在-pci-express-基础系统中实现多主机智能适配器">21.3.4
+                在 PCI Express 基础系统中实现多主机/智能适配器</a>
+                <ul>
+                <li><a
+                href="#示例在-pci-express-基础系统中实现智能适配器"
+                id="toc-示例在-pci-express-基础系统中实现智能适配器">21.3.4.1
+                示例：在 PCI Express 基础系统中实现智能适配器</a></li>
+                <li><a href="#示例在-pci-express-系统中实现主机故障切换"
+                id="toc-示例在-pci-express-系统中实现主机故障切换">21.3.4.2
+                示例：在 PCI Express 系统中实现主机故障切换</a></li>
+                <li><a href="#示例在-pci-express-基础系统中实现双主机"
+                id="toc-示例在-pci-express-基础系统中实现双主机">21.3.4.3
+                示例：在 PCI Express 基础系统中实现双主机</a></li>
+                </ul></li>
+                <li><a href="#总结" id="toc-总结">21.3.5 总结</a></li>
+                <li><a href="#地址转换" id="toc-地址转换">21.3.6
+                地址转换</a>
+                <ul>
+                <li><a href="#直接地址转换"
+                id="toc-直接地址转换">21.3.6.1 直接地址转换</a></li>
+                <li><a href="#基于查找表的地址转换"
+                id="toc-基于查找表的地址转换">21.3.6.2
+                基于查找表的地址转换</a></li>
+                <li><a href="#下游-bar-限制寄存器"
+                id="toc-下游-bar-限制寄存器">21.3.6.3 下游 BAR
+                限制寄存器</a></li>
+                <li><a href="#转发64位地址内存事务"
+                id="toc-转发64位地址内存事务">21.3.6.4
+                转发64位地址内存事务</a></li>
+                </ul></li>
+                </ul></li>
+                <li><a href="#附录-d锁定事务"
+                id="toc-附录-d锁定事务">21.4 附录 D：锁定事务</a>
+                <ul>
+                <li><a href="#引言-2" id="toc-引言-2">21.4.1
+                引言</a></li>
+                <li><a href="#背景" id="toc-背景">21.4.2 背景</a></li>
+                <li><a href="#pci-express-锁定协议"
+                id="toc-pci-express-锁定协议">21.4.3 PCI Express
+                锁定协议</a>
+                <ul>
+                <li><a href="#锁定消息---虚拟锁定信号"
+                id="toc-锁定消息---虚拟锁定信号">21.4.3.1 锁定消息 -
+                虚拟锁定信号</a></li>
+                <li><a href="#锁定协议序列示例"
+                id="toc-锁定协议序列示例">21.4.3.2
+                锁定协议序列示例</a></li>
+                <li><a href="#锁定失败的通知"
+                id="toc-锁定失败的通知">21.4.3.3 锁定失败的通知</a></li>
+                </ul></li>
+                <li><a href="#锁定规则总结" id="toc-锁定规则总结">21.4.4
+                锁定规则总结</a>
+                <ul>
+                <li><a href="#与锁定事务的发起和传播相关的规则"
+                id="toc-与锁定事务的发起和传播相关的规则">21.4.4.1
+                与锁定事务的发起和传播相关的规则</a></li>
+                <li><a href="#与交换机相关的规则"
+                id="toc-与交换机相关的规则">21.4.4.2
+                与交换机相关的规则</a></li>
+                <li><a href="#与-pci-expresspci-桥接器相关的规则"
+                id="toc-与-pci-expresspci-桥接器相关的规则">21.4.4.3 与
+                PCI Express/PCI 桥接器相关的规则</a></li>
+                <li><a href="#与根复合体相关的规则"
+                id="toc-与根复合体相关的规则">21.4.4.4
+                与根复合体相关的规则</a></li>
+                <li><a href="#与传统端点相关的规则"
+                id="toc-与传统端点相关的规则">21.4.4.5
+                与传统端点相关的规则</a></li>
+                <li><a href="#与-pci-express-端点相关的规则"
+                id="toc-与-pci-express-端点相关的规则">21.4.4.6 与 PCI
+                Express 端点相关的规则</a></li>
+                </ul></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#附录appendices" id="toc-附录appendices">21
-            附录（Appendices）</a>
-            <ul>
-            <li><a href="#附录-a使用-lecroy-工具调试-pcie-流量"
-            id="toc-附录-a使用-lecroy-工具调试-pcie-流量">21.1 附录
-            A：使用 LeCroy 工具调试 PCIe 流量</a>
-            <ul>
-            <li><a href="#概述" id="toc-概述">21.1.1 概述</a></li>
-            <li><a href="#硅前调试" id="toc-硅前调试">21.1.2
-            硅前调试</a></li>
-            <li><a href="#硅后调试" id="toc-硅后调试">21.1.3
-            硅后调试</a></li>
-            <li><a href="#使用协议分析仪的探测选项"
-            id="toc-使用协议分析仪的探测选项">21.1.4
-            使用协议分析仪的探测选项</a></li>
-            <li><a href="#使用-petracer-应用程序查看流量"
-            id="toc-使用-petracer-应用程序查看流量">21.1.5 使用 PETracer
-            应用程序查看流量</a></li>
-            <li><a href="#流量生成" id="toc-流量生成">21.1.6
-            流量生成</a></li>
-            <li><a href="#结论" id="toc-结论">21.1.7 结论</a></li>
-            </ul></li>
-            <li><a href="#附录-bpci-express-的市场与应用"
-            id="toc-附录-bpci-express-的市场与应用">21.2 附录 B：PCI
-            Express 的市场与应用</a>
-            <ul>
-            <li><a href="#引言" id="toc-引言">21.2.1 引言</a></li>
-            <li><a href="#pci-express-io-虚拟化解决方案"
-            id="toc-pci-express-io-虚拟化解决方案">21.2.2 PCI Express
-            I/O 虚拟化解决方案</a></li>
-            <li><a href="#多根mrpcie-交换机解决方案"
-            id="toc-多根mrpcie-交换机解决方案">21.2.3 多根（MR）PCIe
-            交换机解决方案</a></li>
-            <li><a href="#超越芯片间互连的-pcie"
-            id="toc-超越芯片间互连的-pcie">21.2.4 超越芯片间互连的
-            PCIe</a></li>
-            <li><a href="#ssd存储-io-扩展箱"
-            id="toc-ssd存储-io-扩展箱">21.2.5 SSD/存储 I/O
-            扩展箱</a></li>
-            <li><a href="#服务器-ssd-模块中的-pcie"
-            id="toc-服务器-ssd-模块中的-pcie">21.2.6 服务器 SSD 模块中的
-            PCIe</a></li>
-            <li><a href="#结论-1" id="toc-结论-1">21.2.7 结论</a></li>
-            </ul></li>
-            <li><a
-            href="#附录-c利用-pci-express-技术实现智能适配器与多主机系统"
-            id="toc-附录-c利用-pci-express-技术实现智能适配器与多主机系统">21.3
-            附录 C：利用 PCI Express 技术实现智能适配器与多主机系统</a>
-            <ul>
-            <li><a href="#引言-1" id="toc-引言-1">21.3.1 引言</a></li>
-            <li><a href="#使用模型" id="toc-使用模型">21.3.2
-            使用模型</a></li>
-            <li><a href="#基于-pci-的多处理器实现发展史"
-            id="toc-基于-pci-的多处理器实现发展史">21.3.3 基于 PCI
-            的多处理器实现发展史</a></li>
-            <li><a href="#在-pci-express-基础系统中实现多主机智能适配器"
-            id="toc-在-pci-express-基础系统中实现多主机智能适配器">21.3.4
-            在 PCI Express 基础系统中实现多主机/智能适配器</a></li>
-            <li><a href="#总结" id="toc-总结">21.3.5 总结</a></li>
-            <li><a href="#地址转换" id="toc-地址转换">21.3.6
-            地址转换</a></li>
-            </ul></li>
-            <li><a href="#附录-d锁定事务" id="toc-附录-d锁定事务">21.4
-            附录 D：锁定事务</a>
-            <ul>
-            <li><a href="#引言-2" id="toc-引言-2">21.4.1 引言</a></li>
-            <li><a href="#背景" id="toc-背景">21.4.2 背景</a></li>
-            <li><a href="#pci-express-锁定协议"
-            id="toc-pci-express-锁定协议">21.4.3 PCI Express
-            锁定协议</a></li>
-            <li><a href="#锁定规则总结" id="toc-锁定规则总结">21.4.4
-            锁定规则总结</a></li>
-            </ul></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#附录appendices" id="toc-附录appendices">21
+                附录（Appendices）</a>
+                <ul>
+                <li><a href="#附录-a使用-lecroy-工具调试-pcie-流量"
+                id="toc-附录-a使用-lecroy-工具调试-pcie-流量">21.1 附录
+                A：使用 LeCroy 工具调试 PCIe 流量</a>
+                <ul>
+                <li><a href="#概述" id="toc-概述">21.1.1 概述</a></li>
+                <li><a href="#硅前调试" id="toc-硅前调试">21.1.2
+                硅前调试</a>
+                <ul>
+                <li><a href="#rtl-仿真视角"
+                id="toc-rtl-仿真视角">21.1.2.1 RTL 仿真视角</a></li>
+                <li><a href="#pci-express-rtl-总线监视器"
+                id="toc-pci-express-rtl-总线监视器">21.1.2.2 PCI Express
+                RTL 总线监视器</a></li>
+                <li><a href="#rtl-向量导出至-petracer-应用程序"
+                id="toc-rtl-向量导出至-petracer-应用程序">21.1.2.3 RTL
+                向量导出至 PETracer 应用程序</a></li>
+                </ul></li>
+                <li><a href="#硅后调试" id="toc-硅后调试">21.1.3
+                硅后调试</a>
+                <ul>
+                <li><a href="#示波器" id="toc-示波器">21.1.3.1
+                示波器</a></li>
+                <li><a href="#协议分析仪" id="toc-协议分析仪">21.1.3.2
+                协议分析仪</a></li>
+                <li><a href="#逻辑分析仪" id="toc-逻辑分析仪">21.1.3.3
+                逻辑分析仪</a></li>
+                </ul></li>
+                <li><a href="#使用协议分析仪的探测选项"
+                id="toc-使用协议分析仪的探测选项">21.1.4
+                使用协议分析仪的探测选项</a></li>
+                <li><a href="#使用-petracer-应用程序查看流量"
+                id="toc-使用-petracer-应用程序查看流量">21.1.5 使用
+                PETracer 应用程序查看流量</a>
+                <ul>
+                <li><a href="#catc-trace-viewer"
+                id="toc-catc-trace-viewer">21.1.5.1 CATC Trace
+                Viewer</a></li>
+                <li><a href="#ltssm-图表" id="toc-ltssm-图表">21.1.5.2
+                LTSSM 图表</a></li>
+                <li><a href="#流量控制信用跟踪"
+                id="toc-流量控制信用跟踪">21.1.5.3
+                流量控制信用跟踪</a></li>
+                <li><a href="#bittracer" id="toc-bittracer">21.1.5.4
+                BitTracer</a></li>
+                <li><a href="#分析概述" id="toc-分析概述">21.1.5.5
+                分析概述</a></li>
+                </ul></li>
+                <li><a href="#流量生成" id="toc-流量生成">21.1.6
+                流量生成</a>
+                <ul>
+                <li><a href="#硅前验证阶段"
+                id="toc-硅前验证阶段">21.1.6.1 硅前验证阶段</a></li>
+                <li><a href="#后硅验证阶段"
+                id="toc-后硅验证阶段">21.1.6.2 后硅验证阶段</a></li>
+                <li><a href="#ptc-卡" id="toc-ptc-卡">21.1.6.2.2 PTC
+                卡</a></li>
+                </ul></li>
+                <li><a href="#结论" id="toc-结论">21.1.7 结论</a></li>
+                </ul></li>
+                <li><a href="#附录-bpci-express-的市场与应用"
+                id="toc-附录-bpci-express-的市场与应用">21.2 附录 B：PCI
+                Express 的市场与应用</a>
+                <ul>
+                <li><a href="#引言" id="toc-引言">21.2.1 引言</a></li>
+                <li><a href="#pci-express-io-虚拟化解决方案"
+                id="toc-pci-express-io-虚拟化解决方案">21.2.2 PCI
+                Express I/O 虚拟化解决方案</a></li>
+                <li><a href="#多根mrpcie-交换机解决方案"
+                id="toc-多根mrpcie-交换机解决方案">21.2.3 多根（MR）PCIe
+                交换机解决方案</a></li>
+                <li><a href="#超越芯片间互连的-pcie"
+                id="toc-超越芯片间互连的-pcie">21.2.4 超越芯片间互连的
+                PCIe</a></li>
+                <li><a href="#ssd存储-io-扩展箱"
+                id="toc-ssd存储-io-扩展箱">21.2.5 SSD/存储 I/O
+                扩展箱</a></li>
+                <li><a href="#服务器-ssd-模块中的-pcie"
+                id="toc-服务器-ssd-模块中的-pcie">21.2.6 服务器 SSD
+                模块中的 PCIe</a></li>
+                <li><a href="#结论-1" id="toc-结论-1">21.2.7
+                结论</a></li>
+                </ul></li>
+                <li><a
+                href="#附录-c利用-pci-express-技术实现智能适配器与多主机系统"
+                id="toc-附录-c利用-pci-express-技术实现智能适配器与多主机系统">21.3
+                附录 C：利用 PCI Express
+                技术实现智能适配器与多主机系统</a>
+                <ul>
+                <li><a href="#引言-1" id="toc-引言-1">21.3.1
+                引言</a></li>
+                <li><a href="#使用模型" id="toc-使用模型">21.3.2
+                使用模型</a>
+                <ul>
+                <li><a href="#智能适配器" id="toc-智能适配器">21.3.2.1
+                智能适配器</a></li>
+                <li><a href="#主机故障切换"
+                id="toc-主机故障切换">21.3.2.2 主机故障切换</a></li>
+                <li><a href="#多处理器系统"
+                id="toc-多处理器系统">21.3.2.3 多处理器系统</a></li>
+                </ul></li>
+                <li><a href="#基于-pci-的多处理器实现发展史"
+                id="toc-基于-pci-的多处理器实现发展史">21.3.3 基于 PCI
+                的多处理器实现发展史</a></li>
+                <li><a
+                href="#在-pci-express-基础系统中实现多主机智能适配器"
+                id="toc-在-pci-express-基础系统中实现多主机智能适配器">21.3.4
+                在 PCI Express 基础系统中实现多主机/智能适配器</a>
+                <ul>
+                <li><a
+                href="#示例在-pci-express-基础系统中实现智能适配器"
+                id="toc-示例在-pci-express-基础系统中实现智能适配器">21.3.4.1
+                示例：在 PCI Express 基础系统中实现智能适配器</a></li>
+                <li><a href="#示例在-pci-express-系统中实现主机故障切换"
+                id="toc-示例在-pci-express-系统中实现主机故障切换">21.3.4.2
+                示例：在 PCI Express 系统中实现主机故障切换</a></li>
+                <li><a href="#示例在-pci-express-基础系统中实现双主机"
+                id="toc-示例在-pci-express-基础系统中实现双主机">21.3.4.3
+                示例：在 PCI Express 基础系统中实现双主机</a></li>
+                </ul></li>
+                <li><a href="#总结" id="toc-总结">21.3.5 总结</a></li>
+                <li><a href="#地址转换" id="toc-地址转换">21.3.6
+                地址转换</a>
+                <ul>
+                <li><a href="#直接地址转换"
+                id="toc-直接地址转换">21.3.6.1 直接地址转换</a></li>
+                <li><a href="#基于查找表的地址转换"
+                id="toc-基于查找表的地址转换">21.3.6.2
+                基于查找表的地址转换</a></li>
+                <li><a href="#下游-bar-限制寄存器"
+                id="toc-下游-bar-限制寄存器">21.3.6.3 下游 BAR
+                限制寄存器</a></li>
+                <li><a href="#转发64位地址内存事务"
+                id="toc-转发64位地址内存事务">21.3.6.4
+                转发64位地址内存事务</a></li>
+                </ul></li>
+                </ul></li>
+                <li><a href="#附录-d锁定事务"
+                id="toc-附录-d锁定事务">21.4 附录 D：锁定事务</a>
+                <ul>
+                <li><a href="#引言-2" id="toc-引言-2">21.4.1
+                引言</a></li>
+                <li><a href="#背景" id="toc-背景">21.4.2 背景</a></li>
+                <li><a href="#pci-express-锁定协议"
+                id="toc-pci-express-锁定协议">21.4.3 PCI Express
+                锁定协议</a>
+                <ul>
+                <li><a href="#锁定消息---虚拟锁定信号"
+                id="toc-锁定消息---虚拟锁定信号">21.4.3.1 锁定消息 -
+                虚拟锁定信号</a></li>
+                <li><a href="#锁定协议序列示例"
+                id="toc-锁定协议序列示例">21.4.3.2
+                锁定协议序列示例</a></li>
+                <li><a href="#锁定失败的通知"
+                id="toc-锁定失败的通知">21.4.3.3 锁定失败的通知</a></li>
+                </ul></li>
+                <li><a href="#锁定规则总结" id="toc-锁定规则总结">21.4.4
+                锁定规则总结</a>
+                <ul>
+                <li><a href="#与锁定事务的发起和传播相关的规则"
+                id="toc-与锁定事务的发起和传播相关的规则">21.4.4.1
+                与锁定事务的发起和传播相关的规则</a></li>
+                <li><a href="#与交换机相关的规则"
+                id="toc-与交换机相关的规则">21.4.4.2
+                与交换机相关的规则</a></li>
+                <li><a href="#与-pci-expresspci-桥接器相关的规则"
+                id="toc-与-pci-expresspci-桥接器相关的规则">21.4.4.3 与
+                PCI Express/PCI 桥接器相关的规则</a></li>
+                <li><a href="#与根复合体相关的规则"
+                id="toc-与根复合体相关的规则">21.4.4.4
+                与根复合体相关的规则</a></li>
+                <li><a href="#与传统端点相关的规则"
+                id="toc-与传统端点相关的规则">21.4.4.5
+                与传统端点相关的规则</a></li>
+                <li><a href="#与-pci-express-端点相关的规则"
+                id="toc-与-pci-express-端点相关的规则">21.4.4.6 与 PCI
+                Express 端点相关的规则</a></li>
+                </ul></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h1 id="附录appendices">21 附录（Appendices）</h1>
@@ -1142,13 +1477,14 @@
         请求视为不支持的请求。</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="20 规范2.1版本更新.html">← 第 20 章 规范 2.1 版本更新</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -1161,17 +1497,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

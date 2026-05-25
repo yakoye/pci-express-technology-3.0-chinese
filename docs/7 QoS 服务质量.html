@@ -8,59 +8,224 @@
 </head>
 
 <body>
-  <nav class="chapter-nav chapter-nav-top">
-    <div class="nav-prev">
-            <a class="nav-btn" href="6 流量控制.html">← 第 6 章 流量控制</a>
-          </div>
-
-    <div class="nav-home">
-      <a class="nav-btn home" href="index.html">目录</a>
+  <!-- 桌面端顶部导航：首页 | 上一章 | 本章标题 | 下一章 -->
+  <header class="topbar desktop-topbar">
+    <div class="topbar-home">
+      <a class="topbar-btn home" href="index.html">首页</a>
     </div>
 
-    <div class="nav-title">
+    <div class="topbar-prev">
+            <a class="topbar-btn" href="6 流量控制.html">← 第 6 章 流量控制</a>
+          </div>
+
+    <div class="topbar-title">
       第 7 章 QoS 服务质量
     </div>
 
-    <div class="nav-next">
-            <a class="nav-btn" href="8 事务排序.html">第 8 章 事务排序 →</a>
+    <div class="topbar-next">
+            <a class="topbar-btn" href="8 事务排序.html">第 8 章 事务排序 →</a>
           </div>
-  </nav>
+  </header>
+
+  <!-- 手机端顶部导航：☰ | 本章标题 -->
+  <header class="topbar mobile-topbar">
+    <button id="menuBtn" class="menu-btn" type="button" aria-label="打开本章菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="mobile-title">
+      第 7 章 QoS 服务质量
+    </div>
+  </header>
+
+  <!-- 遮罩 -->
+  <div id="drawerMask" class="drawer-mask"></div>
+
+  <!-- 手机端抽屉：首页 / 上一章 / 下一章 / 本章大纲 -->
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">第 7 章 QoS 服务质量</div>
+      <button id="closeBtn" class="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a class="drawer-link home" href="index.html">首页</a>
+
+            <a class="drawer-link" href="6 流量控制.html">← 第 6 章 流量控制</a>
+      
+            <a class="drawer-link" href="8 事务排序.html">第 8 章 事务排序 →</a>
+          </nav>
+
+    <div class="drawer-toc">
+      <button class="toc-toggle drawer-toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#服务质量quality-of-service-qos"
+                id="toc-服务质量quality-of-service-qos">7
+                服务质量（Quality of Service, QoS）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#qos-的出发点motivation"
+                id="toc-qos-的出发点motivation">7.1 QoS
+                的出发点（Motivation）</a></li>
+                <li><a href="#基本元素basic-elements"
+                id="toc-基本元素basic-elements">7.2 基本元素（Basic
+                Elements）</a>
+                <ul>
+                <li><a href="#流量类别traffic-class-tc"
+                id="toc-流量类别traffic-class-tc">7.2.1
+                流量类别（Traffic Class, TC）</a></li>
+                <li><a href="#虚拟通道virtual-channel-vc"
+                id="toc-虚拟通道virtual-channel-vc">7.2.2
+                虚拟通道（Virtual Channel, VC）</a></li>
+                </ul></li>
+                <li><a href="#vc-仲裁vc-arbitration"
+                id="toc-vc-仲裁vc-arbitration">7.3 VC 仲裁（VC
+                Arbitration）</a>
+                <ul>
+                <li><a href="#概述general" id="toc-概述general">7.3.1
+                概述（General）</a></li>
+                <li><a
+                href="#严格优先级-vc-仲裁strict-priority-vc-arbitration"
+                id="toc-严格优先级-vc-仲裁strict-priority-vc-arbitration">7.3.2
+                严格优先级 VC 仲裁（Strict Priority VC
+                Arbitration）</a></li>
+                <li><a href="#分组仲裁group-arbitration"
+                id="toc-分组仲裁group-arbitration">7.3.3 分组仲裁（Group
+                Arbitration）</a></li>
+                </ul></li>
+                <li><a href="#端口仲裁port-arbitration"
+                id="toc-端口仲裁port-arbitration">7.4 端口仲裁（Port
+                Arbitration）</a>
+                <ul>
+                <li><a href="#概述general-1"
+                id="toc-概述general-1">7.4.1 概述（General）</a></li>
+                <li><a href="#端口仲裁机制port-arbitration-mechanisms"
+                id="toc-端口仲裁机制port-arbitration-mechanisms">7.4.2
+                端口仲裁机制（Port Arbitration Mechanisms）</a></li>
+                <li><a
+                href="#加载端口仲裁表loading-the-port-arbitration-tables"
+                id="toc-加载端口仲裁表loading-the-port-arbitration-tables">7.4.3
+                加载端口仲裁表（Loading the Port Arbitration
+                Tables）</a></li>
+                <li><a href="#交换机-仲裁示例交换机-arbitration-example"
+                id="toc-交换机-仲裁示例交换机-arbitration-example">7.4.4
+                交换机 仲裁示例（交换机 Arbitration Example）</a></li>
+                </ul></li>
+                <li><a
+                href="#多功能端点中的仲裁arbitration-in-multi-function-endpoints"
+                id="toc-多功能端点中的仲裁arbitration-in-multi-function-endpoints">7.5
+                多功能端点中的仲裁（Arbitration in Multi-Function
+                Endpoints）</a></li>
+                <li><a href="#等时服务支持isochronous-support"
+                id="toc-等时服务支持isochronous-support">7.6
+                等时服务支持（Isochronous Support）</a>
+                <ul>
+                <li><a href="#时间规划就是一切timing-is-everything"
+                id="toc-时间规划就是一切timing-is-everything">7.6.1
+                时间规划就是一切（Timing is Everything）</a></li>
+                <li><a href="#软件支持software-support"
+                id="toc-软件支持software-support">7.6.2
+                软件支持（Software Support）</a></li>
+                <li><a href="#将各部分结合起来bringing-it-all-together"
+                id="toc-将各部分结合起来bringing-it-all-together">7.6.3
+                将各部分结合起来（Bringing It All Together）</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </div>
+  </aside>
 
   <div class="layout">
+    <!-- 桌面端左侧本章大纲 -->
     <aside class="toc-panel">
-      <div class="toc-title">本章大纲</div>
-            <ul>
-            <li><a href="#服务质量quality-of-service-qos"
-            id="toc-服务质量quality-of-service-qos">7 服务质量（Quality
-            of Service, QoS）</a>
-            <ul>
-            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
-            <li><a href="#本章" id="toc-本章">本章</a></li>
-            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-            <li><a href="#qos-的出发点motivation"
-            id="toc-qos-的出发点motivation">7.1 QoS
-            的出发点（Motivation）</a></li>
-            <li><a href="#基本元素basic-elements"
-            id="toc-基本元素basic-elements">7.2 基本元素（Basic
-            Elements）</a></li>
-            <li><a href="#vc-仲裁vc-arbitration"
-            id="toc-vc-仲裁vc-arbitration">7.3 VC 仲裁（VC
-            Arbitration）</a></li>
-            <li><a href="#端口仲裁port-arbitration"
-            id="toc-端口仲裁port-arbitration">7.4 端口仲裁（Port
-            Arbitration）</a></li>
-            <li><a
-            href="#多功能端点中的仲裁arbitration-in-multi-function-endpoints"
-            id="toc-多功能端点中的仲裁arbitration-in-multi-function-endpoints">7.5
-            多功能端点中的仲裁（Arbitration in Multi-Function
-            Endpoints）</a></li>
-            <li><a href="#等时服务支持isochronous-support"
-            id="toc-等时服务支持isochronous-support">7.6
-            等时服务支持（Isochronous Support）</a></li>
-            </ul></li>
-            </ul>
-          </aside>
+      <button class="toc-toggle" type="button">本章大纲</button>
+      <div class="toc-content">
+                <ul>
+                <li><a href="#服务质量quality-of-service-qos"
+                id="toc-服务质量quality-of-service-qos">7
+                服务质量（Quality of Service, QoS）</a>
+                <ul>
+                <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+                <li><a href="#本章" id="toc-本章">本章</a></li>
+                <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+                <li><a href="#qos-的出发点motivation"
+                id="toc-qos-的出发点motivation">7.1 QoS
+                的出发点（Motivation）</a></li>
+                <li><a href="#基本元素basic-elements"
+                id="toc-基本元素basic-elements">7.2 基本元素（Basic
+                Elements）</a>
+                <ul>
+                <li><a href="#流量类别traffic-class-tc"
+                id="toc-流量类别traffic-class-tc">7.2.1
+                流量类别（Traffic Class, TC）</a></li>
+                <li><a href="#虚拟通道virtual-channel-vc"
+                id="toc-虚拟通道virtual-channel-vc">7.2.2
+                虚拟通道（Virtual Channel, VC）</a></li>
+                </ul></li>
+                <li><a href="#vc-仲裁vc-arbitration"
+                id="toc-vc-仲裁vc-arbitration">7.3 VC 仲裁（VC
+                Arbitration）</a>
+                <ul>
+                <li><a href="#概述general" id="toc-概述general">7.3.1
+                概述（General）</a></li>
+                <li><a
+                href="#严格优先级-vc-仲裁strict-priority-vc-arbitration"
+                id="toc-严格优先级-vc-仲裁strict-priority-vc-arbitration">7.3.2
+                严格优先级 VC 仲裁（Strict Priority VC
+                Arbitration）</a></li>
+                <li><a href="#分组仲裁group-arbitration"
+                id="toc-分组仲裁group-arbitration">7.3.3 分组仲裁（Group
+                Arbitration）</a></li>
+                </ul></li>
+                <li><a href="#端口仲裁port-arbitration"
+                id="toc-端口仲裁port-arbitration">7.4 端口仲裁（Port
+                Arbitration）</a>
+                <ul>
+                <li><a href="#概述general-1"
+                id="toc-概述general-1">7.4.1 概述（General）</a></li>
+                <li><a href="#端口仲裁机制port-arbitration-mechanisms"
+                id="toc-端口仲裁机制port-arbitration-mechanisms">7.4.2
+                端口仲裁机制（Port Arbitration Mechanisms）</a></li>
+                <li><a
+                href="#加载端口仲裁表loading-the-port-arbitration-tables"
+                id="toc-加载端口仲裁表loading-the-port-arbitration-tables">7.4.3
+                加载端口仲裁表（Loading the Port Arbitration
+                Tables）</a></li>
+                <li><a href="#交换机-仲裁示例交换机-arbitration-example"
+                id="toc-交换机-仲裁示例交换机-arbitration-example">7.4.4
+                交换机 仲裁示例（交换机 Arbitration Example）</a></li>
+                </ul></li>
+                <li><a
+                href="#多功能端点中的仲裁arbitration-in-multi-function-endpoints"
+                id="toc-多功能端点中的仲裁arbitration-in-multi-function-endpoints">7.5
+                多功能端点中的仲裁（Arbitration in Multi-Function
+                Endpoints）</a></li>
+                <li><a href="#等时服务支持isochronous-support"
+                id="toc-等时服务支持isochronous-support">7.6
+                等时服务支持（Isochronous Support）</a>
+                <ul>
+                <li><a href="#时间规划就是一切timing-is-everything"
+                id="toc-时间规划就是一切timing-is-everything">7.6.1
+                时间规划就是一切（Timing is Everything）</a></li>
+                <li><a href="#软件支持software-support"
+                id="toc-软件支持software-support">7.6.2
+                软件支持（Software Support）</a></li>
+                <li><a href="#将各部分结合起来bringing-it-all-together"
+                id="toc-将各部分结合起来bringing-it-all-together">7.6.3
+                将各部分结合起来（Bringing It All Together）</a></li>
+                </ul></li>
+                </ul></li>
+                </ul>
+              </div>
+    </aside>
 
+    <!-- 正文 -->
     <main class="content">
       <article>
         <h2 id="服务质量quality-of-service-qos">7 服务质量（Quality of
@@ -93,13 +258,13 @@
         Elements）</h3>
         <p>支持高级别的服务给系统性能提出了一些要求。例如，传输速率需要足够高，这样才能满足应用在一个时间范围内传输足够多的数据的需求，同时这也使得应用能够适应与其他流量之间的竞争。另外，传输时延也需要足够低，这样才能确保数据包及时到达，避免出现延迟问题。最后，必须要对错误处理进行管理，这样它才不会影响到需要及时传输的数据包的传输。要实现上述这些目标，需要有一些特殊的硬件元素，其中一种就是一组称为虚拟通道能力块（Virtual
         Channel Capability Block）的配置寄存器组，如图 7-1 所示。</p>
+        <p>图 7-1：虚拟通道能力寄存器</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image316.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-1：虚拟通道能力寄存器</p>
         <h4 id="流量类别traffic-class-tc">7.2.1 流量类别（Traffic Class,
         TC）</h4>
         <p>我们所需要的第一件事情是要用一种方式来区分各种流量，也就是需要用一些东西来区分哪些数据包具有高优先级。这种需求是通过为数据包标明流量类别（TC）来完成的，流量类别（TC）中定义了
@@ -111,13 +276,13 @@
         值供各类数据包使用。然后驱动程序就会给数据包分配正确的 TC
         优先级。TC 值默认为
         0，这样就可以让不需要高优先级服务的数据包不会干扰到那些需要高优先级服务的数据包。</p>
+        <p>图 7-2：TLP 头部中的流量类别（TC）字段</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image318.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-2：TLP 头部中的流量类别（TC）字段</p>
         <p>不识别 PCIe 的配置软件（指传统 PCI
         的配置软件）是无法识别出这些新的寄存器的，它就会为所有的事务都分配默认的
         TC0/VC0。另外，也有一些数据包一直被要求要使用
@@ -156,13 +321,13 @@
         </ul>
         <p>所使用的虚拟通道的数量取决于链路两端设备所能共享的最大虚拟通道资源容量。软件会为每个
         VC 分配 ID，并且会将 TC 映射至 VC。</p>
+        <p>图 7-3：TC 到 VC 的映射举例</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image320.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-3：TC 到 VC 的映射举例</p>
         <h5 id="确定要使用的-vc-数量">7.2.2.2 确定要使用的 VC 数量</h5>
         <p>软件会检查连接在公共链路上的设备所能支持的 VC
         的数量，并且一般会选择链路两端设备所能支持的最大数量作为 VC
@@ -173,24 +338,24 @@
         VC，但是由于设备 A 仅能支持 VC0，因此端口 A 的其余 7 个 VC
         是无法被使用的。相似地，交换机的端口 B 实际也仅能使用 4 个
         VC。</p>
+        <p>图 7-4：一个设备支持多个虚拟通道</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image322.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-4：一个设备支持多个虚拟通道</p>
         <p>配置软件要确定每个端口所能支持的最大 VC
         数量，它是通过读取虚拟通道能力寄存器组（Virtual Channel
         Capability register，图 7-1）中的 Extended VC Count
         字段来完成的，这个字段如图 7-5 所示。</p>
+        <p>图 7-5：扩展 VC 支持字段</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image324.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-5：扩展 VC 支持字段</p>
         <h5 id="分配-vc-id">7.2.2.3 分配 VC ID</h5>
         <p>配置软件需要给每个 VC 都分配一个 ID 号，除了
         VC0（因为它是固定存在的）。如图 7-3 所示，VC
@@ -240,13 +405,13 @@
         <li><p><strong>硬件固定仲裁（Hardware Fixed
         arbitration）</strong>：仲裁方案构建在硬件中。</p></li>
         </ol>
+        <p>图 7-6：VC 仲裁示例</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image326.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-6：VC 仲裁示例</p>
         <h4 id="严格优先级-vc-仲裁strict-priority-vc-arbitration">7.3.2
         严格优先级 VC 仲裁（Strict Priority VC Arbitration）</h4>
         <p>默认的优先级方案是基于 VC ID
@@ -259,13 +424,13 @@
         都使用严格优先级仲裁，那么图 7-8 中的 Port VC Capability
         Register 1（端口 VC 能力寄存器 1）的 Low Priority Extended VC
         Count 字段需要固定为 0。</p>
+        <p>图 7-7：严格优先级仲裁</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image328.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-7：严格优先级仲裁</p>
         <p>严格优先级方案要求高编号的 VC 永远要优先于低编号的
         VC。举例来说，如果全部 8 个 VC 都使用严格优先级方案来管理，那么
         VC0 就只能在其他所有 VC
@@ -287,13 +452,13 @@
         都属于低优先级组，而剩下的 VC5-VC7 则是高优先级组。注意，若 Low
         Priority Extended VC Count 的值为 7，则说明没有 VC
         使用严格优先级。</p>
+        <p>图 7-8：低优先级扩展 VC 计数</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image330.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-8：低优先级扩展 VC 计数</p>
         <p>如图 7-10 所展示的那样，高优先级组的 VC
         会继续使用严格优先级仲裁，但是低优先级仲裁组则会使用设备支持的其他的一种仲裁方法。如图
         7-9 所示，端口 VC 能力寄存器 2（Port VC Capability Register
@@ -306,20 +471,20 @@
         <li><p>加权轮询仲裁 WRR（Weighted Round Robin
         Arbitration）</p></li>
         </ul>
+        <p>图 7-9：VC 仲裁能力字段</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image332.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-9：VC 仲裁能力字段</p>
+        <p>图 7-10：VC 仲裁优先级（分组仲裁）</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image334.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-10：VC 仲裁优先级（分组仲裁）</p>
         <h5
         id="硬件固定仲裁方案hardware-fixed-arbitration-scheme">7.3.3.1
         硬件固定仲裁方案（Hardware Fixed Arbitration Scheme）</h5>
@@ -340,13 +505,13 @@
         VC
         来发送数据包。一旦一个数据包被发出，那么仲裁器就会马上去扫描下一个条目（entry），也就是进入下一个阶段（phase）。图
         7-11 展示了一个拥有 64 个条目的 WRR 仲裁表。</p>
+        <p>图 7-11：WRR VC 仲裁表</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image336.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-11：WRR VC 仲裁表</p>
         <h5
         id="建立虚拟通道仲裁表virtual-channel-arbitration-table-vat">7.3.3.3
         建立虚拟通道仲裁表（Virtual Channel Arbitration Table,
@@ -360,13 +525,13 @@
         字段，它用来指示这个阶段中需要发送数据的 VC 的 ID 号。整个 VAT
         表的长度（有多少条目）是通过图 7-9
         中的仲裁选项来进行选择的。</p>
+        <p>图 7-12：VC 仲裁表偏移字段以及加载 VC 仲裁表字段</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image338.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-12：VC 仲裁表偏移字段以及加载 VC 仲裁表字段</p>
         <p>这个表由配置软件加载，以实现虚拟通道所需要的优先级顺序。当表发生了任何变化时，硬件会设置
         VC Arbitration Table Status bit（VC
         仲裁表状态位），这为软件提供了一个途径来验证表项虽然发生的改变但是还没有真正作用在硬件上。一旦表被加载完成，软件就会设置端口
@@ -377,13 +542,13 @@
         仲裁表状态位），这也就通知了软件关于表项加载的操作已经完成。这种表项加载的方式的动机可能是为了在系统运行中也能更改表内容而不中断系统的运行。但是问题是配置写操作一次仅能更新
         1 DW
         的表内容，它是一种相对慢速的事务，这也就意味着需要一段比较长的时间才能完成整个表内容的更新，而在这段时间里这个表仅仅进行了部分更新。换句话说，这有可能会导致设备在这段时间里继续运行时出现意料之外的行为。为了避免这种情况，这种机制允许软件完成对整个表的更改之后，在统一的一次将它们全部应用在硬件仲裁器中。</p>
+        <p>图 7-13：加载 VC 仲裁表条目</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image340.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-13：加载 VC 仲裁表条目</p>
         <h3 id="端口仲裁port-arbitration">7.4 端口仲裁（Port
         Arbitration）</h3>
         <h4 id="概述general-1">7.4.1 概述（General）</h4>
@@ -425,20 +590,20 @@
         的端口仲裁都是独立管理的，所以每个支持可编程的端口仲裁的 VC
         都需要有一个单独的仲裁表，如图 7-15 所示。只有交换机和 RC
         端口才支持端口仲裁表，EP 内是不允许使用端口仲裁表的。</p>
+        <p>图 7-14：端口仲裁概念</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image342.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-14：端口仲裁概念</p>
+        <p>图 7-15：每个 VC 的端口仲裁表</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image344.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-15：每个 VC 的端口仲裁表</p>
         <p>尽管在规范中并没有说明，但是实际上针对不同的数据包流之间的仲裁需要在出口端口中使用额外的缓冲区来积攒来自多个端口的流量，如图
         7-16 所示。这个例子中有两个入口端口（端口 1 和
         2），它们的事务都被路由至同一个出口端口（端口
@@ -452,25 +617,25 @@
         <li><p>每个入口端口都存在一组缓冲区与之相关联，允许在端口仲裁完成前都可以追踪入口端口号。</p></li>
         <li><p>端口仲裁逻辑决定每组入口缓冲区发送事务的顺序。</p></li>
         </ol>
+        <p>图 7-16：端口仲裁缓冲</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image346.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-16：端口仲裁缓冲</p>
         <h4 id="端口仲裁机制port-arbitration-mechanisms">7.4.2
         端口仲裁机制（Port Arbitration Mechanisms）</h4>
         <p>实际上端口仲裁的机制的定义与 VC
         仲裁所使用的模型比较相似。配置软件通过读取图 7-17
         所示的寄存器来确定端口的能力，并为每个 VC 选择端口仲裁方案。</p>
+        <p>图 7-17：软件选择端口仲裁方案</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image348.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-17：软件选择端口仲裁方案</p>
         <h5 id="硬件固定仲裁hardware-fixed-arbitration">7.4.2.1
         硬件固定仲裁（Hardware-Fixed Arbitration）</h5>
         <p>这种仲裁机制不需要软件设置。一旦它被选择使用，那么就仅由硬件来进行管理。实际的仲裁方案由硬件的设计者选择，可能会基于设备的预期需求来进行选择。它也许只是简单的保证了仲裁的公平性，或者是优化了设计的某些方面，但是它无法支持差异化或同步服务。</p>
@@ -495,13 +660,13 @@
         可用的仲裁表条目实际数量可能会低于这个数值。这个值是由硬件初始化，并通过每个支持
         TBWRR 的 VC 的 Maximum Time Slots 字段来进行表示，这个字段如图
         7-18 所示。</p>
+        <p>图 7-18：最大时隙寄存器</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image350.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-18：最大时隙寄存器</p>
         <h4 id="加载端口仲裁表loading-the-port-arbitration-tables">7.4.3
         加载端口仲裁表（Loading the Port Arbitration Tables）</h4>
         <p>端口仲裁表的实际大小和格式，是一个和阶段数量和入口端口数量有关的函数，这里的入口端口可以是交换机端口、根复合体寄存器块（Root
@@ -522,13 +687,13 @@
         <p>配置软件通过将各端口号填入仲裁表来完成仲裁表的加载，以实现支持的每个
         VC 所需的端口优先级功能。如图 7-19
         所示，仲裁表的格式取决于每个条目的实际大小以及该设计中所支持的阶段的数量。</p>
+        <p>图 7-19：端口仲裁表格式</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image352.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-19：端口仲裁表格式</p>
         <h4 id="交换机-仲裁示例交换机-arbitration-example">7.4.4 交换机
         仲裁示例（交换机 Arbitration Example）</h4>
         <p>现在让我们考虑一个 3 端口交换机的例子，以此来对端口仲裁和 VC
@@ -536,13 +701,13 @@
         接收的数据包会向上行移动，而端口 2
         则是面向上行的出口端口（也就是面向
         RC）。下面的关于这个示例的讨论可以参照图 7-20。</p>
+        <p>图 7-20：交换机中的仲裁示例</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image354.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-20：交换机中的仲裁示例</p>
         <ol type="1">
         <li><p>到达入口端口 0 的数据包根据 TC/VC 映射关系，被端口 0
         放入相应的接收 VC 中。如图中展示的一样，流量类别为 TC0 或是 TC1
@@ -586,13 +751,13 @@
         的任务分配都是相同的。对于这种情况，Function
         之间的仲裁方式将按照一些厂商指定（厂商自定义（Vendor-Specific））的方法去进行。这是最简单的方法，但是这无法在内部包含一个标准结构用于定义不同
         Function 的请求的优先级，因此它无法支持 QoS。</p>
+        <p>图 7-21：简单的多 Function 仲裁</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image356.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-21：简单的多 Function 仲裁</p>
         <p>如果希望支持 QoS，那么就需要在 VC0 中实现一个
         MFVC（Multi-Function Virtual Channel）寄存器组，并且每个
         Function 都要有自己独立的一组 VC
@@ -614,13 +779,13 @@
         数据包之间的优先级。这种方式在现在看来应该是非常熟悉的，因为它与此前的端口仲裁其实是相同的概念，甚至连仲裁方法选项都是一样的，包括
         TBWRR。VC 仲裁选项也与单 Function VC
         寄存器中的仲裁选项相同。</p>
+        <p>图 7-22：多 Function 仲裁中的 QoS 支持</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image358.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-22：多 Function 仲裁中的 QoS 支持</p>
         <h3 id="等时服务支持isochronous-support">7.6
         等时服务支持（Isochronous Support）</h3>
         <p>前面的内容中提到，并不是每个设备或者应用都需要支持等时服务，但是也有一些是必须要支持同步服务的。由于
@@ -646,13 +811,13 @@
         B 中的数据卸到链路上，同时也在 SI 3 内在缓冲区 A
         中积累新的数据，以此循环进行。</li>
         </ol>
+        <p>图 7-23：同步事务的示例应用</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image360.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-23：同步事务的示例应用</p>
         <h5 id="如何定义时间规划how-timing-is-defined">7.6.1.1
         如何定义时间规划（How Timing Is Defined）</h5>
         <p>PCIe 使用 TBWRR 端口仲裁机制中的时隙（time
@@ -725,13 +890,13 @@
         Contract）均匀的输入，那么这个缓冲区就要大到在不需要任何反压（backpressure）的情况下能够处理预期的输入数据包流。此外，流控更新
         DLLP（Flow Control
         Update）的返回速度必须足够快，以此来避免传输停滞。</p>
+        <p>图 7-24：等时系统示例</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image362.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-24：等时系统示例</p>
         <h5 id="交换机交换机交换机-es">7.6.3.2 交换机（交换机（交换机
         es））</h5>
         <p>在讨论了 EP 之后，接下来让我们考虑一下在 EP 与 RC
@@ -769,13 +934,13 @@
         即可，但是交换机还需要确认执行了合适的时间规划方案。这是通过使用
         TBWRR
         来完成的，它将会指定在一个给定的时间点上，哪个端口可以进行访问，以及访问时间有多长。由于知道等时数据包的大小以及传送频率，这使得软件可以正确的安排时间规划，但是什么样的时间规划才是我们需要的呢？</p>
+        <p>图 7-25：等时数据包的注入</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image364.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-25：等时数据包的注入</p>
         <p>首先，让我们通过一个简单的示例来回顾一下需要涉及到的参数。回忆一下，PCIe
         中基于参考时钟周期定义了时隙（time
         slot），而时隙的长度是由端口能力寄存器 1（Port Capability
@@ -847,23 +1012,23 @@
         仲裁表就能比较容易的避免，因为在某个特定的时间点下，只有被仲裁选中的端口可以发送数据包。如果这个端口在发送完仲裁许可的数据包后依然有很多数据包在队列中等待发送，那么它也需要等到下一次被仲裁选中才能继续发送后续的部分数据包，对于这个例子中也就是
         SCSI 控制器想在 SI 1 中多发送的那一个数据包实际上可能会放到 SI 2
         中去发送。最终，这种“过载”会导致发送处的流控反压（backpressure）。</p>
+        <p>图 7-26：超额使用带宽</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image370.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-26：超额使用带宽</p>
         <p>第二个问题被称为“拥塞（congestion）”，当在一个给定的时间窗口内存在了太多等时服务请求时，就有可能会发生这种问题，如图
         7-27
         所示。这个问题和第一个有点相似，但是它是无法那么简单就解决的。与之前的情况不同，这里不能将高优先级数据包推迟到下一个时隙发送，因此系统必须要有办法来处理全部的这些请求。要纠正拥塞的问题，软件需要改变发送数据包时间点的分布，以便它们都能够得到可用硬件带宽的支持。</p>
+        <p>图 7-27：带宽拥塞</p>
         <figure>
         <img
         src="img/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/clip_image372.jpg"
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <p>图 7-27：带宽拥塞</p>
         <h6 id="延迟问题latency-issues">延迟问题（Latency Issues）</h6>
         <p>管理数据包发送的延迟也是等时性很重要的一部分，这个延迟包括网络结构传播延迟与完成方（Completer）
         延迟。网络结构传播延迟取决于系统中各种组件之间的链路的全部特性，特别是链路宽度和操作频率。一种将这个网络结构传播延迟值最小化的简单方法，就是对
@@ -924,13 +1089,14 @@
         结束，可以使用它来决定是否可以进行重试操作。当然，错误情况不应该很频繁的出现，所以这种方式对于偶尔出现的传输错误来说是足够的，并且同时也可以保持等时的时间规划。</p>
       </article>
 
+      <!-- 底部导航 -->
       <nav class="chapter-nav chapter-nav-bottom">
         <div class="nav-left">
                     <a class="nav-btn" href="6 流量控制.html">← 第 6 章 流量控制</a>
                   </div>
 
         <div class="nav-center">
-          <a class="nav-btn home" href="index.html">目录</a>
+          <a class="nav-btn home" href="index.html">首页</a>
         </div>
 
         <div class="nav-right">
@@ -943,17 +1109,75 @@
   <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
 
   <script>
-    const btn = document.getElementById('backToTop');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const drawer = document.getElementById('drawer');
+    const drawerMask = document.getElementById('drawerMask');
+    const backToTop = document.getElementById('backToTop');
+    const desktopTopbar = document.querySelector('.desktop-topbar');
+    const mobileTopbar = document.querySelector('.mobile-topbar');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        btn.classList.add('show');
-      } else {
-        btn.classList.remove('show');
-      }
+    function openDrawer() {
+      drawer.classList.add('open');
+      drawerMask.classList.add('open');
+      document.body.classList.add('drawer-open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerMask.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (drawerMask) drawerMask.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
     });
 
-    btn.addEventListener('click', () => {
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+
+    document.querySelectorAll('.toc-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.toc-panel, .drawer-toc');
+        if (!panel) return;
+        panel.classList.toggle('toc-collapsed');
+      });
+    });
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+
+      if (currentY > 500) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+
+      /*
+        顶部栏自动隐藏：
+        下滑隐藏，上滑显示，顶部显示。
+      */
+      if (currentY > lastScrollY && currentY > 80) {
+        desktopTopbar.classList.add('hide');
+        mobileTopbar.classList.add('hide');
+      } else {
+        desktopTopbar.classList.remove('hide');
+        mobileTopbar.classList.remove('hide');
+      }
+
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>

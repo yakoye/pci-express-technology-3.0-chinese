@@ -16,9 +16,9 @@
 
 正如PCI一样，每个PCIe功能（Function）的标识在其所在的设备内，以及这个设备所连接的总线内，都是唯一的。其标识符一般被称为“BDF”。对于任意一个 PCIe 拓扑结构，配置软件负责检测出拓扑中的每个Bus、Device和Function，缩写为BDF。接下来的几节将会结合一个PCIe拓扑的示例，来讨论BDF的主要特征。图 3‑1展示了一个PCIe拓扑结构，图中着重标识了示例系统中的Buses、Devices和Functions。本章后续内容将解释总线编号和设备编号分配的过程。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image114.jpg)
-
 图 3‑1示例系统
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image114.jpg)
 
 ### 3.2 PCIe总线（PCIe Buses）
 
@@ -53,17 +53,17 @@ PCI为每个Function都定义了一个专用的配置地址空间块。映射在
 
 - MSI、MSI-X
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image116.jpg)
-
 图 3‑2 PCI兼容配置寄存器空间
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image116.jpg)
 
 #### 3.5.2 扩展配置空间（Extended Configuration Space）
 
 在阅读下面的讨论内容时，请同时参阅图 3‑3。当引入PCIe之后，最初始的256byte配置空间已经不足以放下所有新需要的Capability Structure了。因此配置空间的大小从原先的每个Function 256Byte扩展至了每个Function 4KByte。新增加出来的960DW扩展配置空间只能通过增强配置机制（Enhanced configuration mechanism）来进行访问，因为传统的PCI软件无法发现这个区域并进行访问，所以这部分区域对于 PCI 是不可见的。在扩展配置空间内包含了新增加的PCIe可选扩展能力寄存器（Extended Capability register），图 3‑3罗列出了一部分扩展能力寄存器。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image118.jpg)
-
 图 3‑3每个PCIe Function所拥有的4KB配置空间
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image118.jpg)
 
 ### 3.6 Host-to-PCI Bridge配置寄存器
 
@@ -97,9 +97,9 @@ PCI兼容机制使用RC的Host Bridge中的两个32bit的IO端口。它们分别
 
 配置地址端口仅在处理器对其完成一个完整的32bit写操作时，锁存住写入的信息，如图 3‑4，若对这个端口进行读操作则会返回它的这些内容。写入配置地址空间的信息必须遵照下面所描述的格式（图 3‑4）。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image120.jpg)
-
 图 3‑4地址位于0CF8h的配置地址端口
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image120.jpg)
 
 - Bits[1:0]固定为0不变，且只读的，在读取时只能返回**0**。它的位置是DW对齐的，不允许指定字节（byte-specific）偏移量。
 
@@ -129,9 +129,9 @@ PCI兼容机制使用RC的Host Bridge中的两个32bit的IO端口。它们分别
 
 RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Port）的信息锁存起来，如图 3‑1。若bit 31被置为1且目标总线在当前Bridge下方从属总线范围内，那么Bridge将把接下来的处理器对配置数据端口（Configuration Data Port）的访问转换成针对Bus 0的配置请求。处理器将会向配置数据端口（0CFCh）发起一个IO读请求或者一个IO写请求。这促使Bridge生成一个配置请求，这个配置请求是读请求还是写请求取决于IO访问是读还是写。若目标总线为Bus 0，那么它将是一个Type 0配置请求。若目标总线是从属总线范围内的其他总线，那么它将是一个Type 1配置请求。若目标总线不在从属总线范围内，那么这个Bridge将不会对这个请求进行转发操作。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image122.jpg)
-
 图 3‑5 单Root系统
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image122.jpg)
 
   
 
@@ -149,9 +149,9 @@ RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Po
 
    > 编者注：上文中的两个 RC 是对应于图 3-6 的情况，更一般的情况中会存在 1-N 个 RC。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image124.jpg)
-
 图 3‑6多Root系统
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image124.jpg)
 
 #### 3.7.2 增强型配置访问机制（Enhanced Configuration Access Mechanism）
 
@@ -163,9 +163,9 @@ RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Po
 
 为了处理地址映射，每个Function的4KB配置空间都以一个4KB对齐的地址作为起始地址，且这些4KB配置空间所映射的地址都要位于那段为了配置访问而预留的256MB内存地址空间内。并且现在的地址中的bit还携带了识别信息（identifying information），用于表示哪一个Function是访问目标（见表 3‑1）。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image126.jpg)
-
 表 3‑1增强型配置机制的内存映射地址范围
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image126.jpg)
 
 ##### 3.7.2.2 一些规则（Some Rules）
 
@@ -187,9 +187,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 如图 3‑7中给出了Type 0配置写请求和读请求的Header格式。在读写两种情况下，Type字段都是00100，而Format（Fmt）字段则用于指示是读请求还是写请求。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image128.jpg)
-
 图 3‑7 Type 0配置读请求和写请求的Header
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image128.jpg)
 
 #### 3.8.2 Type 1配置请求（Type 1 Configuration Request）
 
@@ -201,9 +201,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 如图 3-8 展示了Type 1配置读请求和写请求的Header格式。在读写两种情况下，Type字段域都是00101，而Format（Fmt）字段则用来指示这是读还是写。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image130.jpg)
-
 图 3‑8 Type 1配置读请求和写请求的Header
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image130.jpg)
 
 ### 3.9 PCI兼容配置访问示例（Example PCI-Compatible Configuration Access）
 
@@ -213,17 +213,15 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 为了更好说明传统的CF8h/CFCh机制来产生配置请求，请参考下面的x86汇编代码，这段代码使得RC执行一个2byte的读操作，操作目标为Bus 4，Device 0，Function 0，Register 0（这个Register 0就是厂商Vendor ID）。
 
- `mov  dx,0CF8h   ;将dx设置为配置地址端口的地址`
+```
+mov  dx,0CF8h     ;将dx设置为配置地址端口的地址
+mov  eax,8004000h ;enable bit=1，bus 4，dev 0，func 0，DW 0
+out  dx,eax       ;IO写来设置地址端口
+mov  dx,0CFCh     ;将dx设置为配置数据端口的地址
+in   ax,dx        ;从配置数据端口读出2byte数据
+```
 
-`mov  eax,8004000h ;enable bit=1，bus 4，dev 0，func 0，DW 0`
-
-`out  dx,eax    ;IO写来设置地址端口`
-
-`mov  dx,0CFCh   ;将dx设置为配置数据端口的地址`
-
-`in   ax,dx    ;从配置数据端口读出2byte数据`
-
- 代码中的out指令将产生一个IO写操作，从处理器写入配置地址端口，这个配置地址端口位于RC的Host Bridge（0CF8h），如图 3‑4。
+1. 代码中的out指令将产生一个IO写操作，从处理器写入配置地址端口，这个配置地址端口位于RC的Host Bridge（0CF8h），如图 3‑4。
 
 2. Host Bridge将配置地址端口中的目标总线号（这里是4）与Bridge下方的从属总线范围（这里是0到10）进行比较。很明显目标总线号在从属总线范围内，因此Bridge就准备好了接下来产生配置请求的目的地。
 
@@ -273,9 +271,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 处理器发起一个2byte的memory read，读取的起始地址为E0400000h，这个地址会被RC中的Host Bridge锁存下来。Host Bridge识别到这个地址位于用来进行配置的区域之内，它将产生一个配置读请求，读取的位置为Bus 4—Device 0—Function 0—dword 0—首两个字节。剩下的操作就跟前面的小节中所讲的一样了，也就是如何把读出来的信息通过完成包返回给Host。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image132.jpg)
-
 图 3‑9配置读访问示例
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image132.jpg)
 
 
 
@@ -285,9 +283,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 在完成了系统上电或是复位之后，配置软件需要扫描PCIe网络结构，来搜索发现整个机器的拓扑，并学习这个网络结构是如何被填充的（例如里面都有多少总线、多少设备以及它们的编号等等）。在这进行之前，如图 3‑10所示，软件唯一知道的就是拓扑中有一个Host/PCI Bridge以及这个Bridge的次级总线Bus 0。需要注意，一个Bridge自身上方相连的总线称为主总线（Primary Bus），而这个Bridge自身下方相连的总线称为次级总线（Secondary Bus）。扫描PCIe结构来发现整体拓扑结构的过程被称为**枚举过程**。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image134.jpg)
-
 图 3‑10刚启动时软件所认为的拓扑结构
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image134.jpg)
 
 #### 3.11.1 搜索某个Function是否存在（Discovering the Presence or Absence of a Function）
 
@@ -313,9 +311,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 除了系统复位之后的那一段时间之外，RC处理配置读请求的CRS（配置重试状态）完成包的方式不是通用的。在系统复位后的那一小段时间里，RC有两个可以进行的操作供选择，选择哪一种则取决于Root控制寄存器（Root Control Register）中CRS Software Visibility这一bit的值（如图 3‑11）。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image136.jpg)
-
 图 3‑11 PCIe能力块中的Root控制寄存器
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image136.jpg)
 
 - 如果这个bit被置为1，而且发出的请求是配置读请求，要读取Vendor ID寄存器的全部两个byte（枚举过程通过这样的操作来搜索发现一个Function是否存在），那么在接收到CRS完成包时RC需要给Host返回伪造的0001h作为读取的寄存器值，并将其他的所有字节都置为全1。这个Vendor ID并没有被任何真实的设备所使用，软件将把这个0001h的Vendor ID理解为访问这个设备可能需要很长的延迟。这个信息很有用，因为软件就可以选择去执行其他的任务，更充分的利用这段等待设备响应的时间，稍后再返回来查询这个设备。要进行这样子的操作，软件必须确保其在复位后对Function的第一次访问就是读取2 byteVendor ID的配置读访问。
 
@@ -333,9 +331,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 在图 3‑1中，每个虚拟P2P的Header Type字段（DW3，byte2）的返回值都为1，且PCI Express-to-PCI Bridge（Bus 8，Device 0）的Header Type字段也将返回1。但是对于EP来说，它返回的Header Type字段是0。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image138.jpg)
-
 图 3‑12 Header类型寄存器
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image138.jpg)
 
 ### 3.12 单RC枚举示例（Single Root Enumeration Example）
 
@@ -483,9 +481,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 每个Bridge中最终的主总线号、次级总线号和从属总线号可以参阅图 3‑9。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image140.jpg)
-
 图 3‑13单Root系统
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image140.jpg)
 
 ### 3.13 多RC枚举示例（Multi-Root Enumeration Example）
 
@@ -529,9 +527,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 6. 这样就完成了次级RC的枚举过程。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image142.jpg)
-
 图 3‑14多Root系统
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image142.jpg)
 
 #### 3.13.3 热插拔注意事项（Hot-Plug Considerations）
 
@@ -553,9 +551,9 @@ MindShare Arbor是一个很棒的参考学习工具，可以用它来代替书�
 
 访问[www.mindshare.com/arbor](http://www.mindshare.com/arbor)即可免费下载MindShare Arbor的试用版。
 
-![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image144.jpg)
-
 图 3‑15 MindShare Arbor的部分截图
+
+![img](img/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0/clip_image144.jpg)
 
 #### 3.14.2 MindShare Arbor功能列表
 
@@ -610,14 +608,3 @@ MindShare Arbor是一个很棒的参考学习工具，可以用它来代替书�
 |Subordinate Bus Number|从属总线号|
 |Enumeration|枚举|
 
-------
-
-原文：  Mindshare
-
-译者：  Michael ZZY
-
-校对：  LJGibbs
-
-欢迎参与 《Mindshare PCI Express Technology 3.0 一书的中文翻译计划》
-
-https://gitee.com/ljgibbs/chinese-translation-of-pci-express-technology
