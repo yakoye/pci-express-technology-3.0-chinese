@@ -1,14 +1,14 @@
-## Chapter 3      Configuration Overview //PCIe配置概述
+## 3 PCIe配置概述（Configuration Overview）
 
-### 关于前一章
+### 前一章
 
 前一章节对PCIe体系结构进行了全面介绍，我们将其看作是一种“执行层（executive level）”概述。它对协议中描述PCIe端口分层设计方法进行了介绍。在介绍事务协议时也一并介绍了各种数据包的种类。
 
-### 关于本章
+### 本章
 
 本章节将对如何对PCIe环境进行配置来展开介绍。内容包括了实现Function配置寄存器的空间、如何发现一个Function、如何产生并路由转发配置事务、 PCI兼容配置空间（PCI-compatible configuration space）与PCIe扩展配置空间的不同点（PCIe extended configuration space），以及软件是如何区分开EP和Bridge的。
 
-### 关于下一章
+### 下一章
 
 下一章的内容将描述Function如何通过基址寄存器（Base Address Register，BARs）来请求访问memory或者IO地址空间，以及这种请求的目的与作用，并且将介绍软件是如何初始化这两种地址空间的。另外在下一章还会描述Bridge的Base/Limit寄存器（基/边界寄存器）是如何被初始化的，因为只有当Base/Limit寄存器初始化后Switch才能在PCIe网络中路由转发TLP。
 
@@ -42,7 +42,7 @@ PCI为每个Function都定义了一个专用的配置地址空间块。映射在
 
 对于每个Function，都含有256byte的PCI兼容配置空间（PCI-Compatible configuration space）。
 
-#### 3.5.1     PCI兼容空间（PCI-Compatible Space）
+#### 3.5.1 PCI兼容空间（PCI-Compatible Space）
 
 在阅读下面的讨论内容时，请同时参阅图 3‑2。之所以将这256Byte命名为PCI-compatible configuration space（PCI兼容配置空间），是因为这些配置空间原本就是为PCI所设计的。这个配置空间的前16DW（64bytes）是配置头部（header），有两种类型的Header，分别为Type 0和Type 1。Type 0 Header对于每个Function都是必须含有的，除了Bridge，对于Bridge Function来说它使用的是Type 1 Header。剩余的48DW是一些可选寄存器，包括PCI能力结构（capability structure）。对于PCIe Functions而言，一部分 capability structure也是必须的。例如PCIe Function就必须实现如下的能力结构：
 
@@ -57,7 +57,7 @@ PCI为每个Function都定义了一个专用的配置地址空间块。映射在
 
 图 3‑2 PCI兼容配置寄存器空间
 
-#### 3.5.2     扩展配置空间（Extended Configuration Space）
+#### 3.5.2 扩展配置空间（Extended Configuration Space）
 
 在阅读下面的讨论内容时，请同时参阅图 3‑3。当引入PCIe之后，最初始的256byte配置空间已经不足以放下所有新需要的Capability Structure了。因此配置空间的大小从原先的每个Function 256Byte扩展至了每个Function 4KByte。新增加出来的960DW扩展配置空间只能通过增强配置机制（Enhanced configuration mechanism）来进行访问，因为传统的PCI软件无法发现这个区域并进行访问，所以这部分区域对于 PCI 是不可见的。在扩展配置空间内包含了新增加的PCIe可选扩展能力寄存器（Extended Capability register），图 3‑3罗列出了一部分扩展能力寄存器。
 
@@ -67,11 +67,11 @@ PCI为每个Function都定义了一个专用的配置地址空间块。映射在
 
 ### 3.6 Host-to-PCI Bridge配置寄存器
 
-#### 3.6.1     整体说明（General）
+#### 3.6.1 整体说明（General）
 
 对Host-to-Bridge配置寄存器的访问不必使用前面的章节所提到的配置机制，在内存地址空间中，它通常映射为设备特定寄存器，这对平台固件是已知的。然而，它的配置寄存器格式排布和用法都必须遵从PCI 2.3协议规范中所定义的Type 0模板。
 
-#### 3.6.2     只有RC发送配置请求（Only the Root Sends Configuration Request）
+#### 3.6.2 只有RC发送配置请求（Only the Root Sends Configuration Request）
 
 在协议规范中声明了，只有RC可以发起配置请求。RC作为 CPU 与 PCIe 拓扑的联络员，其传入 CPU 的 PCIe 请求包并在 PCIe 事务完成后向处理器报告。之所以限制 CPU 只能通过RC发起配置事务，是因为要是其他设备也有这种能力，那么他们可以任意改变配置内容，这样就会带来混乱。
 
@@ -85,7 +85,7 @@ PCI为每个Function都定义了一个专用的配置地址空间块。映射在
 
 - 增强型配置机制，使用内存映射访问（memory-mapped access）
 
-#### 3.7.1     传统PCI机制（Legacy PCI Mechanism）
+#### 3.7.1 传统PCI机制（Legacy PCI Mechanism）
 
 在PCI协议规范中定义了IO-indirect方法，用来指示系统（RC或其等效的组件）进行PCI配置访问。在当时的历史背景下，占主导地位的PC处理器（Intel x86）被设计为仅能寻址64KB的IO地址空间。在 PCI 协议产生的时候，这个有限的IO空间已经变得非常混乱，只有少数几个可用的地址范围：0800h-08FFh，和0C00h-0CFFh。因此，将所有可能的Function的配置寄存器都映射到IO空间是不可行的。与此同时，内存地址空间也十分有限，将这些配置空间都映射进内存地址空间也不是个好方法。于是，协议规范的作者使用了一种常用的方法来解决这个问题，使用间接地址映射（indirect address mapping）。为此，需要使用一个寄存器保存目标地址，同时用第二个寄存器保存来自或是发往目标的数据。一次对目标Function的一次读写事务，需要先将待访问的地址写入地址寄存器，随后再读写数据寄存器。这很好的解决了地址空间有限的问题，但是这意味着产生一次配置访问需要两次IO访问。
 
@@ -93,7 +93,7 @@ PCI兼容机制使用RC的Host Bridge中的两个32bit的IO端口。它们分别
 
 要访问一个Function的PCI兼容配置寄存器，首先要将目标的Bus、Device、Function和DW号写入配置地址端口，并将其使能bit置为有效。然后第二步，一个1或2或4Byte的IO读或写将会发送到配置数据端口。RC的Host Bridge将对给定的目标总线和在Bridge下现存的总线范围进行比较。若目标总线在这个范围内，这个Bridge则会发起配置读或写请求（这取决于对配置数据端口的IO访问是读操作还是写操作）。
 
-##### 3.7.1.1   配置地址端口（Configuration Address Port）
+##### 3.7.1.1 配置地址端口（Configuration Address Port）
 
 配置地址端口仅在处理器对其完成一个完整的32bit写操作时，锁存住写入的信息，如图 3‑4，若对这个端口进行读操作则会返回它的这些内容。写入配置地址空间的信息必须遵照下面所描述的格式（图 3‑4）。
 
@@ -115,7 +115,7 @@ PCI兼容机制使用RC的Host Bridge中的两个32bit的IO端口。它们分别
 
 - Bit[31]为使能位，若要将随后的对配置数据端口的IO访问转换为配置访问则必须要将该bit置为1。当该bit为0时，若有IO读或者IO写被发送到配置数据端口，那么这些事务都会被当成普通的IO请求来处理。
 
-##### 3.7.1.2   总线比较和数据端口的使用（Bus Compare and Data Port Usage）
+##### 3.7.1.2 总线比较和数据端口的使用（Bus Compare and Data Port Usage）
 
 如图 3‑5，RC内的Host Bridge实现了一个次级总线号（Secondary Bus Number）寄存器和一个从属总线号（Subordinate Bus Number）寄存器。次级总线号（图 3-5 中的 Sec）指的是当前Bridge下直接连接的总线的编号，例如图中RC的Host/PCI Bridge产生了Bus 0，因此Host/PCI Bridge的次级总线号就是0。从属总线号（图 3-5 中的 Sub）指的是Bridge之下的可作为目标总线的总线号，例如图中Device 1的Sub=9，那么就说明在Device 1下游最大的总线号是 Bus 9，而它的Sec=5则说明其下游的总线号编号从 Bus 5 开始，简单来说就是Sec和Sub共同指定出了这个设备下可访问总线的范围（对于Device 1来说就是5-9）。
 
@@ -125,7 +125,7 @@ PCI兼容机制使用RC的Host Bridge中的两个32bit的IO端口。它们分别
 
 若目标总线号要大于Bridge的次级总线号（Sec），但是小于或者等于Bridge的从属总线号（Sub），那么这个请求将会作为**Type 1配置请求**被转发到Bridge的次级总线上。对于一个Type 1配置请求，可以这样理解它：尽管这个请求需要经过这条总线，但是它的目标设备并不在这一级总线上，相反地，这个请求将会由当前总线上的Bridge们向下转发到各自的下一级总线上，当然转发该Type 1配置请求的Bridge必须是从属总线范围包含了目标总线的。所有，Type 1配置请求只对Bridge设备有作用。更多关于Type 0和Type 1配置请求的信息，请参阅“Configuration Request”一节。
 
-##### 3.7.1.3   单Host系统（Single Host System）
+##### 3.7.1.3 单Host系统（Single Host System）
 
 RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Port）的信息锁存起来，如图 3‑1。若bit 31被置为1且目标总线在当前Bridge下方从属总线范围内，那么Bridge将把接下来的处理器对配置数据端口（Configuration Data Port）的访问转换成针对Bus 0的配置请求。处理器将会向配置数据端口（0CFCh）发起一个IO读请求或者一个IO写请求。这促使Bridge生成一个配置请求，这个配置请求是读请求还是写请求取决于IO访问是读还是写。若目标总线为Bus 0，那么它将是一个Type 0配置请求。若目标总线是从属总线范围内的其他总线，那么它将是一个Type 1配置请求。若目标总线不在从属总线范围内，那么这个Bridge将不会对这个请求进行转发操作。
 
@@ -135,7 +135,7 @@ RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Po
 
   
 
-##### 3.7.1.4   多Host系统（Multi-Host System）
+##### 3.7.1.4 多Host系统（Multi-Host System）
 
 若在一个系统中存在多个RC，如图 3‑6所示，那么配置地址端口和配置数据端口将被这两个RC各自的Host/PCI Bridge复用，且两种配置端口各自的IO地址在两个Host/PCI Bridge中相同，也就是两个RC使用相同的一个IO地址来访问各自配置地址寄存器，同理，访问配置数据寄存器也是。为了防止争用，在两个Host/PCI Bridge中同时只能有一个响应处理器对配置端口的访问。
 
@@ -153,9 +153,9 @@ RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Po
 
 图 3‑6多Root系统
 
-#### 3.7.2     增强型配置访问机制（Enhanced Configuration Access Mechanism）
+#### 3.7.2 增强型配置访问机制（Enhanced Configuration Access Mechanism）
 
-##### 3.7.2.1   整体说明（General）
+##### 3.7.2.1 整体说明（General）
 
 当协议制定者在选择PCI-X和之后的PCIe该如何访问配置空间时，有两个考虑。第一个，每个Function的256Byte空间限制了那些想要在这个空间内放一些专有信息的厂商，而且未来的协议制定者可能也需要更多的空间来放置更多的能力结构（capability structure）。为了解决这个问题，这个空间从每个Function 256Bytes扩展至4Kbytes。第二个要考虑的是，PCI协议应用的时代多处理器系统还很少。对于旧的模型来说，当系统中仅有一个CPU且其只有一个线程时，生成一次访问需要两步并不会有什么问题。但是对于使用多核多线程CPU的计算机来说，使用IO间接访问模型就会产生一些问题，因为没有机制能够阻止多线程同一时间访问配置空间。因此，在没有线程锁机制（lock semantics）时不再使用“2步”模型（IO间接访问）。在没有线程锁机制的情况下，当线程A往配置地址端口（CF8h）写入一个值后，在它继续对配置数据端口（CFCh）做相应的操作之前，并没有一个机制来防止线程B将这个值覆盖掉。
 
@@ -167,7 +167,7 @@ RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Po
 
 表 3‑1增强型配置机制的内存映射地址范围
 
-##### 3.7.2.2   一些规则（Some Rules）
+##### 3.7.2.2 一些规则（Some Rules）
 
 如果一个访问跨了dword地址边界（跨越了相邻的两个内存DW的边界，即操作长度大于了一个DW，或者是操作长度等于一个DW但是起始地址没有位于DW对齐的地址），那么RC可以不支持它访问增强型配置内存空间。RC们也不需要支持某些总线锁定协议（bus locking protocol），一些处理器使用这些总线锁定协议来实现原子操作或是不可中断的一系列命令。软件在访问配置空间时，需要避免上述这两种情况，除非软件知道RC可以支持它们。
 
@@ -175,7 +175,7 @@ RC中的Host/PCI Bridge会将写入配置地址端口（Configuration Address Po
 
 Bridge为了响应配置请求，将会产生两种类型的配置请求，分别为Type 0和Type 1。具体产生哪一种类型的配置请求，取决于目标总线号是否与当前Bridge的次级总线号（Secondary Bus Number）相匹配。下面将进行讲解。
 
-#### 3.8.1     Type 0配置请求（Type 0 Configuration Request）
+#### 3.8.1 Type 0配置请求（Type 0 Configuration Request）
 
 如果目标总线号与次级总线号相匹配，Bridge将产生一个Type 0配置读/写，并转发到它的次级总线上，并：
 
@@ -191,7 +191,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 图 3‑7 Type 0配置读请求和写请求的Header
 
-#### 3.8.2     Type 1配置请求（Type 1 Configuration Request）
+#### 3.8.2 Type 1配置请求（Type 1 Configuration Request）
 
 当Bridge得到的配置请求的目标总线号并不是自己的次级总线号，但是目标总线号又在从属总线（Subordinate Bus）的范围内，那么Bridge将向次级总线转发一个Type 1请求包。次级总线上的非Bridge的设备（EP）将会忽略Type 1请求，因为这个请求的目标总线并不是当前总线。但是次级总线上的Bridge看到Type 1请求则将会进行与上一级Bridge相同的比对操作，当目标总线在从属总线范围内时：
 
@@ -249,7 +249,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 13. 读出来的2byte数据将会呈交给处理器，以此来完成in指令的执行。Vendor ID的值被放置在处理器的AX寄存器中。
 
-### 3.10     增强型配置访问示例（Example Enhanced Configuration Access）
+### 3.10 增强型配置访问示例（Example Enhanced Configuration Access）
 
 请参阅图 3‑9。
 
@@ -281,7 +281,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
  
 
-### 3.11     枚举——搜索发现拓扑（Enumeration-Discovering the Topology）
+### 3.11 枚举——搜索发现拓扑（Enumeration-Discovering the Topology）
 
 在完成了系统上电或是复位之后，配置软件需要扫描PCIe网络结构，来搜索发现整个机器的拓扑，并学习这个网络结构是如何被填充的（例如里面都有多少总线、多少设备以及它们的编号等等）。在这进行之前，如图 3‑10所示，软件唯一知道的就是拓扑中有一个Host/PCI Bridge以及这个Bridge的次级总线Bus 0。需要注意，一个Bridge自身上方相连的总线称为主总线（Primary Bus），而这个Bridge自身下方相连的总线称为次级总线（Secondary Bus）。扫描PCIe结构来发现整体拓扑结构的过程被称为**枚举过程**。
 
@@ -289,7 +289,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 图 3‑10刚启动时软件所认为的拓扑结构
 
-#### 3.11.1    搜索某个Function是否存在（Discovering the Presence or Absence of a Function）
+#### 3.11.1 搜索某个Function是否存在（Discovering the Presence or Absence of a Function）
 
 处理器上运行的配置软件发现一个Function的方式一般是读取这个Function的Vendor ID寄存器。PCI-SIG给每个厂商都分配了一个唯一的Vendor ID，每个厂商都会将自己设计的Function中的Vendor ID寄存器的值固定为自己的Vendor ID。通过读取整个系统中的Bus—Device—Function这三者所有组合中的Vendor ID寄存器，枚举软件可以搜索遍整个拓扑，并得知有哪些设备存在。这个过程相当的简单，但是可能会出现两个问题：目标设备可能不存在，或者它虽然存在但是没有准备好响应事务请求。下面将介绍如何处理这两种情况。
 
@@ -321,7 +321,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 - 对于配置写访问或者是其他的配置读访问（并不是读2byte Vendor ID），RC必须自动地以一个新请求的形式对之前的配置请求进行重新下达。
 
-#### 3.11.2    确认某个Function是EP还是Bridge
+#### 3.11.2 确认某个Function是EP还是Bridge
 
 枚举过程的一个关键部分就是可以确定一个Function是Bridge还是EP。如图 3‑12所示，Header类型寄存器（Header Type Register，位于配置空间Header的偏移地址0Eh）的低7bit用于标识这个Function的基本种类，总共定义了三种不同的值：
 
@@ -337,7 +337,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 图 3‑12 Header类型寄存器
 
-### 3.12     单RC枚举示例（Single Root Enumeration Example）
+### 3.12 单RC枚举示例（Single Root Enumeration Example）
 
 现在，让我们通过一个例子来讨论一下枚举过程中的基本要素。如图 3‑13展示了一个经过总线、设备枚举后的系统示例。接下来的讨论基于这样的假设：配置软件将使用本章节定义的两种配置访问机制中的一种来完成枚举过程。在系统启动时，处理器上执行的配置软件将如接下来所讲述的那样来进行枚举过程。
 
@@ -487,9 +487,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 图 3‑13单Root系统
 
-### 3.13     多RC枚举示例（Multi-Root Enumeration Example）
+### 3.13 多RC枚举示例（Multi-Root Enumeration Example）
 
-#### 3.13.1    整体说明（General）
+#### 3.13.1 整体说明（General）
 
 考虑如图 3‑14所示的多RC系统。在这个系统中，每个RC：
 
@@ -503,7 +503,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 在图示中，每个RC都是一个芯片组成员，这其中的一个RC被设计为主RC，它的Bridge下方相连的总线为Bus 0，它被称为主RC（Primary Root Complex）。而另一个RC的Bridge下方相连的总线则是被暂时认为是Bus 255，它被称为次级RC（Secondary Root Complex）。
 
-#### 3.13.2    多RC枚举过程（Multi-Root Enumeration Process）
+#### 3.13.2 多RC枚举过程（Multi-Root Enumeration Process）
 
 在对图 3‑14中左侧的树状结构进行枚举的过程中，次级RC的Host/PCI Bridge将会忽略所有的配置访问，因为所有的目标总线号中最大的也不会超过9。需要注意，虽然Bus 8被检测到了并且也被编了号，但是这条总线上并没有连接设备。一旦左侧树状结构的枚举过程完成，枚举软件就会进行如下的这些步骤来对次级RC进行枚举：
 
@@ -533,7 +533,7 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 图 3‑14多Root系统
 
-#### 3.13.3    热插拔注意事项（Hot-Plug Considerations）
+#### 3.13.3 热插拔注意事项（Hot-Plug Considerations）
 
 热插拔，指的是一个插件卡（add-in card）可以在系统运行时插入或拔出。在这种热插拔环境中，对于图 3‑14中的Bus 8来说，可能带来潜在的麻烦。若系统已经完成枚举，并已经正常的开始运行了，这时将一个含有Bridge的插件卡插到Bus 8上，则有可能会引发问题。这个插件卡内的Bridge分配给自己的次级总线号和从属总线号将会比自己的主总线上的其他从属总线的编号还要大，并且将完全包含这些总线号，意思就是说，Bus 8下方若出现了新总线，那么这个新总线可能要被分配为Bus 9，而这就与已经存在的Bus 9产生了冲突。这是因为新的总线号必须在插件卡上方的Bridge的从属总线范围内，对于本例（图 3‑14）来说也就是在6-9的范围内。
 
@@ -541,9 +541,9 @@ Bridge为了响应配置请求，将会产生两种类型的配置请求，分�
 
 还有一种简单的方法来解决这个潜在的问题：只需要在发现未填充的插件卡插槽时，简单地留出一段总线编号间隔（bus number gap）即可。例如，当Bus 8被分配了总线号8，但是在它下方发现了一个空的插件卡插槽，那么就给下一个被发现的总线一个更高的总线号，比如给它编号19而不是9，这样就为Bus 8之下以后可能的新增总线留出了编号空间。然后，如果一个带有Bridge的插件卡被插入，那么新增的总线就可以从Bus 9开始编号，而不会产生任何问题。在大多数情况下，留出这样的总线编号间隔并不会引发问题，因为系统总共可以分配256个总线号，编号资源较为充足。
 
-### 3.14     MindShare Arbor：调试/验证/分析和学习的软件工具
+### 3.14 MindShare Arbor：调试/验证/分析和学习的软件工具
 
-#### 3.14.1    整体说明（General）
+#### 3.14.1 整体说明（General）
 
 MindShare Arbor是一个计算机系统调试（Debug）、验证（Validation）、分析（Analysis）和学习的工具，它允许用户对任意的memory、IO或者配置空间的地址进行读取或者写入。读取这些地址返回回来的数据将以一个简洁明了且信息丰富的样式进行查看。
 
@@ -557,7 +557,7 @@ MindShare Arbor是一个很棒的参考学习工具，可以用它来代替书�
 
 图 3‑15 MindShare Arbor的部分截图
 
-#### 3.14.2    MindShare Arbor功能列表
+#### 3.14.2 MindShare Arbor功能列表
 
 - 包含PCIe 3.0协议中的所有配置寄存器的描述内容。
 - 可以扫描一个系统中所有PCI可见Function的配置空间，并以可读性极强的格式将每个寄存器的讲解都展示出来。

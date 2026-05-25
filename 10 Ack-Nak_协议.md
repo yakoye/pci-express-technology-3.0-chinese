@@ -1,4 +1,4 @@
-## 10 Ack/Nak 协议
+## 10 Ack/Nak 协议（Ack/Nak Protocol）
 
 ### 上一章
 
