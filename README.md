@@ -4,12 +4,11 @@
 《PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0》 by Mindshare
 中文翻译
 
-fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgibbslf/Chinese-Translation-of-PCI-Express-Technology-)，基于此修改。
+fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgibbslf/Chinese-Translation-of-PCI-Express-Technology-)，基于此修改并补充。
 
 
 
-#### 网页版本
-[📖在线阅读](https://yakoye.github.io/pci-express-technology-3.0-chinese/docs/index.html)
+#### 网页版本=> [📖阅读](https://yakoye.github.io/pci-express-technology-3.0-chinese/docs/index.html)
 
 
 
