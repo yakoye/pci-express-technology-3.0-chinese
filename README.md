@@ -30,7 +30,7 @@ fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgib
 - [第 8 章 事务排序](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F.md)（待校对）
 - [第 9 章 DLLP 元素](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/9%20DLLP%20%E5%85%83%E7%B4%A0.md)
 - [第 10 章 Ack/Nak 协议](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/10%20Ack-Nak%20协议.md)（待校对）
-- [第 11 章 物理层-逻辑（Gen1和Gen2）](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/11%20物理层-逻辑(Gen1和Gen2).md)，（待校对）
+- [第 11 章 物理层-逻辑（Gen1和Gen2）](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/11%20物理层-逻辑(Gen1和Gen2).md)
 - [第 12 章 物理层-逻辑（Gen3）](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/9%20DLLP%20%E5%85%83%E7%B4%A0.md)
 - [第 13 章 物理层-电气](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/13%20物理层-电气.md)（待校对）
 - [第 14 章 链路初始化与训练](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83.md)
