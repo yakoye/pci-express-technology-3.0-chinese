@@ -1,0 +1,1500 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>术语表</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+  <nav class="chapter-nav chapter-nav-top">
+    <div class="nav-prev">
+            <a class="nav-btn" href="21 附录.html">← 第 21 章 附录</a>
+          </div>
+
+    <div class="nav-home">
+      <a class="nav-btn home" href="index.html">目录</a>
+    </div>
+
+    <div class="nav-title">
+      术语表
+    </div>
+
+    <div class="nav-next">
+            <span class="nav-btn disabled">已是最后一章 →</span>
+          </div>
+  </nav>
+
+  <div class="layout">
+    <aside class="toc-panel">
+      <div class="toc-title">本章大纲</div>
+            <ul>
+            <li><a href="#术语表" id="toc-术语表">22 术语表</a>
+            <ul>
+            <li><a href="#术语表glossary" id="toc-术语表glossary">22.1
+            术语表（Glossary）</a></li>
+            <li><a href="#索引" id="toc-索引">22.2 索引</a>
+            <ul>
+            <li><a href="#数字" id="toc-数字">数字</a></li>
+            <li><a href="#a" id="toc-a">A</a></li>
+            <li><a href="#b" id="toc-b">B</a></li>
+            <li><a href="#c" id="toc-c">C</a></li>
+            <li><a href="#d" id="toc-d">D</a></li>
+            <li><a href="#e" id="toc-e">E</a></li>
+            <li><a href="#f" id="toc-f">F</a></li>
+            <li><a href="#g" id="toc-g">G</a></li>
+            <li><a href="#h" id="toc-h">H</a></li>
+            <li><a href="#i" id="toc-i">I</a></li>
+            <li><a href="#j" id="toc-j">J</a></li>
+            <li><a href="#l" id="toc-l">L</a></li>
+            <li><a href="#m" id="toc-m">M</a></li>
+            <li><a href="#n" id="toc-n">N</a></li>
+            <li><a href="#o" id="toc-o">O</a></li>
+            <li><a href="#p" id="toc-p">P</a></li>
+            <li><a href="#q" id="toc-q">Q</a></li>
+            <li><a href="#r" id="toc-r">R</a></li>
+            <li><a href="#s" id="toc-s">S</a></li>
+            <li><a href="#t" id="toc-t">T</a></li>
+            <li><a href="#u" id="toc-u">U</a></li>
+            <li><a href="#v" id="toc-v">V</a></li>
+            <li><a href="#w" id="toc-w">W</a></li>
+            </ul></li>
+            </ul></li>
+            </ul>
+          </aside>
+
+    <main class="content">
+      <article>
+        <h1 id="术语表">22 术语表</h1>
+        <h2 id="术语表glossary">22.1 术语表（Glossary）</h2>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>Term（术语）</th>
+        <th>定义</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>128b/130b Encoding（128b/130b 编码）</td>
+        <td>这里的“编码”并不等同于 8b/10b 编码。发送端以 Block
+        为单位发送信息，每个 Block 由连续 16 个原始字节组成，前面带有 2
+        位 Sync 字段，用于指示该 Block 应被视为 Data Block 还是 Ordered
+        Set Block。该方案随 Gen3
+        引入，主要目的是在不加倍时钟频率的情况下使链路带宽翻倍。它提升了带宽利用率，但也牺牲了
+        8b/10b 为接收端提供的一些优势。</td>
+        </tr>
+        <tr>
+        <td>8b/10b Encoding（8b/10b 编码）</td>
+        <td>一种多年前开发、至今仍广泛用于多种串行传输的编码方案。该方案旨在帮助接收端从输入信号中恢复时钟和数据，但也会使接收端可用带宽降低
+        20%。PCIe 的早期版本 Gen1 和 Gen2 使用该方案。</td>
+        </tr>
+        <tr>
+        <td>ACK/NAK Protocol（ACK/NAK 协议）</td>
+        <td>Acknowledge/Negative
+        Acknowledge（确认/否定确认）机制。数据链路层通过该机制报告 TLP
+        在传输过程中是否发生错误。若发生错误，则向发送端返回
+        NAK，请求重放失败的 TLP；若没有错误，则返回 ACK，表示一个或多个
+        TLP 已安全到达。</td>
+        </tr>
+        <tr>
+        <td>ACPI（高级配置与电源接口）</td>
+        <td>Advanced Configuration and Power
+        Interface。定义系统和设备的多种电源状态。</td>
+        </tr>
+        <tr>
+        <td>ACS（访问控制服务）</td>
+        <td>Access Control Services。</td>
+        </tr>
+        <tr>
+        <td>ARI（备用路由 ID 解释）</td>
+        <td>Alternative Routing-ID
+        Interpretation；可选功能，允许端点拥有超过常规 8 个功能的
+        Function 数量。</td>
+        </tr>
+        <tr>
+        <td>ASPM（主动状态电源管理）</td>
+        <td>Active State Power
+        Management。启用后，硬件可以将链路电源状态从 L0 切换到
+        L0s、L1，或同时支持二者。</td>
+        </tr>
+        <tr>
+        <td>AtomicOps（原子操作）</td>
+        <td>Atomic Operations；规范 2.1
+        修订版新增的三类请求。这些请求在目标设备内部执行多个操作，并保证这些操作不会被中断。</td>
+        </tr>
+        <tr>
+        <td>Bandwidth Management（带宽管理）</td>
+        <td>由硬件发起的链路速率或链路宽度变更，目的通常是节能或提升可靠性。</td>
+        </tr>
+        <tr>
+        <td>BAR（基地址寄存器）</td>
+        <td>Base Address Register。Function 用它指示本地 Memory 空间和
+        I/O 空间的类型及大小。</td>
+        </tr>
+        <tr>
+        <td>Beacon（信标）</td>
+        <td>一种低频带内信号。主电源关闭的设备可用它通知系统发生了某个事件，需要恢复供电。该信号可在链路处于
+        L2 状态时通过链路发送。</td>
+        </tr>
+        <tr>
+        <td>BER（误码率）</td>
+        <td>Bit Error Rate 或 Bit Error
+        Ratio；基于一段时间内观察到的传输比特错误数量来衡量信号完整性的指标。</td>
+        </tr>
+        <tr>
+        <td>Bit Lock（比特锁定）</td>
+        <td>接收端获取发送端精确时钟频率的过程。该过程由 CDR
+        逻辑完成，是链路训练的早期步骤之一。</td>
+        </tr>
+        <tr>
+        <td>Block（块）</td>
+        <td>Gen3 发送端发送的 130 位单元，由 2 位 Sync Field 后跟 16
+        字节数据组成。</td>
+        </tr>
+        <tr>
+        <td>Block Lock（块锁定）</td>
+        <td>使用 128b/130b 编码时，接收端寻找 Block 边界以识别传入 Block
+        的过程。该过程包含三个阶段：先在输入流中搜索 EIEOS（Electrical
+        Idle Exit Ordered Set）并调整内部 Block 边界；再搜索 SDS（Start
+        Data Stream）有序集；随后接收端锁定到该 Block 边界。</td>
+        </tr>
+        <tr>
+        <td>Bridge（桥）</td>
+        <td>作为两条总线之间接口的 Function。Switch 和 Root Complex
+        会在其端口上实现桥功能以支持数据包路由；桥也可用于连接不同协议，例如
+        PCIe 与 PCI。</td>
+        </tr>
+        <tr>
+        <td>Byte Striping（字节条带化）</td>
+        <td>将输出字节流分散到所有可用 Lane 上。只要发送字节，所有可用
+        Lane 都会被使用。</td>
+        </tr>
+        <tr>
+        <td>CC（已消耗信用量）</td>
+        <td>Credits
+        Consumed；发送端在计算流量控制时已经使用的信用数量。</td>
+        </tr>
+        <tr>
+        <td>CDR（时钟与数据恢复）</td>
+        <td>Clock and Data
+        Recovery。用于从输入比特流中恢复发送端时钟，并对比特进行采样以识别模式。对于
+        8b/10b，COM、FTS 和 EIEOS 符号中的模式可使逻辑获得 Symbol
+        Lock；对于 128b/130b，则通过 EIEOS 序列经历三个锁定阶段以获得
+        Block Lock。</td>
+        </tr>
+        <tr>
+        <td>Character（字符）</td>
+        <td>描述链路邻居之间传递的 8 位值的术语。对于 Gen1 和
+        Gen2，字符包括普通数据字节（D character）和特殊控制值（K
+        character）。对于 Gen3，由于不再使用 8b/10b
+        编码，因此没有控制字符，所有字符都表现为数据字节。</td>
+        </tr>
+        <tr>
+        <td>CL（信用额度）</td>
+        <td>Credit Limit；从发送端视角看可用的流量控制信用。发送 TLP
+        前会检查该值，以确认是否有足够信用。</td>
+        </tr>
+        <tr>
+        <td>Control Character（控制字符）</td>
+        <td>8b/10b 编码中的特殊字符，标记为 K
+        character，用于链路训练和有序集。Gen3
+        不再使用该类字符，因为不再区分控制字符和数据字符。</td>
+        </tr>
+        <tr>
+        <td>Correctable Errors（可纠正错误）</td>
+        <td>可由硬件自动纠正、通常不需要软件介入的错误。</td>
+        </tr>
+        <tr>
+        <td>CR（所需信用量）</td>
+        <td>Credits Required；等于 CC 与 PTLP 之和。</td>
+        </tr>
+        <tr>
+        <td>CRC（循环冗余校验码）</td>
+        <td>Cyclic Redundancy Code。附加到 TLP 和 DLLP
+        中，用于验证传输是否无误。其名称表示这种校验模式具有循环性且是冗余信息（不增加额外业务数据）。CRC
+        信息不足以自动纠错，但能提供强健的错误检测能力。</td>
+        </tr>
+        <tr>
+        <td>Cut-Through Mode（直通模式）</td>
+        <td>Switch 允许 TLP
+        从入口端口直接转发到出口端口而不先完整存储并检查错误的机制。风险在于，TLP
+        的一部分可能已经转发后才发现错误。此时数据链路层会将包尾 LCRC
+        反转为错误值，物理层也会使用 8b/10b 的 EDB framing symbol 或
+        128b/130b 的 EDB
+        token，二者共同告知接收端该包已被作废，应丢弃且不发送 ACK/NAK
+        响应。</td>
+        </tr>
+        <tr>
+        <td>Data Characters（数据字符）</td>
+        <td>8b/10b 编码中表示普通数据、并与控制字符区分的字符，标记为 D
+        character。对于 Gen3，字符之间不再做这种区分。</td>
+        </tr>
+        <tr>
+        <td>Data Stream（数据流）</td>
+        <td>Gen3 操作中的 Data Block 流。数据流通过 SDS（Start of Data
+        Stream Ordered Set）进入，并通过 EDS（End of Data Stream
+        token）退出。在 Data Stream 期间，只期望出现 Data Block 或
+        SOS。若需要发送其他有序集，必须先退出 Data
+        Stream，并且只有在准备好更多 Data Block 时才重新进入。启动 Data
+        Stream 等价于进入 L0 链路状态，因为有序集只会在 Recovery 等其他
+        LTSSM 状态中发送。</td>
+        </tr>
+        <tr>
+        <td>De-emphasis（去加重）</td>
+        <td>降低比特流中重复比特对应的发送端电压的过程。这样会弱化信号中容易在传输介质中造成问题的低频分量，从而改善接收端的信号完整性。</td>
+        </tr>
+        <tr>
+        <td>Digest（摘要）</td>
+        <td>ECRC（End-to-End CRC）的另一个名称。ECRC 可在事务层创建 TLP
+        时选择性地附加到 TLP 末尾。</td>
+        </tr>
+        <tr>
+        <td>DLCMSM（数据链路控制与管理状态机）</td>
+        <td>Data Link Control and Management State
+        Machine；管理链路层训练过程，主要负责流量控制初始化。</td>
+        </tr>
+        <tr>
+        <td>DLLP（数据链路层包）</td>
+        <td>Data Link Layer Packet。DLLP
+        在数据链路层创建，并转发至物理层，但事务层不可见。</td>
+        </tr>
+        <tr>
+        <td>DPA（动态电源分配）</td>
+        <td>Dynamic Power Allocation；规范 2.1
+        修订版新增的一组配置寄存器，在 D0 设备电源状态下定义 32
+        个电源子状态，使软件更容易控制设备电源选项。</td>
+        </tr>
+        <tr>
+        <td>DSP (Downstream Port)（下游端口）</td>
+        <td>面向下游的端口，例如 Root Port 或 Switch Downstream
+        Port。该区分在 LTSSM
+        中有意义，因为端口在某些状态下会被分配特定角色。</td>
+        </tr>
+        <tr>
+        <td>ECRC（端到端 CRC）</td>
+        <td>End-to-End CRC。事务层创建 TLP
+        时可选择附加该值，使接收方能够验证数据包从源端到目的端的可靠传输，而不受中间跨越多少条链路影响。</td>
+        </tr>
+        <tr>
+        <td>Egress Port（出口端口）</td>
+        <td>承载出站流量的端口。</td>
+        </tr>
+        <tr>
+        <td>Elastic Buffer（弹性缓冲器）</td>
+        <td>CDR
+        逻辑的一部分，用于补偿发送端与接收端时钟之间的差异。</td>
+        </tr>
+        <tr>
+        <td>EMI（电磁干扰）</td>
+        <td>Electro-Magnetic Interference；系统发射出的电气噪声。对于
+        PCIe，可通过 SSC 和加扰来降低 EMI。</td>
+        </tr>
+        <tr>
+        <td>Endpoint（端点）</td>
+        <td>位于 PCI 倒置树结构底部的 PCIe Function。</td>
+        </tr>
+        <tr>
+        <td>Enumeration（枚举）</td>
+        <td>系统发现过程。软件读取所有预期的配置位置，以确定哪些 PCI
+        可配置 Function 在系统中可见并存在。</td>
+        </tr>
+        <tr>
+        <td>Equalization（均衡）</td>
+        <td>调整 Tx 和 Rx
+        参数以补偿传输介质中实际或预期信号失真的过程。对于 Gen1 和
+        Gen2，主要表现为 Tx De-emphasis；对于
+        Gen3，引入主动评估流程，用于测试信号环境并相应调整 Tx
+        设置，同时规范也提到可选的 Rx equalization。</td>
+        </tr>
+        <tr>
+        <td>Flow Control（流量控制）</td>
+        <td>发送端用于避免接收端因缓冲空间不足而拒收数据包的机制。接收端定期报告可用缓冲空间，发送端在尝试发送包之前确认是否有足够空间。</td>
+        </tr>
+        <tr>
+        <td>FLR（功能级复位）</td>
+        <td>Function-Level Reset。</td>
+        </tr>
+        <tr>
+        <td>Framing Symbols（帧定界符）</td>
+        <td>8b/10b 编码中用于指示 TLP 或 DLLP
+        边界的“start”和“end”控制字符。</td>
+        </tr>
+        <tr>
+        <td>Gen1（第一代）</td>
+        <td>Generation 1，指符合 PCIe 规范 1.x 版本的设计。</td>
+        </tr>
+        <tr>
+        <td>Gen1, Gen2, Gen3（第一代、第二代、第三代）</td>
+        <td>PCIe 规范修订版本的缩写：Gen1 对应 1.x，Gen2 对应 2.x，Gen3
+        对应 3.0。</td>
+        </tr>
+        <tr>
+        <td>Gen2（第二代）</td>
+        <td>Generation 2，指符合 PCIe 规范 2.x 版本的设计。</td>
+        </tr>
+        <tr>
+        <td>Gen3（第三代）</td>
+        <td>Generation 3，指符合 PCIe 规范 3.x 版本的设计。</td>
+        </tr>
+        <tr>
+        <td>IDO（基于 ID 的排序）</td>
+        <td>ID-based Ordering。启用后，来自不同 Requester 的 TLP
+        可以彼此乱序转发，目标是降低延迟并提升性能。</td>
+        </tr>
+        <tr>
+        <td>Implicit Routing（隐式路由）</td>
+        <td>不需要参考地址或 ID 即可确定路由的 TLP。只有 Message Request
+        可选择使用这种路由方式。</td>
+        </tr>
+        <tr>
+        <td>Ingress Port（入口端口）</td>
+        <td>承载入站流量的端口。</td>
+        </tr>
+        <tr>
+        <td>ISI（符号间干扰）</td>
+        <td>Inter-Symbol
+        Interference；由当前比特之前的若干比特对当前比特时间造成的影响。</td>
+        </tr>
+        <tr>
+        <td>Lane（通道）</td>
+        <td>两对差分线，用于在两个端口之间提供一个比特的发送路径和接收路径。一条
+        Link 可以只有 1 条 Lane，也可以最多包含 32 条 Lane。</td>
+        </tr>
+        <tr>
+        <td>Lane-to-Lane Skew（通道间偏移）</td>
+        <td>不同 Lane
+        上比特到达时间的差异。接收端必须检测该差异并在内部进行校正。</td>
+        </tr>
+        <tr>
+        <td>Legacy Endpoint（传统端点）</td>
+        <td>向前兼容任一传统特性的 Endpoint：支持 I/O 事务、支持本地 32
+        位可预取内存空间，或支持锁定事务。</td>
+        </tr>
+        <tr>
+        <td>LFSR（线性反馈移位寄存器）</td>
+        <td>Linear-Feedback Shift
+        Register；生成用于加扰的伪随机模式。</td>
+        </tr>
+        <tr>
+        <td>Link（链路）</td>
+        <td>两个 Port 之间的接口，由一条或多条 Lane 组成。</td>
+        </tr>
+        <tr>
+        <td>LTR（延迟容忍度报告）</td>
+        <td>Latency-Tolerance Reporting；设备向系统报告其发送 Request
+        后需要多快获得服务的机制。可容忍更长延迟时，系统就能使用更多电源管理选项。</td>
+        </tr>
+        <tr>
+        <td>LTSSM（链路训练与状态状态机）</td>
+        <td>Link Training and Status State
+        Machine；管理物理层训练过程。</td>
+        </tr>
+        <tr>
+        <td>Non-posted Request（非发布请求）</td>
+        <td>期望收到 Completion 响应的
+        Request。例如，任何读请求都属于非发布请求。</td>
+        </tr>
+        <tr>
+        <td>Non-prefetchable Memory（不可预取内存）</td>
+        <td>读取时会产生副作用的内存。例如，某个状态寄存器在读取后自动清零。此类数据不适合预取，因为若请求者并未真正请求该数据且预取结果被丢弃，该信息就会丢失。该区分对
+        PCI Bridge 曾很重要，因为桥在读取时需要推测数据大小；对 PCIe
+        而言，由于 TLP
+        中包含精确字节数，该区分的重要性降低，但保留它有助于向后兼容。</td>
+        </tr>
+        <tr>
+        <td>Nullified Packet（作废数据包）</td>
+        <td>发送端发现某个包存在错误且本不应发送时，可将该包作废；接收端应丢弃它，并表现得像从未收到过该包一样。该问题可能出现在
+        Switch 的 cut-through 操作中。</td>
+        </tr>
+        <tr>
+        <td>OBFF（优化缓冲刷新与填充）</td>
+        <td>Optimized Buffer Flush and
+        Fill；系统用来告知设备最佳流量发起时机的机制。设备若在最佳时段发送请求而非其他时段发送，可改善系统电源管理。</td>
+        </tr>
+        <tr>
+        <td>Ordered Sets（有序集）</td>
+        <td>作为物理层通信发送的一组 Symbol，用于 Lane 管理。对于
+        8b/10b，它们通常只由控制字符组成。有序集在发送端物理层创建，在接收端物理层消耗，对其他层完全不可见。</td>
+        </tr>
+        <tr>
+        <td>PCI（外围组件互连）</td>
+        <td>Peripheral Component Interconnect。用于取代 PC 中 ISA
+        等早期总线设计。</td>
+        </tr>
+        <tr>
+        <td>PCI-X（PCI 扩展）</td>
+        <td>PCI eXtended。用于修正 PCI 的不足并支持更高速度。</td>
+        </tr>
+        <tr>
+        <td>PME（电源管理事件）</td>
+        <td>Power Management
+        Event；设备发出的消息，表示需要与电源相关的服务。</td>
+        </tr>
+        <tr>
+        <td>Poisoned TLP（中毒 TLP）</td>
+        <td>创建时即已知数据载荷有错误的数据包。发送带有错误数据的包可作为诊断问题和确定解决方案的辅助手段。</td>
+        </tr>
+        <tr>
+        <td>Polarity Inversion（极性反转）</td>
+        <td>允许接收端信号极性反接，以支持简化板级布线的场景。接收端必须在链路训练期间检测该情况，并在内部反转信号以纠正。</td>
+        </tr>
+        <tr>
+        <td>Port（端口）</td>
+        <td>连接 PCIe Link 的输入/输出接口。</td>
+        </tr>
+        <tr>
+        <td>Posted Request（发布请求）</td>
+        <td>不期望 Completion 响应的 Request
+        包。规范只定义了两类发布请求：Memory Write 和 Message。</td>
+        </tr>
+        <tr>
+        <td>Prefetchable Memory（可预取内存）</td>
+        <td>读取时不会产生副作用的内存。因此可以安全预取：即使数据被中间缓冲丢弃，后续需要时仍可再次读取。该区分对
+        PCI Bridge
+        曾很重要，因为桥在读操作中需要猜测数据大小；可预取空间允许推测性读取更多数据，从而提升效率。对
+        PCIe 而言，由于 TLP
+        中包含精确字节数，该区分的重要性降低，但保留它有助于向后兼容。</td>
+        </tr>
+        <tr>
+        <td>PTLP（待处理 TLP）</td>
+        <td>Pending TLP；发送当前 TLP 所需的流量控制信用。</td>
+        </tr>
+        <tr>
+        <td>QoS（服务质量）</td>
+        <td>Quality of Service；PCIe
+        拓扑为不同数据包分配不同优先级的能力。简单场景中可能只是仲裁点的优先处理；复杂系统中也可用于为数据包提供带宽和延迟保证。</td>
+        </tr>
+        <tr>
+        <td>Requester ID（请求者 ID）</td>
+        <td>事务请求者的配置地址，即对应的 BDF（Bus、Device、Function
+        编号）。Completer 使用它作为返回 Completion 包的返回地址。</td>
+        </tr>
+        <tr>
+        <td>Root Complex（根复合体）</td>
+        <td>作为系统 CPU 核心与 PCIe
+        拓扑之间接口的组件集合。它可由一个或多个芯片组成，结构可简可繁。从
+        PCIe 角度看，它是 PCI 向后兼容性所要求的倒置树结构的根。</td>
+        </tr>
+        <tr>
+        <td>Run Length（游程长度）</td>
+        <td>连续出现的 1 或 0 的数量。对于 8b/10b 编码，游程长度限制为 5
+        位；对于
+        128b/130b，没有定义明确限制，但其改进的加扰方案用于补偿这一点。</td>
+        </tr>
+        <tr>
+        <td>Scrambling（加扰）</td>
+        <td>对输出比特流进行随机化，以避免链路上出现重复模式并降低
+        EMI。Gen1 和 Gen2 中可关闭加扰，以便在链路上指定特定模式；Gen3
+        中不能关闭加扰，因为在该速率下它还承担其他工作，且链路预计无法在无加扰情况下可靠运行。</td>
+        </tr>
+        <tr>
+        <td>SOS（跳过有序集）</td>
+        <td>Skip Ordered Set；用于补偿 Tx 与 Rx
+        之间微小的频率差异。</td>
+        </tr>
+        <tr>
+        <td>SSC（扩频时钟）</td>
+        <td>Spread-Spectrum
+        Clocking。通过让时钟频率在允许范围内来回变化来降低系统 EMI
+        的方法。它将发射能量分散到更宽的频率范围，避免过多 EMI
+        能量集中在某一频点。</td>
+        </tr>
+        <tr>
+        <td>Sticky Bits（粘滞位）</td>
+        <td>复位后仍保持原值的状态位。该特性有助于在链路下游 Function
+        检测到错误且链路已无法正常运行时保存状态信息。必须复位故障链路才能访问下游
+        Function，而寄存器中的错误状态信息需要在复位后仍可供软件读取。</td>
+        </tr>
+        <tr>
+        <td>Switch（交换机）</td>
+        <td>包含多个 Downstream Port 和一个 Upstream Port
+        的设备，能够在其端口之间路由流量。</td>
+        </tr>
+        <tr>
+        <td>Symbol（符号）</td>
+        <td>通过链路发送的编码单元。对于 8b/10b，它是编码后得到的 10
+        位值；对于 128b/130b，它是 8 位值。</td>
+        </tr>
+        <tr>
+        <td>Symbol Lock（符号锁定）</td>
+        <td>使用 8b/10b 编码时，接收端寻找 Symbol 边界，以识别传入
+        Symbol 并进而识别数据包内容。</td>
+        </tr>
+        <tr>
+        <td>Symbol time（符号时间）</td>
+        <td>通过 Link 发送一个 Symbol 所需的时间：Gen1 为 4 ns，Gen2 为
+        2 ns，Gen3 为 1 ns。</td>
+        </tr>
+        <tr>
+        <td>TLP（事务层包）</td>
+        <td>Transaction Layer Packet。TLP
+        在事务层创建，并通过其他层传递。</td>
+        </tr>
+        <tr>
+        <td>Token（令牌）</td>
+        <td>Gen3 速率下运行于 Data Stream
+        时，用于标识所传递信息类型的标识符。</td>
+        </tr>
+        <tr>
+        <td>TPH（TLP 处理提示）</td>
+        <td>TLP Processing
+        Hints；帮助系统路由代理做出选择，以改善延迟并缓解流量拥塞。</td>
+        </tr>
+        <tr>
+        <td>UI（单位间隔）</td>
+        <td>Unit Interval；通过 Link 发送一个比特所需的时间：Gen1 为 0.4
+        ns，Gen2 为 0.2 ns，Gen3 为 0.125 ns。</td>
+        </tr>
+        <tr>
+        <td>Uncorrectable Errors（不可纠正错误）</td>
+        <td>硬件无法纠正、通常需要软件介入解决的错误。它们分为 Fatal
+        error（导致后续链路操作不可靠）和 Non-fatal
+        error（检测到问题但不影响链路操作）。</td>
+        </tr>
+        <tr>
+        <td>USP（上游端口）</td>
+        <td>Upstream Port，即面向上游的端口，例如 Endpoint 或 Switch
+        Upstream Port。该区分在 LTSSM 中有意义，因为端口在 Configuration
+        和 Recovery 期间会被分配特定角色。</td>
+        </tr>
+        <tr>
+        <td>Variables（变量）</td>
+        <td>硬件层之间使用多个标志来传递事件和状态。这些标志与硬件状态转换相关，通常对软件不可见。例如：<br>-
+        <code>LinkUp</code>：物理层向数据链路层发出的指示，表示训练完成且物理层已可正常工作。<br>-
+        <code>idle_to_rlock_transitioned</code>：该计数器跟踪 LTSSM 从
+        <code>Configuration.Idle</code> 转换到
+        <code>Recovery.RcvrLock</code> 的次数。每当识别 TS2 以离开
+        Configuration 的过程失败时，LTSSM 会转换到 Recovery
+        采取相应措施。若经过 256 次 Recovery 循环（计数器达到
+        FFh）仍不能正常工作，则返回 Detect 重新开始，这可能表明部分 Lane
+        无法正常工作。</td>
+        </tr>
+        <tr>
+        <td>WAKE#（唤醒信号）</td>
+        <td>用于通知系统恢复供电的边带引脚。在重视节能的系统中，它用于替代
+        Beacon。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h2 id="索引">22.2 索引</h2>
+        <h3 id="数字">数字</h3>
+        <ul>
+        <li>128b/130b（128b/130b 编码）：43</li>
+        <li>128b/130b Encoding（128b/130b 编码）：973</li>
+        <li>1x Packet Format：374, 375</li>
+        <li>3DW Header：152</li>
+        <li>3-Tap Transmitter Equalization：585</li>
+        <li>4DW Headers：152</li>
+        <li>4x Packet Format：374</li>
+        <li>8.0 GT/s：410</li>
+        <li>8b/10b（8b/10b 编码）：42</li>
+        <li>8b/10b Decoder：367</li>
+        <li>8b/10b Encoder：366</li>
+        <li>8b/10b Encoding（8b/10b 编码）：973</li>
+        </ul>
+        <h3 id="a">A</h3>
+        <ul>
+        <li>AC Coupling：468</li>
+        <li>ACK（确认）：318</li>
+        <li>Ack（确认）：311</li>
+        <li>ACK DLLP（ACK 数据链路层包）：75, 312</li>
+        <li>ACK/NAK DLLP（ACK/NAK 数据链路层包）：312</li>
+        <li>ACK/NAK Latency：328</li>
+        <li>ACK/NAK Protocol（ACK/NAK 协议）：318, 320, 329, 973</li>
+        <li>Ack/Nak Protocol：74</li>
+        <li>ACKD_SEQ Count：323</li>
+        <li>ACKNAK_Latency_Timer：328, 343</li>
+        <li>ACPI（高级配置与电源接口）：711, 973</li>
+        <li>ACPI Driver：706</li>
+        <li>ACPI Machine Language：712</li>
+        <li>ACPI Source Language：712</li>
+        <li>ACPI spec：705</li>
+        <li>ACPI tables：712</li>
+        <li>ACS（访问控制服务）：973</li>
+        <li>Active State Power Management（主动状态电源管理）：405,
+        735</li>
+        <li>Address Routing（地址路由）：158</li>
+        <li>Address Space（地址空间）：121</li>
+        <li>Address Translation（地址转换）：958, 959</li>
+        <li>Advanced Correctable Error Reporting：690</li>
+        <li>Advanced Correctable Error Status：689</li>
+        <li>Advanced Correctable Errors：688</li>
+        <li>Advanced Error Reporting（高级错误报告）：685</li>
+        <li>Advanced Source ID Register：697</li>
+        <li>Advanced Uncorrectable Error Handling：691</li>
+        <li>Advanced Uncorrectable Error Status：691</li>
+        <li>Aggregate Bandwidth（聚合带宽）：408</li>
+        <li>Alternative Routing-ID Interpretation（备用路由 ID
+        解释）：909</li>
+        <li>AML：712</li>
+        <li>AML token interpreter：712</li>
+        <li>Arbitration（仲裁）：20, 270</li>
+        <li>Arbor：117</li>
+        <li>Architecture Overview：39</li>
+        <li>ARI（备用路由 ID 解释）：909, 974</li>
+        <li>ASL：712</li>
+        <li>ASPM（主动状态电源管理）：735, 742, 910, 974</li>
+        <li>ASPM Exit Latency：756, 757</li>
+        <li>Assert_INTx messages：806</li>
+        <li>Async Notice of Slot Status Change：876</li>
+        <li>AtomicOp：150</li>
+        <li>AtomicOps（原子操作）：897, 974</li>
+        <li>Attention Button（注意按钮）：854, 862</li>
+        <li>Attention Indicator（注意指示灯）：854, 859</li>
+        <li>Aux_Current field：726</li>
+        </ul>
+        <h3 id="b">B</h3>
+        <ul>
+        <li>Bandwidth（带宽）：42</li>
+        <li>Bandwidth Congestion：281</li>
+        <li>Bandwidth Management（带宽管理）：974</li>
+        <li>BAR（基地址寄存器）：126, 960, 974</li>
+        <li>Base Address Registers（基地址寄存器）：126</li>
+        <li>Base and Limit Registers：136</li>
+        <li>BDF（总线/设备/功能号）：85</li>
+        <li>Beacon（信标）：483, 772, 974</li>
+        <li>BER（误码率）：974</li>
+        <li>BIOS：712, 853</li>
+        <li>Bit Lock（比特锁定）：78, 395, 507, 742, 974</li>
+        <li>Bit Tracer：929</li>
+        <li>Block（块）：974</li>
+        <li>Block Alignment（块对齐）：435</li>
+        <li>Block Encoding：410</li>
+        <li>Block Lock（块锁定）：507, 975</li>
+        <li>Boost（增强）：476</li>
+        <li>Bridge（桥）：975</li>
+        <li>Bus（总线）：85</li>
+        <li>Bus Master（总线主控）：20</li>
+        <li>Bus Number register：93</li>
+        <li>Byte Count Modified：201</li>
+        <li>Byte Enables：181</li>
+        <li>Byte Striping（字节条带化）：371, 372, 373, 975</li>
+        <li>byte striping：371</li>
+        <li>Byte Striping logic：365</li>
+        <li>Byte Un-Striping：402</li>
+        </ul>
+        <h3 id="c">C</h3>
+        <ul>
+        <li>Capabilities List bit（能力列表位）：818</li>
+        <li>Capabilities Pointer register（能力指针寄存器）：713</li>
+        <li>Capability ID（能力 ID）：713, 814</li>
+        <li>Capability Structures（能力结构）：88</li>
+        <li>Card Connector Power Switching Logic：854</li>
+        <li>Card Insertion（插卡）：855</li>
+        <li>Card Insertion Procedure：857</li>
+        <li>Card Present：854</li>
+        <li>Card Removal（拔卡）：855</li>
+        <li>Card Removal Procedure：856</li>
+        <li>Card Reset Logic：854</li>
+        <li>CC（已消耗信用量）：975</li>
+        <li>CDR（时钟与数据恢复）：435, 437, 975</li>
+        <li>Character（字符）：79, 366, 975</li>
+        <li>CL（信用额度）：976</li>
+        <li>Class driver：706</li>
+        <li>Clock Requirements：452</li>
+        <li>Code Violation：400</li>
+        <li>Coefficients：584</li>
+        <li>Cold Reset（冷复位）：834</li>
+        <li>COM：386</li>
+        <li>Common-Mode Noise Rejection（共模噪声抑制）：452</li>
+        <li>Completer（完成者）：33</li>
+        <li>Completer Abort：664</li>
+        <li>Completion Packet（完成包）：197</li>
+        <li>Completion Status（完成状态）：200</li>
+        <li>Completion Time-out：665</li>
+        <li>Completion TLP（完成 TLP）：184</li>
+        <li>Completions：196, 218</li>
+        <li>Compliance Pattern（合规模式）：537</li>
+        <li>Compliance Pattern - 8b/10b：529</li>
+        <li>Configuration（配置）：85</li>
+        <li>Configuration Address Port：92, 93</li>
+        <li>Configuration Address Space：88</li>
+        <li>Configuration Cycle Generation：26</li>
+        <li>Configuration Data Port：92, 93</li>
+        <li>Configuration Headers：50</li>
+        <li>Configuration Read：151</li>
+        <li>Configuration Read Access：104</li>
+        <li>Configuration Register Space：27, 89</li>
+        <li>Configuration Registers：90</li>
+        <li>Configuration Request Packet（配置请求包）：193</li>
+        <li>Configuration Requests：99, 192</li>
+        <li>Configuration Space（配置空间）：122</li>
+        <li>Configuration State：520, 540</li>
+        <li>Configuration Status Register：676</li>
+        <li>Configuration Status register：713</li>
+        <li>Configuration Transactions：91</li>
+        <li>Configuration Write：151</li>
+        <li>Configuration.Complete：562</li>
+        <li>Configuration.Idle：566</li>
+        <li>Configuration.Lanenum.Accept：560</li>
+        <li>Configuration.Lanenum.Wait：559</li>
+        <li>Configuration.Linkwidth.Accept：558</li>
+        <li>Configuration.Linkwidth.Start：553</li>
+        <li>Congestion Avoidance（拥塞避免）：897</li>
+        <li>Continuous-Time Linear Equalization：493</li>
+        <li>Control Character（控制字符）：976</li>
+        <li>Control Character Encoding：386</li>
+        <li>Control Method：712</li>
+        <li>Conventional Reset（常规复位）：834</li>
+        <li>Correctable Errors（可纠正错误）：651, 976</li>
+        <li>CR（所需信用量）：976</li>
+        <li>CRC（循环冗余校验码）：976</li>
+        <li>CRD：383</li>
+        <li>Credit Allocated Count：229</li>
+        <li>Credit Limit counter（信用额度计数器）：228</li>
+        <li>CREDIT_ALLOCATED：229</li>
+        <li>Credits Consumed counter：228</li>
+        <li>Credits Received Counter：229</li>
+        <li>CREDITS_RECEIVED：229</li>
+        <li>CTLE：493, 494</li>
+        <li>Current Running Disparity（当前运行不均衡）：383</li>
+        <li>Cursor Coefficient（游标系数）：584</li>
+        <li>Cut-Through：354</li>
+        <li>Cut-Through Mode（直通模式）：976</li>
+        </ul>
+        <h3 id="d">D</h3>
+        <ul>
+        <li>D0：709, 710, 714, 734</li>
+        <li>D0 Active：714</li>
+        <li>D0 Uninitialized：714</li>
+        <li>D1：709, 710, 716, 734</li>
+        <li>D1_Support bit：725</li>
+        <li>D2：709, 710, 717, 734</li>
+        <li>D2_Support bit：725</li>
+        <li>D3：709, 710, 719</li>
+        <li>D3cold：721, 734</li>
+        <li>D3hot：719, 734</li>
+        <li>Data Characters（数据字符）：976</li>
+        <li>Data Link Layer（数据链路层）：55, 72</li>
+        <li>Data Link Layer Packet（数据链路层包）：72</li>
+        <li>Data Link Layer Packet Format：310</li>
+        <li>Data Link Layer Packets：73</li>
+        <li>Data Poisoning（数据中毒）：660</li>
+        <li>Data Register：731</li>
+        <li>Data Stream（数据流）：977</li>
+        <li>Data_Scale field：729</li>
+        <li>Data_Select field：729</li>
+        <li>DC Common Mode（直流共模）：462</li>
+        <li>DC Common Mode Voltage：466</li>
+        <li>DC Common-Mode Voltage：467</li>
+        <li>Deadlock Avoidance（死锁避免）：303</li>
+        <li>Deassert_INTx messages：806</li>
+        <li>Debugging PCIe Traffic（PCIe 流量调试）：917</li>
+        <li>Decision Feedback Equalization（判决反馈均衡）：495</li>
+        <li>De-emphasis（去加重）：450, 468, 469, 471, 476, 977</li>
+        <li>De-Scrambler（解扰器）：367</li>
+        <li>Deserializer（解串器）：395</li>
+        <li>De-Skew（去偏移）：399</li>
+        <li>Detect State（Detect 状态）：519, 522</li>
+        <li>Detect.Active：524</li>
+        <li>Detect.Quiet：523</li>
+        <li>Device（设备）：85</li>
+        <li>Device Capabilities 2 Register：899</li>
+        <li>Device Capabilities Register：873</li>
+        <li>Device Context：709</li>
+        <li>Device Core：59</li>
+        <li>Device core：55</li>
+        <li>Device Driver（设备驱动）：706</li>
+        <li>device driver：853</li>
+        <li>Device Layers：54</li>
+        <li>Device PM States：713</li>
+        <li>device PM states：709</li>
+        <li>Device Status Register：681</li>
+        <li>Device-Specific Initialization (DSI) bit：727</li>
+        <li>DFE：493, 495, 497</li>
+        <li>Differential Driver：389</li>
+        <li>Differential Receiver：393, 435, 451</li>
+        <li>Differential Signaling（差分信号传输）：463</li>
+        <li>Differential Signals：44</li>
+        <li>Differential Transmitter：451</li>
+        <li>Digest（摘要）：180, 977</li>
+        <li>Direct Address Translation（直接地址转换）：949</li>
+        <li>Disable State（Disable 状态）：521, 613</li>
+        <li>Discrete Time Linear Equalizer：493</li>
+        <li>Discrete-Time Linear Equalizer：494</li>
+        <li>Disparity（不均衡）：383</li>
+        <li>Disparity Error Detection：400</li>
+        <li>DLCMSM（数据链路控制与管理状态机）：977</li>
+        <li>DLE：493, 494</li>
+        <li>DLL：437</li>
+        <li>DLLP（数据链路层包）：73, 170, 238, 308, 311, 977</li>
+        <li>DLLP Elements：307</li>
+        <li>DMA（直接内存访问）：937</li>
+        <li>DPA（动态电源分配）：910, 977</li>
+        <li>Driver Characteristics：489</li>
+        <li>DSI bit：727</li>
+        <li>DSP：977</li>
+        <li>D-State Transitions：722</li>
+        <li>Dual Simplex：363</li>
+        <li>Dual-Simplex：40</li>
+        <li>Dual-Star Fabric：957</li>
+        <li>Dynamic Bandwidth Changes（动态带宽变化）：618</li>
+        <li>Dynamic Link Speed Changes（动态链路速率变化）：619</li>
+        <li>Dynamic Link Width Changes（动态链路宽度变化）：629</li>
+        <li>Dynamic Power Allocation：910</li>
+        </ul>
+        <h3 id="e">E</h3>
+        <ul>
+        <li>ECRC（端到端 CRC）：63, 180, 978</li>
+        <li>ECRC Generation and Checking：657</li>
+        <li>EDB：373, 387</li>
+        <li>Egress Port（出口端口）：978</li>
+        <li>EIE：387</li>
+        <li>EIEOS：389, 739, 740</li>
+        <li>EIOS：388, 737</li>
+        <li>Elastic Buffer（弹性缓冲器）：366, 435, 978</li>
+        <li>Electrical Idle（电气空闲）：388, 736, 738, 741</li>
+        <li>Electrical Idle Exit Ordered Set：389</li>
+        <li>Electrical Idle Ordered Set（电气空闲有序集）：388</li>
+        <li>EMI（电磁干扰）：77, 978</li>
+        <li>Encoding（编码）：410</li>
+        <li>END：373, 387</li>
+        <li>Endpoint（端点）：978</li>
+        <li>End-to-End CRC（端到端 CRC）：180</li>
+        <li>Enhanced Configuration Access Mechanism：96</li>
+        <li>Enumeration（枚举）：51, 104, 978</li>
+        <li>Equalization（均衡）：474, 978</li>
+        <li>Equalization - Phase 0：578</li>
+        <li>Equalization - Phase 1：581</li>
+        <li>Equalization - Phase 2：583</li>
+        <li>Equalization - Phase 3：586</li>
+        <li>Equalization Control：513</li>
+        <li>Equalization Control Registers：579</li>
+        <li>Equalizer：475</li>
+        <li>Equalizer Coefficients：479</li>
+        <li>Error Classifications：651</li>
+        <li>Error Handling（错误处理）：282, 699</li>
+        <li>Error Isolation：937</li>
+        <li>Error Messages：209, 668</li>
+        <li>ESD（静电放电）：459</li>
+        <li>ESD standards：448</li>
+        <li>Exerciser Card：931</li>
+        <li>Extended Configuration Space：89</li>
+        <li>Eye Diagram（眼图）：486</li>
+        </ul>
+        <h3 id="f">F</h3>
+        <ul>
+        <li>Failover：942, 944, 952</li>
+        <li>FC Initialization（流量控制初始化）：223</li>
+        <li>FC Initialization Sequence：223</li>
+        <li>FC_Init1：224</li>
+        <li>FC_Init2：225</li>
+        <li>FC_Update：238</li>
+        <li>First DW Byte Enables：178, 181</li>
+        <li>Flow Control（流量控制）：72, 76, 215, 217, 299, 928,
+        978</li>
+        <li>Flow Control Buffer：217, 229</li>
+        <li>Flow Control Buffers：217</li>
+        <li>Flow Control Credits（流量控制信用）：216, 219</li>
+        <li>Flow Control Elements：227, 231</li>
+        <li>Flow Control Initialization：227, 230, 237</li>
+        <li>Flow Control Packet：239</li>
+        <li>Flow Control Packet Format：314</li>
+        <li>Flow Control Update Frequency：239</li>
+        <li>Flow Control Updates：237</li>
+        <li>FLR（功能级复位）：842, 844, 845, 978</li>
+        <li>Flying Lead Probe：924</li>
+        <li>Format Field（格式字段）：179</li>
+        <li>Framing Symbols（帧定界符）：171, 979</li>
+        <li>FTS：387</li>
+        <li>FTS Ordered Set：388</li>
+        <li>FTSOS：388</li>
+        <li>Function（功能）：85</li>
+        <li>Function Level Reset（功能级复位）：842, 843</li>
+        <li>Function PM State Transitions：722</li>
+        <li>Function State Transition Delays：724</li>
+        <li>Fundamental Reset（基本复位）：834</li>
+        </ul>
+        <h3 id="g">G</h3>
+        <ul>
+        <li>Gen1（第一代）：43, 77, 979</li>
+        <li>Gen2（第二代）：43, 77, 979</li>
+        <li>Gen3（第三代）：44, 77, 407, 979</li>
+        <li>Gen3 products：936</li>
+        </ul>
+        <h3 id="h">H</h3>
+        <ul>
+        <li>handler：712</li>
+        <li>Hardware Based Fixed Arbitration：256</li>
+        <li>Hardware Fixed VC Arbitration：257</li>
+        <li>Hardware-Fixed Port Arbitration：265</li>
+        <li>Header Type 0：29</li>
+        <li>Header Type 1：28</li>
+        <li>Header Type/Format Field：178</li>
+        <li>High Speed Signaling：451</li>
+        <li>host/PCI bridge：94</li>
+        <li>Hot Plug（热插拔）：847, 852</li>
+        <li>Hot Plug Controller：863</li>
+        <li>Hot Plug Elements：852</li>
+        <li>Hot Plug Messages：211</li>
+        <li>Hot Reset（热复位）：839</li>
+        <li>Hot Reset State（热复位状态）：521, 612</li>
+        <li>Hot-Plug：116, 853</li>
+        <li>Hot-Plug Controller：853, 864</li>
+        <li>hot-plug primitives：874</li>
+        <li>Hot-Plug Service：852</li>
+        <li>Hot-Plug System Driver：852</li>
+        <li>HPC Applications：940</li>
+        <li>Hub Link：32</li>
+        </ul>
+        <h3 id="i">I</h3>
+        <ul>
+        <li>ID Based Ordering（基于 ID 的排序）：301</li>
+        <li>ID Routing（ID 路由）：155</li>
+        <li>ID-based Ordering：301, 909, 979</li>
+        <li>IDL：387</li>
+        <li>IDO（基于 ID 的排序）：301, 302, 909, 979</li>
+        <li>IEEE 1394 Bus Driver：711</li>
+        <li>Ignored Messages：211</li>
+        <li>Implicit Routing（隐式路由）：148, 979</li>
+        <li>In-band Reset（带内复位）：837</li>
+        <li>Infinite Credits：221</li>
+        <li>Infinite Flow Control Credits：219</li>
+        <li>Ingress Port（入口端口）：979</li>
+        <li>InitFC1-Cpl：312</li>
+        <li>InitFC1-NP：311</li>
+        <li>InitFC1-P DLLP：311</li>
+        <li>InitFC2-Cpl：312</li>
+        <li>InitFC2-NP：312</li>
+        <li>InitFC2-P：312</li>
+        <li>Intelligent Adapters：943, 944, 951</li>
+        <li>Internal Error Reporting：911</li>
+        <li>Interrupt Disable（中断禁用）：803</li>
+        <li>Interrupt Latency：829</li>
+        <li>interrupt latency：829</li>
+        <li>Interrupt Line Register（中断线寄存器）：802</li>
+        <li>Interrupt Pin Register（中断引脚寄存器）：801</li>
+        <li>Interrupt Status（中断状态）：804</li>
+        <li>Inter-symbol Interference：469</li>
+        <li>INTx Interrupt Messages（INTx 中断消息）：206</li>
+        <li>INTx Interrupt Signaling：206</li>
+        <li>INTx Message Format（INTx 消息格式）：807</li>
+        <li>INTx# Pins（INTx# 引脚）：800</li>
+        <li>INTx# Signaling：803</li>
+        <li>IO（I/O）：126</li>
+        <li>IO Address Spaces（I/O 地址空间）：122</li>
+        <li>IO Range：141</li>
+        <li>IO Read：151</li>
+        <li>IO Requests：184</li>
+        <li>IO Virtualization：937</li>
+        <li>IO Write：151</li>
+        <li>ISI（符号间干扰）：979</li>
+        <li>Isochronous Packets：279</li>
+        <li>Isochronous Support：272</li>
+        <li>Isochronous Transaction Support：272</li>
+        </ul>
+        <h3 id="j">J</h3>
+        <ul>
+        <li>Jitter（抖动）：485, 487</li>
+        </ul>
+        <h3 id="l">L</h3>
+        <ul>
+        <li>L0 State（L0 状态）：500, 520, 568</li>
+        <li>L0s：744</li>
+        <li>L0s Receiver State Machine：605</li>
+        <li>L0s State：520, 603, 744</li>
+        <li>L0s Transmitter State Machine：603</li>
+        <li>L1 ASPM：736, 747</li>
+        <li>L1 ASPM Negotiation：748</li>
+        <li>L1 ASPM State：747</li>
+        <li>L1 State（L1 状态）：520, 607, 760</li>
+        <li>L2 State（L2 状态）：521, 609, 767</li>
+        <li>L2/L3 Ready：767</li>
+        <li>L2/L3 Ready state：763, 764</li>
+        <li>Lane（通道）：40, 78, 365, 979</li>
+        <li>Lane #：511</li>
+        <li>Lane Number Negotiation：543, 547</li>
+        <li>Lane Reversal（通道反转）：507</li>
+        <li>Lane-Level Encoding：410</li>
+        <li>Lane-to-Lane de-skew：78</li>
+        <li>Lane-to-Lane Skew（通道间偏移）：979</li>
+        <li>Last DW Byte Enables：178, 181</li>
+        <li>Latency Tolerance Reporting：910</li>
+        <li>LCRC：63, 325, 329</li>
+        <li>LeCroy：922, 923, 933</li>
+        <li>LeCroy Tools：917</li>
+        <li>Legacy Endpoint（传统端点）：816, 979</li>
+        <li>Legacy Endpoints：972</li>
+        <li>LFSR（线性反馈移位寄存器）：980</li>
+        <li>Link（链路）：40, 980</li>
+        <li>Link #：511</li>
+        <li>Link Capabilities 2 Register：640</li>
+        <li>Link Capability Register：743</li>
+        <li>Link Configuration - Failed Lane：549</li>
+        <li>Link Control：841</li>
+        <li>Link Data Rate：509</li>
+        <li>Link data rate：78</li>
+        <li>Link Equalization（链路均衡）：577</li>
+        <li>Link Errors：683</li>
+        <li>Link Flow Control-Related Errors：666</li>
+        <li>Link Number Negotiation：542, 546</li>
+        <li>Link Power Management：733</li>
+        <li>Link Status Register：641</li>
+        <li>Link Training and
+        Initialization（链路训练与初始化）：78</li>
+        <li>Link Training and Status State Machine (LTSSM)：518</li>
+        <li>Link Upconfigure Capability：512</li>
+        <li>Link Width（链路宽度）：507</li>
+        <li>Link width：78</li>
+        <li>Link Width Change（链路宽度变化）：570</li>
+        <li>Link Width Change Example：630</li>
+        <li>Lock：964</li>
+        <li>Locked Reads：66</li>
+        <li>Locked Transaction：209</li>
+        <li>Locked Transactions（锁定事务）：963</li>
+        <li>Logic Analyzer（逻辑分析仪）：921</li>
+        <li>Logical Idle Sequence：370</li>
+        <li>Loopback Master：615</li>
+        <li>Loopback Slave：616</li>
+        <li>Loopback State（回环状态）：521, 613</li>
+        <li>Loopback.Active：617</li>
+        <li>Loopback.Entry：614</li>
+        <li>Loopback.Exit：618</li>
+        <li>Low-priority VC Arbitration：255</li>
+        <li>LTR（延迟容忍度报告）：784, 910, 980</li>
+        <li>LTR Messages：786</li>
+        <li>LTR Registers：784</li>
+        <li>LTSSM（链路训练与状态状态机）：507, 518, 839, 927, 980</li>
+        </ul>
+        <h3 id="m">M</h3>
+        <ul>
+        <li>Malformed TLP：666</li>
+        <li>Memory Address Space（内存地址空间）：122</li>
+        <li>Memory Read（内存读）：150</li>
+        <li>Memory Read Lock：150</li>
+        <li>Memory Request Packet：188</li>
+        <li>Memory Requests：188</li>
+        <li>Memory Write（内存写）：150</li>
+        <li>Memory Writes：69</li>
+        <li>Message（消息）：151</li>
+        <li>Message Address Register：816</li>
+        <li>Message Address register：816, 818</li>
+        <li>Message Control Register：814</li>
+        <li>Message Control register：814, 818</li>
+        <li>Message Data register：817, 818</li>
+        <li>Message Request Packet：203</li>
+        <li>Message Requests（消息请求）：70, 203</li>
+        <li>Message Writes：70</li>
+        <li>Messages：148</li>
+        <li>Mid-Bus Probe：923</li>
+        <li>MindShare Arbor：117</li>
+        <li>Miniport Driver：706</li>
+        <li>MMIO：123</li>
+        <li>Modified Compliance Pattern：537</li>
+        <li>Modified Compliance Pattern - 8b/10b：532</li>
+        <li>MR-IOV：937, 939</li>
+        <li>MSI Capability Register：812</li>
+        <li>MSI Configuration（MSI 配置）：817</li>
+        <li>Multicast（多播）：893, 896</li>
+        <li>Multicast Capabilities：163</li>
+        <li>Multicast Capability Registers：889</li>
+        <li>Multi-casting（多播）：888</li>
+        <li>Multi-Function Arbitration：272</li>
+        <li>Multi-Host System：96</li>
+        <li>Multi-Host Systems：943</li>
+        <li>Multiple Message Capable field：818</li>
+        <li>Multiple Messages：820</li>
+        <li>Multi-Root：938</li>
+        <li>Multi-Root Enumeration：114</li>
+        <li>Multi-Root System：97, 116</li>
+        </ul>
+        <h3 id="n">N</h3>
+        <ul>
+        <li>N_FTS：511</li>
+        <li>Nak（否定确认）：311</li>
+        <li>NAK_SCHEDULED Flag：327</li>
+        <li>namespace：712</li>
+        <li>Native PCI Express Endpoints：972</li>
+        <li>NEXT_RCV_SEQ：313, 326, 341</li>
+        <li>Noise（噪声）：485</li>
+        <li>Non-Posted（非发布）：150</li>
+        <li>non-posted：60</li>
+        <li>Non-posted Request（非发布请求）：980</li>
+        <li>Non-Posted Transactions（非发布事务）：65, 218</li>
+        <li>Non-prefetchable：123</li>
+        <li>Non-prefetchable Memory（不可预取内存）：980</li>
+        <li>Non-Prefetchable Range：139</li>
+        <li>North Bridge：21</li>
+        <li>NP-MMIO：126, 139</li>
+        <li>NT bridging：936</li>
+        <li>Nullified Packet（作废数据包）：388, 689, 980</li>
+        </ul>
+        <h3 id="o">O</h3>
+        <ul>
+        <li>OBFF（优化缓冲刷新与填充）：776, 910, 981</li>
+        <li>OBFF Messages：213</li>
+        <li>OnNow Design Initiative：707</li>
+        <li>Optimized Buffer Flush and Fill：776, 910, 981</li>
+        <li>Optimized Buffer Flush and Fill Messages：213</li>
+        <li>Ordered Sets（有序集）：981</li>
+        <li>Ordered-Sets：370</li>
+        <li>Ordering Rules（排序规则）：287</li>
+        <li>Ordering Rules Table：288, 289</li>
+        <li>Ordering Table：914</li>
+        <li>Oscilloscope：919</li>
+        </ul>
+        <h3 id="p">P</h3>
+        <ul>
+        <li>Packet Format（数据包格式）：151</li>
+        <li>Packet Generation：937</li>
+        <li>Packet-Based Protocol（基于包的协议）：169</li>
+        <li>Packet-based Protocol：46</li>
+        <li>PAD：386</li>
+        <li>Pause command：853, 874</li>
+        <li>Pausing a Driver：874</li>
+        <li>PCI（外围组件互连）：981</li>
+        <li>PCI Bus Driver：706, 707, 711</li>
+        <li>PCI Bus PM Interface Specification：705</li>
+        <li>PCI Express（PCI Express）：39</li>
+        <li>PCI PM：705</li>
+        <li>PCI power management：647, 703, 793</li>
+        <li>PCI Transaction Model：18</li>
+        <li>PCI-Based System：11</li>
+        <li>PCI-Compatible Error Reporting：674</li>
+        <li>PCIe System：53, 54</li>
+        <li>PCI-X（PCI 扩展）：981</li>
+        <li>PERST#（PCI Express 复位信号）：835, 849</li>
+        <li>PETracer：918, 924</li>
+        <li>PETrainer：932</li>
+        <li>Physical Layer（物理层）：55, 76</li>
+        <li>Physical Layer Electrical：449</li>
+        <li>PLL：435, 437</li>
+        <li>PLX Technology：935, 943</li>
+        <li>PM Capabilities (PMC) Register：724</li>
+        <li>PM Capability Registers：713</li>
+        <li>PM Control/Status (PMCSR) Register：727</li>
+        <li>PM Registers：724, 732</li>
+        <li>PM_Active_State_Request_L1：311</li>
+        <li>PM_Enter_L1 DLLP：311</li>
+        <li>PM_Enter_L23：311</li>
+        <li>PM_Request_Ack：311</li>
+        <li>PMC Register：724</li>
+        <li>PMCSR：727, 728</li>
+        <li>PMCSR Register：727</li>
+        <li>PME（电源管理事件）：981</li>
+        <li>PME Clock bit：727</li>
+        <li>PME Context：710</li>
+        <li>PME Generation：768</li>
+        <li>PME Message：769</li>
+        <li>PME_En bit：730</li>
+        <li>PME_Status bit：728</li>
+        <li>PME_Support field：725</li>
+        <li>P-MMIO：126, 137</li>
+        <li>Poisoned TLP（中毒 TLP）：981</li>
+        <li>Polarity Inversion（极性反转）：78, 508, 981</li>
+        <li>Polling State（Polling 状态）：519, 525</li>
+        <li>Polling.Active：526</li>
+        <li>Polling.Compliance：529</li>
+        <li>Polling.Configuration：527</li>
+        <li>Port（端口）：981</li>
+        <li>Port Arbitration（端口仲裁）：261, 265</li>
+        <li>Port Arbitration Table：267</li>
+        <li>Port Arbitration Tables：263</li>
+        <li>Post-Cursor Coefficient：584</li>
+        <li>Posted：150</li>
+        <li>posted：60</li>
+        <li>Posted Request（发布请求）：981</li>
+        <li>Posted Transactions：218</li>
+        <li>Posted Writes：69</li>
+        <li>Post-Silicon：931</li>
+        <li>Post-Silicon Debug：919</li>
+        <li>Power Budget Capabilities Register：883</li>
+        <li>Power Budget Capability Registers：884</li>
+        <li>Power Budget Registers：878</li>
+        <li>Power Budgeting：847, 876</li>
+        <li>Power Indicator：854, 860</li>
+        <li>Power Management（电源管理）：76, 703, 711</li>
+        <li>power management：647, 703, 793</li>
+        <li>Power Management DLLP：313</li>
+        <li>Power Management DLLP Packet：313</li>
+        <li>Power Management Message：208</li>
+        <li>Power Management Messages：208</li>
+        <li>Power Management Policy Owner：711</li>
+        <li>power management register set：713, 724</li>
+        <li>Power Management States：500</li>
+        <li>PowerState field：730</li>
+        <li>Pre-Cursor Coefficient：584</li>
+        <li>Prefetchable：123</li>
+        <li>Prefetchable Memory（可预取内存）：982</li>
+        <li>Prefetchable Range：137</li>
+        <li>Presets：478</li>
+        <li>Pre-shoot：476</li>
+        <li>Pre-Silicon：931</li>
+        <li>Pre-silicon Debugging：918</li>
+        <li>Primitives：852</li>
+        <li>Primitives, hot-plug：852, 874</li>
+        <li>Producer/Consumer Model：290</li>
+        <li>Producer/Consumer model：290</li>
+        <li>Protocol Analyzer（协议分析仪）：920</li>
+        <li>PTC card：932</li>
+        <li>PTLP（待处理 TLP）：982</li>
+        </ul>
+        <h3 id="q">Q</h3>
+        <ul>
+        <li>QoS（服务质量）：70, 245, 272, 982</li>
+        <li>Quality of Service：70, 245</li>
+        <li>Query Hot-Plug System Driver：875</li>
+        <li>Query Slot Status：875</li>
+        <li>quiesce：873</li>
+        <li>Quiesce command：853</li>
+        <li>Quiescing Card：873</li>
+        <li>Quiescing Card and Driver：873</li>
+        <li>Quiescing Driver：873</li>
+        </ul>
+        <h3 id="r">R</h3>
+        <ul>
+        <li>Rate ID：512</li>
+        <li>Ratios：478</li>
+        <li>Receive Buffer：403</li>
+        <li>Receive Logic：366, 392</li>
+        <li>Receiver Characteristics：492, 497</li>
+        <li>Recovery Process：572</li>
+        <li>Recovery State（Recovery 状态）：520, 571</li>
+        <li>Recovery State - Entry：572</li>
+        <li>Recovery.Equalization：587</li>
+        <li>Recovery.RcvrCfg：574, 575, 576, 598</li>
+        <li>Recovery.RcvrLock：573, 576</li>
+        <li>Recovery.Speed：575, 595</li>
+        <li>Refclk：455</li>
+        <li>Relaxed Ordering（宽松排序）：286, 296, 299</li>
+        <li>Replay Mechanism（重放机制）：74</li>
+        <li>Replay Timer：690</li>
+        <li>Request TLP（请求 TLP）：184</li>
+        <li>Request Types（请求类型）：59</li>
+        <li>Requester（请求者）：33</li>
+        <li>Requester ID（请求者 ID）：982</li>
+        <li>Reset（复位）：846</li>
+        <li>Resizable BARs（可调整大小 BAR）：135, 911</li>
+        <li>Resume command：853</li>
+        <li>Retention Latch：861</li>
+        <li>Retention Latch Sensor：861</li>
+        <li>Retry：21</li>
+        <li>RO：297</li>
+        <li>Root Complex（根复合体）：91, 109, 147, 163, 668, 696, 812,
+        972, 982</li>
+        <li>Root Complex Error Status（根复合体错误状态）：696</li>
+        <li>Root Error Command Register：698</li>
+        <li>Routing Elements（路由元素）：147</li>
+        <li>Routing Mechanisms（路由机制）：155</li>
+        <li>RST#：854</li>
+        <li>RTL Simulation：918</li>
+        <li>Run Length（游程长度）：982</li>
+        <li>Rx Buffer：403</li>
+        <li>Rx Clock：435</li>
+        <li>Rx Clock Recovery：394, 437</li>
+        <li>Rx Equalization：493</li>
+        <li>Rx Preset Hint Encodings：580</li>
+        </ul>
+        <h3 id="s">S</h3>
+        <ul>
+        <li>Scrambler（加扰器）：366, 377</li>
+        <li>Scrambler implementation：379</li>
+        <li>Scrambling（加扰）：983</li>
+        <li>SDP：373, 387</li>
+        <li>Secondary Bus Reset（次级总线复位）：840</li>
+        <li>Sequence Number（序列号）：326</li>
+        <li>Serial Transport：41</li>
+        <li>Serializer：389</li>
+        <li>Service Interval：279</li>
+        <li>Set Slot Power Limit Message：210</li>
+        <li>Set Slot Status：875</li>
+        <li>Severity of Error：693</li>
+        <li>Short Circuit Requirements：459</li>
+        <li>SHPC 1.0：848</li>
+        <li>SI：278</li>
+        <li>Signal Attenuation（信号衰减）：485</li>
+        <li>Simplified Ordering Rule：287</li>
+        <li>Simplified Ordering Table（简化排序表）：914</li>
+        <li>Single Host System：94</li>
+        <li>Single-Root System（单根系统）：113</li>
+        <li>SKIP：386, 387</li>
+        <li>SKIP ordered set：392</li>
+        <li>Skip Ordered Set：983</li>
+        <li>SKP：386</li>
+        <li>SKP Ordered Set：389</li>
+        <li>Slot Capabilities：865</li>
+        <li>Slot Capabilities Registers：865</li>
+        <li>Slot Control（插槽控制）：868</li>
+        <li>Slot Control Register：869</li>
+        <li>Slot Numbering：862</li>
+        <li>Slot Numbering Identification：862</li>
+        <li>Slot Power Limit Control：867, 881</li>
+        <li>Slot Power Limit Message：210</li>
+        <li>Slot Status（插槽状态）：870</li>
+        <li>Soft Off：708</li>
+        <li>SOS（跳过有序集）：389, 983</li>
+        <li>South Bridge：11</li>
+        <li>Spec Revision 2.1：887</li>
+        <li>Speed Change（速率变化）：568</li>
+        <li>Speed Change Example：576, 622</li>
+        <li>Speed Changes - Software：627</li>
+        <li>Split Transaction Protocol（拆分事务协议）：149</li>
+        <li>SR-IOV：937</li>
+        <li>SSC（扩频时钟）：983</li>
+        <li>SSC Modulation：455</li>
+        <li>SSD Modules：940</li>
+        <li>Start command：853</li>
+        <li>Sticky Bits（粘滞位）：688, 983</li>
+        <li>STP：373, 387</li>
+        <li>Strict Priority VC Arbitration：253</li>
+        <li>Strong Ordering：286</li>
+        <li>Subordinate Bus Number register：93</li>
+        <li>Surprise Removal（意外移除）：849</li>
+        <li>Surprise Removal Notification：849</li>
+        <li>Switch（交换机）：269, 278, 938, 971, 983</li>
+        <li>Switch Arbitration：269</li>
+        <li>Switch Port（交换端口）：57</li>
+        <li>Switch Routing：161</li>
+        <li>Switches：941</li>
+        <li>Symbol（符号）：366, 983</li>
+        <li>Symbol Lock（符号锁定）：78, 396, 507, 983</li>
+        <li>Symbol time（符号时间）：983</li>
+        <li>Symbols：381</li>
+        <li>Sync Header：364</li>
+        <li>System PM States：708</li>
+        <li>System Reset（系统复位）：833</li>
+        </ul>
+        <h3 id="t">T</h3>
+        <ul>
+        <li>Target（目标）：21, 22</li>
+        <li>TBWRR：266, 279</li>
+        <li>TC：247, 285, 287</li>
+        <li>TC to VC Mapping：249</li>
+        <li>TC/VC Mapping：248, 252</li>
+        <li>Time-Based, Weighted Round Robin
+        Arbitration（基于时间的加权轮询仲裁）：266</li>
+        <li>TLP（事务层包）：60, 61, 170, 172, 984</li>
+        <li>TLP Elements：169</li>
+        <li>TLP Header（TLP 头）：154</li>
+        <li>TLP Header Format：175</li>
+        <li>TLP Prefixes：908</li>
+        <li>TLP Processing Hints：899, 984</li>
+        <li>TLP Routing（TLP 路由）：145, 147</li>
+        <li>TLP Structure（TLP 结构）：174</li>
+        <li>Token（令牌）：984</li>
+        <li>token：712</li>
+        <li>TPH（TLP 处理提示）：899, 900, 984</li>
+        <li>TPH Capability：907</li>
+        <li>TPH Control：907</li>
+        <li>Trace Viewer（跟踪查看器）：924</li>
+        <li>Traffic Class（流量类别）：71, 174, 176, 183, 247, 248</li>
+        <li>Training Control：512</li>
+        <li>Training Examples：542</li>
+        <li>Training Sequence 1（训练序列 1）：369</li>
+        <li>Transaction Attributes：183</li>
+        <li>Transaction Descriptor：182</li>
+        <li>Transaction ID：183</li>
+        <li>Transaction Layer（事务层）：55, 59</li>
+        <li>Transaction Layer Packet：60, 172</li>
+        <li>Transaction Ordering：71, 285</li>
+        <li>Transaction Routing（事务路由）：121</li>
+        <li>Transaction Stalls：300</li>
+        <li>Transactions（事务）：150</li>
+        <li>Transactions Pending Buffer：228</li>
+        <li>Translating Slot IDs：873</li>
+        <li>Transmission Loss：468</li>
+        <li>Transmit Logic（发送逻辑）：364, 368</li>
+        <li>TS1：388</li>
+        <li>TS1 and TS2 Ordered Sets：510</li>
+        <li>TS1 Ordered-Set（TS1 有序集）：842</li>
+        <li>Turning Slot Off（关闭插槽）：855</li>
+        <li>Turning Slot On（开启插槽）：855</li>
+        <li>Tx Buffer：368, 435</li>
+        <li>Tx Clock：390</li>
+        <li>Tx Equalization：448</li>
+        <li>Tx Equalization Tolerance：448</li>
+        <li>Tx Preset Encodings：579</li>
+        <li>Tx Signal Skew：390</li>
+        <li>Type 0 Configuration Request：99</li>
+        <li>Type 1 Configuration Request：100</li>
+        <li>Type 1 configuration transaction：93</li>
+        <li>Type Field：179</li>
+        </ul>
+        <h3 id="u">U</h3>
+        <ul>
+        <li>UI（单位间隔）：984</li>
+        <li>Uncorrectable Error Reporting（不可纠正错误报告）：694</li>
+        <li>Uncorrectable Errors（不可纠正错误）：984</li>
+        <li>Uncorrectable Fatal Errors：652</li>
+        <li>Uncorrectable Non-Fatal Errors：652</li>
+        <li>Unexpected Completion（意外完成）：664</li>
+        <li>Unit Interval：984</li>
+        <li>Unlock Message：209</li>
+        <li>Unsupported Request（不支持的请求）：663</li>
+        <li>UpdateFC-Cpl：312</li>
+        <li>UpdateFC-NP：312</li>
+        <li>UpdateFC-P：312</li>
+        <li>USB Bus Driver：711</li>
+        <li>USP（上游端口）：984</li>
+        </ul>
+        <h3 id="v">V</h3>
+        <ul>
+        <li>Variables（变量）：985</li>
+        <li>VC：216, 247, 287</li>
+        <li>VC Arbitration：252, 257</li>
+        <li>VC Buffers：301</li>
+        <li>Vendor Specific：311</li>
+        <li>Vendor Specific DLLP：311</li>
+        <li>Vendor-Defined Message：210</li>
+        <li>Virtual Channel（虚拟通道）：218, 258, 301</li>
+        <li>Virtual Channel Arbitration Table：258</li>
+        <li>Virtual Channel Capability Registers：246</li>
+        <li>Virtual Channels（虚拟通道）：247</li>
+        </ul>
+        <h3 id="w">W</h3>
+        <ul>
+        <li>WAKE# Signal：772</li>
+        <li>WAKE# signal：773</li>
+        <li>Warm Reset（温复位）：834</li>
+        <li>WDM Device Driver：706</li>
+        <li>Weak Ordering（弱排序）：286, 299</li>
+        <li>Weighted Round Robin Arbitration：256</li>
+        <li>Weighted Round Robin Port Arbitration：265</li>
+        <li>Weighted Round Robin VC Arbitration：257</li>
+        <li>Working state：708</li>
+        <li>Write Transaction（写事务）：68</li>
+        <li>WRR：256</li>
+        </ul>
+      </article>
+
+      <nav class="chapter-nav chapter-nav-bottom">
+        <div class="nav-left">
+                    <a class="nav-btn" href="21 附录.html">← 第 21 章 附录</a>
+                  </div>
+
+        <div class="nav-center">
+          <a class="nav-btn home" href="index.html">目录</a>
+        </div>
+
+        <div class="nav-right">
+                    <span class="nav-btn disabled">已是最后一章 →</span>
+                  </div>
+      </nav>
+    </main>
+  </div>
+
+  <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
+
+  <script>
+    const btn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

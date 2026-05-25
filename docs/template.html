@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>$title$</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+  <nav class="chapter-nav chapter-nav-top">
+    <div class="nav-prev">
+      $if(prev_url)$
+      <a class="nav-btn" href="$prev_url$">← $prev_title$</a>
+      $else$
+      <span class="nav-btn disabled">← 已是第一章</span>
+      $endif$
+    </div>
+
+    <div class="nav-home">
+      <a class="nav-btn home" href="index.html">目录</a>
+    </div>
+
+    <div class="nav-title">
+      $title$
+    </div>
+
+    <div class="nav-next">
+      $if(next_url)$
+      <a class="nav-btn" href="$next_url$">$next_title$ →</a>
+      $else$
+      <span class="nav-btn disabled">已是最后一章 →</span>
+      $endif$
+    </div>
+  </nav>
+
+  <div class="layout">
+    <aside class="toc-panel">
+      <div class="toc-title">本章大纲</div>
+      $if(toc)$
+      $toc$
+      $else$
+      <p class="toc-empty">暂无大纲</p>
+      $endif$
+    </aside>
+
+    <main class="content">
+      <article>
+        $body$
+      </article>
+
+      <nav class="chapter-nav chapter-nav-bottom">
+        <div class="nav-left">
+          $if(prev_url)$
+          <a class="nav-btn" href="$prev_url$">← $prev_title$</a>
+          $else$
+          <span class="nav-btn disabled">← 已是第一章</span>
+          $endif$
+        </div>
+
+        <div class="nav-center">
+          <a class="nav-btn home" href="index.html">目录</a>
+        </div>
+
+        <div class="nav-right">
+          $if(next_url)$
+          <a class="nav-btn" href="$next_url$">$next_title$ →</a>
+          $else$
+          <span class="nav-btn disabled">已是最后一章 →</span>
+          $endif$
+        </div>
+      </nav>
+    </main>
+  </div>
+
+  <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
+
+  <script>
+    const btn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

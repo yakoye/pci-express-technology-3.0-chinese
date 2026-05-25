@@ -1,0 +1,1336 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>第 19 章 热插拔和功耗预算管理</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+  <nav class="chapter-nav chapter-nav-top">
+    <div class="nav-prev">
+            <a class="nav-btn" href="18 系统复位.html">← 第 18 章 系统复位</a>
+          </div>
+
+    <div class="nav-home">
+      <a class="nav-btn home" href="index.html">目录</a>
+    </div>
+
+    <div class="nav-title">
+      第 19 章 热插拔和功耗预算管理
+    </div>
+
+    <div class="nav-next">
+            <a class="nav-btn" href="20 规范2.1版本更新.html">第 20 章 规范 2.1 版本更新 →</a>
+          </div>
+  </nav>
+
+  <div class="layout">
+    <aside class="toc-panel">
+      <div class="toc-title">本章大纲</div>
+            <ul>
+            <li><a
+            href="#热插拔与功耗预算管理hot-plug-and-power-budgeting"
+            id="toc-热插拔与功耗预算管理hot-plug-and-power-budgeting">19
+            热插拔与功耗预算管理（Hot Plug and Power Budgeting）</a>
+            <ul>
+            <li><a href="#上一章" id="toc-上一章">上一章</a></li>
+            <li><a href="#本章" id="toc-本章">本章</a></li>
+            <li><a href="#下一章" id="toc-下一章">下一章</a></li>
+            <li><a href="#背景" id="toc-背景">19.1 背景</a></li>
+            <li><a href="#pci-express-环境中的热插拔"
+            id="toc-pci-express-环境中的热插拔">19.2 PCI Express
+            环境中的热插拔</a></li>
+            <li><a href="#支持热插拔所需的要素"
+            id="toc-支持热插拔所需的要素">19.3
+            支持热插拔所需的要素</a></li>
+            <li><a href="#板卡移除与插入流程"
+            id="toc-板卡移除与插入流程">19.4 板卡移除与插入流程</a></li>
+            <li><a href="#标准化使用模型" id="toc-标准化使用模型">19.5
+            标准化使用模型</a></li>
+            <li><a href="#标准热插拔控制器信号接口"
+            id="toc-标准热插拔控制器信号接口">19.6
+            标准热插拔控制器信号接口</a></li>
+            <li><a href="#热插拔控制器编程接口"
+            id="toc-热插拔控制器编程接口">19.7
+            热插拔控制器编程接口</a></li>
+            <li><a href="#静默化板卡与驱动程序"
+            id="toc-静默化板卡与驱动程序">19.8
+            静默化板卡与驱动程序</a></li>
+            <li><a href="#原语" id="toc-原语">19.9 原语</a></li>
+            <li><a href="#电源预算简介" id="toc-电源预算简介">19.10
+            电源预算简介</a></li>
+            <li><a href="#电源预算管理要素"
+            id="toc-电源预算管理要素">19.11 电源预算管理要素</a></li>
+            <li><a href="#插槽功率限制控制-1"
+            id="toc-插槽功率限制控制-1">19.12 插槽功率限制控制</a></li>
+            <li><a href="#功率预算能力寄存器组"
+            id="toc-功率预算能力寄存器组">19.13
+            功率预算能力寄存器组</a></li>
+            </ul></li>
+            </ul>
+          </aside>
+
+    <main class="content">
+      <article>
+        <h2 id="热插拔与功耗预算管理hot-plug-and-power-budgeting">19
+        热插拔与功耗预算管理（Hot Plug and Power Budgeting）</h2>
+        <h3 id="上一章">上一章</h3>
+        <p>上一章描述了 PCIe 定义的三种复位类型：基本复位（Fundamental
+        Reset，包括冷复位和温复位）、热复位（Hot
+        Reset）以及功能级复位（Function-Level
+        Reset，FLR）。上一章还讨论了使用边带复位信号 PERST#
+        生成系统复位的方法，以及基于带内 TS1
+        有序集生成热复位的机制。</p>
+        <h3 id="本章">本章</h3>
+        <p>本章描述 PCI Express
+        热插拔模型，并为所有支持热插拔能力的设备和外形规格定义标准使用模型。对于热插拔卡而言，功耗同样是一个关键问题：当系统运行期间新增一张卡时，必须确保其功耗需求不超过系统能够提供的能力。因此，需要一种机制在允许设备运行之前查询其功耗需求，功耗预算寄存器（Power
+        Budgeting Registers）正是为此而定义。</p>
+        <h3 id="下一章">下一章</h3>
+        <p>下一章将介绍 PCIe 2.1
+        规范修订版新增的变更与特性。其中部分主题（例如与电源管理相关的内容）已在前面章节中描述，但其他主题没有更合适的章节位置。最终，将这些新增特性集中在同一章中进行说明，既能确保内容完整，也有助于明确哪些能力是新引入的。</p>
+        <h3 id="背景">19.1 背景</h3>
+        <p>某些采用 PCIe
+        的系统需要高可用性或不停机运行。在线服务提供商通常要求计算机系统每年仅允许几分钟甚至更短的停机时间。构建这类系统涉及多个方面，但设备可靠性显然非常重要。为了支持这些目标，PCIe
+        为扩展卡提供热插拔/热替换（Hot Plug/Hot
+        Swap）解决方案，主要具备三项能力：</p>
+        <ol type="1">
+        <li>无需关闭系统即可更换故障扩展卡。</li>
+        <li>在维修期间保持操作系统和其他服务继续运行。</li>
+        <li>关闭并重启与故障设备相关的软件。</li>
+        </ol>
+        <p>在 PCI
+        被广泛接受之前，业界已经开发了许多专有热插拔方案，用于支持扩展卡的在线移除与替换。最初的
+        PCI 实现并不支持板卡热移除和热插入，后来 PCI
+        形成了两种标准化方案来支持这一能力。第一种是 Hot Plug PCI
+        Card，用于 PC Server 主板和扩展机箱实现；另一种称为 Hot
+        Swap，用于基于无源 PCI 背板的 CompactPCI 系统。</p>
+        <p>在这两种方案中，控制逻辑用于将板卡逻辑与共享 PCI
+        总线进行电气隔离。电源、复位和时钟受到控制，以确保板卡在移除和替换时能够有序断电和上电；状态
+        LED 和电源 LED 用于告知用户何时可以安全更换板卡。</p>
+        <p>将热插拔支持扩展到 PCI Express
+        卡是很自然的一步，设计者也将一些热插拔特性作为 PCIe
+        的“原生”能力引入。规范定义了配置寄存器、热插拔消息以及支持热插拔方案的相关流程。</p>
+        <h3 id="pci-express-环境中的热插拔">19.2 PCI Express
+        环境中的热插拔</h3>
+        <p>PCIe 热插拔源自 PCI 标准热插拔控制器规范 1.0 版（Standard Hot
+        Plug Controller，SHPC 1.0）。PCI Express 热插拔的目标包括：</p>
+        <ul>
+        <li>支持与 SHPC 规范定义的相同“标准化使用模型”（Standardized
+        Usage Model）。这样从用户角度看，PCI Express 热插拔与基于 SHPC
+        1.0 的既有实现保持一致。</li>
+        <li>支持现有操作系统实现的相同软件模型。不过，使用 SHPC 1.0
+        兼容驱动程序的操作系统无法直接配合 PCI Express
+        热插拔控制器工作，因为 PCIe
+        热插拔控制器具有不同的编程接口。</li>
+        </ul>
+        <p>支持热插拔控制器所需的寄存器被集成在各个 Root Port 和 Switch
+        Port
+        中。在热插拔软件控制下，这些控制器以及相关端口接口必须控制板卡接口信号，以确保更换板卡时能够有序断电和上电。为此，它们需要完成以下工作：</p>
+        <ul>
+        <li>对 PCI Express 卡连接器断言或取消断言 PERST# 信号。</li>
+        <li>对卡连接器移除或施加电源。</li>
+        <li>选择性打开或关闭与特定卡连接器关联的 Power Indicator 和
+        Attention
+        Indicator，用于提示用户关注该连接器，并指示插槽是否已供电。</li>
+        <li>监控插槽事件（例如卡移除），并通过中断向软件报告。</li>
+        </ul>
+        <p>PCI Express 热插拔与 PCI 类似，设计为一种“无意外”（No
+        Surprises）的热插拔方法。也就是说，通常不允许用户在未通知系统的情况下直接安装或移除
+        PCI Express
+        卡。软件会先准备好板卡和插槽，然后向操作员指示热插拔流程状态，并通知何时可以执行安装或移除操作。</p>
+        <h4 id="意外移除通知">19.2.1 意外移除通知</h4>
+        <p>符合 PCIe Card
+        ElectroMechanical（CEM）规范的卡，在连接器上实现了卡存在检测引脚
+        PRSNT1# 和
+        PRSNT2#。这些引脚比其他引脚更短，因此当卡从插槽中拔出时，它们会最先断开接触。系统可利用这一点提前向软件报告“意外移除”（Surprise
+        Removal），从而在其他信号断开之前留出时间移除插槽电源。</p>
+        <h4 id="pci-与-pcie-热插拔的区别">19.2.2 PCI 与 PCIe
+        热插拔的区别</h4>
+        <p>PCI 和 PCIe 热插拔方案所需的要素基本相同。图 19-1 展示了支持
+        PCI 热插拔所需的硬件和软件组件。PCI
+        方案在系统板上实现一个标准化的热插拔控制器，由它管理同一总线上的所有热插拔插槽。在
+        PCI
+        环境中，还需要隔离逻辑在更换板卡之前将卡与共享总线电气断开，以避免在活动总线上产生信号毛刺。</p>
+        <p>PCIe 采用点对点连接，如图 19-2
+        所示，因此不再需要共享总线隔离逻辑；但每个连接器所连接的端口都需要一个独立的热插拔控制器。规范为每个
+        Root Port 和 Switch Port
+        定义了标准化软件接口，用于控制热插拔操作。</p>
+        <p>图 19-1：PCI 热插拔要素</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-04.jpg"
+        alt="图 19-1：PCI 热插拔要素" />
+        <figcaption aria-hidden="true">图 19-1：PCI
+        热插拔要素</figcaption>
+        </figure>
+        <p>图 19-2：PCI Express 热插拔要素</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-05.jpg"
+        alt="图 19-2：PCI Express 热插拔要素" />
+        <figcaption aria-hidden="true">图 19-2：PCI Express
+        热插拔要素</figcaption>
+        </figure>
+        <h3 id="支持热插拔所需的要素">19.3 支持热插拔所需的要素</h3>
+        <p>如图 19-2
+        所示，实现热插拔环境需要多个组成部分。为便于讨论，下面将这些要素分为软件要素和硬件要素。</p>
+        <h4 id="软件要素">19.3.1 软件要素</h4>
+        <p>表 19-1 描述了支持热插拔能力的主要软件要素。</p>
+        <p>表 19-1：主要热插拔软件要素简介</p>
+        <table>
+        <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>软件要素</th>
+        <th>提供方</th>
+        <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>用户界面（User Interface）</td>
+        <td>操作系统供应商</td>
+        <td>操作系统提供的工具，允许用户请求关闭某个连接器电源以移除板卡，或开启电源以使用刚安装的板卡。</td>
+        </tr>
+        <tr>
+        <td>热插拔服务（Hot-Plug Service）</td>
+        <td>操作系统供应商</td>
+        <td>处理操作系统发出的请求，这些请求称为热插拔原语（Hot-Plug
+        Primitives）。请求内容包括：提供插槽标识符、打开或关闭板卡电源、打开或关闭
+        Attention Indicator、读取插槽当前电源状态（On/Off）。Hot-Plug
+        Service 通过与 Hot-Plug System Driver
+        交互完成这些请求。二者之间的接口（API）由操作系统供应商定义。</td>
+        </tr>
+        <tr>
+        <td>标准化热插拔系统驱动程序（Standardized Hot-Plug System
+        Driver）</td>
+        <td>系统板供应商或操作系统</td>
+        <td>接收操作系统中 Hot-Plug Service 发出的请求（Hot-Plug
+        Primitives），并与硬件 Hot-Plug Controller
+        交互以执行这些请求。</td>
+        </tr>
+        <tr>
+        <td>设备驱动程序（Device Driver）</td>
+        <td>适配卡供应商</td>
+        <td>支持热插拔能力的设备驱动程序必须包含某些热插拔专用能力，包括支持
+        Quiesce 命令、可选支持 Pause 命令、支持 Start 命令或可选支持
+        Resume 命令。</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>支持热插拔的系统也可能运行一个不支持热插拔能力的操作系统。在这种情况下，尽管系统
+        BIOS 可能包含热插拔相关软件，但系统中不会存在 Hot-Plug
+        Service。只要用户不尝试热插入或热移除板卡，该系统就会作为普通的非热插拔系统运行：</p>
+        <ul>
+        <li>系统启动固件必须确保所有 Attention Indicator
+        均处于关闭状态。</li>
+        <li>规范还指出：“热插拔插槽必须处于适合加载非热插拔系统软件的状态。”</li>
+        </ul>
+        <h4 id="硬件要素">19.3.2 硬件要素</h4>
+        <p>表 19-2 列出了支持 PCI Express
+        热插拔操作所需的主要硬件要素。</p>
+        <p>表 19-2：主要热插拔硬件要素</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>硬件要素</th>
+        <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>热插拔控制器（Hot-Plug Controller）</td>
+        <td>接收并处理 Hot-Plug System Driver
+        发出的命令。每个支持热插拔操作的 Root Port 或 Switch Port
+        都关联一个控制器。PCIe 规范为 Hot-Plug Controller
+        定义了标准软件接口。</td>
+        </tr>
+        <tr>
+        <td>插槽电源切换逻辑（Card Slot Power Switching Logic）</td>
+        <td>允许在程序控制下打开或关闭插槽电源。该逻辑由 Hot-Plug
+        Controller 在 Hot-Plug System Driver 指示下控制。</td>
+        </tr>
+        <tr>
+        <td>板卡复位逻辑（Card Reset Logic）</td>
+        <td>Hot-Plug Controller 根据 Hot-Plug System Driver
+        的指令，驱动特定插槽的 PERST# 信号。</td>
+        </tr>
+        <tr>
+        <td>电源指示灯（Power Indicator）</td>
+        <td>指示连接器当前是否供电。该指示灯由每个端口相关的热插拔逻辑控制，并受
+        Hot-Plug System Driver 指示。</td>
+        </tr>
+        <tr>
+        <td>注意指示灯（Attention Indicator）</td>
+        <td>引导操作员关注需要维护的连接器。该指示灯由热插拔逻辑控制，并受
+        Hot-Plug System Driver 指示。</td>
+        </tr>
+        <tr>
+        <td>注意按钮（Attention Button）</td>
+        <td>操作员按下该按钮，用于通知热插拔软件当前请求更换板卡。</td>
+        </tr>
+        <tr>
+        <td>卡存在检测引脚（Card Present Detect Pins）</td>
+        <td>共有两个：PRSNT1# 位于卡槽一端，PRSNT2#
+        位于另一端。这些引脚比其他引脚短，因此拔出卡时会先断开。系统板将
+        PRSNT1# 接地，并将 PRSNT2# 通过上拉电阻连接到 Hot-Plug
+        Controller 输入端。对于更宽连接器，还定义了额外的 PRSNT2#
+        引脚，以支持较短卡插入较长连接器并被识别。板卡会将 PRSNT1# 和
+        PRSNT2# 短接，因此如果未插卡，PRSNT2#
+        输入为高电平；如果已插卡，则为低电平。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h3 id="板卡移除与插入流程">19.4 板卡移除与插入流程</h3>
+        <p>以下关于典型板卡移除和插入的描述主要用于入门说明。需要注意的是，后续流程假设由操作系统（而不是
+        Hot-Plug System Driver）负责配置新安装的设备。如果 Hot-Plug
+        System Driver 承担配置职责，则 Hot-Plug Service 会调用 Hot-Plug
+        System Driver，并指示它配置新安装的设备。</p>
+        <h4 id="on-和-off-状态">19.4.1 On 和 Off 状态</h4>
+        <p>处于 On 状态的插槽具有以下特征：</p>
+        <ul>
+        <li>插槽已供电。</li>
+        <li>REFCLK 已打开。</li>
+        <li>链路处于 Active 状态，或处于主动状态电源管理（Active State
+        Power Management，ASPM）状态。</li>
+        <li>PERST# 信号已取消断言。</li>
+        </ul>
+        <p>处于 Off 状态的插槽具有以下特征：</p>
+        <ul>
+        <li>插槽电源已关闭。</li>
+        <li>REFCLK 已关闭。</li>
+        <li>链路处于非活动状态，即 Root Port 或 Switch Port
+        侧驱动器处于高阻态（Hi-Z）。</li>
+        <li>PERST# 信号已断言。</li>
+        </ul>
+        <h5 id="关闭插槽">19.4.1.1 关闭插槽</h5>
+        <p>关闭一个当前处于 On 状态的插槽，需要执行以下步骤：</p>
+        <ol type="1">
+        <li>停用链路。这可能涉及发送 EIOS，使驱动器进入高阻态。</li>
+        <li>向插槽断言 PERST# 信号。</li>
+        <li>关闭插槽的 REFCLK。</li>
+        <li>移除插槽电源。</li>
+        </ol>
+        <h5 id="开启插槽">19.4.1.2 开启插槽</h5>
+        <p>开启一个当前处于 Off 状态的插槽，需要执行以下步骤：</p>
+        <ol type="1">
+        <li>向插槽施加电源。</li>
+        <li>打开插槽的 REFCLK。</li>
+        <li>取消断言插槽的 PERST# 信号。系统必须满足 PCI Express
+        规范中相对于 PERST# 上升沿定义的建立时间和保持时间要求。</li>
+        </ol>
+        <p>一旦电源和时钟恢复、PERST#
+        被撤销，两端端口的物理层就会执行链路训练和初始化。当链路进入活动状态后，设备会初始化
+        VC0（包括流量控制），使链路准备好传输 TLP。</p>
+        <h4 id="板卡移除流程">19.4.2 板卡移除流程</h4>
+        <p>当需要移除一张板卡时，需要执行一系列步骤，为安全移除做好软件和硬件准备，并设置正在处理的板卡对应的指示灯。正常运行期间，指示灯状态如下：</p>
+        <ul>
+        <li>Attention Indicator（琥珀色或黄色）：正常运行期间为
+        Off。</li>
+        <li>Power Indicator（绿色）：正常运行期间为 On。</li>
+        </ul>
+        <p>软件通过配置写操作向 Hot-Plug Controller
+        发送请求，这些配置写操作以支持热插拔端口实现的 Slot Control
+        Register 为目标。Slot Control Register
+        用于控制插槽电源和指示灯状态。</p>
+        <p>事件序列如下：</p>
+        <ol type="1">
+        <li>操作员通过按下插槽的 Attention
+        Button，或通过系统用户界面选择待移除板卡的物理插槽编号，发起板卡移除请求。如果使用按钮，Hot-Plug
+        Controller 会检测到该事件，并向 Root Complex 发送中断。该中断使
+        Hot-Plug Service 调用 Hot-Plug System Driver
+        读取插槽状态信息，并检测到 Attention Button 请求。</li>
+        <li>接着，Hot-Plug Service 命令 Hot-Plug System Driver
+        让该插槽的 Power Indicator 闪烁 5
+        秒，作为给操作员的视觉反馈。如果请求是通过按下 Attention Button
+        发起的，操作员可以在这 5 秒内再次按下按钮取消请求。</li>
+        <li>在 Hot-Plug 软件验证该请求期间，Power Indicator
+        持续闪烁。如果该板卡当前正在参与某些关键系统操作，软件可能拒绝该请求。此时软件会向
+        Hot-Plug Controller 发出命令，将 Power Indicator 重新置为
+        On。规范还建议软件通知操作员，例如显示消息或记录日志，说明请求被拒绝的原因。</li>
+        <li>如果请求验证通过，Hot-Plug Service
+        工具会命令该卡的设备驱动程序使设备进入静默状态（Quiesce）。也就是说，禁用该设备生成新请求的能力，并完成或终止所有尚未完成的
+        Root Port 或 Switch Port 请求。</li>
+        <li>随后，软件通过该插槽所连接 Root Port 或 Switch Port 中的
+        Link Control Register 发出命令，禁用该卡的链路。</li>
+        <li>接下来，软件命令 Hot-Plug Controller 关闭该插槽。</li>
+        <li>成功断电后，软件发出 Power Indicator Off
+        请求，关闭电源指示灯，以便操作员知道此时可以移除该卡。</li>
+        <li>操作员释放机械固定锁扣（Mechanical Retention
+        Latch，MRL）（如果实现了该锁扣），使 Hot-Plug Controller
+        从插槽中移除所有已切换信号，例如 SMBus 和 JTAG
+        信号。此时可以移除该卡。</li>
+        <li>操作系统释放此前分配给该设备的内存空间、I/O
+        空间、中断线等资源，并将这些资源留作后续分配给其他设备。</li>
+        </ol>
+        <h4 id="插卡流程">19.4.3 插卡流程</h4>
+        <p>安装新卡的流程基本上是板卡移除流程的逆过程。下面的步骤假设插槽保持在移除板卡后立即所处的状态，即
+        Power Indicator 为 Off，表示插槽已经准备好插入新卡。</p>
+        <p>插入并启用新卡的步骤如下：</p>
+        <ol type="1">
+        <li>操作员安装新卡并锁紧 MRL。如果实现了 MRL
+        Sensor，该传感器会通知 Hot-Plug Controller
+        锁扣已经闭合，从而使已切换的辅助信号和 Vaux 连接到插槽。</li>
+        <li>接着，操作员通过按下 Attention Button，或使用 Hot-Plug
+        Utility 程序选择该插槽，通知 Hot-Plug Service
+        板卡已经安装。</li>
+        <li>如果按下了按钮，该事件会通知 Hot-Plug
+        Controller，使相关状态寄存器位被置位，并向 Root Complex
+        发送系统中断。随后，热插拔软件从端口读取插槽状态，并识别该请求。</li>
+        <li>Hot-Plug Service 向 Hot-Plug System Driver 发出请求，命令
+        Hot-Plug Controller 闪烁该插槽的 Power
+        Indicator，用于告知操作员此时不得移除该卡。从指示灯开始闪烁起，操作员有
+        5 秒的中止时间，可通过再次按下按钮取消请求。</li>
+        <li>在 Hot-Plug 软件验证请求期间，Power Indicator
+        持续闪烁。软件可能无法验证该请求，例如安全策略可能禁止启用该插槽。如果请求未通过验证，软件会命令
+        Hot-Plug Controller 将 Power Indicator 重新置为
+        Off。规范建议软件通过消息或日志通知操作员请求被拒绝的原因。</li>
+        <li>Hot-Plug Service 向 Hot-Plug System Driver 发出请求，命令
+        Hot-Plug Controller 打开该插槽。</li>
+        <li>插槽通电后，软件发出命令将 Power Indicator 置为 On。</li>
+        <li>链路训练完成后，操作系统命令平台配置例程为该卡的 Function
+        分配必要资源，从而配置该板卡。</li>
+        <li>操作系统根据 Vendor ID 和 Device ID、Class Code，或
+        Subsystem Vendor ID 和 Subsystem ID 等配置寄存器值，定位 PCI
+        Express 设备中各 Function
+        对应的驱动程序，并将其加载到内存中。</li>
+        <li>操作系统随后调用驱动程序的初始化代码入口点，使处理器执行驱动程序初始化代码。该代码完成设备设置，并在设备的
+        PCI 配置 Command Register 中设置相应位，以启用该设备。</li>
+        </ol>
+        <h3 id="标准化使用模型">19.5 标准化使用模型</h3>
+        <h4 id="背景-1">19.5.1 背景</h4>
+        <p>基于 PCI Hot Plug 规范 1.0
+        原始版本的系统，其硬件和软件设计差异很大，因为该规范没有定义标准化寄存器或用户接口。因此，客户从不同供应商购买支持热插拔的系统时，会遇到差异很大的用户界面，并且在采购新系统后需要重新培训操作员。此外，每个系统板设计者都需要编写软件来管理自己特定实现的热插拔控制器。</p>
+        <p>PCI Hot-Plug Controller（HPC）规范 1.1 修订版定义了：</p>
+        <ul>
+        <li>标准用户界面，用于消除重新培训操作员的需求。</li>
+        <li>热插拔控制器的标准编程接口，使标准化热插拔驱动程序可以集成到操作系统中。PCI
+        Express 实现了 HPC 规范未定义的寄存器，因此 PCI 和 PCI Express
+        的标准热插拔控制器驱动实现略有不同。</li>
+        </ul>
+        <h4 id="标准用户界面">19.5.2 标准用户界面</h4>
+        <p>标准用户界面包含以下功能：</p>
+        <ul>
+        <li>Attention Indicator：通过 LED
+        的亮、灭或闪烁状态显示插槽的注意状态。规范定义闪烁频率为 1 Hz 至
+        2 Hz，占空比为 50%（±5%）。该指示灯状态完全由软件控制。</li>
+        <li>Power Indicator：在 PCI HP 1.1 中称为 Slot State
+        Indicator，用于显示插槽电源状态，也可以处于亮、灭或闪烁状态（1
+        Hz 至 2 Hz，占空比 50%
+        ±5%）。该指示灯由软件控制，但规范允许在硬件电源故障场景中存在例外。</li>
+        <li>手动固定锁扣及可选传感器：将卡固定在插槽中，并在锁扣释放时通知系统。</li>
+        <li>机电互锁（Electromechanical
+        Interlock，可选）：锁定卡或固定锁扣，防止在插槽通电时拔出板卡。</li>
+        <li>软件用户界面：允许操作员请求热插拔操作。</li>
+        <li>Attention Button：允许操作员手动请求热插拔操作。</li>
+        <li>插槽编号标识：提供板上插槽的可视化标识。</li>
+        </ul>
+        <h5 id="attention-indicator">19.5.2.1 Attention Indicator</h5>
+        <p>如前所述，规范要求系统供应商为每个热插拔插槽提供一个
+        Attention
+        Indicator。该指示灯必须位于对应插槽附近，颜色为黄色或琥珀色，用于提醒最终用户该插槽需要维护。规范明确区分操作错误和验证错误，并且不允许
+        Attention Indicator
+        用于报告验证错误。验证错误是在开始热插拔操作之前由软件检测并报告的问题。Attention
+        Indicator 的行为如表 19-3 所示。</p>
+        <p>表 19-3：插槽 Attention Indicator 的行为与含义</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>指示灯行为</th>
+        <th>注意状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Off</td>
+        <td>正常：正常运行。</td>
+        </tr>
+        <tr>
+        <td>On</td>
+        <td>注意：热插拔操作因操作问题失败，例如外部线缆问题、扩展卡问题、软件驱动程序问题或电源故障。</td>
+        </tr>
+        <tr>
+        <td>Blinking</td>
+        <td>定位：按照操作员请求正在识别该插槽。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h5 id="power-indicator">19.5.2.2 Power Indicator</h5>
+        <p>Power Indicator
+        仅反映插槽主电源状态，由热插拔软件控制。该指示灯为绿色，当插槽主电源为
+        On 时点亮。</p>
+        <p>规范明确禁止 Root Port 或 Switch Port
+        硬件由于电源故障或其他事件而自主更改 Power Indicator
+        状态。此规则只有一个例外：平台可以检测“电源卡滞开启”（Stuck-on
+        Power
+        Fault）故障。该故障是指用于移除插槽电源的命令未能生效。如果系统设计为能够检测这种情况，系统可以覆盖
+        Root Port 或 Switch Port 关闭 Power Indicator
+        的命令，并强制其保持点亮，从而通知操作员不应从插槽移除该卡。规范进一步指出，支持
+        Stuck-on Fault
+        是可选能力；如果通过系统软件处理，平台供应商必须通过其他软件、平台文档或其他方式说明标准使用模型中的这一可选特性。</p>
+        <p>Power Indicator 的行为和相关电源状态如表 19-4
+        所示。需要注意的是，在 MRL 释放之前，或在系统通过 PRSNT1# 和
+        PRSNT2# 信号检测到板卡被移除之前，Vaux
+        会保持开启，并且已切换信号仍然连接。</p>
+        <p>表 19-4：Power Indicator 的行为与含义</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>指示灯行为</th>
+        <th>电源状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Off</td>
+        <td>Power
+        Off：可以安全地移除或插入板卡。所有热插拔操作要求移除的电源都已移除。只有当
+        MRL 被释放时，Vaux 才会被移除。</td>
+        </tr>
+        <tr>
+        <td>On</td>
+        <td>Power On：不允许移除或插入板卡。当前插槽已供电。</td>
+        </tr>
+        <tr>
+        <td>Blinking</td>
+        <td>Power
+        Transition：不允许移除或插入板卡。该状态通知操作员，软件正在响应热插拔请求移除或施加插槽电源。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h5 id="手动固定锁扣与传感器">19.5.2.3 手动固定锁扣与传感器</h5>
+        <p>手动固定锁扣（Manually Operated Retention
+        Latch，MRL）是必需的，用于将 PCI Express
+        卡牢固固定在插槽中。每个 MRL 可以实现一个可选传感器，用于通知
+        Hot-Plug Controller
+        该锁扣是闭合还是打开。规范也允许使用单个锁扣同时固定多张卡，但这类实现不支持
+        MRL Sensor。</p>
+        <p>MRL Sensor
+        可以是开关、光学器件或其他类型的传感器，用于报告锁扣处于闭合还是打开状态。如果检测到意外释放锁扣，端口会自动禁用插槽并通知系统软件，但不允许自主更改
+        Power Indicator 或 Attention Indicator 状态。</p>
+        <p>当 MRL Sensor 指示 MRL
+        打开时，必须自动从插槽移除已切换信号和辅助电源（Vaux）；当 MRL
+        Sensor 指示锁扣闭合时，必须恢复这些信号和电源。已切换信号包括
+        Vaux、SMBCLK 和 SMBDAT。</p>
+        <p>规范还描述了在没有 MRL Sensor 时移除 Vaux 和 SMBus
+        电源的替代方法。PRSNT#2
+        引脚可以指示插槽中是否物理安装了板卡，并可用于触发端口移除已切换信号。</p>
+        <h5 id="机电互锁可选">19.5.2.4 机电互锁（可选）</h5>
+        <p>可选的机电板卡互锁机制提供了一种更复杂的方法，用于确保插槽通电期间板卡不会被移除。规范没有定义互锁的具体形态，但指出它可以将扩展卡或
+        MRL 物理锁定在原位。</p>
+        <p>互锁机制由软件控制，但规范没有为其定义专门的编程接口。相反，互锁由与使能插槽主电源相同的端口信号控制。</p>
+        <h5 id="软件用户界面">19.5.2.5 软件用户界面</h5>
+        <p>操作员可以使用软件界面请求移除或插入板卡。该界面由系统软件提供，系统软件还负责监控插槽并向操作员报告状态信息。规范指出，用户界面由操作系统实现，因此不在
+        PCIe 规范范围内。</p>
+        <p>操作员必须能够独立于其他插槽，对每个插槽发起操作。因此，即使某个插槽的热插拔操作正在进行，操作员仍可通过软件用户界面或
+        Attention Button
+        对另一个插槽发起热插拔操作。无论第一个热插拔操作是通过哪种界面发起，都应支持这种行为。</p>
+        <h5 id="attention-button">19.5.2.6 Attention Button</h5>
+        <p>Attention Button
+        是一个瞬时接触式按钮开关，位于对应热插拔插槽附近或模块上。操作员按下该按钮即可发起该插槽的热插拔操作，例如板卡移除或插入。按下
+        Attention Button 后，Power Indicator
+        开始闪烁。从闪烁开始起，操作员有 5
+        秒时间可再次按下按钮以中止热插拔操作。</p>
+        <p>规范建议，如果由 Attention Button
+        发起的操作失败，系统软件应向操作员通知该失败。例如，可以报告或记录一条说明故障性质的消息。</p>
+        <h5 id="插槽编号标识">19.5.2.7 插槽编号标识</h5>
+        <p>软件和操作员必须能够根据插槽编号识别物理插槽。每个支持热插拔的端口必须实现寄存器，供软件识别物理插槽编号。这些寄存器包括
+        Physical Slot Number 和 Chassis Number。主机箱始终标记为 Chassis
+        0；其他机箱的编号必须为非零值，并通过 PCI-to-PCI Bridge 的
+        Chassis Number Register 分配。</p>
+        <h3 id="标准热插拔控制器信号接口">19.6
+        标准热插拔控制器信号接口</h3>
+        <p>图 19-3 更详细地展示了 Switch Port
+        内部逻辑，以及插槽与端口之间路由的信号。标准化 Hot-Plug
+        Controller
+        的重要性在于提供统一的软件接口，使设备驱动程序能够集成到操作系统中。</p>
+        <p>PCIe 规范与 Card ElectroMechanical（CEM）规范共同定义了热插拔
+        PCI Express
+        所需的插槽信号和支持能力。以下是支持标准使用模型所需的必需和可选端口接口信号：</p>
+        <ul>
+        <li>PWRLED#（必需）：端口输出，用于控制 Power Indicator
+        状态。</li>
+        <li>ATNLED#（必需）：端口输出，用于控制 Attention Indicator
+        状态。</li>
+        <li>PWREN（如果实现了参考时钟则为必需）：端口输出，用于控制插槽主电源。</li>
+        <li>REFCLKEN#（必需）：端口输出，用于控制向插槽提供参考时钟。</li>
+        <li>PERST#（必需）：端口输出，用于控制插槽处的 PERST#。</li>
+        <li>PRSNT1#（必需）：在连接器处接地。</li>
+        <li>PRSNT2#（必需）：端口输入，在系统板上上拉，用于指示插槽中是否存在板卡。</li>
+        <li>PWRFLT#（必需）：端口输入，用于通知 Hot-Plug Controller
+        外部逻辑检测到了电源故障。</li>
+        <li>AUXEN#（如果实现了 AUX 电源则为必需）：端口输出，用于在 MRL
+        打开或闭合时控制已切换 AUX 信号和插槽 AUX 电源。当存在 AUX
+        电源时，MRL# 信号是必需的。</li>
+        <li>MRL#（如果实现了 MRL Sensor 则为必需）：来自 MRL Sensor
+        的端口输入。</li>
+        <li>BUTTON#（如果实现了 Attention Button
+        则为必需）：端口输入，指示操作员已按下 Attention Button。</li>
+        </ul>
+        <p>图 19-3：Switch 内部的热插拔控制功能</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-18.jpg"
+        alt="图 19-3：Switch 内部的热插拔控制功能" />
+        <figcaption aria-hidden="true">图 19-3：Switch
+        内部的热插拔控制功能</figcaption>
+        </figure>
+        <h3 id="热插拔控制器编程接口">19.7 热插拔控制器编程接口</h3>
+        <p>Hot-Plug Controller 的标准编程接口通过 PCI Express Capability
+        Register Block 提供，如图 19-4
+        所示，其中热插拔相关寄存器被高亮标出。热插拔特性主要位于 Root
+        Port 和 Switch Port 定义的 Slot Registers 中。Device Capability
+        Register 在某些实现中也会被使用，本章后面会说明。</p>
+        <p>图 19-4：用于热插拔的 PCIe 能力寄存器</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-19.jpg"
+        alt="图 19-4：用于热插拔的 PCIe 能力寄存器" />
+        <figcaption aria-hidden="true">图 19-4：用于热插拔的 PCIe
+        能力寄存器</figcaption>
+        </figure>
+        <h4 id="插槽能力">19.7.1 插槽能力</h4>
+        <p>图 19-5 展示了 Slot Capabilities Register
+        及其位域。硬件会初始化所有这些能力字段，以反映该端口实现的功能。该寄存器适用于卡槽和机架安装实现，但指示灯和
+        Attention Button 例外。软件必须读取模块内的 Device Capability
+        Register，以确定是否实现了指示灯和 Attention Button。表 19-5
+        列出并定义了 Slot Capabilities 字段。</p>
+        <p>图 19-5：Slot Capabilities Register</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-20.jpg"
+        alt="图 19-5：Slot Capabilities Register" />
+        <figcaption aria-hidden="true">图 19-5：Slot Capabilities
+        Register</figcaption>
+        </figure>
+        <p>表 19-5：Slot Capabilities Register 字段及描述</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>位</th>
+        <th>字段名称与描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>0</td>
+        <td>Attention Button Present：表示机箱中靠近该插槽的位置存在
+        Attention Button。</td>
+        </tr>
+        <tr>
+        <td>1</td>
+        <td>Power Controller Present：表示该插槽存在 Power
+        Controller。</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>MRL Sensor Present：表示该插槽存在 MRL Sensor。</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Attention Indicator Present：表示机箱中靠近该插槽的位置存在
+        Attention Indicator。</td>
+        </tr>
+        <tr>
+        <td>4</td>
+        <td>Power Indicator Present：表示机箱中靠近该插槽的位置存在
+        Power Indicator。</td>
+        </tr>
+        <tr>
+        <td>5</td>
+        <td>Hot-Plug
+        Surprise：表示用户可能在未提前通知的情况下从系统中移除该卡。该位告诉操作系统需要允许这种移除，并且不影响软件继续运行。</td>
+        </tr>
+        <tr>
+        <td>6</td>
+        <td>Hot-Plug Capable：表示该插槽支持热插拔操作。</td>
+        </tr>
+        <tr>
+        <td>14:7</td>
+        <td>Slot Power Limit
+        Value：指定该插槽能够提供的最大功率。该限制值需要乘以下一个字段指定的比例因子。</td>
+        </tr>
+        <tr>
+        <td>16:15</td>
+        <td>Slot Power Limit Scale：指定 Slot Power Limit Value
+        的比例因子。</td>
+        </tr>
+        <tr>
+        <td>17</td>
+        <td>ElectroMechanical Interlock
+        Present：表示该插槽实现了机电互锁功能。</td>
+        </tr>
+        <tr>
+        <td>18</td>
+        <td>No Command Completed
+        Support：表示该插槽在命令完成时不会生成软件通知。早期版本执行热插拔命令有时耗时较长，例如通过
+        I2C 总线打开或关闭电源可能需要 1
+        秒或更久，并在最终完成时生成中断。此位被置位时表示该端口可以无延迟地接受对
+        Slot Control Register
+        所有字段的写入，因此不需要命令完成通知。</td>
+        </tr>
+        <tr>
+        <td>31:19</td>
+        <td>Physical Slot
+        Number：表示与该端口关联的物理插槽编号。该字段必须由硬件初始化为机箱内唯一的编号。软件需要用该编号将物理插槽与逻辑插槽
+        ID（该设备的 Bus、Device 和 Function 编号）关联起来。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h4 id="插槽功率限制控制">19.7.2 插槽功率限制控制</h4>
+        <p>规范提供了一种方法，使软件能够限制安装在扩展插槽或背板实现中的板卡所消耗的功率。支持此功能的寄存器包含在
+        Slot Capabilities Register 中。</p>
+        <h4 id="插槽控制">19.7.3 插槽控制</h4>
+        <p>软件通过 Slot Control Register 控制热插拔事件，如图 19-6
+        所示。该寄存器允许软件启用多种热插拔特性并控制热插拔操作。它也用于启用中断生成，并启用可能导致热插拔中断生成的事件源。</p>
+        <p>图 19-6：Slot Control Register</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-22.jpg"
+        alt="图 19-6：Slot Control Register" />
+        <figcaption aria-hidden="true">图 19-6：Slot Control
+        Register</figcaption>
+        </figure>
+        <p>表 19-6：Slot Control Register 字段及描述</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>位</th>
+        <th>字段名称与描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>0</td>
+        <td>Attention Button Pressed Enable：置位时，如果 Attention
+        Button 被按下，则允许生成热插拔中断（如果中断已启用）或断言
+        Wake# 消息。</td>
+        </tr>
+        <tr>
+        <td>1</td>
+        <td>Power Fault Detected
+        Enable：置位时，如果检测到电源故障，则允许生成热插拔中断（如果中断已启用）或
+        Wake# 消息。</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>MRL Sensor Changed Enable：置位时，如果检测到 MRL Sensor
+        状态变化事件，则允许生成热插拔中断或 Wake#
+        消息（如果已启用）。</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Presence Detect Changed Enable：置位时，如果 Slot Status
+        Register 中的 Presence Detect Changed
+        位被置位，则允许生成热插拔中断或 Wake 消息。</td>
+        </tr>
+        <tr>
+        <td>4</td>
+        <td>Command Completed Interrupt
+        Enable：置位时，允许生成热插拔中断，用于通知软件 Hot-Plug
+        Controller 已准备好接收下一条命令。</td>
+        </tr>
+        <tr>
+        <td>5</td>
+        <td>Hot-Plug Interrupt Enable：置位时，允许生成热插拔中断。</td>
+        </tr>
+        <tr>
+        <td>7:6</td>
+        <td>Attention Indicator Control：写入该字段可控制 Attention
+        Indicator 状态，读取返回当前状态。编码如下：<code>00b</code> =
+        Reserved，<code>01b</code> = On，<code>10b</code> =
+        Blink，<code>11b</code> = Off。</td>
+        </tr>
+        <tr>
+        <td>9:8</td>
+        <td>Power Indicator Control：写入该字段可控制 Power Indicator
+        状态，读取返回当前状态。编码如下：<code>00b</code> =
+        Reserved，<code>01b</code> = On，<code>10b</code> =
+        Blink，<code>11b</code> = Off。</td>
+        </tr>
+        <tr>
+        <td>10</td>
+        <td>Power Controller
+        Control：写入该字段可切换插槽主电源，读取返回当前状态：<code>0b</code>
+        = Power On，<code>1b</code> = Power Off。</td>
+        </tr>
+        <tr>
+        <td>11</td>
+        <td>Electromechanical Interlock
+        Control：如果实现了机电互锁，向该位写入 <code>1b</code>
+        会切换其状态，写入 <code>0b</code> 不产生影响。读取该位始终返回
+        <code>0b</code>。</td>
+        </tr>
+        <tr>
+        <td>12</td>
+        <td>Data Link Layer State Changed Enable：如果 Data Link Layer
+        Link Active Reporting 能力为 <code>1b</code>，置位该位会在 Data
+        Link Layer Link Active 位变化时启用软件通知。如果该报告能力为
+        <code>0b</code>，则该位为只读且值为 <code>0b</code>。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h4 id="插槽状态与事件管理">19.7.4 插槽状态与事件管理</h4>
+        <p>Hot-Plug Controller 会监控多种事件，并将这些事件报告给
+        Hot-Plug System
+        Driver。软件可通过“Detected/Changed”位判断发生了哪类事件，而状态位用于标识当前状态。Changed
+        位必须由软件清除，才能检测后续变化。需要注意的是，这些事件是否通过系统中断报告给系统，取决于
+        Slot Control Register 中对应的使能位。</p>
+        <p>图 19-7：Slot Status Register</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-24.jpg"
+        alt="图 19-7：Slot Status Register" />
+        <figcaption aria-hidden="true">图 19-7：Slot Status
+        Register</figcaption>
+        </figure>
+        <p>表 19-7：Slot Status Register 字段及描述</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>位</th>
+        <th>字段名称与描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>0</td>
+        <td>Attention Button Pressed：如果实现了该按钮，当 Attention
+        Button 被按下时置位。</td>
+        </tr>
+        <tr>
+        <td>1</td>
+        <td>Power Fault Detected：如果实现了支持电源故障检测的 Power
+        Controller，当该控制器检测到本插槽发生电源故障时置位。规范指出，无论
+        Power Control
+        设置如何，也无论插槽是否被占用，都可能在任何时刻检测到电源故障。</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>MRL Sensor Changed：如果实现了 MRL Sensor，当检测到 MRL
+        Sensor 状态变化时置位；如果未实现传感器，该位始终为 0。</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Presence Detect Changed：当检测到 Presence Detect State
+        位变化时置位。</td>
+        </tr>
+        <tr>
+        <td>4</td>
+        <td>Command Completed：如果 Slot Capabilities Register 中的 No
+        Command Completed Support 位为
+        <code>0b</code>，则当热插拔命令完成且 Hot-Plug Controller
+        准备好接受下一条命令时置位。严格来说，规范只保证后半句含义：控制器已经准备好接受下一条命令，而不一定保证前一条命令确实已经完成。</td>
+        </tr>
+        <tr>
+        <td>5</td>
+        <td>MRL Sensor State：如果实现了 MRL
+        Sensor，该位表示当前传感器状态：<code>0b</code> = MRL
+        Closed，<code>1b</code> = MRL Open。</td>
+        </tr>
+        <tr>
+        <td>6</td>
+        <td>Presence Detect
+        State：该位指示插槽中是否存在板卡，所有实现插槽的 Downstream
+        Port 都必须支持。其值是物理层 Detect
+        逻辑与该插槽实现的其他边带检测机制（例如 PRSNT1# 和
+        PRSNT2#）的逻辑或结果。两者的重要区别是：PRSNT
+        引脚无需供电即可物理检测卡是否存在，因此不需要恢复电源也能报告状态；而物理层
+        Detect 逻辑需要供电。</td>
+        </tr>
+        <tr>
+        <td>7</td>
+        <td>Electromechanical Interlock
+        Status：如果实现了机电互锁，该位表示互锁已锁定（<code>1b</code>）或已解锁（<code>0b</code>）。</td>
+        </tr>
+        <tr>
+        <td>8</td>
+        <td>Data Link State Changed：当 Link Status Register 中的 Data
+        Link Layer Link Active
+        位发生变化时置位。发生此事件后，软件必须读取 Data Link Layer
+        Link Active
+        位，以在向热插拔设备发送配置周期前判断链路是否处于活动状态。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h4 id="附加卡能力">19.7.5 附加卡能力</h4>
+        <p>图 19-8 所示的 Device Capabilities Register
+        中也包含与附加卡相关的字段，用于记录 Hot-Plug Controller
+        报告的该插槽可用功率。以下任一情况发生时，必须通过
+        Set_Slot_Power_Limit 消息自动传递此信息：</p>
+        <ul>
+        <li>对 Slot Capabilities Register 的配置写操作改变了 Slot Power
+        Limit Value 和 Slot Power Limit Scale 的值。</li>
+        <li>链路从非 DL_UP 状态转换为 DL_Up 状态，除非 Slot Capabilities
+        Register 尚未初始化。</li>
+        </ul>
+        <p>该消息会用消息中的值更新 Captured Slot Power Limit Value 和
+        Captured Slot Power Limit Scale
+        寄存器，使这些信息可供设备驱动程序随时使用。</p>
+        <p>图 19-8：Device Capabilities Register</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-27.jpg"
+        alt="图 19-8：Device Capabilities Register" />
+        <figcaption aria-hidden="true">图 19-8：Device Capabilities
+        Register</figcaption>
+        </figure>
+        <h3 id="静默化板卡与驱动程序">19.8 静默化板卡与驱动程序</h3>
+        <h4 id="概述">19.8.1 概述</h4>
+        <p>在从系统中移除板卡之前，必须完成两件事：设备驱动程序必须停止访问该卡，并且该卡必须停止发起或响应新的请求。具体实现方式取决于操作系统，但必须满足以下条件：</p>
+        <ul>
+        <li>操作系统必须停止向该设备的驱动程序发出新请求，或指示驱动程序停止接受新请求。</li>
+        <li>驱动程序必须终止或完成所有未完成请求。</li>
+        <li>必须禁用该卡生成中断或请求的能力。</li>
+        </ul>
+        <p>当操作系统命令驱动程序及其设备进入静默状态时，操作系统不得假定该设备会继续留在系统中。换句话说，该设备可能被移除，并且不一定会被相同型号的卡替换。</p>
+        <h4 id="暂停驱动程序可选">19.8.2 暂停驱动程序（可选）</h4>
+        <p>操作系统可以选择实现 Pause
+        能力，以临时停止驱动程序活动，并预期同一张卡稍后会重新插入。不过，如果该卡没有在合理时间内重新安装，驱动程序必须进入静默状态，随后从内存中移除。</p>
+        <p>例如，当前安装的卡正在失效，或正在被替换为更新版本以进行升级。如果希望从软件和操作角度看该过程是无缝的，驱动程序需要使设备静默，保存当前上下文（寄存器内容、本地微控制器的栈和指令指针等），并关闭插槽电源。随后安装新卡并上电，等上下文恢复后，新卡就可以从此前停止的位置恢复正常运行。当然，如果旧卡已经故障，可能无法简单地恢复运行。</p>
+        <h5 id="静默化控制多设备的驱动程序">19.8.2.1
+        静默化控制多设备的驱动程序</h5>
+        <p>如果一个驱动程序控制多张卡，并收到操作系统命令要求其停止与某张特定卡相关的活动，它必须只静默化与该卡相关的驱动活动以及该卡本身。</p>
+        <h5 id="停止故障卡的活动">19.8.2.2 停止故障卡的活动</h5>
+        <p>如果某张卡已经故障，驱动程序可能无法完成此前发送给该卡的请求。在这种情况下，驱动程序必须检测错误，终止未完成的请求，并尝试复位该卡。</p>
+        <h3 id="原语">19.9 原语</h3>
+        <p>本节讨论热插拔软件要素以及它们之间传递的信息。关于软件要素及其相互关系，可回顾表
+        19-1。操作系统中的 Hot-Plug Service 与 Hot-Plug System Driver
+        之间通过请求进行通信。规范没有定义这些请求的精确格式，但定义了基本请求类型及其内容。Hot-Plug
+        Service 向 Hot-Plug System Driver
+        发出的每一种请求类型都称为一个原语（Primitive）。这些原语如表
+        19-8 所示。</p>
+        <p>表 19-8：原语</p>
+        <table>
+        <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>原语</th>
+        <th>参数</th>
+        <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Query Hot-Plug System Driver</td>
+        <td>输入：无。<br>返回：该驱动程序所控制插槽的 Logical Slot ID
+        集合。</td>
+        <td>请求 Hot-Plug System Driver 返回它所控制插槽的一组 Logical
+        Slot ID。</td>
+        </tr>
+        <tr>
+        <td>Set Slot Status</td>
+        <td>输入：Logical Slot ID；新的插槽状态（On 或 Off）；新的
+        Attention Indicator 状态；新的 Power Indicator
+        状态。<br>返回：请求完成状态，包括状态更改成功、错误频率、功率不足、配置资源不足、电源故障、一般故障等。</td>
+        <td>此请求用于控制每个插槽及其关联的 Attention
+        Indicator。请求成功完成时返回“状态更改成功”。如果在尝试更改状态时发生故障，Hot-Plug
+        System Driver 应返回相应故障消息。除非另有说明，否则应将卡保持在
+        Off 状态。</td>
+        </tr>
+        <tr>
+        <td>Query Slot Status</td>
+        <td>输入：Logical Slot ID。<br>返回：插槽状态（On 或
+        Off）以及卡的电源需求。</td>
+        <td>返回指定插槽的状态（如果存在板卡）。Hot-Plug System Driver
+        必须返回插槽电源状态信息。</td>
+        </tr>
+        <tr>
+        <td>Async Notice of Slot Status Change</td>
+        <td>输入：Logical Slot ID。<br>返回：无。</td>
+        <td>这是规范定义的唯一一个由 Hot-Plug System Driver 发往
+        Hot-Plug Service
+        的原语。当驱动程序检测到插槽状态发生未请求变化时发送，例如运行期间发生电源故障，或一张卡在没有提前通知的情况下被插入此前为空的插槽。</td>
+        </tr>
+        </tbody>
+        </table>
+        <h3 id="电源预算简介">19.10 电源预算简介</h3>
+        <p>PCI Express 电源预算能力的主要目标，是为系统运行期间新增的
+        PCI Express
+        热插拔设备分配电源。这确保系统能够为这些设备分配适当的电力和散热资源。</p>
+        <p>规范指出：“对于不需要热插拔的外形规格中实现的 PCI Express
+        设备，或集成在系统板上的 PCI Express
+        设备，电源预算能力是可选的。”在本书写作时已经发布的外形规格中，没有任何一种要求必须支持热插拔或电源预算能力，但这些规范经常变化。</p>
+        <p>系统电源预算始终需要覆盖所有系统板设备和附加卡。该新增能力提供了管理热插拔卡电源预算流程的机制。每种外形规格都会定义给定扩展插槽的最小功率和最大功率。例如，CEM
+        规范限制扩展卡在完全启用前可消耗的功率；启用后，它可以消耗该插槽规定的最大功率。如果没有电源预算能力寄存器，系统设计者必须负责保证电源预算分配正确，并且具备足够散热能力来支持连接器中安装的任何合规板卡。</p>
+        <p>规范定义了支持电源预算流程的配置寄存器，但并没有定义具体的电源预算方法和流程。下一节将描述电源预算涉及的硬件和软件要素，包括规范定义的配置寄存器。</p>
+        <h3 id="电源预算管理要素">19.11 电源预算管理要素</h3>
+        <p>图 19-10
+        展示了热插拔卡电源预算管理的概念。参与电源预算、分配和报告流程的各个要素及其作用如下：</p>
+        <ul>
+        <li>用于电源管理的系统固件（启动期间使用）。</li>
+        <li>电源预算管理器（运行期间使用）。</li>
+        <li>扩展端口（连接卡槽的端口）。</li>
+        <li>附加设备（支持电源预算能力）。</li>
+        </ul>
+        <h4 id="系统固件">19.11.1 系统固件</h4>
+        <p>系统固件由平台设计者针对特定系统编写，负责报告系统电源信息。规范建议向
+        PCI Express Power Budget Manager
+        报告以下电源信息，该管理器会在运行期间分配并验证功耗和散热能力：</p>
+        <ul>
+        <li>系统可用总功率。</li>
+        <li>固件已经分配给系统设备的功率。</li>
+        <li>系统中的插槽数量和类型。</li>
+        </ul>
+        <p>固件也可以为支持 Power Budgeting Capability Register Set 的
+        PCIe 设备分配电源，例如启动期间使用的热插拔设备。图 19-9 所示的
+        Power Budgeting Capability Register 包含一个 System Allocated
+        位。该位由硬件初始化，通常由固件设置，用于通知 Power Budget
+        Manager：该设备的功率已经包含在系统电源分配中。即便如此，Power
+        Budget Manager
+        仍需要读取并保存这些已分配电源的热插拔设备的电源信息，以便这些设备后续在运行期间被移除时使用。</p>
+        <p>图 19-9：Power Budget Registers</p>
+        <table>
+        <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>偏移量</th>
+        <th>寄存器</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>00h</td>
+        <td>PCIe Extended Capability Header</td>
+        </tr>
+        <tr>
+        <td>04h</td>
+        <td>Data Select Register（高位为 RsvdP）</td>
+        </tr>
+        <tr>
+        <td>08h</td>
+        <td>Data Register</td>
+        </tr>
+        <tr>
+        <td>0Ch</td>
+        <td>Power Budget Capability Register（高位为 RsvdP，bit 0 为
+        System Allocated Bit）</td>
+        </tr>
+        </tbody>
+        </table>
+        <h4 id="电源预算管理器">19.11.2 电源预算管理器</h4>
+        <p>Power Budget Manager
+        在操作系统安装时初始化，并从系统固件接收电源预算信息，不过规范未定义传递这些信息的方法。该管理器负责为所有
+        PCI Express 设备分配电源，包括：</p>
+        <ul>
+        <li>尚未由系统分配电源的 PCI Express
+        设备，包括支持电源预算的嵌入式设备。</li>
+        <li>启动时已安装的热插拔设备。</li>
+        <li>运行期间新增的设备。</li>
+        </ul>
+        <h4 id="扩展端口">19.11.3 扩展端口</h4>
+        <p>图 19-10 展示了一个热插拔端口，该端口必须在 Slot Capabilities
+        Register 中实现 Slot Power Limit 和 Slot Power Scale
+        字段。固件或 Power Budget Manager
+        必须向这些字段写入一个值，用于表示此端口支持的最大功率。当软件写入这些字段时，端口会自动向设备发送
+        Set_Slot_Power_Limit
+        消息。当软件配置通过热插拔安装的新卡时，也会写入这些字段。</p>
+        <p>规范要求如下：</p>
+        <ul>
+        <li>任何连接插槽的 Downstream Port，如果其 PCIe Capabilities
+        Register 中的 Slot Implemented 位被置位，都必须实现 Slot
+        Capabilities Register。</li>
+        <li>软件必须初始化连接到附加插槽的 Downstream Port 的 Slot
+        Capabilities Register 中的 Slot Power Limit Value 和 Slot Power
+        Limit Scale 字段。</li>
+        <li>Upstream Port 必须实现 Device Capabilities Register。</li>
+        <li>当卡安装到插槽中，并且软件更新 Downstream Port
+        中的功率限制值和比例值时，该端口会自动向已安装卡上的 Upstream
+        Port 发送 Set_Slot_Power_Limit 消息。</li>
+        <li>消息接收方必须使用数据载荷来限制整张卡的功耗，除非该卡永远不会超过相应机电规范中规定的最低值。</li>
+        </ul>
+        <h4 id="附加设备">19.11.4 附加设备</h4>
+        <p>支持电源预算能力的扩展卡，必须在 Device Capabilities Register
+        中包含 Slot Power Limit Value 和 Slot Power Limit Scale
+        字段，并实现 Power Budgeting Capability Register
+        Set，用于报告功耗相关信息。</p>
+        <p>在获得电源预算软件通过 Set_Slot_Power_Limit
+        消息分配的额外功率之前，这些设备不得消耗超过外形规格所规定最低值的功率。获得指定功率后，设备可以消耗该指定功率，但只有在完成配置并被启用后才能这样做。</p>
+        <p>设备驱动程序负责在启用设备之前验证是否有足够功率支持设备正常运行。如果可用功率低于设备所需，设备驱动程序负责将该情况报告给更高层软件。</p>
+        <p>图 19-10：电源预算涉及的要素</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-34.jpg"
+        alt="图 19-10：电源预算涉及的要素" />
+        <figcaption aria-hidden="true">图
+        19-10：电源预算涉及的要素</figcaption>
+        </figure>
+        <h3 id="插槽功率限制控制-1">19.12 插槽功率限制控制</h3>
+        <p>软件负责确定扩展设备允许消耗的最大功率。该分配基于系统内部功率划分、散热能力等因素。系统功率和散热限制信息来自系统固件。固件或
+        Power Budget Manager 负责向每个扩展端口报告功率限制。</p>
+        <h4 id="扩展端口传递插槽功率限制">19.12.1
+        扩展端口传递插槽功率限制</h4>
+        <p>软件通过写入 Slot Capability Register 中的 Slot Power Limit
+        Value 和 Slot Power Limit Scale
+        字段，指定设备可以消耗的最大功率。软件必须指定一个符合规范定义最大值之一的功率值。例如，CEM
+        规范 2.0 版定义的功耗值如表 19-9 所示。</p>
+        <p>关于这些数值，有一个值得注意的细节：标准高度的 x1
+        服务器卡在复位后被限制为 10
+        W，只有在完成配置并启用后才允许使用完整的 25 W。同样，x16
+        显卡在完成配置并启用前被限制为 25 W，之后才能使用完整的 75
+        W。</p>
+        <p>表 19-9：系统板扩展插槽的最大功耗</p>
+        <table>
+        <colgroup>
+        <col style="width: 25%" />
+        <col style="width: 25%" />
+        <col style="width: 25%" />
+        <col style="width: 25%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>卡类型</th>
+        <th>x1 Link</th>
+        <th>x4/x8 Link</th>
+        <th>x16 Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>标准高度卡</td>
+        <td>10 W（桌面最大值）或 25 W（服务器最大值）</td>
+        <td>25 W（最大值）</td>
+        <td>25 W（服务器最大值）或 75 W（显卡最大值）</td>
+        </tr>
+        <tr>
+        <td>半高卡</td>
+        <td>10 W（最大值）</td>
+        <td>25 W（最大值）</td>
+        <td>25 W（最大值）</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>除了基础 CEM
+        规范外，针对更高功耗设备还定义了两项额外规范。第一项是 PCIe x16
+        Graphics 150W-ATX Spec 1.0，它定义了一种显卡：可从卡连接器获取
+        75 W，并从独立 3-pin ATX 电源连接器再获取 75 W。第二项是 PCIe
+        225W/300W High Power CEM Spec 1.0，它通过增加另一个 3-pin
+        电源连接器将功率扩展到 225 W，或通过 4-pin ATX
+        连接器使总功率达到 300 W。</p>
+        <p>当电源预算软件写入 Slot Power
+        寄存器时，扩展端口会向扩展设备发送 Set_Slot_Power_Limit
+        消息。该过程如图 19-11 所示。</p>
+        <p>图 19-11：插槽功率限制序列</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/42392084-9c6a-4415-85bf-dc1850418fd6-36.jpg"
+        alt="图 19-11：插槽功率限制序列" />
+        <figcaption aria-hidden="true">图
+        19-11：插槽功率限制序列</figcaption>
+        </figure>
+        <p>该序列可概括为：</p>
+        <ol type="1">
+        <li>当热插拔软件收到插卡请求通知时，恢复插槽电源和时钟。</li>
+        <li>热插拔软件调用配置软件和电源预算软件，对设备进行配置并分配功率。</li>
+        <li>电源预算软件可以查询板卡，以确定其功率需求和特性。</li>
+        <li>随后，系统根据设备需求和系统能力分配功率。</li>
+        <li>电源管理软件写入扩展端口中的 Slot Power Scale 和 Slot Power
+        Value 字段。</li>
+        <li>对这些字段的写入会命令端口发送 Set_Slot_Power_Limit
+        消息，以传递 Slot Power 字段内容。</li>
+        <li>插槽中的设备接收该消息，并更新其 Captured Slot Power Limit
+        Value 和 Captured Slot Power Limit Scale 字段。</li>
+        <li>当扩展设备被其设备驱动程序启用后，这些值会限制该设备能够消耗的功率。</li>
+        </ol>
+        <h4 id="扩展设备限制功耗">19.12.2 扩展设备限制功耗</h4>
+        <p>设备驱动程序读取 Captured Slot Power Limit Value 和 Captured
+        Slot Power Limit Scale
+        字段，以验证可用功率是否足以运行该设备。可能存在以下几种情况：</p>
+        <ul>
+        <li>可用功率足以使设备以完整能力运行。此时，驱动程序通过写配置
+        Command Register 启用设备，并允许设备消耗不超过 Power Limit
+        字段指定上限的功率。</li>
+        <li>可用功率足以运行设备，但不足以达到完整能力。此时，驱动程序必须配置设备，使其功耗不超过
+        Power Limit 字段指定的上限。</li>
+        <li>可用功率不足以运行设备。此时，驱动程序不得启用该卡，并必须将功率不足的情况报告给上层软件，由上层软件通知最终用户。</li>
+        <li>可用功率超过外形规格指定的最大功率。该情况不应发生；但如果发生，设备不得消耗超过外形规格允许最大值的功率。</li>
+        <li>可用功率低于外形规格指定的最低值。这违反规范。规范指出，扩展端口“不得发送指示低于该插槽外形规格机电规范中最低值的
+        Set_Slot_Power_Limit 消息”。</li>
+        </ul>
+        <p>某些扩展设备的功耗可能低于其外形规格规定的最低限制。此类设备可以丢弃
+        Set_Slot_Power_Limit 消息中传递的信息。当软件读取 Slot Power
+        Limit Value 和 Slot Power Limit Scale 字段时，这些设备返回
+        0。</p>
+        <h3 id="功率预算能力寄存器组">19.13 功率预算能力寄存器组</h3>
+        <p>Power Budget Capabilities Register Set
+        允许电源预算软件根据设备通过 Power Budgeting Data Select
+        Register 和 Power Budgeting Data Register
+        提供的信息，更有效地分配功率。该功能类似于电源管理能力寄存器中的
+        Data Select 和 Data
+        字段。不过，功率预算寄存器向软件提供的信息更详细，可帮助软件判断运行期间新增扩展卡对系统功耗预算和散热需求的影响。</p>
+        <p>通过该能力，设备可以报告其功耗信息，包括：</p>
+        <ul>
+        <li>来自各个电源轨的功耗。</li>
+        <li>不同电源管理状态下的功耗。</li>
+        <li>不同运行条件下的功耗。</li>
+        </ul>
+        <p>对于实现在系统板上的设备，或不支持热插拔的扩展设备，这些寄存器不是必需的。图
+        19-12 展示了 Power Budget Capability Register Set，并展示了 Data
+        Select 和 Data 字段如何用于访问功耗预算信息。</p>
+        <p>功耗预算信息保存在一个由一个或多个 32
+        位条目组成的表中。每个表条目包含设备所支持某种运行模式下的功耗预算信息。软件通过
+        Data Select 字段选择表条目，然后从 Data
+        字段读取被选中的条目。索引值从 0
+        开始，并按顺序实现。当某个选中索引在 Data 字段中返回全 0
+        时，表示已经到达功耗预算表末尾。图 19-13 展示了 Data
+        字段可用信息的格式和类型。</p>
+        <p>图 19-12：Power Budget Capability Registers</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/image-20260525100733498.png"
+        alt="图 19-12：Power Budget Capability Registers" />
+        <figcaption aria-hidden="true">图 19-12：Power Budget Capability
+        Registers</figcaption>
+        </figure>
+        <p>图 19-13：Power Budget Data Field Format and Definition</p>
+        <figure>
+        <img
+        src="img/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86/image-20260525100841319.png"
+        alt="图 19-13：Power Budget Data Field Format and Definition" />
+        <figcaption aria-hidden="true">图 19-13：Power Budget Data Field
+        Format and Definition</figcaption>
+        </figure>
+        <p>Power Budget Data 字段是只读寄存器，其主要字段含义如下：</p>
+        <table>
+        <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>位</th>
+        <th>字段</th>
+        <th>含义</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>31:21</td>
+        <td>RsvdP</td>
+        <td>保留。</td>
+        </tr>
+        <tr>
+        <td>20:18</td>
+        <td>Power Rail</td>
+        <td>描述该条目对应运行条件所使用的电源轨：<code>000b</code> = 12
+        V power，<code>001b</code> = 3.3 V power，<code>010b</code> =
+        1.8 V power，<code>111b</code> = Thermal，其他编码保留。</td>
+        </tr>
+        <tr>
+        <td>17:15</td>
+        <td>Type</td>
+        <td>描述该条目对应运行条件的类型：<code>000b</code> = PME
+        Aux，<code>001b</code> = Auxiliary，<code>010b</code> =
+        Idle，<code>011b</code> = Sustained，<code>111b</code> =
+        Maximum，其他编码保留。</td>
+        </tr>
+        <tr>
+        <td>14:13</td>
+        <td>PM State</td>
+        <td>描述该条目对应的电源管理状态：<code>00b</code> =
+        D0，<code>01b</code> = D1，<code>10b</code> =
+        D2，<code>11b</code> = D3。若 PM State 为 <code>11b</code> 且
+        Type 为 Auxiliary 或 PME Aux，则表示 D3-Cold；若 PM State 为
+        <code>11b</code> 且 Type 为其他值，则表示 D3-Hot。</td>
+        </tr>
+        <tr>
+        <td>12:10</td>
+        <td>PM Sub State</td>
+        <td>描述该条目对应的电源管理子状态：<code>000b</code> =
+        默认子状态，<code>001b</code> 至 <code>111b</code> =
+        设备特定子状态。</td>
+        </tr>
+        <tr>
+        <td>9:8</td>
+        <td>Data Scale</td>
+        <td>指定比例系数：<code>00b</code> = 1.0x，<code>01b</code> =
+        0.1x，<code>10b</code> = 0.01x，<code>11b</code> = 0.001x。</td>
+        </tr>
+        <tr>
+        <td>7:0</td>
+        <td>Base Power</td>
+        <td>指定 bit[20:10] 所表示状态下的基础功耗，单位为瓦特。实际功耗
+        = Base Power × Data Scale。</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>该功能的功耗预算数据由从条目 0
+        开始的若干表项组成。软件将索引值写入 Power Budgeting Data Select
+        Register，然后读取 Power Budgeting Data Register
+        返回的值，即可读取每个表项。当 Data Register 返回全 0
+        时，表示表格结束。</p>
+      </article>
+
+      <nav class="chapter-nav chapter-nav-bottom">
+        <div class="nav-left">
+                    <a class="nav-btn" href="18 系统复位.html">← 第 18 章 系统复位</a>
+                  </div>
+
+        <div class="nav-center">
+          <a class="nav-btn home" href="index.html">目录</a>
+        </div>
+
+        <div class="nav-right">
+                    <a class="nav-btn" href="20 规范2.1版本更新.html">第 20 章 规范 2.1 版本更新 →</a>
+                  </div>
+      </nav>
+    </main>
+  </div>
+
+  <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
+
+  <script>
+    const btn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
