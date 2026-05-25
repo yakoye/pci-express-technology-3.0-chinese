@@ -8,6 +8,8 @@ fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgib
 
 
 
+#### 网页版本
+[📖在线阅读](https://yakoye.github.io/pci-express-technology-3.0-chinese/docs/index.html)
 
 
 
