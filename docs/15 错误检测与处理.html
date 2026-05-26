@@ -70,99 +70,146 @@
                 <li><a href="#上一章" id="toc-上一章">上一章</a></li>
                 <li><a href="#本章" id="toc-本章">本章</a></li>
                 <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-                <li><a href="#背景" id="toc-背景">15.1 背景</a></li>
-                <li><a href="#pcie-错误定义" id="toc-pcie-错误定义">15.2
-                PCIe 错误定义</a></li>
-                <li><a href="#pcie-错误报告" id="toc-pcie-错误报告">15.3
-                PCIe 错误报告</a>
+                <li><a href="#背景background"
+                id="toc-背景background">15.1 背景（Background）</a></li>
+                <li><a href="#pcie-错误定义pcie-error-definitions"
+                id="toc-pcie-错误定义pcie-error-definitions">15.2 PCIe
+                错误定义（PCIe Error Definitions）</a></li>
+                <li><a href="#pcie-错误报告pcie-error-reporting"
+                id="toc-pcie-错误报告pcie-error-reporting">15.3 PCIe
+                错误报告（PCIe Error Reporting）</a>
                 <ul>
-                <li><a href="#基线错误报告" id="toc-基线错误报告">15.3.1
-                基线错误报告</a></li>
-                <li><a href="#高级错误报告aer"
-                id="toc-高级错误报告aer">15.3.2
-                高级错误报告（AER）</a></li>
+                <li><a href="#基线错误报告baseline-error-reporting"
+                id="toc-基线错误报告baseline-error-reporting">15.3.1
+                基线错误报告（Baseline Error Reporting）</a></li>
+                <li><a href="#高级错误报告aeradvanced-error-reporting"
+                id="toc-高级错误报告aeradvanced-error-reporting">15.3.2
+                高级错误报告（AER）（Advanced Error Reporting）</a></li>
                 </ul></li>
-                <li><a href="#错误类别" id="toc-错误类别">15.4
-                错误类别</a>
+                <li><a href="#错误类别error-classes"
+                id="toc-错误类别error-classes">15.4 错误类别（Error
+                Classes）</a>
                 <ul>
-                <li><a href="#可纠正错误" id="toc-可纠正错误">15.4.1
-                可纠正错误</a></li>
-                <li><a href="#不可纠正错误" id="toc-不可纠正错误">15.4.2
-                不可纠正错误</a></li>
+                <li><a href="#可纠正错误correctable-errors"
+                id="toc-可纠正错误correctable-errors">15.4.1
+                可纠正错误（Correctable Errors）</a></li>
+                <li><a href="#不可纠正错误uncorrectable-errors"
+                id="toc-不可纠正错误uncorrectable-errors">15.4.2
+                不可纠正错误（Uncorrectable Errors）</a></li>
                 </ul></li>
-                <li><a href="#pcie-错误检测机制"
-                id="toc-pcie-错误检测机制">15.5 PCIe 错误检测机制</a>
+                <li><a
+                href="#pcie-错误检测机制pcie-error-checking-mechanisms"
+                id="toc-pcie-错误检测机制pcie-error-checking-mechanisms">15.5
+                PCIe 错误检测机制（PCIe Error Checking Mechanisms）</a>
                 <ul>
                 <li><a href="#crc" id="toc-crc">15.5.1 CRC</a></li>
-                <li><a href="#各层的错误检查"
-                id="toc-各层的错误检查">15.5.2 各层的错误检查</a></li>
+                <li><a href="#各层的错误检查error-checks-by-layer"
+                id="toc-各层的错误检查error-checks-by-layer">15.5.2
+                各层的错误检查（Error Checks by Layer）</a></li>
                 </ul></li>
-                <li><a href="#错误污染" id="toc-错误污染">15.6
-                错误污染</a></li>
-                <li><a href="#pcie-错误来源" id="toc-pcie-错误来源">15.7
-                PCIe 错误来源</a>
+                <li><a href="#错误污染error-pollution"
+                id="toc-错误污染error-pollution">15.6 错误污染（Error
+                Pollution）</a></li>
+                <li><a
+                href="#pcie-错误来源sources-of-pci-express-errors"
+                id="toc-pcie-错误来源sources-of-pci-express-errors">15.7
+                PCIe 错误来源（Sources of PCI Express Errors）</a>
                 <ul>
-                <li><a href="#ecrc-生成与校验"
-                id="toc-ecrc-生成与校验">15.7.1 ECRC 生成与校验</a></li>
-                <li><a href="#数据投毒" id="toc-数据投毒">15.7.2
-                数据投毒</a></li>
-                <li><a href="#分裂事务错误" id="toc-分裂事务错误">15.7.3
-                分裂事务错误</a></li>
-                <li><a href="#链路流控制相关错误"
-                id="toc-链路流控制相关错误">15.7.4
-                链路流控制相关错误</a></li>
-                <li><a href="#格式错误的-tlp"
-                id="toc-格式错误的-tlp">15.7.5 格式错误的 TLP</a></li>
-                <li><a href="#内部错误" id="toc-内部错误">15.7.6
-                内部错误</a></li>
+                <li><a
+                href="#ecrc-生成与校验ecrc-generation-and-checking"
+                id="toc-ecrc-生成与校验ecrc-generation-and-checking">15.7.1
+                ECRC 生成与校验（ECRC Generation and Checking）</a></li>
+                <li><a href="#数据投毒data-poisoning"
+                id="toc-数据投毒data-poisoning">15.7.2 数据投毒（Data
+                Poisoning）</a></li>
+                <li><a href="#分裂事务错误split-transaction-errors"
+                id="toc-分裂事务错误split-transaction-errors">15.7.3
+                分裂事务错误（Split Transaction Errors）</a></li>
+                <li><a
+                href="#链路流控制相关错误link-flow-control-related-errors"
+                id="toc-链路流控制相关错误link-flow-control-related-errors">15.7.4
+                链路流控制相关错误（Link Flow Control Related
+                Errors）</a></li>
+                <li><a href="#格式错误的-tlpmalformed-tlp"
+                id="toc-格式错误的-tlpmalformed-tlp">15.7.5 格式错误的
+                TLP（Malformed TLP）</a></li>
+                <li><a href="#内部错误internal-errors"
+                id="toc-内部错误internal-errors">15.7.6
+                内部错误（Internal Errors）</a></li>
                 </ul></li>
-                <li><a href="#错误报告方式" id="toc-错误报告方式">15.8
-                错误报告方式</a>
+                <li><a href="#错误报告方式how-errors-are-reported"
+                id="toc-错误报告方式how-errors-are-reported">15.8
+                错误报告方式（How Errors are Reported）</a>
                 <ul>
-                <li><a href="#引言" id="toc-引言">15.8.1 引言</a></li>
-                <li><a href="#错误消息" id="toc-错误消息">15.8.2
-                错误消息</a></li>
+                <li><a href="#引言introduction"
+                id="toc-引言introduction">15.8.1
+                引言（Introduction）</a></li>
+                <li><a href="#错误消息error-messages"
+                id="toc-错误消息error-messages">15.8.2 错误消息（Error
+                Messages）</a></li>
                 </ul></li>
-                <li><a href="#基线错误检测与处理"
-                id="toc-基线错误检测与处理">15.9 基线错误检测与处理</a>
+                <li><a
+                href="#基线错误检测与处理baseline-error-detection-and-handling"
+                id="toc-基线错误检测与处理baseline-error-detection-and-handling">15.9
+                基线错误检测与处理（Baseline Error Detection and
+                Handling）</a>
                 <ul>
                 <li><a href="#pci-兼容错误报告机制"
                 id="toc-pci-兼容错误报告机制">15.9.1 PCI
                 兼容错误报告机制</a></li>
-                <li><a href="#基线错误处理" id="toc-基线错误处理">15.9.2
-                基线错误处理</a></li>
-                <li><a href="#根节点对错误消息的响应"
-                id="toc-根节点对错误消息的响应">15.9.3
-                根节点对错误消息的响应</a></li>
-                <li><a href="#链路错误" id="toc-链路错误">15.9.4
-                链路错误</a></li>
+                <li><a href="#基线错误处理baseline-error-handling"
+                id="toc-基线错误处理baseline-error-handling">15.9.2
+                基线错误处理（Baseline Error Handling）</a></li>
+                <li><a
+                href="#根节点对错误消息的响应roots-response-to-error-message"
+                id="toc-根节点对错误消息的响应roots-response-to-error-message">15.9.3
+                根节点对错误消息的响应（Root’s Response to Error
+                Message）</a></li>
+                <li><a href="#链路错误link-errors"
+                id="toc-链路错误link-errors">15.9.4 链路错误（Link
+                Errors）</a></li>
                 </ul></li>
-                <li><a href="#高级错误报告aer-1"
-                id="toc-高级错误报告aer-1">15.10 高级错误报告（AER）</a>
+                <li><a href="#高级错误报告aeradvanced-error-reporting-1"
+                id="toc-高级错误报告aeradvanced-error-reporting-1">15.10
+                高级错误报告（AER）（Advanced Error Reporting）</a>
                 <ul>
-                <li><a href="#高级错误能力与控制"
-                id="toc-高级错误能力与控制">15.10.1
-                高级错误能力与控制</a></li>
-                <li><a href="#处理粘滞位" id="toc-处理粘滞位">15.10.2
-                处理粘滞位</a></li>
-                <li><a href="#高级可纠正错误处理"
-                id="toc-高级可纠正错误处理">15.10.3
-                高级可纠正错误处理</a></li>
-                <li><a href="#高级不可纠正错误处理"
-                id="toc-高级不可纠正错误处理">15.10.4
-                高级不可纠正错误处理</a></li>
-                <li><a href="#报头日志记录"
-                id="toc-报头日志记录">15.10.5 报头日志记录</a></li>
-                <li><a href="#根复合体错误跟踪与报告"
-                id="toc-根复合体错误跟踪与报告">15.10.6
-                根复合体错误跟踪与报告</a></li>
+                <li><a
+                href="#高级错误能力与控制advanced-error-capability-and-control"
+                id="toc-高级错误能力与控制advanced-error-capability-and-control">15.10.1
+                高级错误能力与控制（Advanced Error Capability and
+                Control）</a></li>
+                <li><a href="#处理粘滞位handling-sticky-bits"
+                id="toc-处理粘滞位handling-sticky-bits">15.10.2
+                处理粘滞位（Handling Sticky Bits）</a></li>
+                <li><a
+                href="#高级可纠正错误处理advanced-correctable-error-handling"
+                id="toc-高级可纠正错误处理advanced-correctable-error-handling">15.10.3
+                高级可纠正错误处理（Advanced Correctable Error
+                Handling）</a></li>
+                <li><a
+                href="#高级不可纠正错误处理advanced-uncorrectable-error-handling"
+                id="toc-高级不可纠正错误处理advanced-uncorrectable-error-handling">15.10.4
+                高级不可纠正错误处理（Advanced Uncorrectable Error
+                Handling）</a></li>
+                <li><a href="#报头日志记录header-logging"
+                id="toc-报头日志记录header-logging">15.10.5
+                报头日志记录（Header Logging）</a></li>
+                <li><a
+                href="#根复合体错误跟踪与报告root-complex-error-tracking-and-reporting"
+                id="toc-根复合体错误跟踪与报告root-complex-error-tracking-and-reporting">15.10.6
+                根复合体错误跟踪与报告（Root Complex Error Tracking and
+                Reporting）</a></li>
                 </ul></li>
-                <li><a href="#错误记录与报告摘要"
-                id="toc-错误记录与报告摘要">15.11
-                错误记录与报告摘要</a></li>
-                <li><a href="#软件错误调查的示例流程"
-                id="toc-软件错误调查的示例流程">15.12
-                软件错误调查的示例流程</a></li>
+                <li><a
+                href="#错误记录与报告摘要summary-of-error-logging-and-reporting"
+                id="toc-错误记录与报告摘要summary-of-error-logging-and-reporting">15.11
+                错误记录与报告摘要（Summary of Error Logging and
+                Reporting）</a></li>
+                <li><a
+                href="#软件错误调查的示例流程example-flow-of-software-error-investigation"
+                id="toc-软件错误调查的示例流程example-flow-of-software-error-investigation">15.12
+                软件错误调查的示例流程（Example Flow of Software Error
+                Investigation）</a></li>
                 </ul></li>
                 </ul>
               </div>
@@ -183,99 +230,146 @@
                 <li><a href="#上一章" id="toc-上一章">上一章</a></li>
                 <li><a href="#本章" id="toc-本章">本章</a></li>
                 <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-                <li><a href="#背景" id="toc-背景">15.1 背景</a></li>
-                <li><a href="#pcie-错误定义" id="toc-pcie-错误定义">15.2
-                PCIe 错误定义</a></li>
-                <li><a href="#pcie-错误报告" id="toc-pcie-错误报告">15.3
-                PCIe 错误报告</a>
+                <li><a href="#背景background"
+                id="toc-背景background">15.1 背景（Background）</a></li>
+                <li><a href="#pcie-错误定义pcie-error-definitions"
+                id="toc-pcie-错误定义pcie-error-definitions">15.2 PCIe
+                错误定义（PCIe Error Definitions）</a></li>
+                <li><a href="#pcie-错误报告pcie-error-reporting"
+                id="toc-pcie-错误报告pcie-error-reporting">15.3 PCIe
+                错误报告（PCIe Error Reporting）</a>
                 <ul>
-                <li><a href="#基线错误报告" id="toc-基线错误报告">15.3.1
-                基线错误报告</a></li>
-                <li><a href="#高级错误报告aer"
-                id="toc-高级错误报告aer">15.3.2
-                高级错误报告（AER）</a></li>
+                <li><a href="#基线错误报告baseline-error-reporting"
+                id="toc-基线错误报告baseline-error-reporting">15.3.1
+                基线错误报告（Baseline Error Reporting）</a></li>
+                <li><a href="#高级错误报告aeradvanced-error-reporting"
+                id="toc-高级错误报告aeradvanced-error-reporting">15.3.2
+                高级错误报告（AER）（Advanced Error Reporting）</a></li>
                 </ul></li>
-                <li><a href="#错误类别" id="toc-错误类别">15.4
-                错误类别</a>
+                <li><a href="#错误类别error-classes"
+                id="toc-错误类别error-classes">15.4 错误类别（Error
+                Classes）</a>
                 <ul>
-                <li><a href="#可纠正错误" id="toc-可纠正错误">15.4.1
-                可纠正错误</a></li>
-                <li><a href="#不可纠正错误" id="toc-不可纠正错误">15.4.2
-                不可纠正错误</a></li>
+                <li><a href="#可纠正错误correctable-errors"
+                id="toc-可纠正错误correctable-errors">15.4.1
+                可纠正错误（Correctable Errors）</a></li>
+                <li><a href="#不可纠正错误uncorrectable-errors"
+                id="toc-不可纠正错误uncorrectable-errors">15.4.2
+                不可纠正错误（Uncorrectable Errors）</a></li>
                 </ul></li>
-                <li><a href="#pcie-错误检测机制"
-                id="toc-pcie-错误检测机制">15.5 PCIe 错误检测机制</a>
+                <li><a
+                href="#pcie-错误检测机制pcie-error-checking-mechanisms"
+                id="toc-pcie-错误检测机制pcie-error-checking-mechanisms">15.5
+                PCIe 错误检测机制（PCIe Error Checking Mechanisms）</a>
                 <ul>
                 <li><a href="#crc" id="toc-crc">15.5.1 CRC</a></li>
-                <li><a href="#各层的错误检查"
-                id="toc-各层的错误检查">15.5.2 各层的错误检查</a></li>
+                <li><a href="#各层的错误检查error-checks-by-layer"
+                id="toc-各层的错误检查error-checks-by-layer">15.5.2
+                各层的错误检查（Error Checks by Layer）</a></li>
                 </ul></li>
-                <li><a href="#错误污染" id="toc-错误污染">15.6
-                错误污染</a></li>
-                <li><a href="#pcie-错误来源" id="toc-pcie-错误来源">15.7
-                PCIe 错误来源</a>
+                <li><a href="#错误污染error-pollution"
+                id="toc-错误污染error-pollution">15.6 错误污染（Error
+                Pollution）</a></li>
+                <li><a
+                href="#pcie-错误来源sources-of-pci-express-errors"
+                id="toc-pcie-错误来源sources-of-pci-express-errors">15.7
+                PCIe 错误来源（Sources of PCI Express Errors）</a>
                 <ul>
-                <li><a href="#ecrc-生成与校验"
-                id="toc-ecrc-生成与校验">15.7.1 ECRC 生成与校验</a></li>
-                <li><a href="#数据投毒" id="toc-数据投毒">15.7.2
-                数据投毒</a></li>
-                <li><a href="#分裂事务错误" id="toc-分裂事务错误">15.7.3
-                分裂事务错误</a></li>
-                <li><a href="#链路流控制相关错误"
-                id="toc-链路流控制相关错误">15.7.4
-                链路流控制相关错误</a></li>
-                <li><a href="#格式错误的-tlp"
-                id="toc-格式错误的-tlp">15.7.5 格式错误的 TLP</a></li>
-                <li><a href="#内部错误" id="toc-内部错误">15.7.6
-                内部错误</a></li>
+                <li><a
+                href="#ecrc-生成与校验ecrc-generation-and-checking"
+                id="toc-ecrc-生成与校验ecrc-generation-and-checking">15.7.1
+                ECRC 生成与校验（ECRC Generation and Checking）</a></li>
+                <li><a href="#数据投毒data-poisoning"
+                id="toc-数据投毒data-poisoning">15.7.2 数据投毒（Data
+                Poisoning）</a></li>
+                <li><a href="#分裂事务错误split-transaction-errors"
+                id="toc-分裂事务错误split-transaction-errors">15.7.3
+                分裂事务错误（Split Transaction Errors）</a></li>
+                <li><a
+                href="#链路流控制相关错误link-flow-control-related-errors"
+                id="toc-链路流控制相关错误link-flow-control-related-errors">15.7.4
+                链路流控制相关错误（Link Flow Control Related
+                Errors）</a></li>
+                <li><a href="#格式错误的-tlpmalformed-tlp"
+                id="toc-格式错误的-tlpmalformed-tlp">15.7.5 格式错误的
+                TLP（Malformed TLP）</a></li>
+                <li><a href="#内部错误internal-errors"
+                id="toc-内部错误internal-errors">15.7.6
+                内部错误（Internal Errors）</a></li>
                 </ul></li>
-                <li><a href="#错误报告方式" id="toc-错误报告方式">15.8
-                错误报告方式</a>
+                <li><a href="#错误报告方式how-errors-are-reported"
+                id="toc-错误报告方式how-errors-are-reported">15.8
+                错误报告方式（How Errors are Reported）</a>
                 <ul>
-                <li><a href="#引言" id="toc-引言">15.8.1 引言</a></li>
-                <li><a href="#错误消息" id="toc-错误消息">15.8.2
-                错误消息</a></li>
+                <li><a href="#引言introduction"
+                id="toc-引言introduction">15.8.1
+                引言（Introduction）</a></li>
+                <li><a href="#错误消息error-messages"
+                id="toc-错误消息error-messages">15.8.2 错误消息（Error
+                Messages）</a></li>
                 </ul></li>
-                <li><a href="#基线错误检测与处理"
-                id="toc-基线错误检测与处理">15.9 基线错误检测与处理</a>
+                <li><a
+                href="#基线错误检测与处理baseline-error-detection-and-handling"
+                id="toc-基线错误检测与处理baseline-error-detection-and-handling">15.9
+                基线错误检测与处理（Baseline Error Detection and
+                Handling）</a>
                 <ul>
                 <li><a href="#pci-兼容错误报告机制"
                 id="toc-pci-兼容错误报告机制">15.9.1 PCI
                 兼容错误报告机制</a></li>
-                <li><a href="#基线错误处理" id="toc-基线错误处理">15.9.2
-                基线错误处理</a></li>
-                <li><a href="#根节点对错误消息的响应"
-                id="toc-根节点对错误消息的响应">15.9.3
-                根节点对错误消息的响应</a></li>
-                <li><a href="#链路错误" id="toc-链路错误">15.9.4
-                链路错误</a></li>
+                <li><a href="#基线错误处理baseline-error-handling"
+                id="toc-基线错误处理baseline-error-handling">15.9.2
+                基线错误处理（Baseline Error Handling）</a></li>
+                <li><a
+                href="#根节点对错误消息的响应roots-response-to-error-message"
+                id="toc-根节点对错误消息的响应roots-response-to-error-message">15.9.3
+                根节点对错误消息的响应（Root’s Response to Error
+                Message）</a></li>
+                <li><a href="#链路错误link-errors"
+                id="toc-链路错误link-errors">15.9.4 链路错误（Link
+                Errors）</a></li>
                 </ul></li>
-                <li><a href="#高级错误报告aer-1"
-                id="toc-高级错误报告aer-1">15.10 高级错误报告（AER）</a>
+                <li><a href="#高级错误报告aeradvanced-error-reporting-1"
+                id="toc-高级错误报告aeradvanced-error-reporting-1">15.10
+                高级错误报告（AER）（Advanced Error Reporting）</a>
                 <ul>
-                <li><a href="#高级错误能力与控制"
-                id="toc-高级错误能力与控制">15.10.1
-                高级错误能力与控制</a></li>
-                <li><a href="#处理粘滞位" id="toc-处理粘滞位">15.10.2
-                处理粘滞位</a></li>
-                <li><a href="#高级可纠正错误处理"
-                id="toc-高级可纠正错误处理">15.10.3
-                高级可纠正错误处理</a></li>
-                <li><a href="#高级不可纠正错误处理"
-                id="toc-高级不可纠正错误处理">15.10.4
-                高级不可纠正错误处理</a></li>
-                <li><a href="#报头日志记录"
-                id="toc-报头日志记录">15.10.5 报头日志记录</a></li>
-                <li><a href="#根复合体错误跟踪与报告"
-                id="toc-根复合体错误跟踪与报告">15.10.6
-                根复合体错误跟踪与报告</a></li>
+                <li><a
+                href="#高级错误能力与控制advanced-error-capability-and-control"
+                id="toc-高级错误能力与控制advanced-error-capability-and-control">15.10.1
+                高级错误能力与控制（Advanced Error Capability and
+                Control）</a></li>
+                <li><a href="#处理粘滞位handling-sticky-bits"
+                id="toc-处理粘滞位handling-sticky-bits">15.10.2
+                处理粘滞位（Handling Sticky Bits）</a></li>
+                <li><a
+                href="#高级可纠正错误处理advanced-correctable-error-handling"
+                id="toc-高级可纠正错误处理advanced-correctable-error-handling">15.10.3
+                高级可纠正错误处理（Advanced Correctable Error
+                Handling）</a></li>
+                <li><a
+                href="#高级不可纠正错误处理advanced-uncorrectable-error-handling"
+                id="toc-高级不可纠正错误处理advanced-uncorrectable-error-handling">15.10.4
+                高级不可纠正错误处理（Advanced Uncorrectable Error
+                Handling）</a></li>
+                <li><a href="#报头日志记录header-logging"
+                id="toc-报头日志记录header-logging">15.10.5
+                报头日志记录（Header Logging）</a></li>
+                <li><a
+                href="#根复合体错误跟踪与报告root-complex-error-tracking-and-reporting"
+                id="toc-根复合体错误跟踪与报告root-complex-error-tracking-and-reporting">15.10.6
+                根复合体错误跟踪与报告（Root Complex Error Tracking and
+                Reporting）</a></li>
                 </ul></li>
-                <li><a href="#错误记录与报告摘要"
-                id="toc-错误记录与报告摘要">15.11
-                错误记录与报告摘要</a></li>
-                <li><a href="#软件错误调查的示例流程"
-                id="toc-软件错误调查的示例流程">15.12
-                软件错误调查的示例流程</a></li>
+                <li><a
+                href="#错误记录与报告摘要summary-of-error-logging-and-reporting"
+                id="toc-错误记录与报告摘要summary-of-error-logging-and-reporting">15.11
+                错误记录与报告摘要（Summary of Error Logging and
+                Reporting）</a></li>
+                <li><a
+                href="#软件错误调查的示例流程example-flow-of-software-error-investigation"
+                id="toc-软件错误调查的示例流程example-flow-of-software-error-investigation">15.12
+                软件错误调查的示例流程（Example Flow of Software Error
+                Investigation）</a></li>
                 </ul></li>
                 </ul>
               </div>
@@ -304,7 +398,7 @@
         总线电源管理接口规范及高级配置与电源接口（ACPI）兼容的 PCIe
         电源管理。PCIe 定义了针对 PCI-PM
         规范的扩展，主要侧重于链路电源和事件管理。</p>
-        <h3 id="背景">15.1 背景</h3>
+        <h3 id="背景background">15.1 背景（Background）</h3>
         <p>与 PCI 的软件向后兼容性是 PCIe
         的重要特性，这一特性通过保留原有的 PCI 配置寄存器来实现。PCI
         在每个总线传输阶段验证正确的奇偶校验以检查错误。检测到的错误记录在状态寄存器中，并可通过以下两种边带信号之一选择性地报告：PERR#（奇偶校验错误）用于数据传输期间可能可恢复的奇偶校验故障，以及
@@ -350,7 +444,8 @@
         PCIe 错误事件，并允许其与 PCIe
         硬件协同工作。有关这些寄存器的详细信息，请参见第 674 页的“PCI
         兼容错误报告机制”。</p>
-        <h3 id="pcie-错误定义">15.2 PCIe 错误定义</h3>
+        <h3 id="pcie-错误定义pcie-error-definitions">15.2 PCIe
+        错误定义（PCIe Error Definitions）</h3>
         <p>规范中使用了四个关于错误的通用术语，定义如下：</p>
         <ol type="1">
         <li>错误检测 -
@@ -363,14 +458,16 @@
         UR（不支持请求）或 CA（完成者中止）状态的完成报文、或投毒
         TLP（也称为错误转发）来通知另一个代理存在错误状况的过程。</li>
         </ol>
-        <h3 id="pcie-错误报告">15.3 PCIe 错误报告</h3>
+        <h3 id="pcie-错误报告pcie-error-reporting">15.3 PCIe
+        错误报告（PCIe Error Reporting）</h3>
         <p>PCIe
         定义了两个错误报告级别。第一个是所有设备必须支持的基线能力（Baseline
         capability），包括对传统错误报告的支持以及 PCIe
         错误报告的基本支持。第二个是可选的高级错误报告能力（Advanced
         Error Reporting
         Capability），它新增了一组配置寄存器，能够追踪更多关于已发生错误的详细信息，包括错误的严重程度，在某些情况下甚至能记录导致错误的数据包信息。</p>
-        <h4 id="基线错误报告">15.3.1 基线错误报告</h4>
+        <h4 id="基线错误报告baseline-error-reporting">15.3.1
+        基线错误报告（Baseline Error Reporting）</h4>
         <p>所有设备都需要两组配置寄存器来支持基线错误报告。这些寄存器在第
         674 页的“基础错误检测与处理”中有详细描述，此处仅作简要总结：</p>
         <ul>
@@ -382,11 +479,13 @@
         的新版软件有用，但它们能为 PCIe
         软件提供更详细的错误信息。</p></li>
         </ul>
-        <h4 id="高级错误报告aer">15.3.2 高级错误报告（AER）</h4>
+        <h4 id="高级错误报告aeradvanced-error-reporting">15.3.2
+        高级错误报告（AER）（Advanced Error Reporting）</h4>
         <p>这一可选的错误报告机制包含一套全新且专用的配置寄存器，可为错误处理软件提供更多信息，用于诊断和恢复问题。AER
         寄存器映射到扩展配置空间中，能够提供关于任何错误性质的更详细信息。有关这些寄存器的详细说明，请参见第
         685 页的“高级错误报告（AER）”。</p>
-        <h3 id="错误类别">15.4 错误类别</h3>
+        <h3 id="错误类别error-classes">15.4 错误类别（Error
+        Classes）</h3>
         <p>根据硬件是否能够修复问题，错误分为两大类：可纠正错误和不可纠正错误。不可纠正错误又根据软件能否修复问题进一步细分为非致命错误和致命错误。</p>
         <ul>
         <li>可纠正错误 —— 由硬件自动处理。</li>
@@ -399,16 +498,22 @@
         </ul></li>
         </ul>
         <p>基于这些分类，错误处理软件可划分为独立的处理程序来执行所需操作。此类操作范围广泛，从简单监控可纠正错误的频率，到在发生致命错误时重置整个系统。无论错误类型如何，软件均可安排系统接收所有错误通知，以便进行追踪和记录。</p>
-        <h4 id="可纠正错误">15.4.1 可纠正错误</h4>
+        <h4 id="可纠正错误correctable-errors">15.4.1
+        可纠正错误（Correctable Errors）</h4>
         <p>可纠正错误，顾名思义，会在硬件层面自动修复。它们可能因增加延迟和消耗带宽而影响性能，但只要一切顺利，恢复过程是自动且快速的——这既无需软件干预，也不会造成信息丢失。这类错误
         无需向软件报告，但若进行报告，软件便可追踪错误趋势，从而发现某些设备可能即将出现故障的迹象。</p>
-        <h4 id="不可纠正错误">15.4.2 不可纠正错误</h4>
+        <h4 id="不可纠正错误uncorrectable-errors">15.4.2
+        不可纠正错误（Uncorrectable Errors）</h4>
         <p>无法在硬件层面自动修复的错误被称为不可纠正错误，其严重程度分为非致命性和致命性两类。</p>
-        <h5 id="非致命不可纠正错误">15.4.2.1 非致命不可纠正错误</h5>
+        <h5
+        id="非致命不可纠正错误non-fatal-uncorrectable-errors">15.4.2.1
+        非致命不可纠正错误（Non-fatal Uncorrectable Errors）</h5>
         <p>非致命错误表示信息已丢失，但原因可能并非链路或设备的完整性故障。数据包在传输过程中某处失败，但链路仍能正常运行，其他数据包不受影响。由于链路仍在工作，丢失的信息或许可以恢复，但这取决于具体实现中的软件处理方式。此类错误的一个示例是完成超时——当请求已发送，但在规定时间内未收到完成响应时发生。虽然某处出现了问题，但可能只是交换机中的随机比特错误导致完成响应被错误路由。针对这种情况的恢复尝试可能只需重新发送请求即可。</p>
-        <h5 id="致命不可纠正错误">15.4.2.2 致命不可纠正错误</h5>
+        <h5 id="致命不可纠正错误fatal-uncorrectable-errors">15.4.2.2
+        致命不可纠正错误（Fatal Uncorrectable Errors）</h5>
         <p>致命错误表示链路或设备发生操作故障，导致数据丢失且难以恢复。针对此类情况，重置至少一个故障链路或设备很可能是任何恢复流程的首要步骤，因为该组件显然因某种原因无法正常运行。规范也允许采用特定实现方案，允许软件尝试限制故障影响，但并未定义任何必须采取的具体操作。此类错误的典型示例是接收缓冲区溢出——由于流量控制跟踪计数器不同步导致信息丢失。由于缺乏修复机制，通常需要重置该链路。</p>
-        <h3 id="pcie-错误检测机制">15.5 PCIe 错误检测机制</h3>
+        <h3 id="pcie-错误检测机制pcie-error-checking-mechanisms">15.5
+        PCIe 错误检测机制（PCIe Error Checking Mechanisms）</h3>
         <p>PCIe 错误检测的范围主要关注与链路及数据包传输相关的错误（如图
         15-2 第 653 页所示）。与链路传输无关的错误不会通过 PCIe
         错误处理机制上报，需要通过设备特定中断等专有方法进行报告。接口的每一层都包含错误检查功能，以下各节将对此进行总结。</p>
@@ -450,9 +555,11 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="各层的错误检查">15.5.2 各层的错误检查</h4>
+        <h4 id="各层的错误检查error-checks-by-layer">15.5.2
+        各层的错误检查（Error Checks by Layer）</h4>
         <p>接收端的不同层会对传入数据包的不同方面进行检查。部分错误检查被列为可选。对于这些情况，如果发生错误但设计者选择不实现该检查方式，则错误将无法被检测到。</p>
-        <h5 id="物理层错误">15.5.2.1 物理层错误</h5>
+        <h5 id="物理层错误physical-layer-errors">15.5.2.1
+        物理层错误（Physical Layer Errors）</h5>
         <p>到达接收端的数据包首先进入物理层。在该层级，有些检查是必须执行的，而其他检查则可根据需要选择执行。链路训练也在该层进行，过程中可能出现多种问题，但物理层的这些细节及其他相关内容将在第
         505 页第 14
         章《链路初始化与训练》中详细说明。简而言之，物理层错误（也称为接收端错误或链路错误）包括以下情况：</p>
@@ -465,7 +572,8 @@
         <p>如果在检测到接收器错误时正在进行 TLP，则该 TLP
         将被丢弃。为解决该错误，若尚未有挂起的
         NAK，则通知数据链路层发送一个 NAK。</p>
-        <h5 id="数据链路层错误">15.5.2.2 数据链路层错误</h5>
+        <h5 id="数据链路层错误data-link-layer-errors">15.5.2.2
+        数据链路层错误（Data Link Layer Errors）</h5>
         <p>经过物理层处理后，传入的数据包将进入数据链路层，在此处会检查是否存在多种潜在问题。这些错误条件的详细说明可参见第
         317 页第 10 章“确认/否认协议”。概括而言，错误类型包括：</p>
         <ul>
@@ -484,7 +592,8 @@
         TLP）的 ACK 或 NAK
         时，计时器和计数器会被重置。但如果未能及时收到 Ack 或
         Nak，则会触发超时条件，从而导致重放。</p>
-        <h5 id="事务层错误">15.5.2.3 事务层错误</h5>
+        <h5 id="事务层错误transaction-layer-errors">15.5.2.3
+        事务层错误（Transaction Layer Errors）</h5>
         <p>最后，如果传入的 TLP
         通过了物理层和数据链路层的所有检查，它们最终将到达事务层，并在该层检查以下内容：</p>
         <ul>
@@ -501,7 +610,8 @@
         <li>完成超时</li>
         <li>意外完成（完成与待处理请求不匹配）</li>
         </ul>
-        <h3 id="错误污染">15.6 错误污染</h3>
+        <h3 id="错误污染error-pollution">15.6 错误污染（Error
+        Pollution）</h3>
         <p>如果某个设备在同一事务中检测到多个问题，就可能引发问题。这可能导致多个错误被报告（称为“错误污染”）。为避免这种情况，报告的错误仅限于最严重的一个。例如，如果某个
         TLP
         在物理层出现接收器错误，那么它在数据链路层和事务层也必然存在错误，但全部报告只会增加混乱。最相关的是报告最先发现的错误。因此，如果在物理层发现错误，就没有必要将数据包转发到更高层。同样，如果在数据链路层发现错误，数据包也不会被转发到事务层。某一层出现问题的数据包不会被转发到下一层，而是被丢弃。</p>
@@ -522,9 +632,11 @@
         <p>例如，一个 TLP 可能因报头损坏而出现 ECRC
         错误。由于数据包内部存在损坏，该错误也可能被视为格式错误或不受支持的请求。ECRC
         错误的优先级最高，因为这意味着报头内容可能已损坏，因此报告依赖于这些内容的错误毫无意义。</p>
-        <h3 id="pcie-错误来源">15.7 PCIe 错误来源</h3>
+        <h3 id="pcie-错误来源sources-of-pci-express-errors">15.7 PCIe
+        错误来源（Sources of PCI Express Errors）</h3>
         <p>与其逐一考虑所有错误情况，不如将它们归类到常见领域中，这样会更有帮助。</p>
-        <h4 id="ecrc-生成与校验">15.7.1 ECRC 生成与校验</h4>
+        <h4 id="ecrc-生成与校验ecrc-generation-and-checking">15.7.1 ECRC
+        生成与校验（ECRC Generation and Checking）</h4>
         <p>如前所述，ECRC
         的生成与校验需要存在可选的“高级错误报告配置寄存器”结构，如第 658
         页图 15-4
@@ -544,7 +656,7 @@
         的发起方或接收方，则可像普通设备一样参与 ECRC
         的生成与校验。关于交换机如何报告此类错误的更多信息，请参见第 670
         页“建议性非致命错误”章节。</p>
-        <h5 id="tlp-摘要">15.7.1.1 TLP 摘要</h5>
+        <h5 id="tlp-摘要tlp-digest">15.7.1.1 TLP 摘要（TLP Digest）</h5>
         <p>如果启用了可选的 ECRC 功能，则会在报头中设置一个称为 TD（TLP
         摘要）的特殊位，以指示其存在于数据包的末尾（ECRC
         也称为摘要）。数据包报头中的 TD 位如图 15-5（第 659
@@ -564,8 +676,10 @@
         ECRC（Digest）。若 TD 位与实际是否存在 ECRC 不一致，该 TLP
         将被视为格式错误的 TLP。</p>
         </blockquote>
-        <h5 id="ecrc-机制中不包含的变体位">15.7.1.2 ECRC
-        机制中不包含的变体位</h5>
+        <h5
+        id="ecrc-机制中不包含的变体位variant-bits-not-included-in-ecrc-mechanism">15.7.1.2
+        ECRC 机制中不包含的变体位（Variant Bits Not Included in ECRC
+        Mechanism）</h5>
         <p>ECRC
         是根据头部和数据的内容计算得出的。由于这些内容预期不会发生变化，因此在接收端执行校验时结果应该相同。然而，实际上有两个头部位在数据包传输过程中可以合法改变：类型字段的第
         0 位和 EP 位。类型字段的第 0
@@ -587,7 +701,8 @@
         错误状态位。除了标准错误报告机制外，它们还可以选择通过特定功能的中断向设备驱动程序报告该错误。如前所述，软件可能决定重新调度失败的请求。</li>
         </ul>
         <p>无论哪种情况，系统都可能收到一条不可纠正的非致命错误消息。若如此，设备驱动程序可能会被访问以检查不可纠正错误状态寄存器中的状态位，从而了解错误的性质。如果可能，失败的请求可能会被重新调度，但可能还需要其他步骤。</p>
-        <h4 id="数据投毒">15.7.2 数据投毒</h4>
+        <h4 id="数据投毒data-poisoning">15.7.2 数据投毒（Data
+        Poisoning）</h4>
         <p>数据投毒（也称为错误转发）为设备提供了一种可选方式，用于指示与
         TLP 关联的数据已损坏。在这些情况下，数据包头部中的
         EP（错误投毒）位会被置位以指示错误。EP 位如图 15-6（第 660
@@ -595,10 +710,10 @@
         <p>图 15-6：完成报头中的 EP（Error Poisoned）位</p>
         <figure>
         <img
-        src="img/15%20%E9%94%99%E8%AF%AF%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%A4%84%E7%90%86/42835ddb-5f38-440a-a170-a764c5fb2955-014.jpg"
-        alt="图 15-6：完成报头中的 EP（Error Poisoned）位" />
-        <figcaption aria-hidden="true">图 15-6：完成报头中的 EP（Error
-        Poisoned）位</figcaption>
+        src="img/15%20%E9%94%99%E8%AF%AF%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%A4%84%E7%90%86/image-20260526111634780.png"
+        alt="image-20260526111634780" />
+        <figcaption
+        aria-hidden="true">image-20260526111634780</figcaption>
         </figure>
         <p>每当数据传输时（例如在写入请求或带数据的完成操作中），数据损坏可能发生，且需要向目标设备报告。在这些情况下，数据包可以转发给接收方，但通过报头中的
         EP
@@ -627,7 +742,8 @@
         I/O
         或内存写入以及原子操作。接收投毒数据包的交换机必须将其原封不动地转发到目标端口，但如果已启用相应功能，则必须将此数据包作为错误报告，以帮助软件确定错误发生的位置。接收投毒的非发布请求的完成者应返回状态为
         UR（不支持请求）的完成。</p>
-        <h4 id="分裂事务错误">15.7.3 分裂事务错误</h4>
+        <h4 id="分裂事务错误split-transaction-errors">15.7.3
+        分裂事务错误（Split Transaction Errors）</h4>
         <p>在与非发布事务（Non-Posted
         Transaction）相关的分裂事务过程中，可能发生多种故障。PCIe
         在完成报头中定义了一个状态字段，允许完成者向请求者报告某些错误。第
@@ -672,7 +788,9 @@
         </tr>
         </tbody>
         </table>
-        <h5 id="不支持的请求ur状态">15.7.3.1 不支持的请求（UR）状态</h5>
+        <h5
+        id="不支持的请求ur状态unsupported-request-ur-status">15.7.3.1
+        不支持的请求（UR）状态（Unsupported Request (UR) Status）</h5>
         <p>如果接收方不支持某个请求，它会返回一个状态为 UR
         的完成报文。规范定义了若干可能导致 UR 状态的条件，例如：</p>
         <ul>
@@ -695,7 +813,8 @@
         <li>一个在其头部未设置 No Snoop 位的 TLP 被路由到其 VC
         资源能力寄存器中设置了 Reject Snoop Transactions 位的端口。</li>
         </ul>
-        <h5 id="完成者中止-ca-状态">15.7.3.2 完成者中止 (CA) 状态</h5>
+        <h5 id="完成者中止-ca-状态completer-abort-ca-status">15.7.3.2
+        完成者中止 (CA) 状态（Completer Abort (CA) Status）</h5>
         <p>以下几种情况可能导致完成者向请求者返回此 CA 状态。例如：</p>
         <ul>
         <li>完成者收到一个请求，但若完成该请求将违反其编程规则。例如，某些功能可能被设计为仅允许以完整且对齐的方式访问某些寄存器（如一个
@@ -715,10 +834,12 @@
         </ul>
         <p>中止请求的完成者可能会通过非致命错误消息向根节点报告该错误，并且如果该请求需要完成报文，则状态将为
         CA。</p>
-        <h5 id="意外完成">15.7.3.3 意外完成</h5>
+        <h5 id="意外完成unexpected-completion">15.7.3.3
+        意外完成（Unexpected Completion）</h5>
         <p>当请求者收到完成报文时，它会使用事务描述符（请求者 ID
         和标签）将其与之前的请求进行匹配。在极少数情况下，事务描述符可能与任何先前的请求都不匹配。这种情况可能发生是因为完成报文在返回给预期请求者的途中被错误路由。接收到意外完成报文的设备可以发送一个建议性非致命错误消息，但预期正确的请求者最终会超时并采取相应措施，因此该错误消息的优先级较低。</p>
-        <h5 id="完成超时">15.7.3.4 完成超时</h5>
+        <h5 id="完成超时completion-timeout">15.7.3.4
+        完成超时（Completion Timeout）</h5>
         <p>对于挂起请求从未收到其预期的完成报文的情况，规范定义了一个完成超时机制。规范明确旨在通过该机制检测完成报文没有合理机会返回的情况；该超时时间应长于任何正常预期的延迟。</p>
         <p>所有发起期望完成（Completion）请求的设备都必须实现完成超时定时器，但仅发起配置事务的设备除外。另请注意，每个等待完成的请求都是独立计时的，因此必须有一种方法跟踪每个未完成事务的时间。规范
         1.x 和 2.0 版本对超时值的允许范围定义如下：</p>
@@ -740,7 +861,9 @@
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
         <p>如果请求需要多个完成（Completion）才能返回所请求的数据，则单个完成不会停止定时器。相反，定时器会持续运行，直到所有数据返回完毕，无论需要多少个完成。如果在超时发生时仅返回了部分数据，请求者可以丢弃或保留该数据。</p>
-        <h4 id="链路流控制相关错误">15.7.4 链路流控制相关错误</h4>
+        <h4
+        id="链路流控制相关错误link-flow-control-related-errors">15.7.4
+        链路流控制相关错误（Link Flow Control Related Errors）</h4>
         <p>在将数据包转发到数据链路层进行传输之前，事务层必须检查流控制（FC）信用，以确保链路对端的接收缓冲区有足够的空间来容纳该数据包。流控制违规可能发生，且被视为不可纠正的错误。与流控制相关的协议违规可通过接收流控制信息的端口检测到并与之关联。以下是一些示例：</p>
         <ul>
         <li>链路伙伴在 FC
@@ -752,7 +875,8 @@
         更新，而这些信用字段最初被通告为无限。</li>
         <li>接收缓冲区溢出，导致数据丢失。此检查为可选，但检测到的违规将被视为致命错误。</li>
         </ul>
-        <h4 id="格式错误的-tlp">15.7.5 格式错误的 TLP</h4>
+        <h4 id="格式错误的-tlpmalformed-tlp">15.7.5 格式错误的
+        TLP（Malformed TLP）</h4>
         <p>到达事务层的 TLP
         会检查是否存在数据包格式规则违规。数据包格式违规被视为致命错误，因为这意味着发送方在协议方面出现了严重失误，例如未能正确维护其计数器，导致其行为不再符合预期。以下是一些被视为格式错误（畸形）的数据包示例：</p>
         <ul>
@@ -796,7 +920,8 @@
         <li><p>AtomicOp 地址未与操作数大小自然对齐。</p></li>
         <li><p>针对事务类型的路由不正确（例如，需要路由至根复合体的事务被检测到正在远离根复合体）。</p></li>
         </ul>
-        <h4 id="内部错误">15.7.6 内部错误</h4>
+        <h4 id="内部错误internal-errors">15.7.6 内部错误（Internal
+        Errors）</h4>
         <h5 id="问题所在">15.7.6.1 问题所在</h5>
         <p>PCIe
         规范的最初版本并未包含一种机制，用于报告设备内部发生的、与接口本身事务无关的错误。对于端点设备而言，这并非真正的问题，因为它们有与之关联的、由供应商提供的设备驱动程序，可以检测并报告内部错误。然而，交换机被视为由操作系统管理的系统资源，通常没有软件来协助检测内部错误。在高端系统中，错误隔离能力至关重要，因此交换机供应商创建了专有的内部错误处理机制。不幸的是，由于不同供应商的解决方案互不兼容，最终导致这些机制很少被使用。</p>
@@ -807,8 +932,9 @@
         ECC
         错误被自动纠正。而“不可纠正内部错误”则意味着操作异常已导致潜在数据丢失，例如内部存储位置出现奇偶校验错误。报告内部错误为可选功能，若启用，则必须配备
         AER（高级错误报告）寄存器以提供支持。</p>
-        <h3 id="错误报告方式">15.8 错误报告方式</h3>
-        <h4 id="引言">15.8.1 引言</h4>
+        <h3 id="错误报告方式how-errors-are-reported">15.8
+        错误报告方式（How Errors are Reported）</h3>
+        <h4 id="引言introduction">15.8.1 引言（Introduction）</h4>
         <p>PCI Express
         包含三种错误报告方法，如下所示。前两种方法——完成状态和投毒数据包——已在前面介绍过，因此接下来我们将讨论错误消息。</p>
         <ul>
@@ -816,7 +942,8 @@
         <li>投毒数据包 —— 向接收者报告 TLP 中的错误数据</li>
         <li>错误消息 —— 向主机（软件）报告错误</li>
         </ul>
-        <h4 id="错误消息">15.8.2 错误消息</h4>
+        <h4 id="错误消息error-messages">15.8.2 错误消息（Error
+        Messages）</h4>
         <p>PCIe 取消了 PCI
         中的边带信号，并用错误消息取而代之。这些消息提供了 PERR# 和
         SERR#
@@ -945,7 +1072,9 @@
         <li>收到意外完成。这必须作为建议性非致命错误处理。原因是这可能是由路由错误的完成消息导致的，而原始请求者最终会报告完成超时。为了让其他请求者能够重试失败的</li>
         </ol>
         <p>请求，重要的是看到意外完成的请求者不要发送非致命消息。</p>
-        <h3 id="基线错误检测与处理">15.9 基线错误检测与处理</h3>
+        <h3
+        id="基线错误检测与处理baseline-error-detection-and-handling">15.9
+        基线错误检测与处理（Baseline Error Detection and Handling）</h3>
         <p>本节定义了检测和报告 PCI Express
         错误所需的支持。合规设备必须包括：</p>
         <ul>
@@ -973,7 +1102,9 @@
         <p>如前所述，PCI 报告错误的机制是断言
         PERR#（数据奇偶校验错误）和 SERR#（不可恢复错误）。PCI Express
         报告这些事件的机制是完成报文中的完成状态值和发送至根复合体的错误消息。</p>
-        <h5 id="传统命令与状态寄存器">15.9.1.2 传统命令与状态寄存器</h5>
+        <h5
+        id="传统命令与状态寄存器legacy-command-and-status-registers">15.9.1.2
+        传统命令与状态寄存器（Legacy Command and Status Registers）</h5>
         <p>第 675 页的图 15-13
         展示了命令寄存器及错误相关字段的位置。这些位在 PCI
         兼容软件的控制下被置位，以启用基线错误报告。表 15-3
@@ -1088,7 +1219,8 @@
         </tr>
         </tbody>
         </table>
-        <h4 id="基线错误处理">15.9.2 基线错误处理</h4>
+        <h4 id="基线错误处理baseline-error-handling">15.9.2
+        基线错误处理（Baseline Error Handling）</h4>
         <p>基线能力要求使用 PCI Express
         能力结构。这些寄存器包含错误检测和处理字段，与仅使用 PCI
         兼容的错误处理相比，它们能够以更精细的粒度描述错误的性质以及是否报告该错误。</p>
@@ -1106,7 +1238,9 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h5 id="启用禁用错误报告">15.9.2.1 启用/禁用错误报告</h5>
+        <h5
+        id="启用禁用错误报告enablingdisabling-error-reporting">15.9.2.1
+        启用/禁用错误报告（Enabling/Disabling Error Reporting）</h5>
         <p>设备控制寄存器允许软件为四种错误事件启用三种不同错误消息的生成，而设备状态寄存器则允许其查看已检测到哪种错误。这四种错误情况包括：</p>
         <ul>
         <li>可纠正错误</li>
@@ -1270,7 +1404,9 @@
         </tr>
         </tbody>
         </table>
-        <h6 id="设备控制寄存器">设备控制寄存器</h6>
+        <h6
+        id="设备控制寄存器device-control-register">设备控制寄存器（Device
+        Control Register）</h6>
         <p>设置设备控制寄存器（如图 15-16 第 681
         页所示）中的位，可启用发送相应错误消息以报告错误。不支持的请求错误被指定为非致命错误，并通过非致命错误消息报告，但仅在
         UR 报告启用位被设置时生效。</p>
@@ -1288,7 +1424,9 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h6 id="设备状态寄存器">设备状态寄存器</h6>
+        <h6
+        id="设备状态寄存器device-status-register">设备状态寄存器（Device
+        Status Register）</h6>
         <p>如图 15-17（第 682
         页）所示，每当检测到与其分类相关的错误时，设备状态寄存器中的错误状态位就会被置位，无论设备控制寄存器中的错误报告使能位如何设置。由于不支持请求错误被视为非致命错误，当这些错误发生时，非致命错误检测状态位和不支持请求检测状态位都会被置位。与其他几个状态位类似，这些位具有“粘性”（其值不会因复位事件而清除，因此即使需要复位才能使链路正常工作以读取状态，它们仍可用于诊断问题）。</p>
         <p>图 15-17：与错误处理相关的设备状态寄存器位字段</p>
@@ -1298,8 +1436,9 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="根节点对错误消息的响应">15.9.3
-        根节点对错误消息的响应</h4>
+        <h4
+        id="根节点对错误消息的响应roots-response-to-error-message">15.9.3
+        根节点对错误消息的响应（Root’s Response to Error Message）</h4>
         <p>当根复合体接收到错误消息时，其采取的操作部分取决于根控制寄存器中的设置。图
         15-18
         展示了该寄存器，并突出显示了三个字段，这些字段指定接收到的错误消息是否应报告为系统错误。在某些基于
@@ -1313,7 +1452,7 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="链路错误">15.9.4 链路错误</h4>
+        <h4 id="链路错误link-errors">15.9.4 链路错误（Link Errors）</h4>
         <p>链路故障通常在物理层检测到，并通知给数据链路层。对于下游设备而言，如果链路发生了致命错误且无法正常运行，则无法向主机报告该错误。在这种情况下，必须由上游设备报告错误。如果软件能够将错误定位到特定链路，处理不可纠正错误（或防止未来出现不可纠正错误）的一个步骤是重新训练链路。链路控制寄存器包含一个位，允许软件强制链路重新训练，如第
         684 页图 15-19
         所示。如果这能解决问题，操作将在极短的停机时间后恢复。</p>
@@ -1334,7 +1473,8 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h3 id="高级错误报告aer-1">15.10 高级错误报告（AER）</h3>
+        <h3 id="高级错误报告aeradvanced-error-reporting-1">15.10
+        高级错误报告（AER）（Advanced Error Reporting）</h3>
         <p>第 686 页图 15-21
         所示的高级错误报告结构支持更为复杂的错误处理机制。这些寄存器提供了以下多项附加功能：</p>
         <ul>
@@ -1410,7 +1550,9 @@
         </tr>
         </tbody>
         </table>
-        <h4 id="高级错误能力与控制">15.10.1 高级错误能力与控制</h4>
+        <h4
+        id="高级错误能力与控制advanced-error-capability-and-control">15.10.1
+        高级错误能力与控制（Advanced Error Capability and Control）</h4>
         <p>让我们从查看高级错误能力与控制寄存器开始讨论 AER。端到端
         CRC（ECRC）的生成与校验需要 AER 支持，该寄存器（如图 15-22 第
         687
@@ -1446,14 +1588,19 @@
         <li>RWS - 可读、可写且粘滞</li>
         <li>RW1CS - 可读、写 1 清零且粘滞</li>
         </ul>
-        <h4 id="处理粘滞位">15.10.2 处理粘滞位</h4>
+        <h4 id="处理粘滞位handling-sticky-bits">15.10.2
+        处理粘滞位（Handling Sticky Bits）</h4>
         <p>多个 AER
         寄存器字段采用了粘滞位，这意味着复位操作不会清除其内容。所有其他寄存器字段在复位时会被强制恢复为默认值，但这些字段不会。这是一个很好的设计，因为链路可能会遇到无法通过复位清除的故障。如果问题出在故障链路的下游设备上，其寄存器内容在链路恢复正常之前无法访问，而复位操作可以恢复链路。但如果寄存器在复位时被清除，信息就会丢失。为了解决这个问题，粘滞位能够在复位过程中保留错误状态信息。具体来说，粘滞位可以承受
         FLR（功能级复位）、热复位和暖复位，因为电源仍可维持其活动状态。如果存在辅助电源（如
         Vaux）在主电源关闭时仍保持其有效，它们甚至可能承受冷复位。</p>
-        <h4 id="高级可纠正错误处理">15.10.3 高级可纠正错误处理</h4>
+        <h4
+        id="高级可纠正错误处理advanced-correctable-error-handling">15.10.3
+        高级可纠正错误处理（Advanced Correctable Error Handling）</h4>
         <p>高级错误报告功能能够记录检测到的具体可纠正错误。这些错误可用于向主机系统发起可纠正错误消息。尽管系统操作仍会正常进行，但报告可纠正错误非常有用，因为它能让系统软件了解哪些组件出现故障，并预测这些组件未来是否可能完全失效。</p>
-        <h5 id="高级可纠正错误状态">15.10.3.1 高级可纠正错误状态</h5>
+        <h5
+        id="高级可纠正错误状态advanced-correctable-error-status">15.10.3.1
+        高级可纠正错误状态（Advanced Correctable Error Status）</h5>
         <p>无论是否通过错误消息报告错误，可纠正错误都会自动设置高级可纠正错误状态寄存器（见图
         15-23，第 689
         页）中的相应位。这些位由软件通过向该位写入“1”来清除，因此被标记为
@@ -1486,7 +1633,9 @@
         报头日志中可存储的最大报头数量已达上限。若高级错误能力与控制寄存器中的“多报头记录使能位”未置位，则该数量仅为
         1。</p></li>
         </ul>
-        <h5 id="高级可纠正错误屏蔽">15.10.3.2 高级可纠正错误屏蔽</h5>
+        <h5
+        id="高级可纠正错误屏蔽advanced-correctable-error-masking">15.10.3.2
+        高级可纠正错误屏蔽（Advanced Correctable Error Masking）</h5>
         <p>可纠正错误的报告由设备控制寄存器中的“可纠正错误使能位”统一控制，同时也可通过图
         15-24
         所示的可纠正错误屏蔽寄存器进行单独控制。屏蔽位的默认状态为清零，这意味着当检测到任何已使能的可纠正错误时（即“可纠正错误使能位”已置位），可发送
@@ -1499,11 +1648,15 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="高级不可纠正错误处理">15.10.4 高级不可纠正错误处理</h4>
+        <h4
+        id="高级不可纠正错误处理advanced-uncorrectable-error-handling">15.10.4
+        高级不可纠正错误处理（Advanced Uncorrectable Error
+        Handling）</h4>
         <p>对于不可纠正的错误，AER
         提供了追踪具体错误类型的能力，可控制将其视为致命错误或非致命错误，并选择是否向根节点发送不可纠正错误消息。</p>
-        <h5 id="高级不可纠正错误状态">15.10.4.1
-        高级不可纠正错误状态</h5>
+        <h5
+        id="高级不可纠正错误状态advanced-uncorrectable-error-status">15.10.4.1
+        高级不可纠正错误状态（Advanced Uncorrectable Error Status）</h5>
         <p>当发生不可纠正的错误时，无论该错误是否会被报告给根节点，硬件都会自动设置此寄存器中的相应位（参见第
         691 页图
         15-25）。如果发生多个错误，硬件将为每个错误设置相应的位，并在高级错误能力与控制寄存器的首次错误指针字段中记录哪个错误最先发生。甚至可能在第一个错误被处理之前，就检测到同一错误的多个实例。符合
@@ -1567,8 +1720,10 @@
         位是首个错误，即格式错误的
         TLP。处理完该错误后，软件向状态寄存器的第 18 位写入 1
         以清除该事件，从而将首个错误指针更新为次近的错误。</p>
-        <h5 id="选择不可纠正错误的严重性">15.10.4.2
-        选择不可纠正错误的严重性</h5>
+        <h5
+        id="选择不可纠正错误的严重性selecting-uncorrectable-error-severity">15.10.4.2
+        选择不可纠正错误的严重性（Selecting Uncorrectable Error
+        Severity）</h5>
         <p>软件可以通过此寄存器选择是否将不可纠正错误视为致命错误，从而允许针对不同应用场景对错误进行差异化处理。例如，投毒
         TLP
         默认属于非致命条件，在某些情况下会被视为建议性非致命错误（如前文所述）。但软件可通过将其严重性位设置为
@@ -1585,7 +1740,8 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h5 id="不可纠正错误屏蔽">15.10.4.3 不可纠正错误屏蔽</h5>
+        <h5 id="不可纠正错误屏蔽uncorrectable-error-masking">15.10.4.3
+        不可纠正错误屏蔽（Uncorrectable Error Masking）</h5>
         <p>软件可以通过使用高级不可纠正错误掩码寄存器（如图 15-27
         所示，第 694
         页）来屏蔽个别错误，从而避免发送错误消息。默认情况下，每种错误类型均允许发送错误消息（所有掩码位均被清除）。</p>
@@ -1596,7 +1752,8 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="报头日志记录">15.10.5 报头日志记录</h4>
+        <h4 id="报头日志记录header-logging">15.10.5 报头日志记录（Header
+        Logging）</h4>
         <p>头部日志记录仅用于 TL 层，具有 4DW、16
         字节容量，用于记录首个错误指针。</p>
         <p>高级错误报告结构中的 4DW 部分用于存储接收到的 TLP 的头部，该
@@ -1647,12 +1804,16 @@
         </tr>
         </tbody>
         </table>
-        <h4 id="根复合体错误跟踪与报告">15.10.6
-        根复合体错误跟踪与报告</h4>
+        <h4
+        id="根复合体错误跟踪与报告root-complex-error-tracking-and-reporting">15.10.6
+        根复合体错误跟踪与报告（Root Complex Error Tracking and
+        Reporting）</h4>
         <p>根复合体是 PCIe
         拓扑结构中所有设备错误消息的目标。根复合体接收到的错误会更新状态寄存器，并在启用的情况下向主机系统报告。</p>
-        <h5 id="根复合体错误状态寄存器">15.10.6.1
-        根复合体错误状态寄存器</h5>
+        <h5
+        id="根复合体错误状态寄存器root-complex-error-status-registers">15.10.6.1
+        根复合体错误状态寄存器（Root Complex Error Status
+        Registers）</h5>
         <p>当根复合体接收到错误消息时，会在根错误状态寄存器（图
         15-28，第 697
         页）中设置状态位。该寄存器指示所接收错误的类型，以及是否接收到同一类型的多个错误。需要注意的是，根端口自身检测到的错误也会设置这些状态位，如同该端口向自身发送了错误消息一样。这些状态位包括：</p>
@@ -1684,7 +1845,8 @@
         个条目，也必须使用前 32
         个之一。此只读值由硬件设置，若分配给设备的 MSI
         消息数量发生变化，必须自动更新该值。</p>
-        <h5 id="高级源-id-寄存器">15.10.6.2 高级源 ID 寄存器</h5>
+        <h5 id="高级源-id-寄存器advanced-source-id-register">15.10.6.2
+        高级源 ID 寄存器（Advanced Source ID Register）</h5>
         <p>软件错误处理程序可能需要读取并清除检测到并报告错误的设备中的状态寄存器。为此，错误消息包含第一个报告该错误类型的设备的
         ID（总线:设备:功能）。如果 ERR_FATAL/NONFATAL
         位尚未设置（表示这是第一个错误），则源 ID 寄存器会从传入的
@@ -1698,7 +1860,8 @@
         <figcaption
         aria-hidden="true">image-20260525104220289</figcaption>
         </figure>
-        <h5 id="根错误命令寄存器">15.10.6.3 根错误命令寄存器</h5>
+        <h5 id="根错误命令寄存器root-error-command-register">15.10.6.3
+        根错误命令寄存器（Root Error Command Register）</h5>
         <p>根复合体为三种错误类别分别设置了独立的使能位，用于控制该错误类型是否会产生中断以调用错误处理程序，如图
         15-30（第 698 页）所示。所产生的中断可以是 MSI 或
         MSI-X，具体参见第 697
@@ -1711,7 +1874,10 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h3 id="错误记录与报告摘要">15.11 错误记录与报告摘要</h3>
+        <h3
+        id="错误记录与报告摘要summary-of-error-logging-and-reporting">15.11
+        错误记录与报告摘要（Summary of Error Logging and
+        Reporting）</h3>
         <p>规范中包含第 699 页图 15-31
         的流程图，展示了功能在检测到错误时所执行的操作。虚线框内的部分突出显示了当存在可选
         AER 能力结构时新增的条目。</p>
@@ -1722,8 +1888,10 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h3 id="软件错误调查的示例流程">15.12
-        软件错误调查的示例流程</h3>
+        <h3
+        id="软件错误调查的示例流程example-flow-of-software-error-investigation">15.12
+        软件错误调查的示例流程（Example Flow of Software Error
+        Investigation）</h3>
         <p>既然我们已经了解了 PCIe
         中用于检测、记录和报告错误的所有机制，那么探讨软件如何查找并利用这些信息来确定如何处理所报告的错误将颇具价值。</p>
         <p>本示例假设原始功能及其上游的根端口均支持 AER。若缺乏 AER

@@ -69,28 +69,34 @@
                 <li><a href="#上一章" id="toc-上一章">上一章</a></li>
                 <li><a href="#本章" id="toc-本章">本章</a></li>
                 <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-                <li><a href="#系统复位的两类方式"
-                id="toc-系统复位的两类方式">18.1
-                系统复位的两类方式</a></li>
-                <li><a href="#常规复位" id="toc-常规复位">18.2
-                常规复位</a>
+                <li><a
+                href="#系统复位的两类方式two-categories-of-system-reset"
+                id="toc-系统复位的两类方式two-categories-of-system-reset">18.1
+                系统复位的两类方式（Two Categories of System
+                Reset）</a></li>
+                <li><a href="#常规复位fundamental-reset"
+                id="toc-常规复位fundamental-reset">18.2
+                常规复位（Fundamental Reset）</a>
                 <ul>
-                <li><a href="#基本复位" id="toc-基本复位">18.2.1
-                基本复位</a></li>
-                <li><a href="#热复位带内复位"
-                id="toc-热复位带内复位">18.2.2
-                热复位（带内复位）</a></li>
+                <li><a href="#基本复位fundamental-reset"
+                id="toc-基本复位fundamental-reset">18.2.1
+                基本复位（Fundamental Reset）</a></li>
+                <li><a href="#热复位带内复位hot-reset-in-band-reset"
+                id="toc-热复位带内复位hot-reset-in-band-reset">18.2.2
+                热复位（带内复位）（Hot Reset (In-band Reset)）</a></li>
                 </ul></li>
-                <li><a href="#功能级复位flr" id="toc-功能级复位flr">18.3
-                功能级复位（FLR）</a>
+                <li><a href="#功能级复位flrfunction-level-reset"
+                id="toc-功能级复位flrfunction-level-reset">18.3
+                功能级复位（FLR）（Function Level Reset）</a>
                 <ul>
                 <li><a href="#允许时间" id="toc-允许时间">18.3.1
                 允许时间</a></li>
                 <li><a href="#flr-期间的行为"
                 id="toc-flr-期间的行为">18.3.2 FLR 期间的行为</a></li>
                 </ul></li>
-                <li><a href="#复位退出" id="toc-复位退出">18.4
-                复位退出</a></li>
+                <li><a href="#复位退出reset-exit"
+                id="toc-复位退出reset-exit">18.4 复位退出（Reset
+                Exit）</a></li>
                 </ul></li>
                 </ul>
               </div>
@@ -110,28 +116,34 @@
                 <li><a href="#上一章" id="toc-上一章">上一章</a></li>
                 <li><a href="#本章" id="toc-本章">本章</a></li>
                 <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-                <li><a href="#系统复位的两类方式"
-                id="toc-系统复位的两类方式">18.1
-                系统复位的两类方式</a></li>
-                <li><a href="#常规复位" id="toc-常规复位">18.2
-                常规复位</a>
+                <li><a
+                href="#系统复位的两类方式two-categories-of-system-reset"
+                id="toc-系统复位的两类方式two-categories-of-system-reset">18.1
+                系统复位的两类方式（Two Categories of System
+                Reset）</a></li>
+                <li><a href="#常规复位fundamental-reset"
+                id="toc-常规复位fundamental-reset">18.2
+                常规复位（Fundamental Reset）</a>
                 <ul>
-                <li><a href="#基本复位" id="toc-基本复位">18.2.1
-                基本复位</a></li>
-                <li><a href="#热复位带内复位"
-                id="toc-热复位带内复位">18.2.2
-                热复位（带内复位）</a></li>
+                <li><a href="#基本复位fundamental-reset"
+                id="toc-基本复位fundamental-reset">18.2.1
+                基本复位（Fundamental Reset）</a></li>
+                <li><a href="#热复位带内复位hot-reset-in-band-reset"
+                id="toc-热复位带内复位hot-reset-in-band-reset">18.2.2
+                热复位（带内复位）（Hot Reset (In-band Reset)）</a></li>
                 </ul></li>
-                <li><a href="#功能级复位flr" id="toc-功能级复位flr">18.3
-                功能级复位（FLR）</a>
+                <li><a href="#功能级复位flrfunction-level-reset"
+                id="toc-功能级复位flrfunction-level-reset">18.3
+                功能级复位（FLR）（Function Level Reset）</a>
                 <ul>
                 <li><a href="#允许时间" id="toc-允许时间">18.3.1
                 允许时间</a></li>
                 <li><a href="#flr-期间的行为"
                 id="toc-flr-期间的行为">18.3.2 FLR 期间的行为</a></li>
                 </ul></li>
-                <li><a href="#复位退出" id="toc-复位退出">18.4
-                复位退出</a></li>
+                <li><a href="#复位退出reset-exit"
+                id="toc-复位退出reset-exit">18.4 复位退出（Reset
+                Exit）</a></li>
                 </ul></li>
                 </ul>
               </div>
@@ -159,15 +171,18 @@
         <p>下一章将介绍 PCI Express
         热插拔模型。同时，针对所有支持热插拔功能的设备和外形规格，也定义了一套标准使用模型。对于热插拔卡而言，功耗同样是一个关键问题。在系统运行期间添加新卡时，必须确保其功耗需求不超过系统能够提供的上限。因此，需要一种机制来查询并控制设备的功耗需求，电源预算管理（Power
         Budgeting）正是为此提供的解决方案。</p>
-        <h3 id="系统复位的两类方式">18.1 系统复位的两类方式</h3>
+        <h3 id="系统复位的两类方式two-categories-of-system-reset">18.1
+        系统复位的两类方式（Two Categories of System Reset）</h3>
         <p>PCI Express 规范描述了四种复位机制。其中三种机制源自 PCIe
         规范的早期修订版本，现在统称为常规复位（Conventional
         Resets）；其中两种又被称为基本复位（Fundamental
         Resets）。第四种复位类别和复位方法是在 2.0
         规范修订版中新增的，称为功能级复位（Function-Level
         Reset，FLR）。</p>
-        <h3 id="常规复位">18.2 常规复位</h3>
-        <h4 id="基本复位">18.2.1 基本复位</h4>
+        <h3 id="常规复位fundamental-reset">18.2 常规复位（Fundamental
+        Reset）</h3>
+        <h4 id="基本复位fundamental-reset">18.2.1 基本复位（Fundamental
+        Reset）</h4>
         <p>基本复位（Fundamental
         Reset）由硬件处理，会复位整个设备，并重新初始化所有状态机、硬件逻辑、端口状态以及配置寄存器。例外是一组被标记为“粘滞”（Sticky）的配置寄存器字段：除非所有电源都被移除，否则这些字段会保留原有内容。这对于诊断那些必须通过复位才能重新建立链路的问题非常有用，因为错误状态可以跨复位保留下来，之后仍可由软件读取。如果主电源被移除但
         Vaux 辅助电源仍然可用，粘滞位也会保持；但如果主电源和 Vaux
@@ -239,7 +254,8 @@
         alt="图 18-1：PERST# 生成" />
         <figcaption aria-hidden="true">图 18-1：PERST# 生成</figcaption>
         </figure>
-        <h4 id="热复位带内复位">18.2.2 热复位（带内复位）</h4>
+        <h4 id="热复位带内复位hot-reset-in-band-reset">18.2.2
+        热复位（带内复位）（Hot Reset (In-band Reset)）</h4>
         <p>热复位（Hot Reset，也称带内复位，In-band
         Reset）通过在相邻链路伙伴之间发送 TS1 有序集传播。用于热复位的
         TS1 如图 18-2 所示，其 Symbol 5 的 bit 0 被置位。这些 TS1
@@ -362,7 +378,8 @@
         <figcaption aria-hidden="true">图 18-7：显示 Disable Link 位的
         TS1 有序集</figcaption>
         </figure>
-        <h3 id="功能级复位flr">18.3 功能级复位（FLR）</h3>
+        <h3 id="功能级复位flrfunction-level-reset">18.3
+        功能级复位（FLR）（Function Level Reset）</h3>
         <p>功能级复位（Function-Level
         Reset，FLR）允许软件仅复位多功能设备中的某一个
         Function，而不影响所有 Function 共享的链路。规范强烈建议实现
@@ -465,7 +482,7 @@
         Completion，在该 Function 再次被复位之前，CRS
         状态就不再合法。</li>
         </ul>
-        <h3 id="复位退出">18.4 复位退出</h3>
+        <h3 id="复位退出reset-exit">18.4 复位退出（Reset Exit）</h3>
         <p>退出复位状态后，链路训练与初始化必须在 20 ms
         内开始。由于复位信号是异步的，不同设备退出复位状态的时间可能不同，但它们都必须在该时间范围内开始训练。</p>
         <p>为了允许被复位组件执行内部初始化，系统软件在复位结束后必须至少等待

@@ -69,16 +69,18 @@
                 <li><a href="#上一章" id="toc-上一章">上一章</a></li>
                 <li><a href="#本章" id="toc-本章">本章</a></li>
                 <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-                <li><a href="#中断支持背景" id="toc-中断支持背景">17.1
-                中断支持背景</a>
+                <li><a href="#中断支持背景interrupt-support-background"
+                id="toc-中断支持背景interrupt-support-background">17.1
+                中断支持背景（Interrupt Support Background）</a>
                 <ul>
                 <li><a href="#概述" id="toc-概述">17.1.1 概述</a></li>
                 <li><a href="#中断传递的两种方法"
                 id="toc-中断传递的两种方法">17.1.2
                 中断传递的两种方法</a></li>
                 </ul></li>
-                <li><a href="#传统模型" id="toc-传统模型">17.2
-                传统模型</a>
+                <li><a href="#传统模型the-legacy-model"
+                id="toc-传统模型the-legacy-model">17.2 传统模型（The
+                Legacy Model）</a>
                 <ul>
                 <li><a href="#概述-1" id="toc-概述-1">17.2.1
                 概述</a></li>
@@ -94,33 +96,42 @@
                 id="toc-intx-消息的映射与合并">17.2.5 INTx
                 消息的映射与合并</a></li>
                 </ul></li>
-                <li><a href="#msi-模型" id="toc-msi-模型">17.3 MSI
-                模型</a>
+                <li><a href="#msi-模型the-msi-model"
+                id="toc-msi-模型the-msi-model">17.3 MSI 模型（The MSI
+                Model）</a>
                 <ul>
-                <li><a href="#msi-能力结构" id="toc-msi-能力结构">17.3.1
-                MSI 能力结构</a></li>
+                <li><a href="#msi-能力结构the-msi-capability-structure"
+                id="toc-msi-能力结构the-msi-capability-structure">17.3.1
+                MSI 能力结构(The MSI Capability Structure)</a></li>
                 <li><a href="#msi-配置基础" id="toc-msi-配置基础">17.3.2
                 MSI 配置基础</a></li>
                 <li><a href="#生成-msi-中断请求的基本原理"
                 id="toc-生成-msi-中断请求的基本原理">17.3.3 生成 MSI
                 中断请求的基本原理</a></li>
-                <li><a href="#多消息" id="toc-多消息">17.3.4
-                多消息</a></li>
+                <li><a href="#多消息multiple-messages"
+                id="toc-多消息multiple-messages">17.3.4 多消息（Multiple
+                Messages）</a></li>
                 </ul></li>
-                <li><a href="#msi-x-模型" id="toc-msi-x-模型">17.4 MSI-X
-                模型</a>
+                <li><a href="#msi-x-模型the-msi-x-model"
+                id="toc-msi-x-模型the-msi-x-model">17.4 MSI-X 模型（The
+                MSI-X Model）</a>
                 <ul>
                 <li><a href="#通用" id="toc-通用">17.4.1 通用</a></li>
-                <li><a href="#msi-x-能力结构"
-                id="toc-msi-x-能力结构">17.4.2 MSI-X 能力结构</a></li>
-                <li><a href="#msi-x-表" id="toc-msi-x-表">17.4.3 MSI-X
-                表</a></li>
-                <li><a href="#待处理位数组" id="toc-待处理位数组">17.4.4
-                待处理位数组</a></li>
+                <li><a href="#msi-x-能力结构msi-x-capability-structure"
+                id="toc-msi-x-能力结构msi-x-capability-structure">17.4.2
+                MSI-X 能力结构（MSI-X Capability Structure）</a></li>
+                <li><a href="#msi-x-表msi-x-table"
+                id="toc-msi-x-表msi-x-table">17.4.3 MSI-X 表（MSI-X
+                Table）</a></li>
+                <li><a href="#待处理位数组pending-bit-array"
+                id="toc-待处理位数组pending-bit-array">17.4.4
+                待处理位数组（Pending Bit Array）</a></li>
                 </ul></li>
-                <li><a href="#进入中断处理程序时的内存同步"
-                id="toc-进入中断处理程序时的内存同步">17.5
-                进入中断处理程序时的内存同步</a>
+                <li><a
+                href="#进入中断处理程序时的内存同步memory-synchronization-when-interrupt-handler-entered"
+                id="toc-进入中断处理程序时的内存同步memory-synchronization-when-interrupt-handler-entered">17.5
+                进入中断处理程序时的内存同步（Memory Synchronization
+                When Interrupt Handler Entered）</a>
                 <ul>
                 <li><a href="#问题所在" id="toc-问题所在">17.5.1
                 问题所在</a></li>
@@ -132,16 +143,22 @@
                 id="toc-流量类别必须匹配">17.5.4
                 流量类别必须匹配</a></li>
                 </ul></li>
-                <li><a href="#中断延迟" id="toc-中断延迟">17.6
-                中断延迟</a></li>
-                <li><a href="#msi-可能导致错误"
-                id="toc-msi-可能导致错误">17.7 MSI 可能导致错误</a></li>
-                <li><a href="#msi-相关规则与建议"
-                id="toc-msi-相关规则与建议">17.8 MSI
-                相关规则与建议</a></li>
-                <li><a href="#基础系统外设的特殊考虑"
-                id="toc-基础系统外设的特殊考虑">17.9
-                基础系统外设的特殊考虑</a>
+                <li><a href="#中断延迟interrupt-latency"
+                id="toc-中断延迟interrupt-latency">17.6
+                中断延迟（Interrupt Latency）</a></li>
+                <li><a href="#msi-可能导致错误msi-may-result-in-errors"
+                id="toc-msi-可能导致错误msi-may-result-in-errors">17.7
+                MSI 可能导致错误（MSI May Result In Errors）</a></li>
+                <li><a
+                href="#msi-相关规则与建议some-msi-rules-and-recommendations"
+                id="toc-msi-相关规则与建议some-msi-rules-and-recommendations">17.8
+                MSI 相关规则与建议（Some MSI Rules and
+                Recommendations）</a></li>
+                <li><a
+                href="#基础系统外设的特殊考虑special-consideration-for-base-system-peripherals"
+                id="toc-基础系统外设的特殊考虑special-consideration-for-base-system-peripherals">17.9
+                基础系统外设的特殊考虑（Special Consideration for Base
+                System Peripherals）</a>
                 <ul>
                 <li><a href="#示例传统系统" id="toc-示例传统系统">17.9.1
                 示例：传统系统</a></li>
@@ -165,16 +182,18 @@
                 <li><a href="#上一章" id="toc-上一章">上一章</a></li>
                 <li><a href="#本章" id="toc-本章">本章</a></li>
                 <li><a href="#下一章" id="toc-下一章">下一章</a></li>
-                <li><a href="#中断支持背景" id="toc-中断支持背景">17.1
-                中断支持背景</a>
+                <li><a href="#中断支持背景interrupt-support-background"
+                id="toc-中断支持背景interrupt-support-background">17.1
+                中断支持背景（Interrupt Support Background）</a>
                 <ul>
                 <li><a href="#概述" id="toc-概述">17.1.1 概述</a></li>
                 <li><a href="#中断传递的两种方法"
                 id="toc-中断传递的两种方法">17.1.2
                 中断传递的两种方法</a></li>
                 </ul></li>
-                <li><a href="#传统模型" id="toc-传统模型">17.2
-                传统模型</a>
+                <li><a href="#传统模型the-legacy-model"
+                id="toc-传统模型the-legacy-model">17.2 传统模型（The
+                Legacy Model）</a>
                 <ul>
                 <li><a href="#概述-1" id="toc-概述-1">17.2.1
                 概述</a></li>
@@ -190,33 +209,42 @@
                 id="toc-intx-消息的映射与合并">17.2.5 INTx
                 消息的映射与合并</a></li>
                 </ul></li>
-                <li><a href="#msi-模型" id="toc-msi-模型">17.3 MSI
-                模型</a>
+                <li><a href="#msi-模型the-msi-model"
+                id="toc-msi-模型the-msi-model">17.3 MSI 模型（The MSI
+                Model）</a>
                 <ul>
-                <li><a href="#msi-能力结构" id="toc-msi-能力结构">17.3.1
-                MSI 能力结构</a></li>
+                <li><a href="#msi-能力结构the-msi-capability-structure"
+                id="toc-msi-能力结构the-msi-capability-structure">17.3.1
+                MSI 能力结构(The MSI Capability Structure)</a></li>
                 <li><a href="#msi-配置基础" id="toc-msi-配置基础">17.3.2
                 MSI 配置基础</a></li>
                 <li><a href="#生成-msi-中断请求的基本原理"
                 id="toc-生成-msi-中断请求的基本原理">17.3.3 生成 MSI
                 中断请求的基本原理</a></li>
-                <li><a href="#多消息" id="toc-多消息">17.3.4
-                多消息</a></li>
+                <li><a href="#多消息multiple-messages"
+                id="toc-多消息multiple-messages">17.3.4 多消息（Multiple
+                Messages）</a></li>
                 </ul></li>
-                <li><a href="#msi-x-模型" id="toc-msi-x-模型">17.4 MSI-X
-                模型</a>
+                <li><a href="#msi-x-模型the-msi-x-model"
+                id="toc-msi-x-模型the-msi-x-model">17.4 MSI-X 模型（The
+                MSI-X Model）</a>
                 <ul>
                 <li><a href="#通用" id="toc-通用">17.4.1 通用</a></li>
-                <li><a href="#msi-x-能力结构"
-                id="toc-msi-x-能力结构">17.4.2 MSI-X 能力结构</a></li>
-                <li><a href="#msi-x-表" id="toc-msi-x-表">17.4.3 MSI-X
-                表</a></li>
-                <li><a href="#待处理位数组" id="toc-待处理位数组">17.4.4
-                待处理位数组</a></li>
+                <li><a href="#msi-x-能力结构msi-x-capability-structure"
+                id="toc-msi-x-能力结构msi-x-capability-structure">17.4.2
+                MSI-X 能力结构（MSI-X Capability Structure）</a></li>
+                <li><a href="#msi-x-表msi-x-table"
+                id="toc-msi-x-表msi-x-table">17.4.3 MSI-X 表（MSI-X
+                Table）</a></li>
+                <li><a href="#待处理位数组pending-bit-array"
+                id="toc-待处理位数组pending-bit-array">17.4.4
+                待处理位数组（Pending Bit Array）</a></li>
                 </ul></li>
-                <li><a href="#进入中断处理程序时的内存同步"
-                id="toc-进入中断处理程序时的内存同步">17.5
-                进入中断处理程序时的内存同步</a>
+                <li><a
+                href="#进入中断处理程序时的内存同步memory-synchronization-when-interrupt-handler-entered"
+                id="toc-进入中断处理程序时的内存同步memory-synchronization-when-interrupt-handler-entered">17.5
+                进入中断处理程序时的内存同步（Memory Synchronization
+                When Interrupt Handler Entered）</a>
                 <ul>
                 <li><a href="#问题所在" id="toc-问题所在">17.5.1
                 问题所在</a></li>
@@ -228,16 +256,22 @@
                 id="toc-流量类别必须匹配">17.5.4
                 流量类别必须匹配</a></li>
                 </ul></li>
-                <li><a href="#中断延迟" id="toc-中断延迟">17.6
-                中断延迟</a></li>
-                <li><a href="#msi-可能导致错误"
-                id="toc-msi-可能导致错误">17.7 MSI 可能导致错误</a></li>
-                <li><a href="#msi-相关规则与建议"
-                id="toc-msi-相关规则与建议">17.8 MSI
-                相关规则与建议</a></li>
-                <li><a href="#基础系统外设的特殊考虑"
-                id="toc-基础系统外设的特殊考虑">17.9
-                基础系统外设的特殊考虑</a>
+                <li><a href="#中断延迟interrupt-latency"
+                id="toc-中断延迟interrupt-latency">17.6
+                中断延迟（Interrupt Latency）</a></li>
+                <li><a href="#msi-可能导致错误msi-may-result-in-errors"
+                id="toc-msi-可能导致错误msi-may-result-in-errors">17.7
+                MSI 可能导致错误（MSI May Result In Errors）</a></li>
+                <li><a
+                href="#msi-相关规则与建议some-msi-rules-and-recommendations"
+                id="toc-msi-相关规则与建议some-msi-rules-and-recommendations">17.8
+                MSI 相关规则与建议（Some MSI Rules and
+                Recommendations）</a></li>
+                <li><a
+                href="#基础系统外设的特殊考虑special-consideration-for-base-system-peripherals"
+                id="toc-基础系统外设的特殊考虑special-consideration-for-base-system-peripherals">17.9
+                基础系统外设的特殊考虑（Special Consideration for Base
+                System Peripherals）</a>
                 <ul>
                 <li><a href="#示例传统系统" id="toc-示例传统系统">17.9.1
                 示例：传统系统</a></li>
@@ -268,7 +302,8 @@
         <p>下一章描述了为 PCIe
         定义的三种复位类型：基本复位（包括冷复位和热复位）、热复位以及功能级复位（FLR）。讨论了使用边带复位信号
         PERST#生成系统复位的方法，以及基于带内 TS1 的热复位机制。</p>
-        <h3 id="中断支持背景">17.1 中断支持背景</h3>
+        <h3 id="中断支持背景interrupt-support-background">17.1
+        中断支持背景（Interrupt Support Background）</h3>
         <h4 id="概述">17.1.1 概述</h4>
         <p>PCI 架构支持来自外围设备的中断，以此提升设备性能，并减轻 CPU
         轮询设备以确定其是否需要服务的负担。PCIe 基本沿袭了 PCI
@@ -327,7 +362,8 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h3 id="传统模型">17.2 传统模型</h3>
+        <h3 id="传统模型the-legacy-model">17.2 传统模型（The Legacy
+        Model）</h3>
         <h4 id="概述-1">17.2.1 概述</h4>
         <p>为说明传统中断传递模型，请参考第 797 页的图
         17-3，并考虑使用传统中断引脚方法进行中断传递时通常涉及的步骤：</p>
@@ -727,7 +763,8 @@
         虚拟线，并相应更新上游端口（若该 INTx 处于激活状态，则需发送
         Deassert_INTx 消息）。</li>
         </ul>
-        <h3 id="msi-模型">17.3 MSI 模型</h3>
+        <h3 id="msi-模型the-msi-model">17.3 MSI 模型（The MSI
+        Model）</h3>
         <p>PCIe 功能通过 MSI 能力寄存器指示对 MSI
         的支持。每个功能必须实现 MSI 能力结构或 MSI-X（扩展 MSI，参见第
         821 页的“MSI-X 模型”）能力结构，或两者都实现。MSI
@@ -740,7 +777,8 @@
         <p>关于内存写事务头的回顾，请参见第 188
         页的“存储器请求头字段”。请注意，MSI 始终具有 1 DW
         的数据载荷。</p>
-        <h4 id="msi-能力结构">17.3.1 MSI 能力结构</h4>
+        <h4 id="msi-能力结构the-msi-capability-structure">17.3.1 MSI
+        能力结构(The MSI Capability Structure)</h4>
         <p>MSI 能力结构位于 PCI 兼容配置空间区域（前 256
         字节）。根据功能是否支持 64
         位寻址，以及是否支持每向量屏蔽（Per-vector Masking），MSI
@@ -753,12 +791,15 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h5 id="能力-id">17.3.1.1 能力 ID</h5>
+        <h5 id="能力-idcapability-id">17.3.1.1 能力 ID（Capability
+        ID）</h5>
         <p>能力 ID 值为 05h，表示 MSI 能力结构，且该字段为只读。</p>
-        <h5 id="下一个能力指针">17.3.1.2 下一个能力指针</h5>
+        <h5 id="下一个能力指针next-capability-pointer">17.3.1.2
+        下一个能力指针（Next Capability Pointer）</h5>
         <p>该寄存器的第二个字节是只读值，给出从配置空间起始位置到链表中下一个能力结构的双字对齐偏移量；若该值为
         00h，则表示能力链表结束。</p>
-        <h5 id="消息控制寄存器">17.3.1.3 消息控制寄存器</h5>
+        <h5 id="消息控制寄存器message-control-register">17.3.1.3
+        消息控制寄存器（Message Control Register）</h5>
         <p>第 814 页的图 17-14 和表 17-2
         展示了消息控制寄存器的布局与用法。</p>
         <p>图 17-14：消息控制寄存器</p>
@@ -827,7 +868,8 @@
         </tr>
         </tbody>
         </table>
-        <h5 id="消息地址寄存器">17.3.1.4 消息地址寄存器</h5>
+        <h5 id="消息地址寄存器message-address-register">17.3.1.4
+        消息地址寄存器（Message Address Register）</h5>
         <p>32 位消息地址寄存器的低两位为 0
         且不可更改，这会强制软件分配的地址必须按双字对齐。通常，该地址指向系统
         CPU 中的本地 APIC。在基于 x86 的系统中（兼容 Intel
@@ -839,15 +881,18 @@
         位被置位，则该寄存器存在。此时，它是一个读/写寄存器，与消息地址
         [31:0] 寄存器配合使用，使该功能能够使用 64
         位内存地址进行中断传递。</p>
-        <h5 id="消息数据寄存器">17.3.1.5 消息数据寄存器</h5>
+        <h5 id="消息数据寄存器message-data-register">17.3.1.5
+        消息数据寄存器（Message Data Register）</h5>
         <p>系统软件会将一个基本消息数据模式写入这个 16
         位读/写寄存器。当该功能生成中断请求时，它会向消息地址寄存器指定的内存地址写入一个
         32 位数据值。该数据值的高 16 位始终为 0，低 16
         位来自消息数据寄存器。</p>
         <p>如果该功能被分配了多条消息，它会修改消息数据寄存器值的低位，以形成与其希望报告的事件对应的适当值。可修改的低位数量取决于配置软件分配给该功能的消息数量。示例见第
         820 页“生成 MSI 中断请求的基本原理”。</p>
-        <h5 id="屏蔽位寄存器和待处理位寄存器">17.3.1.6
-        屏蔽位寄存器和待处理位寄存器</h5>
+        <h5
+        id="屏蔽位寄存器和待处理位寄存器mask-bits-register-and-pending-bits-register">17.3.1.6
+        屏蔽位寄存器和待处理位寄存器（Mask Bits Register and Pending
+        Bits Register）</h5>
         <p>如果该功能支持每向量屏蔽（由消息控制寄存器第 8
         位指示），则会实现这些寄存器。使用 MSI
         时，一个功能最多可请求并被分配 32
@@ -908,7 +953,8 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="多消息">17.3.4 多消息</h4>
+        <h4 id="多消息multiple-messages">17.3.4 多消息（Multiple
+        Messages）</h4>
         <p>如果系统软件为功能分配了多条消息，则功能可通过修改已分配消息数据值的低位，为每个设备特定事件类型发送不同的消息。</p>
         <p>例如，假设以下条件成立：</p>
         <ul>
@@ -922,7 +968,8 @@
         0000_49A3h。换言之，数据值的低两位会被修改，以指示具体发生了哪个事件。如果该功能被分配了
         8 条消息，则低三位可以被修改。此外，设备始终使用 0000h
         作为消息数据值的高两个字节。</p>
-        <h3 id="msi-x-模型">17.4 MSI-X 模型</h3>
+        <h3 id="msi-x-模型the-msi-x-model">17.4 MSI-X 模型（The MSI-X
+        Model）</h3>
         <h4 id="通用">17.4.1 通用</h4>
         <p>PCI 规范 3.0 版本增加了对 MSI-X
         的支持，该功能拥有独立的能力结构。MSI-X 的引入旨在解决 MSI
@@ -936,7 +983,8 @@
         时，单个功能可分配多个中断，但所有中断向量必须连续排列，这意味着优先级相近。若该功能的某些中断需要高优先级而其他中断需要低优先级，这种方案并不理想。更优的做法是由软件为分配给该功能的每个中断指定唯一向量（消息数据值），且无需保持连续性。</li>
         </ul>
         <p>牢记这些目标，就不难理解为实现每个向量分配目标地址和消息数据值而实施的寄存器变更，从而提供更多向量。</p>
-        <h4 id="msi-x-能力结构">17.4.2 MSI-X 能力结构</h4>
+        <h4 id="msi-x-能力结构msi-x-capability-structure">17.4.2 MSI-X
+        能力结构（MSI-X Capability Structure）</h4>
         <p>如第 822 页图 17-17 所示，MSI-X 的消息控制寄存器与 MSI
         存在显著差异。有趣的是，尽管 MSI-X 每个功能最多可支持 2048
         个向量，而 MSI 仅支持 32 个，但 MSI-X 的配置寄存器数量实际上比
@@ -1002,7 +1050,7 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h4 id="msi-x-表">17.4.3 MSI-X 表</h4>
+        <h4 id="msi-x-表msi-x-table">17.4.3 MSI-X 表（MSI-X Table）</h4>
         <p>MSI-X 表本身是一个由向量地址和向量数据组成的数组，如图
         17-19（第 825
         页）所示。每个条目代表一个向量，包含四个双字（DW）。DW0 和 DW1
@@ -1048,7 +1096,8 @@
         </tr>
         </tbody>
         </table>
-        <h4 id="待处理位数组">17.4.4 待处理位数组</h4>
+        <h4 id="待处理位数组pending-bit-array">17.4.4
+        待处理位数组（Pending Bit Array）</h4>
         <p>类似地，待处理位数组（Pending Bit
         Array，PBA）也位于内存地址空间中。它可以使用与 MSI-X 表相同的
         BIR 值（即相同 BAR）但不同偏移量，也可以使用完全不同的 BAR。如图
@@ -1095,8 +1144,10 @@
         </tr>
         </tbody>
         </table>
-        <h3 id="进入中断处理程序时的内存同步">17.5
-        进入中断处理程序时的内存同步</h3>
+        <h3
+        id="进入中断处理程序时的内存同步memory-synchronization-when-interrupt-handler-entered">17.5
+        进入中断处理程序时的内存同步（Memory Synchronization When
+        Interrupt Handler Entered）</h3>
         <h4 id="问题所在">17.5.1 问题所在</h4>
         <p>任何中断方案在数据传输过程中都可能存在潜在问题。例如，若设备先前已发送数据并希望通过中断报告该事件，数据传输的意外延迟可能导致中断过早到达。这种情况可能发生在图
         17-21（第 827
@@ -1155,18 +1206,22 @@
         alt="img" />
         <figcaption aria-hidden="true">img</figcaption>
         </figure>
-        <h3 id="中断延迟">17.6 中断延迟</h3>
+        <h3 id="中断延迟interrupt-latency">17.6 中断延迟（Interrupt
+        Latency）</h3>
         <p>从发出中断信号到软件响应设备服务的时间被称为中断延迟。尽管
         MSI
         具有诸多优势，但与其他中断传递机制一样，它也无法保证中断延迟的确定性。</p>
-        <h3 id="msi-可能导致错误">17.7 MSI 可能导致错误</h3>
+        <h3 id="msi-可能导致错误msi-may-result-in-errors">17.7 MSI
+        可能导致错误（MSI May Result In Errors）</h3>
         <p>由于 MSI 以内存写入事务的形式传递，因此与 MSI
         传递相关的错误将按照与其他内存写入错误条件相同的方式处理。以
         ECRC 错误的处理为例，具体可参见第 657 页的”ECRC
         生成与校验”部分。当然，令人担忧的是，如果错误导致 MSI
         数据包无法被识别，处理器将无法接收到任何中断。这种情况的处理方式不在
         PCIe 规范的涵盖范围内。</p>
-        <h3 id="msi-相关规则与建议">17.8 MSI 相关规则与建议</h3>
+        <h3
+        id="msi-相关规则与建议some-msi-rules-and-recommendations">17.8
+        MSI 相关规则与建议（Some MSI Rules and Recommendations）</h3>
         <ol type="1">
         <li>规范旨在由系统软件将互斥消息分配给功能，且每条消息在传递至处理器时将被转换为独占中断。</li>
         <li>禁止每个功能拥有多个 MSI 能力寄存器组。</li>
@@ -1179,7 +1234,10 @@
         <li>如果设备多次写入相同的消息，则仅保证其中一条消息得到处理。若所有消息都必须得到处理，则设备在前一条消息处理完成之前不得再次生成相同的消息。</li>
         <li>如果一个设备被分配了多条消息，并且它写入了一系列不同的消息，则可以保证这些消息全部得到处理。</li>
         </ol>
-        <h3 id="基础系统外设的特殊考虑">17.9 基础系统外设的特殊考虑</h3>
+        <h3
+        id="基础系统外设的特殊考虑special-consideration-for-base-system-peripherals">17.9
+        基础系统外设的特殊考虑（Special Consideration for Base System
+        Peripherals）</h3>
         <p>中断也可能来自嵌入式传统硬件，例如 I/O 控制器集线器或超级 I/O
         设备。此类系统中常见的一些传统设备包括：</p>
         <ul>
