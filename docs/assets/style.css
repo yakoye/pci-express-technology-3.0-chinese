@@ -14,6 +14,12 @@
   --line: #e5e7eb;
   --accent: #2563eb;
   --accent-bg: #eff6ff;
+  --title1-color: #273849; /*深藏青 */
+  --title2-color: #003399; /*深海蓝*/
+  --title3-color: #008833; /*草木绿*/
+  --title4-color: #E66100; /*暖橙色*/
+  --title5-color: #772299; /*葡萄紫*/
+  --title6-color: #008899; /*湖青色*/
   --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
 
   --page-width: 1600px;
@@ -586,6 +592,7 @@ h1, h2, h3, h4, h5 {
 h1 {
   margin-top: 0;
   font-size: 34px;
+  color: var(--title1-color);
 }
 
 h2 {
@@ -593,16 +600,31 @@ h2 {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
   font-size: 26px;
+  color: var(--title2-color);
 }
 
 h3 {
   margin-top: 1.8em;
   font-size: 22px;
+  color: var(--title3-color);
 }
 
 h4 {
   margin-top: 1.5em;
   font-size: 18px;
+  color: var(--title4-color);
+}
+
+h5 {
+  margin-top: 1.5em;
+  font-size: 17px;
+  color: var(--title5-color);
+}
+
+h6 {
+  margin-top: 1.5em;
+  font-size: 16px;
+  color: var(--title6-color);
 }
 
 p {
