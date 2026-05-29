@@ -7,6 +7,7 @@ BUILD_DIR="$ROOT_DIR/build"
 DIST_DIR="$ROOT_DIR/dist"
 PDF_DIR="$DIST_DIR/pdf"
 CHAPTER_PDF_DIR="$PDF_DIR/chapters"
+TMP_DIR="$BUILD_DIR/pdf_tmp"
 
 CHAPTER_LIST_NULL="$BUILD_DIR/chapter_list.null"
 CHAPTER_LIST="$DIST_DIR/chapter_list.txt"
@@ -15,11 +16,12 @@ MERGED_PDF="$PDF_DIR/PCIe_Technology_3.0_Chinese_merged.pdf"
 CHAPTER_ZIP="$DIST_DIR/PCIe_Technology_3.0_Chinese_chapters_pdf.zip"
 RELEASE_NOTES="$DIST_DIR/release_notes.md"
 
-mkdir -p "$BUILD_DIR" "$DIST_DIR" "$PDF_DIR" "$CHAPTER_PDF_DIR"
+mkdir -p "$BUILD_DIR" "$DIST_DIR" "$PDF_DIR" "$CHAPTER_PDF_DIR" "$TMP_DIR"
 
 echo "清理旧构建产物..."
 rm -f "$CHAPTER_LIST_NULL" "$CHAPTER_LIST" "$MERGED_PDF" "$CHAPTER_ZIP" "$RELEASE_NOTES"
 rm -f "$CHAPTER_PDF_DIR"/*.pdf 2>/dev/null || true
+rm -f "$TMP_DIR"/* 2>/dev/null || true
 
 echo "检查依赖..."
 command -v pandoc >/dev/null 2>&1 || {
@@ -45,11 +47,6 @@ command -v zip >/dev/null 2>&1 || {
 
 echo "生成章节列表..."
 
-# 只选择根目录下数字开头的 md：
-# 1 背景.md
-# 2 PCIe 体系结构概述.md
-# ...
-# 22 术语表.md
 find "$ROOT_DIR" \
   -maxdepth 1 \
   -type f \
@@ -70,20 +67,105 @@ echo "本次参与构建的章节："
 cat "$CHAPTER_LIST"
 echo
 
-echo "开始生成每章 PDF..."
+# 将 LaTeX 特殊字符简单转义，避免标题里有 & % 等出问题
+escape_latex() {
+  local s="$1"
+  s="${s//\\/\\textbackslash{}}"
+  s="${s//&/\\&}"
+  s="${s//%/\\%}"
+  s="${s//\$/\\$}"
+  s="${s//#/\\#}"
+  s="${s//_/\\_}"
+  s="${s//\{/\\{}"
+  s="${s//\}/\\}}"
+  echo "$s"
+}
 
 PDF_FILES=()
+
+echo "开始生成每章 PDF..."
 
 while IFS= read -r -d '' md_name; do
   md_path="$ROOT_DIR/$md_name"
   base="${md_name%.md}"
   out_pdf="$CHAPTER_PDF_DIR/${base}.pdf"
 
+  # 章标题：默认直接用文件名（去掉 .md）
+  chapter_title="$base"
+  chapter_title_tex="$(escape_latex "$chapter_title")"
+
+  tmp_md="$TMP_DIR/${base}.merged.md"
+  tmp_header="$TMP_DIR/${base}.header.tex"
+
   echo "转换：$md_name"
   echo "  -> $out_pdf"
 
-  pandoc "$md_path" \
-    -f markdown+raw_html+tex_math_dollars \
+  # 1) 生成每章临时 md（前面加封面）
+  cat > "$tmp_md" <<EOF
+---
+title: "$chapter_title"
+lang: zh-CN
+---
+
+\\begin{titlepage}
+\\thispagestyle{empty}
+\\centering
+\\vspace*{0.22\\textheight}
+
+{\\Huge\\bfseries $chapter_title_tex\\par}
+
+\\vspace{1.2cm}
+
+{\\Large PCI Express Technology 3.0 中文版\\par}
+
+\\vfill
+
+{\\large yakoye\\par}
+{\\large 自动构建 PDF\\par}
+
+\\end{titlepage}
+
+\\clearpage
+
+EOF
+
+  cat "$md_path" >> "$tmp_md"
+
+  # 2) 生成每章页眉控制
+  cat > "$tmp_header" <<EOF
+\\usepackage{fancyhdr}
+\\usepackage{hyperref}
+
+\\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue,
+  linktoc=all,
+  bookmarksopen=true,
+  bookmarksnumbered=false
+}
+
+\\pagestyle{fancy}
+\\fancyhf{}
+\\fancyhead[C]{\\small $chapter_title_tex}
+\\renewcommand{\\headrulewidth}{0.4pt}
+\\renewcommand{\\footrulewidth}{0pt}
+
+\\fancypagestyle{plain}{
+  \\fancyhf{}
+  \\fancyhead[C]{\\small $chapter_title_tex}
+  \\renewcommand{\\headrulewidth}{0.4pt}
+  \\renewcommand{\\footrulewidth}{0pt}
+}
+EOF
+
+  # 3) 转单章 PDF
+  # 注意：
+  # - 去掉 --number-sections，避免目录重复编号
+  # - 保留 --toc，让每章有自己的目录
+  pandoc "$tmp_md" \
+    -f markdown+raw_html+raw_tex+tex_math_dollars \
     --resource-path="$ROOT_DIR:$ROOT_DIR/img:$ROOT_DIR/docs" \
     --pdf-engine=xelatex \
     -V documentclass=ctexart \
@@ -91,12 +173,9 @@ while IFS= read -r -d '' md_name; do
     -V mainfont="Noto Serif CJK SC" \
     -V monofont="Noto Sans Mono CJK SC" \
     -V geometry:margin=2cm \
-    -V colorlinks=true \
-    -V linkcolor=blue \
-    -V urlcolor=blue \
     --toc \
-    --toc-depth=3 \
-    --number-sections \
+    --toc-depth=4 \
+    -H "$tmp_header" \
     -o "$out_pdf"
 
   PDF_FILES+=("$out_pdf")
@@ -128,9 +207,13 @@ echo "生成 Release notes..."
   echo "- \`PCIe_Technology_3.0_Chinese_chapters_pdf.zip\`：每章单独 PDF"
   echo "- \`chapter_list.txt\`：本次参与构建的章节列表"
   echo
-  echo "## 构建方式"
+  echo "## 当前构建特性"
   echo
-  echo "每个章节 Markdown 单独生成 PDF，并带有本章目录；最后使用 pdfunite 合并所有章节 PDF。"
+  echo "- 每章 PDF 带封面"
+  echo "- 每章 PDF 带目录"
+  echo "- 页眉显示本章标题"
+  echo "- 页脚不显示页码"
+  echo "- 不启用章节自动编号，避免目录编号重复"
   echo
   echo "## 章节列表"
   echo
