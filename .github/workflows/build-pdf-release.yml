@@ -29,7 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install pandoc, xelatex, Chinese fonts
+      - name: Install pandoc, xelatex, Chinese fonts, pdf tools
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -38,12 +38,14 @@ jobs:
             texlive-latex-extra \
             texlive-lang-chinese \
             fonts-noto-cjk \
+            poppler-utils \
             zip
 
       - name: Show tool versions
         run: |
           pandoc --version
           xelatex --version
+          pdfunite -v || true
           fc-list | grep -i "Noto Serif CJK" | head || true
 
       - name: Build PDFs
@@ -70,9 +72,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${{ steps.meta.outputs.tag }}" \
-            "dist/pdf/PCIe_Technology_3.0_Chinese_full.pdf" \
+            "dist/pdf/PCIe_Technology_3.0_Chinese_merged.pdf" \
             "dist/PCIe_Technology_3.0_Chinese_chapters_pdf.zip" \
-            "dist/all_generated.md" \
             "dist/chapter_list.txt" \
             --title "PDF 自动构建 ${{ steps.meta.outputs.tag }}" \
             --notes-file "dist/release_notes.md" \

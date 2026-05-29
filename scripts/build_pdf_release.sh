@@ -8,18 +8,17 @@ DIST_DIR="$ROOT_DIR/dist"
 PDF_DIR="$DIST_DIR/pdf"
 CHAPTER_PDF_DIR="$PDF_DIR/chapters"
 
-FULL_MD="$BUILD_DIR/all_generated.md"
-CHAPTER_LIST="$BUILD_DIR/chapter_list.txt"
+CHAPTER_LIST_NULL="$BUILD_DIR/chapter_list.null"
+CHAPTER_LIST="$DIST_DIR/chapter_list.txt"
 
-FULL_PDF="$PDF_DIR/PCIe_Technology_3.0_Chinese_full.pdf"
+MERGED_PDF="$PDF_DIR/PCIe_Technology_3.0_Chinese_merged.pdf"
 CHAPTER_ZIP="$DIST_DIR/PCIe_Technology_3.0_Chinese_chapters_pdf.zip"
-
 RELEASE_NOTES="$DIST_DIR/release_notes.md"
 
-mkdir -p "$BUILD_DIR" "$PDF_DIR" "$CHAPTER_PDF_DIR"
+mkdir -p "$BUILD_DIR" "$DIST_DIR" "$PDF_DIR" "$CHAPTER_PDF_DIR"
 
 echo "清理旧构建产物..."
-rm -f "$FULL_MD" "$CHAPTER_LIST" "$FULL_PDF" "$CHAPTER_ZIP" "$RELEASE_NOTES"
+rm -f "$CHAPTER_LIST_NULL" "$CHAPTER_LIST" "$MERGED_PDF" "$CHAPTER_ZIP" "$RELEASE_NOTES"
 rm -f "$CHAPTER_PDF_DIR"/*.pdf 2>/dev/null || true
 
 echo "检查依赖..."
@@ -33,12 +32,18 @@ command -v xelatex >/dev/null 2>&1 || {
   exit 1
 }
 
+command -v pdfunite >/dev/null 2>&1 || {
+  echo "错误：没有找到 pdfunite"
+  echo "Ubuntu 可安装：sudo apt-get install poppler-utils"
+  exit 1
+}
+
 command -v zip >/dev/null 2>&1 || {
   echo "错误：没有找到 zip"
   exit 1
 }
 
-echo "生成章节文件列表..."
+echo "生成章节列表..."
 
 # 只选择根目录下数字开头的 md：
 # 1 背景.md
@@ -52,75 +57,33 @@ find "$ROOT_DIR" \
   -regex '.*/[0-9]+.*\.md' \
   -printf '%f\0' \
   | sort -z -V \
-  > "$BUILD_DIR/chapter_list.null"
+  > "$CHAPTER_LIST_NULL"
 
-if [[ ! -s "$BUILD_DIR/chapter_list.null" ]]; then
+if [[ ! -s "$CHAPTER_LIST_NULL" ]]; then
   echo "错误：没有找到数字开头的章节 md 文件"
   exit 1
 fi
 
-tr '\0' '\n' < "$BUILD_DIR/chapter_list.null" > "$CHAPTER_LIST"
+tr '\0' '\n' < "$CHAPTER_LIST_NULL" > "$CHAPTER_LIST"
 
-echo "本次参与合并的章节："
+echo "本次参与构建的章节："
 cat "$CHAPTER_LIST"
 echo
 
-echo "自动生成整本 Markdown：$FULL_MD"
+echo "开始生成每章 PDF..."
 
-{
-  echo "---"
-  echo "title: PCI Express Technology 3.0 中文版"
-  echo "author: yakoye"
-  echo "lang: zh-CN"
-  echo "---"
-  echo
-
-  while IFS= read -r -d '' md_name; do
-    md_path="$ROOT_DIR/$md_name"
-
-    echo
-    echo "<!-- source: $md_name -->"
-    echo
-
-    cat "$md_path"
-
-    echo
-    echo
-    echo '\newpage'
-    echo
-  done < "$BUILD_DIR/chapter_list.null"
-} > "$FULL_MD"
-
-echo "生成整本 PDF：$FULL_PDF"
-
-pandoc "$FULL_MD" \
-  -f gfm+raw_html+raw_tex+tex_math_dollars \
-  --resource-path="$ROOT_DIR:$ROOT_DIR/img:$ROOT_DIR/docs" \
-  --pdf-engine=xelatex \
-  -V documentclass=ctexart \
-  -V CJKmainfont="Noto Serif CJK SC" \
-  -V mainfont="Noto Serif CJK SC" \
-  -V monofont="Noto Sans Mono CJK SC" \
-  -V geometry:margin=2cm \
-  -V colorlinks=true \
-  -V linkcolor=blue \
-  -V urlcolor=blue \
-  --toc \
-  --toc-depth=3 \
-  --number-sections \
-  -o "$FULL_PDF"
-
-echo "生成单章 PDF..."
+PDF_FILES=()
 
 while IFS= read -r -d '' md_name; do
   md_path="$ROOT_DIR/$md_name"
   base="${md_name%.md}"
   out_pdf="$CHAPTER_PDF_DIR/${base}.pdf"
 
-  echo "转换章节：$md_name"
+  echo "转换：$md_name"
+  echo "  -> $out_pdf"
 
   pandoc "$md_path" \
-    -f gfm+raw_html+raw_tex+tex_math_dollars \
+    -f markdown+raw_html+tex_math_dollars \
     --resource-path="$ROOT_DIR:$ROOT_DIR/img:$ROOT_DIR/docs" \
     --pdf-engine=xelatex \
     -V documentclass=ctexart \
@@ -135,19 +98,24 @@ while IFS= read -r -d '' md_name; do
     --toc-depth=3 \
     --number-sections \
     -o "$out_pdf"
-done < "$BUILD_DIR/chapter_list.null"
 
-echo "打包单章 PDF：$CHAPTER_ZIP"
+  PDF_FILES+=("$out_pdf")
+done < "$CHAPTER_LIST_NULL"
 
+echo
+echo "合并所有章节 PDF..."
+printf '  %s\n' "${PDF_FILES[@]}"
+
+pdfunite "${PDF_FILES[@]}" "$MERGED_PDF"
+
+echo
+echo "打包单章 PDF..."
 (
   cd "$PDF_DIR"
   zip -r "$CHAPTER_ZIP" "chapters"
 )
 
-cp "$FULL_MD" "$DIST_DIR/all_generated.md"
-cp "$CHAPTER_LIST" "$DIST_DIR/chapter_list.txt"
-
-echo "生成 Release notes：$RELEASE_NOTES"
+echo "生成 Release notes..."
 
 {
   echo "# PCI Express Technology 3.0 中文版 PDF 自动构建"
@@ -156,10 +124,13 @@ echo "生成 Release notes：$RELEASE_NOTES"
   echo
   echo "## 附件说明"
   echo
-  echo "- \`PCIe_Technology_3.0_Chinese_full.pdf\`：整本 PDF"
+  echo "- \`PCIe_Technology_3.0_Chinese_merged.pdf\`：由每章 PDF 合并而成的整本 PDF"
   echo "- \`PCIe_Technology_3.0_Chinese_chapters_pdf.zip\`：每章单独 PDF"
-  echo "- \`all_generated.md\`：自动合并生成的 Markdown"
   echo "- \`chapter_list.txt\`：本次参与构建的章节列表"
+  echo
+  echo "## 构建方式"
+  echo
+  echo "每个章节 Markdown 单独生成 PDF，并带有本章目录；最后使用 pdfunite 合并所有章节 PDF。"
   echo
   echo "## 章节列表"
   echo
@@ -172,7 +143,6 @@ echo "生成 Release notes：$RELEASE_NOTES"
 
 echo
 echo "构建完成。"
-echo "整本 PDF：$FULL_PDF"
-echo "章节 ZIP：$CHAPTER_ZIP"
-echo "合并 MD：$DIST_DIR/all_generated.md"
-echo "章节列表：$DIST_DIR/chapter_list.txt"
+echo "整本合并 PDF：$MERGED_PDF"
+echo "单章 PDF 压缩包：$CHAPTER_ZIP"
+echo "章节列表：$CHAPTER_LIST"
