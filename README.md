@@ -1,23 +1,19 @@
 # PCI Express Technology - Chinese
 
 #### 介绍
+
 《PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0》 by Mindshare
 中文翻译
 
 fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgibbslf/Chinese-Translation-of-PCI-Express-Technology-)，基于此修改并补充。
 
-
-
 #### 网页版本=> [📖阅读](https://yakoye.github.io/pci-express-technology-3.0-chinese/docs/index.html)
 
-
-
 #### 版权说明
+
 原书版权：Mindshare，https://www.mindshare.com/Books/Titles/PCI_Express_Technology_3.0
 
 本翻译仅用于学习使用
-
-
 
 #### 目录
 
@@ -46,13 +42,20 @@ fork：[Chinese-Translation-of-PCI-Express-Technology-](https://github.com/ljgib
 
 #### 贡献列表
 
-- 
-
 #### 参与翻译/修订/意见与建议
+
 Fulk-Pull/Issue 皆可
 
 
+#### 操作方法
 
+html文件会再git actions中自动产生。若不产生，可以使用下面方法：
+
+更新md文件后，需要操作这个：
+
+1. 修改md文件
+2. 执行build_pages.sh，生成html文件
+3. push到库中
 
 
 #### 任务
@@ -69,8 +72,7 @@ Fulk-Pull/Issue 皆可
 - 20章，~~翻译~~、~~排版~~、~~校对~~
 - 21章，~~翻译~~、~~排版~~、~~校对~~
 - 术语表，~~翻译~~、~~排版~~、~~校对~~
-
-
+- pdf输出
 
 #### 记录
 

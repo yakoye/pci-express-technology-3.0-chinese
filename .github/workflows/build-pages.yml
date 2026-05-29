@@ -1,0 +1,51 @@
+name: Build GitHub Pages HTML
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - "*.md"
+      - "build_pages.sh"
+      - "docs/template.html"
+      - ".github/workflows/build-pages.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Build HTML pages
+        run: |
+          bash build_pages.sh
+
+      - name: Show changed files
+        run: |
+          git status --short
+
+      - name: Commit generated HTML
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add docs/*.html docs/assets || true
+          git commit -m "build: update generated HTML pages"
+          git push
