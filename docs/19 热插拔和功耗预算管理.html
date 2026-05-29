@@ -400,19 +400,19 @@
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>软件要素</th>
         <th>提供方</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>用户界面（User Interface）</td>
         <td>操作系统供应商</td>
         <td>操作系统提供的工具，允许用户请求关闭某个连接器电源以移除板卡，或开启电源以使用刚安装的板卡。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>热插拔服务（Hot-Plug Service）</td>
         <td>操作系统供应商</td>
         <td>处理操作系统发出的请求，这些请求称为热插拔原语（Hot-Plug
@@ -421,7 +421,7 @@
         Service 通过与 Hot-Plug System Driver
         交互完成这些请求。二者之间的接口（API）由操作系统供应商定义。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>标准化热插拔系统驱动程序（Standardized Hot-Plug System
         Driver）</td>
         <td>系统板供应商或操作系统</td>
@@ -429,7 +429,7 @@
         Primitives），并与硬件 Hot-Plug Controller
         交互以执行这些请求。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>设备驱动程序（Device Driver）</td>
         <td>适配卡供应商</td>
         <td>支持热插拔能力的设备驱动程序必须包含某些热插拔专用能力，包括支持
@@ -456,44 +456,44 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>硬件要素</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>热插拔控制器（Hot-Plug Controller）</td>
         <td>接收并处理 Hot-Plug System Driver
         发出的命令。每个支持热插拔操作的 Root Port 或 Switch Port
         都关联一个控制器。PCIe 规范为 Hot-Plug Controller
         定义了标准软件接口。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>插槽电源切换逻辑（Card Slot Power Switching Logic）</td>
         <td>允许在程序控制下打开或关闭插槽电源。该逻辑由 Hot-Plug
         Controller 在 Hot-Plug System Driver 指示下控制。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>板卡复位逻辑（Card Reset Logic）</td>
         <td>Hot-Plug Controller 根据 Hot-Plug System Driver
         的指令，驱动特定插槽的 PERST# 信号。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>电源指示灯（Power Indicator）</td>
         <td>指示连接器当前是否供电。该指示灯由每个端口相关的热插拔逻辑控制，并受
         Hot-Plug System Driver 指示。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>注意指示灯（Attention Indicator）</td>
         <td>引导操作员关注需要维护的连接器。该指示灯由热插拔逻辑控制，并受
         Hot-Plug System Driver 指示。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>注意按钮（Attention Button）</td>
         <td>操作员按下该按钮，用于通知热插拔软件当前请求更换板卡。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>卡存在检测引脚（Card Present Detect Pins）</td>
         <td>共有两个：PRSNT1# 位于卡槽一端，PRSNT2#
         位于另一端。这些引脚比其他引脚短，因此拔出卡时会先断开。系统板将
@@ -663,21 +663,21 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>指示灯行为</th>
         <th>注意状态</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Off</td>
         <td>正常：正常运行。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>On</td>
         <td>注意：热插拔操作因操作问题失败，例如外部线缆问题、扩展卡问题、软件驱动程序问题或电源故障。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Blinking</td>
         <td>定位：按照操作员请求正在识别该插槽。</td>
         </tr>
@@ -707,23 +707,23 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>指示灯行为</th>
         <th>电源状态</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Off</td>
         <td>Power
         Off：可以安全地移除或插入板卡。所有热插拔操作要求移除的电源都已移除。只有当
         MRL 被释放时，Vaux 才会被移除。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>On</td>
         <td>Power On：不允许移除或插入板卡。当前插槽已供电。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Blinking</td>
         <td>Power
         Transition：不允许移除或插入板卡。该状态通知操作员，软件正在响应热插拔请求移除或施加插槽电源。</td>
@@ -842,61 +842,61 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位</th>
         <th>字段名称与描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>0</td>
         <td>Attention Button Present：表示机箱中靠近该插槽的位置存在
         Attention Button。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1</td>
         <td>Power Controller Present：表示该插槽存在 Power
         Controller。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>2</td>
         <td>MRL Sensor Present：表示该插槽存在 MRL Sensor。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>3</td>
         <td>Attention Indicator Present：表示机箱中靠近该插槽的位置存在
         Attention Indicator。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>4</td>
         <td>Power Indicator Present：表示机箱中靠近该插槽的位置存在
         Power Indicator。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>5</td>
         <td>Hot-Plug
         Surprise：表示用户可能在未提前通知的情况下从系统中移除该卡。该位告诉操作系统需要允许这种移除，并且不影响软件继续运行。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>6</td>
         <td>Hot-Plug Capable：表示该插槽支持热插拔操作。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>14:7</td>
         <td>Slot Power Limit
         Value：指定该插槽能够提供的最大功率。该限制值需要乘以下一个字段指定的比例因子。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>16:15</td>
         <td>Slot Power Limit Scale：指定 Slot Power Limit Value
         的比例因子。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>17</td>
         <td>ElectroMechanical Interlock
         Present：表示该插槽实现了机电互锁功能。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>18</td>
         <td>No Command Completed
         Support：表示该插槽在命令完成时不会生成软件通知。早期版本执行热插拔命令有时耗时较长，例如通过
@@ -905,7 +905,7 @@
         Slot Control Register
         所有字段的写入，因此不需要命令完成通知。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>31:19</td>
         <td>Physical Slot
         Number：表示与该端口关联的物理插槽编号。该字段必须由硬件初始化为机箱内唯一的编号。软件需要用该编号将物理插槽与逻辑插槽
@@ -934,74 +934,74 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位</th>
         <th>字段名称与描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>0</td>
         <td>Attention Button Pressed Enable：置位时，如果 Attention
         Button 被按下，则允许生成热插拔中断（如果中断已启用）或断言
         Wake# 消息。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1</td>
         <td>Power Fault Detected
         Enable：置位时，如果检测到电源故障，则允许生成热插拔中断（如果中断已启用）或
         Wake# 消息。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>2</td>
         <td>MRL Sensor Changed Enable：置位时，如果检测到 MRL Sensor
         状态变化事件，则允许生成热插拔中断或 Wake#
         消息（如果已启用）。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>3</td>
         <td>Presence Detect Changed Enable：置位时，如果 Slot Status
         Register 中的 Presence Detect Changed
         位被置位，则允许生成热插拔中断或 Wake 消息。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>4</td>
         <td>Command Completed Interrupt
         Enable：置位时，允许生成热插拔中断，用于通知软件 Hot-Plug
         Controller 已准备好接收下一条命令。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>5</td>
         <td>Hot-Plug Interrupt Enable：置位时，允许生成热插拔中断。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>7:6</td>
         <td>Attention Indicator Control：写入该字段可控制 Attention
         Indicator 状态，读取返回当前状态。编码如下：<code>00b</code> =
         Reserved，<code>01b</code> = On，<code>10b</code> =
         Blink，<code>11b</code> = Off。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>9:8</td>
         <td>Power Indicator Control：写入该字段可控制 Power Indicator
         状态，读取返回当前状态。编码如下：<code>00b</code> =
         Reserved，<code>01b</code> = On，<code>10b</code> =
         Blink，<code>11b</code> = Off。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>10</td>
         <td>Power Controller
         Control：写入该字段可切换插槽主电源，读取返回当前状态：<code>0b</code>
         = Power On，<code>1b</code> = Power Off。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>11</td>
         <td>Electromechanical Interlock
         Control：如果实现了机电互锁，向该位写入 <code>1b</code>
         会切换其状态，写入 <code>0b</code> 不产生影响。读取该位始终返回
         <code>0b</code>。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>12</td>
         <td>Data Link Layer State Changed Enable：如果 Data Link Layer
         Link Active Reporting 能力为 <code>1b</code>，置位该位会在 Data
@@ -1031,48 +1031,48 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位</th>
         <th>字段名称与描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>0</td>
         <td>Attention Button Pressed：如果实现了该按钮，当 Attention
         Button 被按下时置位。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1</td>
         <td>Power Fault Detected：如果实现了支持电源故障检测的 Power
         Controller，当该控制器检测到本插槽发生电源故障时置位。规范指出，无论
         Power Control
         设置如何，也无论插槽是否被占用，都可能在任何时刻检测到电源故障。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>2</td>
         <td>MRL Sensor Changed：如果实现了 MRL Sensor，当检测到 MRL
         Sensor 状态变化时置位；如果未实现传感器，该位始终为 0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>3</td>
         <td>Presence Detect Changed：当检测到 Presence Detect State
         位变化时置位。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>4</td>
         <td>Command Completed：如果 Slot Capabilities Register 中的 No
         Command Completed Support 位为
         <code>0b</code>，则当热插拔命令完成且 Hot-Plug Controller
         准备好接受下一条命令时置位。严格来说，规范只保证后半句含义：控制器已经准备好接受下一条命令，而不一定保证前一条命令确实已经完成。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>5</td>
         <td>MRL Sensor State：如果实现了 MRL
         Sensor，该位表示当前传感器状态：<code>0b</code> = MRL
         Closed，<code>1b</code> = MRL Open。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>6</td>
         <td>Presence Detect
         State：该位指示插槽中是否存在板卡，所有实现插槽的 Downstream
@@ -1082,12 +1082,12 @@
         引脚无需供电即可物理检测卡是否存在，因此不需要恢复电源也能报告状态；而物理层
         Detect 逻辑需要供电。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>7</td>
         <td>Electromechanical Interlock
         Status：如果实现了机电互锁，该位表示互锁已锁定（<code>1b</code>）或已解锁（<code>0b</code>）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>8</td>
         <td>Data Link State Changed：当 Link Status Register 中的 Data
         Link Layer Link Active
@@ -1152,21 +1152,21 @@
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>原语</th>
         <th>参数</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Query Hot-Plug System Driver</td>
         <td>输入：无。<br>返回：该驱动程序所控制插槽的 Logical Slot ID
         集合。</td>
         <td>请求 Hot-Plug System Driver 返回它所控制插槽的一组 Logical
         Slot ID。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Set Slot Status</td>
         <td>输入：Logical Slot ID；新的插槽状态（On 或 Off）；新的
         Attention Indicator 状态；新的 Power Indicator
@@ -1176,14 +1176,14 @@
         System Driver 应返回相应故障消息。除非另有说明，否则应将卡保持在
         Off 状态。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Query Slot Status</td>
         <td>输入：Logical Slot ID。<br>返回：插槽状态（On 或
         Off）以及卡的电源需求。</td>
         <td>返回指定插槽的状态（如果存在板卡）。Hot-Plug System Driver
         必须返回插槽电源状态信息。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Async Notice of Slot Status Change</td>
         <td>输入：Logical Slot ID。<br>返回：无。</td>
         <td>这是规范定义的唯一一个由 Hot-Plug System Driver 发往
@@ -1234,25 +1234,25 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>偏移量</th>
         <th>寄存器</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>00h</td>
         <td>PCIe Extended Capability Header</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>04h</td>
         <td>Data Select Register（高位为 RsvdP）</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>08h</td>
         <td>Data Register</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>0Ch</td>
         <td>Power Budget Capability Register（高位为 RsvdP，bit 0 为
         System Allocated Bit）</td>
@@ -1329,7 +1329,7 @@
         <col style="width: 25%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>卡类型</th>
         <th>x1 Link</th>
         <th>x4/x8 Link</th>
@@ -1337,13 +1337,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>标准高度卡</td>
         <td>10 W（桌面最大值）或 25 W（服务器最大值）</td>
         <td>25 W（最大值）</td>
         <td>25 W（服务器最大值）或 75 W（显卡最大值）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>半高卡</td>
         <td>10 W（最大值）</td>
         <td>25 W（最大值）</td>
@@ -1449,26 +1449,26 @@
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位</th>
         <th>字段</th>
         <th>含义</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>31:21</td>
         <td>RsvdP</td>
         <td>保留。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>20:18</td>
         <td>Power Rail</td>
         <td>描述该条目对应运行条件所使用的电源轨：<code>000b</code> = 12
         V power，<code>001b</code> = 3.3 V power，<code>010b</code> =
         1.8 V power，<code>111b</code> = Thermal，其他编码保留。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>17:15</td>
         <td>Type</td>
         <td>描述该条目对应运行条件的类型：<code>000b</code> = PME
@@ -1476,7 +1476,7 @@
         Idle，<code>011b</code> = Sustained，<code>111b</code> =
         Maximum，其他编码保留。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>14:13</td>
         <td>PM State</td>
         <td>描述该条目对应的电源管理状态：<code>00b</code> =
@@ -1485,20 +1485,20 @@
         Type 为 Auxiliary 或 PME Aux，则表示 D3-Cold；若 PM State 为
         <code>11b</code> 且 Type 为其他值，则表示 D3-Hot。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>12:10</td>
         <td>PM Sub State</td>
         <td>描述该条目对应的电源管理子状态：<code>000b</code> =
         默认子状态，<code>001b</code> 至 <code>111b</code> =
         设备特定子状态。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>9:8</td>
         <td>Data Scale</td>
         <td>指定比例系数：<code>00b</code> = 1.0x，<code>01b</code> =
         0.1x，<code>10b</code> = 0.01x，<code>11b</code> = 0.001x。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>7:0</td>
         <td>Base Power</td>
         <td>指定 bit[20:10] 所表示状态下的基础功耗，单位为瓦特。实际功耗

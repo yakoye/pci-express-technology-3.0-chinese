@@ -480,43 +480,43 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>Credit 类型</th>
         <th>通告（Advertisement）最小值</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Posted Request Header （PH） <br/>Posted 请求 Header</td>
         <td>1 单位： Credit 值= 1 个 4DW Header+Digest= 5DW</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Posted Request Data （PD） <br/>Posted 请求数据</td>
         <td>这个值是 Max_Payload_Size 的最大值用 Credit 的表示。
         <br>例如：如果支持的最大的 Max_Payload_Size 为
         1024Byte，那么允许的最小的初始 Credit 值就是
         040h（64*16byte）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Non-Posted Request Header （NPH） <br/>Non-Posted 请求
         Header</td>
         <td>1 单位： Credit 值= 1 个 4DW Header+Digest= 5DW</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Non-Posted Request Data （NPD） <br/>Non-Posted
         请求数据</td>
         <td>1 单位： Credit 值= 1 个 4DW Header+Digest= 5DW <br/>2
         单位： 如果接收方支持 AtomicOP 路由或者具有作为 AtomicOP
         完成者的能力，那么 Credit 值可以为 02h。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Completion Header （CplH） <br/>完成包 Header</td>
         <td>1 单位： Credit 值= 1 个 3DW Header+Digest=
         4DW。这种情况是对于支持 Peer-to-Peer 的 RC 和 Switch。
         <br/>无限数量：初始 Credit 值=全 0。应用于不支持 Peer-to-Peer 的
         RC 和 EP。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Completion Data （CplD） <br/>完成包数据</td>
         <td>n 单位： 这个值是 Max_Payload_Size 或者是读请求 size
         这二者可能的最大值（一般读请求 size 会比前者小）除以 FC
@@ -533,28 +533,28 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>Credit 类型</th>
         <th>通告（Advertisement）最大值</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Posted Request Header （PH） <br/>Posted 请求 Header</td>
         <td>128 单位： 128 Credits=128*5DW=2560 Bytes</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Posted Request Data （PD） <br/>Posted 请求数据</td>
         <td>2048 单位： 值为设备支持多有 Function（8 个）的
         Max_Payload_Size（4096 bytes）总和,<br/>总和为 8x4096=32768,除以
         Credit 大小（4DW）。<br/>2048 Credits=2048x4DW=32768Bytes</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Non-Posted Request Header （NPH） <br/>Non-Posted 请求
         Header</td>
         <td>128 单位： 128 Credits=128*5DW=2560 Bytes</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Non-Posted Request Data （NPD） <br/>Non-Posted
         请求数据</td>
         <td>作者无法给 Non-Posted 数据找到一个准确的 Credit
@@ -563,7 +563,7 @@
         来限制在 128 Credits 内，因为 Non-Posted 数据总是与 Non-Posted
         Header 相关联。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Completion Header （CplH） <br/>完成包 Header</td>
         <td>128 单位： 128 Credits=128*4DW=2048
         Bytes。这是对不发起事务的端口的限制（例如支持 Peer-to-Peer 的 RC
@@ -571,7 +571,7 @@
         0。应用于发起事务的端口（例如不支持 Peer-to-Peer 的 RC 和
         EP）。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Completion Data （CplD） <br/>完成包数据</td>
         <td>2048 单位： 值为设备支持多有 Function（8 个）的
         Max_Payload_Size（4096 bytes）总和,总和为 8x4096=32768,除以

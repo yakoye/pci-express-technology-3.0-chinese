@@ -411,25 +411,25 @@
         <col style="width: 78%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>元素</th>
         <th>职责</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>OS</td>
         <td>通过向 ACPI 驱动程序、设备驱动程序和 PCI Express
         总线驱动程序发送请求，直接管理整个系统的电源。具有节能意识的应用程序与操作系统交互，以实现设备电源管理。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>ACPI 驱动程序</td>
         <td>管理不符合行业标准规范的嵌入式系统设备的配置、电源管理和热控制。例如芯片组专用寄存器、用于控制电源平面的系统板专用寄存器等。PCIe
         功能（嵌入式或其他）中的 PM 寄存器由 PCI PM 规范定义，因此不由
         ACPI 驱动程序管理，而是由 PCI Express
         总线驱动程序管理（参见本表中的条目）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>设备驱动程序</td>
         <td>类驱动程序可以与它被编写用于控制的任何设备类别一起工作。由于它并非针对特定供应商编写，因此不具备设备接口的位级知识；当需要向设备发出命令或检查设备状态时，它会向具体设备供应商提供的微型端口驱动程序发出请求。设备驱动程序也不了解特定总线实现中该设备类型的专有特性，例如
         PCIe 功能的配置寄存器集；这些寄存器由 PCI Express
@@ -442,7 +442,7 @@
         Express 总线驱动程序以更改设备电源状态。PCI Express
         总线驱动程序重新为设备供电后，设备驱动程序再将上下文恢复到该功能的设备特定寄存器中。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>微型端口驱动程序</td>
         <td>由设备供应商提供，它接收来自类驱动程序的请求，并将其转换为对设备寄存器组的正确访问序列。</td>
         </tr>
@@ -455,13 +455,13 @@
         <col style="width: 55%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>要素</th>
         <th>职责</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>PCI Express 总线驱动程序</td>
         <td>此驱动程序适用于所有符合 PCI Express
         规范的设备。它负责管理设备的电源状态和配置寄存器，但不了解功能的设备特定寄存器集（这些知识由设备驱动程序用于访问设备寄存器集的微型端口驱动程序掌握）。它接收来自设备驱动程序的请求，以更改设备电源管理逻辑的状态。例如：<br>-
@@ -471,13 +471,13 @@
         总线驱动程序写入 PCI Express 功能的 PM
         寄存器以更改其状态，然后将该功能的配置寄存器恢复到原始状态。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>每个功能配置空间内的 PCI Express 电源管理寄存器。</td>
         <td>这些寄存器的位置、格式和使用方式由 PCIe 规范定义。PCI
         Express
         总线驱动程序理解该规范，因此当功能设备的驱动程序请求访问功能的电源管理寄存器时，总线驱动程序负责执行此操作。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>系统主板电源平面与总线时钟控制逻辑</td>
         <td>该逻辑的实现和控制通常取决于系统主板的具体设计，因此由 ACPI
         驱动程序（在操作系统指导下）进行管理。</td>
@@ -501,17 +501,17 @@
         <col style="width: 77%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>电源状态</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>工作状态（G0/S0）</td>
         <td>系统完全正常运行。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>睡眠状态（G1）</td>
         <td>系统看起来像是已关闭，功耗已降低。恢复到“工作”状态所需的时间与所选择的节能级别成反比。<br>-
         S1：缓存已刷新，CPU 暂停。<br>- S2：与 S1 相同，但 CPU
@@ -523,11 +523,11 @@
         S4：也称为“挂起到磁盘”或“休眠”。与 S3
         类似，但系统会将系统上下文复制到磁盘，然后切断系统电源（包括主内存）。这能提供更好的节能效果，但重启时间更长，因为恢复程序执行前必须从磁盘恢复上下文。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>软关机（G2/S5）</td>
         <td>系统似乎已关闭，功耗极低。由于内存内容已丢失，需要完全重启才能恢复到“工作“状态，但仍保留部分电力用于唤醒操作，例如按下系统上的“电源“按钮。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>机械关闭 (G3)</td>
         <td>系统已断开所有电源连接，无可用电力。</td>
         </tr>
@@ -545,29 +545,29 @@
         <col style="width: 93%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>状态</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>D0</td>
         <td>必需。设备完全运行，并从系统消耗全部功率。2.1
         规范修订版新增了一组寄存器，用于支持 D0 下的 32
         个子状态，这些寄存器被称为动态功率分配寄存器。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D1</td>
         <td>可选。一种低功耗状态，设备上下文可能会丢失也可能不会丢失。未给出此状态的具体定义，但它代表比
         D0 更低、比 D2 更高的功耗状态。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D2</td>
         <td>可选。推测为比 D1
         功耗更低的状态，可实现更大的节能效果，但会导致更长的恢复延迟，并可能使设备丢失部分上下文。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D3</td>
         <td>必需。设备已做好断电准备，无论电源是否实际关闭，上下文都可能丢失。恢复时间将比
         D2 更长，但在此状态下可以优雅地切断设备电源。</td>
@@ -608,25 +608,25 @@
         <col style="width: 93%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>状态</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>D0</td>
         <td>设备处于开启状态，以全功率运行，且功能完全正常。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D1</td>
         <td>此可选状态仅定义为功耗低于 D0，并不常用。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D2</td>
         <td>此可选状态仅定义为功耗低于 D1，并不常用。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D3</td>
         <td>设备消耗尽可能低的功耗，主电源可能被关闭。唯一的要求是，在电源仍接通的情况下，设备必须能够响应配置命令以重新进入
         D0
@@ -714,7 +714,7 @@
         <col style="width: 22%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>31 1615 870</th>
         <th></th>
         <th></th>
@@ -723,14 +723,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>电源管理能力（PMC）</td>
         <td>指向下一个能力的指针</td>
         <td>能力 ID 01h</td>
         <td></td>
         <td></td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Data 寄存器</td>
         <td>桥接支持扩展（PMCSR_BSE）</td>
         <td>控制/状态寄存器（PMCSR）</td>
@@ -776,7 +776,7 @@
         <col style="width: 20%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>链路电源管理状态</th>
         <th>功能电源管理状态</th>
         <th>必须有效的寄存器或状态</th>
@@ -786,7 +786,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L0</td>
         <td>D0 未初始化</td>
         <td>PME 上下文 **</td>
@@ -794,7 +794,7 @@
         <td>PCI Express 配置事务。</td>
         <td>无</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L0 L0s（必需）* L1（可选）*</td>
         <td>D0 活动</td>
         <td>全部</td>
@@ -802,7 +802,7 @@
         <td>任何 PCI Express 事务。</td>
         <td>任何事务、中断或 PME。**</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>L2/L3</td>
         <td>D0 活动状态</td>
         <td>不适用***</td>
@@ -839,29 +839,29 @@
         </figure>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>偏移</th>
         <th>寄存器</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>000h</td>
         <td>PCIe 扩展能力头</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>004h</td>
         <td>DPA 能力寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>008h</td>
         <td>DPA 延迟指示寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>00Ch</td>
         <td>DPA 控制寄存器 / DPA 状态寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>010h 至 02Ch</td>
         <td>DPA 功率分配数组（大小由子状态数量决定）</td>
         </tr>
@@ -929,7 +929,7 @@
         <col style="width: 34%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>链路 PM 状态</th>
         <th>功能 PM 状态</th>
         <th>必须有效的寄存器或状态</th>
@@ -939,7 +939,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L1</td>
         <td>D1</td>
         <td>设备类特定寄存器和 PME 上下文。*</td>
@@ -948,7 +948,7 @@
         <td>PME 消息。** 尽管通常不被允许，但此类消息将要求链路回退至
         L0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L2-L3</td>
         <td>D1</td>
         <td>不适用 *</td>
@@ -995,7 +995,7 @@
         <col style="width: 24%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>链路电源管理状态</th>
         <th>功能 PM 状态</th>
         <th>必须有效的寄存器和/或状态</th>
@@ -1005,7 +1005,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L1</td>
         <td>D2</td>
         <td>设备类特定的寄存器和 PME 上下文。*</td>
@@ -1014,7 +1014,7 @@
         状态。</td>
         <td>PME 消息。* 虽然通常不允许，但它们需要链路回退到 L0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L2/L3</td>
         <td>D2</td>
         <td>不适用**</td>
@@ -1078,7 +1078,7 @@
         <col style="width: 23%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>总线电源管理状态</th>
         <th>功能电源管理状态</th>
         <th>必须有效的寄存器和/或状态</th>
@@ -1088,7 +1088,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L1</td>
         <td>D3hot</td>
         <td>PME 上下文。**</td>
@@ -1098,7 +1098,7 @@
         <td>PME 消息** PME_TO_ACK 消息*** PM_Enter_L23
         DLLP***（这些仅在链路返回 L0 后才可能发生）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L2/L3 就绪</td>
         <td>D3hot</td>
         <td>L2/L3 就绪状态在遵循 PME_Turn_Off
@@ -1107,7 +1107,7 @@
         <td></td>
         <td></td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>L2/L3</td>
         <td>D3hot</td>
         <td>不适用*</td>
@@ -1144,7 +1144,7 @@
         <col style="width: 18%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>总线 PM 状态</th>
         <th>功能 PM 状态</th>
         <th>必须有效的寄存器和/或状态</th>
@@ -1154,7 +1154,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L2</td>
         <td>D3cold</td>
         <td>PME 上下文*</td>
@@ -1162,7 +1162,7 @@
         <td>仅总线复位</td>
         <td>信号信标或 WAKE#**</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L3</td>
         <td>D3cold</td>
         <td>无</td>
@@ -1188,69 +1188,69 @@
         <p>表 16-10：功能状态转换说明</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>从状态</th>
         <th>待定</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>D0 未初始化</td>
         <td>D0 活动</td>
         <td>该功能已由驱动程序完全配置并启用。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D0 活动状态</td>
         <td>D1</td>
         <td>软件将 PMCSR PowerState 写入 D1。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td></td>
         <td>D2</td>
         <td>软件将 PMCSR PowerState 写入 D2。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td></td>
         <td>D3hot</td>
         <td>软件将 PMCSR PowerState 写入 D3hot。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D1</td>
         <td>D0 活动状态</td>
         <td>软件将 PMCSR PowerState 写入为 D0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td></td>
         <td>D2</td>
         <td>软件将 PMCSR PowerState 写入为 D2。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td></td>
         <td>D3hot</td>
         <td>软件将 PMCSR PowerState 写入为 D3hot。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D2</td>
         <td>D0 活动状态</td>
         <td>软件将 PMCSR PowerState 写入 D0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td></td>
         <td>D3hot</td>
         <td>软件将 PMCSR PowerState 写入 D3hot。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D3hot</td>
         <td>D3cold</td>
         <td>功能已断电。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td></td>
         <td>D0 未初始化</td>
         <td>软件将 PMCSR 电源状态写入 D0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D3cold</td>
         <td>D0 未初始化</td>
         <td>功能恢复供电。</td>
@@ -1265,44 +1265,44 @@
         <col style="width: 71%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>初始状态</th>
         <th>下一状态</th>
         <th>软件保证的最小延迟</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>D0</td>
         <td>D1</td>
         <td>0</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D0 或 D1</td>
         <td>D2</td>
         <td>从新状态设置到首次访问需 200 微秒（包括配置访问）</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D0、D1 或 D2</td>
         <td>D3hot</td>
         <td>从新状态设置到首次访问需 10 毫秒。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D1</td>
         <td>D0</td>
         <td>0</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D2</td>
         <td>D0</td>
         <td>从新状态设置到首次访问。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D3hot</td>
         <td>D0</td>
         <td>从新状态设置到首次访问需 10 毫秒。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D3cold</td>
         <td>D0</td>
         <td></td>
@@ -1334,13 +1334,13 @@
         <col style="width: 88%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位(比特)</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>31:27</td>
         <td>PME_Support 字段。指示该功能在哪些 PM 状态下能够发送 PME
         消息。某位为 0 表示相应 PM 状态不支持 PME 通知。<br/>位对应 PM
@@ -1351,11 +1351,11 @@
         PCI-PCI 桥，位 31、30 和 27 必须设置为 1b。这是转发 PME
         消息的端口所必需的要求。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>26</td>
         <td>D2_Support 位。1 = 功能支持 D2 电源管理状态。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>25</td>
         <td>D1_Support 位。1 = 功能支持 D1 电源管理状态。</td>
         </tr>
@@ -1368,13 +1368,13 @@
         <col style="width: 88%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位(比特)</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>24:22</td>
         <td>Aux_Current 字段。对于支持从 D3cold 状态生成 PME
         消息的功能，该字段报告该功能中保留 PME 上下文信息的逻辑对
@@ -1404,28 +1404,28 @@
         <col style="width: 88%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位(比特)</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>21</td>
         <td>设备特定初始化（DSI）位。该位为 1 表示在进入 D0
         未初始化状态后，该功能需要在其 PCI
         配置头寄存器设置之外进行额外配置，类驱动程序才能使用该功能。Microsoft
         操作系统不使用此位。相反，确定和初始化由类驱动程序完成。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>20</td>
         <td>保留位。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>19</td>
         <td>PME_Clock 位。不适用于 PCI Express。必须硬连线为 0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>18:16</td>
         <td>版本字段。该字段表示该功能所遵循的 PCI 总线 PM
         接口规范的版本。<br/> Bit<br/> 18 17 16 Complies with Spec
@@ -1459,7 +1459,7 @@
         <col style="width: 54%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位(比特)</th>
         <th>复位时的值</th>
         <th>读/写</th>
@@ -1467,31 +1467,31 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>31:24</td>
         <td>全零</td>
         <td>只读</td>
         <td>参见第 731 页的“Data 寄存器”。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>23</td>
         <td>零</td>
         <td>只读</td>
         <td>在 PCI Express 中未使用</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>22</td>
         <td>零</td>
         <td>只读</td>
         <td>PCI Express 中未使用</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>21:16</td>
         <td>全零</td>
         <td>只读</td>
         <td>保留</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>15</td>
         <td>请参阅描述。</td>
         <td>读取，写入 1 以清除，粘性 RW1CS</td>
@@ -1517,7 +1517,7 @@
         <col style="width: 74%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位(比特)</th>
         <th>复位值</th>
         <th>读/写</th>
@@ -1525,7 +1525,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>14:13</td>
         <td>设备特定</td>
         <td>只读</td>
@@ -1535,7 +1535,7 @@
         字段的值及其解释取决于通过 Data_Select 字段选择在 Data
         寄存器中查看的数据项。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>12:9</td>
         <td>0000b</td>
         <td>读/写</td>
@@ -1556,7 +1556,7 @@
         <col style="width: 72%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位(比特)</th>
         <th>复位值</th>
         <th>读/写</th>
@@ -1564,7 +1564,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>8</td>
         <td>参见描述。</td>
         <td>读/写</td>
@@ -1580,13 +1580,13 @@
         转换到 D0 未初始化状态期间保持不变。这意味着 PME
         逻辑必须使用辅助电源在这些条件下为此逻辑供电。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>7:2</td>
         <td>全零</td>
         <td>只读</td>
         <td>保留</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>1:0</td>
         <td>00b</td>
         <td>读/写</td>
@@ -1669,7 +1669,7 @@
         <col style="width: 6%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>Data_Select 值</th>
         <th>Data 寄存器中报告的数据</th>
         <th>PMCSR 中 Data_Scale 字段的解读</th>
@@ -1677,69 +1677,69 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>00h</td>
         <td>D0 消耗的功率</td>
         <td>00b = 未知；<br/>01b = 乘以 0.1；<br/>10b = 乘以
         0.01；<br/>11b = 乘以 0.001</td>
         <td>Watts</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>01h</td>
         <td>D1 消耗的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>02h</td>
         <td>D2 消耗的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>03h</td>
         <td>D3 中消耗的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>04h</td>
         <td>D0 中耗散的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>05h</td>
         <td>D1 耗散的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>06h</td>
         <td>D2 耗散的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>07h</td>
         <td>D3 耗散的功率</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>08h</td>
         <td>在多功能 PCI 设备中，功能 0
         表示封装内所有功能共用的逻辑所消耗的功率。</td>
         <td>同上</td>
         <td>同上</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>09h-0Fh</td>
         <td>保留供多功能设备中功能 0 的未来使用。</td>
         <td>保留</td>
         <td>TBD</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>08h-0Fh</td>
         <td>在单功能设备以及多功能设备中除功能 0
         以外的其他功能中保留。</td>
@@ -1776,34 +1776,34 @@
         <p>表 16-15：设备与链路电源状态之间的关系</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>下游组件 D 状态</th>
         <th>允许的上游组件 D 状态</th>
         <th>允许的互连状态</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>D0</td>
         <td>D0</td>
         <td>L0、L0s 和 L1（可选）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D1</td>
         <td>D0-D1</td>
         <td>L1</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D2</td>
         <td>D0-D2</td>
         <td>L1</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>D3hot</td>
         <td>D0-D3hot</td>
         <td>L1、L2/L3 就绪</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>D3cold</td>
         <td>D0-D3cold</td>
         <td>L2（辅助电源），L3</td>
@@ -1823,7 +1823,7 @@
         <col style="width: 9%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>状态</th>
         <th>描述</th>
         <th>软件定向？</th>
@@ -1835,7 +1835,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L0</td>
         <td>完全激活</td>
         <td>是 (D0)</td>
@@ -1845,7 +1845,7 @@
         <td>在</td>
         <td>开/关</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L0s</td>
         <td>待机</td>
         <td>无</td>
@@ -1855,7 +1855,7 @@
         <td>开启</td>
         <td>开/关</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>L1</td>
         <td>低功耗待机</td>
         <td>是*（D1-D3hot）</td>
@@ -1865,7 +1865,7 @@
         <td>开启/关闭</td>
         <td>开启/关闭</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L2/L3 就绪</td>
         <td>断电暂存</td>
         <td>是 PME_Turn_Off 握手</td>
@@ -1875,7 +1875,7 @@
         <td>开启/关闭</td>
         <td>开启/关闭</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>L2</td>
         <td>低功耗睡眠</td>
         <td>是**</td>
@@ -1885,7 +1885,7 @@
         <td>关闭</td>
         <td>开启</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>L3</td>
         <td>关闭（零功耗）</td>
         <td>不适用</td>
@@ -2070,7 +2070,7 @@
         <col style="width: 28%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>状态</th>
         <th>2.5 GT/s</th>
         <th>5.0 GT/s</th>
@@ -2078,31 +2078,31 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>L0</td>
         <td>在 128 μs 窗口内未收到 FC Update 或 SOS</td>
         <td>在 128 μs 窗口内未收到 FC Update 或 SOS</td>
         <td>在 128 μs 窗口内未收到 FC Update 或 SOS</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Recovery.RcvrCfg</td>
         <td>在 1280 UI 间隔内未收到 TS1 或 TS2</td>
         <td>在 1280 UI 间隔内未收到 TS1 或 TS2</td>
         <td>在 4 ms 窗口内未收到 TS1 或 TS2</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Recovery.Speed（successful_speed_negotiation = 1b）</td>
         <td>在 1280 UI 间隔内未收到 TS1 或 TS2</td>
         <td>在 1280 UI 间隔内未收到 TS1 或 TS2</td>
         <td>在 4680 UI 间隔内未收到 TS1 或 TS2</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Recovery.Speed（successful_speed_negotiation = 0b）</td>
         <td>在 2000 UI 间隔内未退出电气空闲</td>
         <td>在 16000 UI 间隔内未退出电气空闲</td>
         <td>在 16000 UI 间隔内未退出电气空闲</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Loopback.Active（作为从设备）</td>
         <td>在 128 μs 窗口内未退出电气空闲</td>
         <td>不适用</td>
@@ -2162,17 +2162,17 @@
         <p>表 16-18：活动状态电源管理控制字段定义</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>设置</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>00 b</td>
         <td>禁用 L0s 和 L1 ASPM</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>01 b</td>
         <td>启用 L0s 并禁用 L1</td>
         </tr>
@@ -2181,17 +2181,17 @@
         <p>表 16-18：活动状态电源管理控制字段定义（续）</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>设置</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>10 b</td>
         <td>启用 L1，禁用 L0s</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>11 b</td>
         <td>同时启用 L0s 和 L1</td>
         </tr>

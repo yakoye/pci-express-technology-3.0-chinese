@@ -410,14 +410,14 @@
         <col style="width: 37%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>Header 中的字段名</th>
         <th>Header 中的位置</th>
         <th>字段作用</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Fmt[2:0] 格式 (Format)</td>
         <td>Byte 0 Bit 7:5</td>
         <td>这些 bit 的编码信息是关于 Header 的大小，以及这个 TLP
@@ -431,7 +431,7 @@
         但是地址小于 4GB，也就是说将 64bit 地址的高 32bit 置为
         0，那么这种情况下接收方的行为是未进行定义的（undefined）。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Type[4:0] 类型</td>
         <td>Byte 0 Bit 4:0</td>
         <td>这些 bit 编码的信息是 TLP 的不同事务类型。Type 字段用来跟
@@ -439,7 +439,7 @@
         大小、以及是否存在数据荷载。更多详细信息请参阅“Generic Header
         Field Details”一节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TC[2:0] 流量类型 (Traffic Class)</td>
         <td>Byte 1 Bit 6:4</td>
         <td>这些 bit 表示将应用于这个 TLP
@@ -448,21 +448,21 @@
         Class 7 TC 0 是默认类型，而 TC 1-7
         是用来提供差异化的服务。更多信息请参阅“Traffic Class”一节。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[2] 属性 (Attribute)</td>
         <td>Byte 1 Bit 2</td>
         <td>这个第三位的 Attribute 位（它共有 3 位）用于表示这个 TLP
         是否使用基于 ID 的排序（ID-based Ordering）。更多内容请参阅“ID
         Based Ordering”一节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TH TLP 处理提示 (TLP Processing Hints)</td>
         <td>Byte 1 Bit 0</td>
         <td>它用于表示何时 TLP 中会包含 TLP 提示（TLP
         Hints），以便让系统了解如何更好的处理这个
         TLP。更多内容请参阅“TPH（TLP Processing Hints）”。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TD TLP 摘要 (TLP Digest)</td>
         <td>Byte 2 Bit 7</td>
         <td>如果 TD=1，那么这个 TLP 中将包括可选的 4Byte TLP Digest
@@ -476,14 +476,14 @@
         校验（因为这是可选功能），那么它必须要忽略 Digest 字段。
         更多内容请参阅“CRC”和“ECRC Generating and Checking”这两节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EP 受污染的数据 (Poisoned Data)</td>
         <td>Byte 2 Bit 6</td>
         <td>如果
         EP=1，那么就认为所有伴随此数据的数据都是无效的，尽管相关事务依然允许正常的完成。关于
         Poisoned 数据包的更多内容，请参阅“Data Poisoning”一节。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[1:0] 属性 (Attributes)</td>
         <td>Byte 2 Bit 5:4</td>
         <td>Bit 5 = Relax Ordering（宽松排序）：当它被置为 1 时，这个
@@ -495,7 +495,7 @@
         窥探，以此来节省时间。而当这一位被置为 0 时，需要进行 PCI-type
         的 cache 窥探保护。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>AT[1:0] 地址类型 (Address Type)</td>
         <td>Byte 2 Bit 3:2</td>
         <td>对于 Memory 和 Atomic
@@ -506,14 +506,14 @@
         转换请求（Translation Request） <br> 10 = 已转换（Translated）
         <br> 11 = 保留 reserve</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Length[9:0] 长度</td>
         <td>Byte 2 Bit 1:0 Byte 3 Bit 7:0</td>
         <td>TLP 数据荷载传输量的大小，单位为 DW，编码方式为： <br> 00
         0000 0001b = 1DW <br> 00 0000 0010b = 2DW …… <br> 11 1111 1111b
         = 1023DW <br> 00 0000 0000 = 1024DW</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Last DW BE[3:0] 末尾 DW 的字节使能 (Last DW Byte
         Enable)</td>
         <td>Byte 7 Bit 7:4</td>
@@ -524,7 +524,7 @@
         是有效的；否则为无效的。 <br> Bit 4 = 1：末尾 DW 的 Byte 0
         是有效的；否则为无效的。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1st DW BE[3:0] 第一个 DW 的字节使能 (First DW Byte
         Enable)</td>
         <td>Byte 7 Bit 3:0</td>
@@ -554,112 +554,112 @@
         <col style="width: 19%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>TLP 事务种类</th>
         <th>Fmt[2:0]</th>
         <th>Type[4:0]</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Memory Read 请求 （MRd）</td>
         <td>000=3DW，无数据 001=4DW，无数据</td>
         <td>0 0000</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Memory Read Locked 请求 （MRdLk）</td>
         <td>000=3DW，无数据 001=4DW，无数据</td>
         <td>0 0001</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Memory Write 请求 （MWr）</td>
         <td>010=3DW，有数据 011=4DW，有数据</td>
         <td>0 0000</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>IO Read 请求 （IORd）</td>
         <td>000=3DW，无数据 （IO 请求为 3DW Header）</td>
         <td>0 0010</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>IO Write 请求 （IOWr）</td>
         <td>010=3DW，有数据 （IO 请求为 3DW Header）</td>
         <td>0 0010</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>配置 Type 0 Read 请求 （CfgRd0）</td>
         <td>000=3DW，无数据</td>
         <td>0 0100</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>配置 Type 0 Write 请求 （CfgWr0）</td>
         <td>010=3DW，有数据</td>
         <td>0 0100</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>配置 Type 1 Read 请求 （CfgRd1）</td>
         <td>000=3DW，无数据</td>
         <td>0 0101</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>配置 Type 1 Write 请求 （CfgWr1）</td>
         <td>010=3DW，有数据</td>
         <td>0 0101</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Message 请求 （Msg）</td>
         <td>001=4DW，无数据</td>
         <td>1 0 rrr* （见表 4‑10）</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Message 带数据的请求 （MsgD）</td>
         <td>011=4DW，有数据</td>
         <td>1 0 rrr* （见表 4‑10）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>完成包 Completion （Cpl）</td>
         <td>000=3DW，无数据</td>
         <td>0 1010</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>完成包带数据 （CplD）</td>
         <td>010=3DW，有数据</td>
         <td>0 1010</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>锁定的完成包 （CplLk）</td>
         <td>000=3DW，无数据</td>
         <td>0 1011</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>锁定的完成包带数据 （CplDLk）</td>
         <td>010=3DW，有数据</td>
         <td>0 1011</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>获取和增加原子操作请求 （Fetch and Add AtomicOP
         Request）</td>
         <td>010=3DW，有数据 011=4DW，有数据</td>
         <td>0 1100</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>无条件的交换原子操作请求 （Unconditional Swap AtomicOP
         Request）</td>
         <td>010=3DW，有数据 011=4DW，有数据</td>
         <td>0 1101</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>对比和交换原子操作请求 （Compare and Swap AtomicOP
         Request）</td>
         <td>010=3DW，有数据 011=4DW，有数据</td>
         <td>0 1110</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>本地 TLP 前缀 （Local TLP Prefix）</td>
         <td>100=TLP Prefix</td>
         <td>0L3L2L1L0</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>端到端 TLP 前缀 （End-to-End TLP Prefix）</td>
         <td>100=TLP Prefix</td>
         <td>1E3E2E1E0</td>
@@ -875,77 +875,77 @@
         <col style="width: 37%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>字段名称</th>
         <th>位于 Header 中的 Byte/Bit</th>
         <th>功能</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Fmt[2:0] 格式 （Format）</td>
         <td>Byte 0 Bit 7:5</td>
         <td>IO 请求的包格式字段： 000b=IO Read（3DW，无数据） 010b=IO
         Write（3DW，有数据）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Type[4:0] 类型</td>
         <td>Byte 0 Bit 4:0</td>
         <td>0 0010b=IO 请求</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TC[2:0] 流量类型 （Traffic Class）</td>
         <td>Byte 1 Bit 6:4</td>
         <td>IO 请求的 TC 永远为
         0，确保这些包永远不会干扰高优先级的包。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[2] 属性 （Attribute）</td>
         <td>Byte 1 Bit 2</td>
         <td>由于 IO 请求不使用基于 ID 的排序（ID-based
         Ordering），因此这个字段为保留字段。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TH TLP 处理提示 （TLP Processing Hints）</td>
         <td>Byte 1 Bit 0</td>
         <td>由于 IO 请求不使用 TLP 处理提示（TLP Processing
         Hints），因此这个字段为保留字段。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TD TLP 摘要 （TLP Digest）</td>
         <td>Byte 2 Bit 7</td>
         <td>表示 TLP 的末尾是否存在 Digest 字段，也就是 ECRC。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EP 受污染的数据 （Poisoned Data）</td>
         <td>Byte 2 Bit 6</td>
         <td>表示 TLP 的数据荷载（如果有）是否被污染（poisoned）。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[1:0] 属性 （Attribute）</td>
         <td>Byte 2 Bit 5:4</td>
         <td>由于 IO 请求不使用宽松排序（Relaxed Ordering）和无窥探（No
         Snoop），因此这个字段为 0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>AT[1:0] 地址类型 （Address Type）</td>
         <td>Byte 2 Bit 3:2</td>
         <td>由于 IO 请求不使用地址类型字段，因此这个字段必须为 0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Length[9:0] 长度</td>
         <td>Byte 2 Bit 1:0 Byte 3 Bit 7:0</td>
         <td>该字段用来表示以 DW 为单位的数据荷载大小。对于 IO
         请求来说，这个字段为 1，因为 IO 请求不能传输超过 4Byte。由首 DW
         字节使能来限定使用哪个 Byte。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Requester ID[15:0] Requester ID</td>
         <td>Byte 4 Bit 7:0 Byte 5 Bit 7:0</td>
         <td>用于表示相应完成包的“返回地址”。 Byte 4,7:0=Bus Number Byte
         5,7:3=Device Number Byte 5,2:0=Function Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Tag[7:0] Tag</td>
         <td>Byte 6 Bit 7:0</td>
         <td>这个字段用来标识来自 Requester
@@ -954,19 +954,19 @@
         Phantom Function 可选项可以将 Tag 的使用扩展为
         Tag[10:0]，这样就允许多达 2048 个未完成的请求同时进行。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Last DW BE[3:0] 尾 DW 字节使能</td>
         <td>Byte 7 Bit 7:4</td>
         <td>因为 IO 请求数据大小只能是 1DW 以内，所以这个字段必须为
         0000b。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1st DW BE[3:0] 首 DW 字节使能</td>
         <td>Byte 7 Bit 3:0</td>
         <td>这个字段用于限定第一个 DW 数据内的有效字节。对于 IO
         请求来说，所有的 bit 组合都是允许的（包括 0000b）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Address[31:2] 地址</td>
         <td>Byte 8 Bit 7:0 Byte 9 Bit 7:0 Byte 10 Bit 7:0 Byte 11 Bit
         7:2</td>
@@ -1001,14 +1001,14 @@
         <col style="width: 37%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>字段名称</th>
         <th>位于 Header 中的 Byte/Bit</th>
         <th>功能</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Fmt[2:0] 格式 （Format）</td>
         <td>Byte 0 Bit 7:5</td>
         <td>IO 请求的包格式字段： 000b=Memory Read（3DW 无数据）
@@ -1017,33 +1017,33 @@
         前缀已经被添加到包的开头。更多内容请参阅“TPH（TLP Processing
         Hints）”一节</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Type[4:0] 类型</td>
         <td>Byte 0 Bit 4:0</td>
         <td>0 0000b= Memory Read 或 Write 0 0001b= Memory Read Locked
         Type 字段与 Fmt[1:0]共同指定事务类型、Header
         大小以及是否有数据荷载。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TC[2:0] 流量类型 （Traffic Class）</td>
         <td>Byte 1 Bit 6:4</td>
         <td>这个字段的编码信息是请求包及其完成包的流量类型。 000b=TC
         0（默认） …… 111b=TC 7 更多内容请参阅“Traffic
         Class（TC）”一节。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[2] 属性 （Attribute）</td>
         <td>Byte 1 Bit 2</td>
         <td>表示这个 TLP 是否使用基于 ID 的排序（ID-based
         Ordering）。更多内容请参阅“ID Based Ordering（IDO）”一节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TH TLP 处理提示 （TLP Processing Hints）</td>
         <td>Byte 1 Bit 0</td>
         <td>指示是否包含 TLP 提示信息。更多内容请参阅“TPH（TLP
         Processing Hints）”一节。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TD TLP 摘要 （TLP Digest）</td>
         <td>Byte 2 Bit 7</td>
         <td>如果为 1，则 TLP 中存在 TLP Digest 字段，即存在 ECRC。
@@ -1053,13 +1053,13 @@
         检查，那么就必须对 ECRC 进行检查。 l 如果接收者并不支持可选的
         ECRC 校验，那么它必须要忽略 TLP 中的 Digest 字段。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EP 受污染的数据 （Poisoned Data）</td>
         <td>Byte 2 Bit 6</td>
         <td>如果为 1，那么伴随这个 TLP
         的数据荷载就都被认为是有错误的，尽管这个事务还是可以照常完成。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[1:0] 属性 （Attribute）</td>
         <td>Byte 2 Bit 5:4</td>
         <td>l Bit 5 =宽松排序（Relaxed Ordering） 当 Bit 5=1，这个 TLP
@@ -1067,7 +1067,7 @@
         6=无窥探（No Snoop） 当 Bit 6=1，系统软件就不需要进行关于这个
         TLP 的处理器 Cache 一致性窥探。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>AT[1:0] 地址类型 （Address Type）</td>
         <td>Byte 2 Bit 3:2</td>
         <td>这个字段支持虚拟系统（virtualized
@@ -1075,20 +1075,20 @@
         Translation Services），AT 中的编码信息为： 00=默认/未翻译
         01=翻译请求 10=已翻译 11=保留位</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Length[9:0] 长度</td>
         <td>Byte 2 Bit 1:0 Byte 3 Bit 7:0</td>
         <td>TLP 数据荷载的长度，单位为 DW。最大为
         1024DW（4KB），编码如下： 00 0000 0001b=1DW 00 0000 0010b=2DW ……
         11 1111 1111b=1023DW 00 0000 0000b=1024DW</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Requester ID[15:0] Requester ID</td>
         <td>Byte 4 Bit 7:0 Byte 5 Bit 7:0</td>
         <td>用于表示这个请求的相应完成包的“返回地址”。 Byte 4,7:0=Bus
         Number Byte 5,7:3=Device Number Byte 5,2:0=Function Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Tag[7:0] Tag</td>
         <td>Byte 6 Bit 7:0</td>
         <td>这个字段用来标识来自 Requester
@@ -1097,23 +1097,23 @@
         Extended Tag 位被置为 1，那么可以将 Tag 的使用扩展为
         Tag[7:0]，这样就允许最多使用 256 个 Tag。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Last DW BE[3:0] 尾 DW 字节使能</td>
         <td>Byte 7 Bit 7:4</td>
         <td>这个字段用于限定最后一个 DW 数据内的有效字节</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1st DW BE[3:0] 首 DW 字节使能</td>
         <td>Byte 7 Bit 3:0</td>
         <td>这个字段用于限定第一个 DW 数据内的有效字节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Address[63:32] 高 32bit 地址</td>
         <td>Byte 8 Bit 7:0 Byte 9 Bit 7:0 Byte 10 Bit 7:0 Byte 11 Bit
         7:2</td>
         <td>该字段是 Memory 传输的 64bit 起始地址的高 32bit。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Address[31:2] 低 32bit 地址</td>
         <td>Byte 12 Bit 7:0 Byte 13 Bit 7:0 Byte 14 Bit 7:0 Byte 15 Bit
         7:2</td>
@@ -1178,73 +1178,73 @@
         <col style="width: 39%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>字段名称</th>
         <th>位于 Header 中的 Byte/Bit</th>
         <th>功能</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Fmt[2:0] 格式 （Format）</td>
         <td>Byte 0 Bit 7:5</td>
         <td>配置请求始终为 3DW Header： 000b=Configuration
         Read（无数据） 010b= Configuration Write（有数据）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Type[4:0] 类型</td>
         <td>Byte 0 Bit 4:0</td>
         <td>0 0100b= Type 0 配置请求 0 0101b= Type 1 配置请求</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TC[2:0] 流量类型 （Traffic Class）</td>
         <td>Byte 1 Bit 6:4</td>
         <td>配置请求的 TC 必须为
         0，以确保这些配置包永远不会影响到高优先级的包。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[2] 属性 （Attribute）</td>
         <td>Byte 1 Bit 2</td>
         <td>配置请求的这个字段为保留字段，必须为 0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TH TLP 处理提示 （TLP Processing Hints）</td>
         <td>Byte 1 Bit 0</td>
         <td>配置请求的这个字段为保留字段，必须为 0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TD TLP 摘要 （TLP Digest）</td>
         <td>Byte 2 Bit 7</td>
         <td>用于指示 TLP 的末尾是否有 1DW 的 Digest 字段。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EP 受污染的数据 （Poisoned Data）</td>
         <td>Byte 2 Bit 6</td>
         <td>用于指示数据荷载是被污染的。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[1:0] 属性 （Attribute）</td>
         <td>Byte 2 Bit 5:4</td>
         <td>配置请求的 Relaxed Ordering 和 No Snoop 字段都为 0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>AT[1:0] 地址类型 （Address Type）</td>
         <td>Byte 2 Bit 3:2</td>
         <td>配置请求的 Address Type 字段为保留字段，必须为 0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Length[9:0] 长度</td>
         <td>Byte 2 Bit 1:0 Byte 3 Bit 7:0</td>
         <td>配置请求的数据荷载大小字段永远为 1，4bit
         字节使能的所有组合都是允许的。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Requester ID[15:0] Requester ID</td>
         <td>Byte 4 Bit 7:0 Byte 5 Bit 7:0</td>
         <td>用于表示这个请求的相应完成包的“返回地址”。 Byte 4,7:0=Bus
         Number Byte 5,7:3=Device Number Byte 5,2:0=Function Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Tag[7:0] Tag</td>
         <td>Byte 6 Bit 7:0</td>
         <td>这个字段用来标识来自 Requester
@@ -1254,27 +1254,27 @@
         位被置为 1，那么可以将 Tag 的使用扩展为
         Tag[7:0]，这样就允许最多使用 256 个 Tag。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Last DW BE[3:0] 尾 DW 字节使能</td>
         <td>Byte 7 Bit 7:4</td>
         <td>这个字段用于限定最后一个 DW
         数据内的有效字节。由于配置请求的数据荷载只能为
         1DW，因此这个字段必须为 0</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1st DW BE[3:0] 首 DW 字节使能</td>
         <td>Byte 7 Bit 3:0</td>
         <td>这个字段用于限定第一个 DW
         数据内的有效字节。对于配置请求来说，这个字段的所有组合都是允许的（包括全
         0）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Completer ID[15:0] Completer ID</td>
         <td>Byte 8 Bit 7:0 Byte 9 Bit 7:0</td>
         <td>用于指示这个配置请求要访问的 Completer。 Byte 8,7:0=Bus
         Number Byte 9,7:3=Device Number Byte 9,2:0=Function Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Ext Register Number[3:0] 扩展寄存器号 （Extended Register
         Number）</td>
         <td>Byte 10 Bit 3:0</td>
@@ -1283,7 +1283,7 @@
         地址，用于访问 1024DW（也就是 4096Byte）的空间。对于
         PCI-Compatible 配置空间，这个字段必须为 0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Register Number[3:0] 寄存器号 （Register Number）</td>
         <td>Byte 11 Bit 7:0</td>
         <td>用于指示寄存器号，是配置 DW 空间的低 8bit。最低的 2bit
@@ -1330,74 +1330,74 @@
         <col style="width: 39%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>字段名称</th>
         <th>位于 Header 中的 Byte/Bit</th>
         <th>功能</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Fmt[2:0] 格式 （Format）</td>
         <td>Byte 0 Bit 7:5</td>
         <td>完成包始终为 3DW Header： 000b=Cpl，无数据
         010b=CplD，有数据</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Type[4:0] 类型</td>
         <td>Byte 0 Bit 4:0</td>
         <td>0 1010b=完成包</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TC[2:0] 流量类型 （Traffic Class）</td>
         <td>Byte 1 Bit 6:4</td>
         <td>完成包的该字段必须与相应的请求包相同。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[2] 属性 （Attribute）</td>
         <td>Byte 1 Bit 2</td>
         <td>表示这个 TLP 是否使用基于 ID 的排序（ID-based
         Ordering）。更多内容请参阅“ID Based Ordering（IDO）”一节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TH TLP 处理提示 （TLP Processing Hints）</td>
         <td>Byte 1 Bit 0</td>
         <td>完成包中，此字段为保留字段</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TD TLP 摘要 （TLP Digest）</td>
         <td>Byte 2 Bit 7</td>
         <td>用于指示 TLP 的末尾是否有 1DW 的 Digest 字段，如果为 1
         则说明存在。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EP 受污染的数据 （Poisoned Data）</td>
         <td>Byte 2 Bit 6</td>
         <td>如果为 1，则表示数据荷载是被污染的。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[1:0] 属性 （Attribute）</td>
         <td>Byte 2 Bit 5:4</td>
         <td>完成包的该字段必须与相应的请求包相同。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>AT[1:0] 地址类型 （Address Type）</td>
         <td>Byte 2 Bit 3:2</td>
         <td>完成包的 Address Type 字段为保留字段，必须为 0。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Length[9:0] 长度</td>
         <td>Byte 2 Bit 1:0 Byte 3 Bit 7:0</td>
         <td>用于表示完成包数据荷载的大小，单位为 DW。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Completer ID[15:0] Completer ID</td>
         <td>Byte 4 Bit 7:0 Byte 5 Bit 7:0</td>
         <td>用于表示 Completer 是谁，用于支持调试。 Byte 4,7:0=Compl Bus
         Number Byte 5,7:3=Compl Device Number Byte 5,2:0=Compl Function
         Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Compl. Status[2:0] 完成包状态 （Completion Status
         Code）</td>
         <td>Byte 6 Bit 7:5</td>
@@ -1409,14 +1409,14 @@
         组合之外的都是保留码。更多内容请参阅“Summary of Completion
         Status Codes”一节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>BCM 字节数已修改 （Byte Count Modified）</td>
         <td>Byte 6 Bit 4</td>
         <td>这个字段仅由 PCI-X 完成包使用，用来表示 Byte Count
         字段仅报告第一个数据荷载的大小，而不是总数据荷载的大小。更多内容请参阅“Using
         The Byte Count Modified Bit”一节。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Byte Count[11:0] 字节数</td>
         <td>Byte 6 Bit 3:0 Byte 7 Bit 7:0</td>
         <td>Byte Count 字段是用来服务读请求的，它也是来源于原始请求中的
@@ -1424,20 +1424,20 @@
         字段。一些特别情况下，会出现使用多完成包返回数据荷载，请参阅“Data
         Returned For Read Request”一节</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Requester ID[15:0] Requester ID</td>
         <td>Byte 8 Bit 7:0 Byte 9 Bit 7:0</td>
         <td>该字段是从原始请求中复制来的，用于作为路由信息来帮助完成包返回
         Requester。 Byte 4,7:0=Req Bus Number Byte 5,7:3=Req Device
         Number Byte 5,2:0=Req Function Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Tag[7:0] Tag</td>
         <td>Byte 10 Bit 7:0</td>
         <td>完成包中的 Tag 必须与相应请求中的 Tag 一样。Requester
         收到这个完成包时是通过 Tag 来将完成包与原始请求关联起来的。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Lower Address[6:0] 低位地址</td>
         <td>Byte 11 Bit 6:0</td>
         <td>这个字段是一个读请求所返回的第一组数据的低 7bit
@@ -1627,20 +1627,20 @@
         <col style="width: 37%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>字段名称</th>
         <th>位于 Header 中的 Byte/Bit</th>
         <th>功能</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Fmt[2:0] 格式 （Format）</td>
         <td>Byte 0 Bit 7:5</td>
         <td>Message 始终为 4DW Header： 001b=4DW，无数据
         <br>011b=4DW，有数据</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Type[4:0] 类型</td>
         <td>Byte 0 Bit 4:0</td>
         <td>TLP 包的 Type 字段。 <br> Bit 4:3： 10b=Msg <br> Bit
@@ -1650,66 +1650,66 @@
         <br/>100b=本地；终结于首级接收者 <br/>101b=收集并路由至 RC
         其他值=保留值，作为本地处理</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TC[2:0] 流量类型 （Traffic Class）</td>
         <td>Byte 1 Bit 6:4</td>
         <td>Message 的 TC 始终为
         0，以确保它们不会影响到高优先级的数据包。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[2] 属性 （Attribute）</td>
         <td>Byte 1 Bit 2</td>
         <td>表示这个 TLP 是否使用基于 ID 的排序（ID-based
         Ordering）。更多内容请参阅“ID Based Ordering（IDO）”一节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TH TLP 处理提示 （TLP Processing Hints）</td>
         <td>Byte 1 Bit 0</td>
         <td>Message 中，除非另有注明，此字段为保留字段。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TD TLP 摘要 （TLP Digest）</td>
         <td>Byte 2 Bit 7</td>
         <td>如果为 1，则说明 TLP 的末尾存在 1DW 的 Digest 字段（在 LCRC
         和 END 字符之前）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EP 受污染的数据 （Poisoned Data）</td>
         <td>Byte 2 Bit 6</td>
         <td>如果为 1，则表示数据荷载是被污染的。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Attr[1:0] 属性 （Attribute）</td>
         <td>Byte 2 Bit 5:4</td>
         <td>Message 中，除非另有注明，此字段为保留字段。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>AT[1:0] 地址类型 （Address Type）</td>
         <td>Byte 2 Bit 3:2</td>
         <td>Message 的 Address Type 字段为保留字段，必须为
         0，但是并不要求甚至不鼓励接收方对这个字段进行检查。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Length[9:0] 长度</td>
         <td>Byte 2 Bit 1:0 Byte 3 Bit 7:0</td>
         <td>用于表示完成包数据荷载的大小，单位为 DW。对于 Message
         来说，这个字段始终为 0（无数据）或 1（有 1DW 数据）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Requester ID[15:0] Requester ID</td>
         <td>Byte 4 Bit 7:0 Byte 5 Bit 7:0</td>
         <td>用于表示发送 Message 的 Requester 是谁。 Byte
         4,7:0=Requester Bus Number Byte 5,7:3=Requester Device Number
         Byte 5,2:0=Requester Function Number</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Tag[7:0] Tag</td>
         <td>Byte 6 Bit 7:0</td>
         <td>由于所有的 Message 请求都是 Posted 的，不需要 Requester
         接收完成包，因此不需要给 Message 分配 Tag。这个字段应该为
         0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Message Code[7:0] Message 标识码</td>
         <td>Byte 7 Bit 7:0</td>
         <td>这个字段包含的标识码表示发送的 Message 是什么种类。 <br>
@@ -1722,7 +1722,7 @@
         0000b=设置插槽功耗 Message（Set Slot Power Message） <br> 0111
         111xb=厂商定义的 Message（Vendor Defined Message）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Address[63:32] 高 32bit 地址</td>
         <td>Byte 8 Bit 7:0 Byte 9 Bit 7:0 Byte 10 Bit 7:0 Byte 11 Bit
         7:0</td>
@@ -1731,7 +1731,7 @@
         32bit。如果使用是 ID 路由，那么 Byte8-9 就组成目标 ID。
         否则，这个字段就不使用。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Address[31:0] 低 32bit 地址</td>
         <td>Byte 12 Bit 7:0 Byte 13 Bit 7:0 Byte 14 Bit 7:0 Byte 15 Bit
         7:0</td>

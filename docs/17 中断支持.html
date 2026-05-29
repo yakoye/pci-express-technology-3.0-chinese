@@ -626,89 +626,89 @@
         <p>表 17-1：跨虚拟 PCI-to-PCI 桥接器的 INTx 消息映射</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>传递 INTx 的设备号</th>
         <th>输入端 INTx 消息类型</th>
         <th>输出端 INTx 消息类型</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>0、4、8、12 等</td>
         <td>INTA</td>
         <td>INTA</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>0、4、8、12 等</td>
         <td>INTB</td>
         <td>INTB</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>0、4、8、12 等</td>
         <td>INTC</td>
         <td>INTC</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>0、4、8、12 等</td>
         <td>INTD</td>
         <td>INTD</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>1、5、9、13 等</td>
         <td>INTA</td>
         <td>INTB</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1、5、9、13 等</td>
         <td>INTB</td>
         <td>INTC</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>1、5、9、13 等</td>
         <td>INTC</td>
         <td>INTD</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1、5、9、13 等</td>
         <td>INTD</td>
         <td>INTA</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>2、6、10、14 等</td>
         <td>INTA</td>
         <td>INTC</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>2、6、10、14 等</td>
         <td>INTB</td>
         <td>INTD</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>2、6、10、14 等</td>
         <td>INTC</td>
         <td>INTA</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>2、6、10、14 等</td>
         <td>INTD</td>
         <td>INTB</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>3、7、11、15 等</td>
         <td>INTA</td>
         <td>INTD</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>3、7、11、15 等</td>
         <td>INTB</td>
         <td>INTA</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>3、7、11、15 等</td>
         <td>INTC</td>
         <td>INTB</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>3、7、11、15 等</td>
         <td>INTD</td>
         <td>INTC</td>
@@ -817,21 +817,21 @@
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位</th>
         <th>字段名称</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>0</td>
         <td>MSI 使能</td>
         <td>读/写。复位后为 0，表示设备的 MSI 功能被禁用。0 =
         功能禁止使用 MSI，必须使用 MSI-X 或 INTx 消息；1 = 功能使用 MSI
         请求服务，不会使用 MSI-X 或 INTx 消息。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>3:1</td>
         <td>多消息能力</td>
         <td>只读。系统软件读取该字段，以确定功能希望使用多少条消息（中断向量）。请求数量必须是
@@ -839,21 +839,21 @@
         条。编码含义：000b = 1，001b = 2，010b = 4，011b = 8，100b =
         16，101b = 32，110b/111b = 保留。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>6:4</td>
         <td>多消息使能</td>
         <td>读/写。系统软件读取“多消息能力”字段后，在此字段中写入实际分配给该功能的消息数量。分配数量可以等于或少于功能请求的数量。复位后为
         000b。编码含义同“多消息能力”：000b = 1，001b = 2，010b = 4，011b
         = 8，100b = 16，101b = 32，110b/111b = 保留。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>7</td>
         <td>64 位地址能力</td>
         <td>只读。0 = 功能未实现消息地址寄存器的高 32 位，仅能使用 32
         位地址；1 = 功能实现了消息地址寄存器的高 32 位，能够生成 64
         位内存地址。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>8</td>
         <td>支持每向量屏蔽</td>
         <td>只读。0 =
@@ -861,7 +861,7 @@
         =
         功能实现了屏蔽位寄存器和待处理位寄存器，软件可以通过该能力结构屏蔽单个中断。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>15:9</td>
         <td>保留</td>
         <td>只读，读取始终返回 0。</td>
@@ -1008,14 +1008,14 @@
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位</th>
         <th>字段名称</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>10:0</td>
         <td>Table Size(表大小)</td>
         <td>只读。该字段指示此功能支持的中断消息（向量）数量。该值采用
@@ -1023,18 +1023,18 @@
         个向量。每个向量在 MSI-X
         表中拥有独立条目，并在待处理位数组中拥有独立位。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>13:11</td>
         <td>Reserved(保留)</td>
         <td>只读，读取始终返回 0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>14</td>
         <td>Function Mask(功能屏蔽)</td>
         <td>读/写。系统软件可使用该位一次性屏蔽该功能的全部中断。如果该位清零，仍可通过设置各
         MSI-X 表项中的向量屏蔽位来单独屏蔽某个中断。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>15</td>
         <td>MSI‐X Enable(MSI‐X 使能)</td>
         <td>读/写。复位后为 0，表示设备的 MSI-X 功能被禁用。0 =
@@ -1067,29 +1067,29 @@
         <p>MSI-X 表项可概括为：</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>双字</th>
         <th>字段</th>
         <th>说明</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>DW0</td>
         <td>消息地址低 32 位</td>
         <td>该向量的目标地址低位。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DW1</td>
         <td>消息地址高 32 位</td>
         <td>该向量的目标地址高位。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>DW2</td>
         <td>消息数据</td>
         <td>该向量写入目标地址的数据值。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DW3</td>
         <td>向量控制</td>
         <td>位 0 为向量屏蔽位（Mask Bit），其余位保留。</td>
@@ -1116,29 +1116,29 @@
         <p>待处理位数组可概括为：</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>QW</th>
         <th>包含的待处理位</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>QW 0</td>
         <td>待处理位 0-63</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>QW 1</td>
         <td>待处理位 64-127</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>QW 2</td>
         <td>待处理位 128-191</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>…</td>
         <td>…</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>QW (N-1)/64</td>
         <td>待处理位 N-1 所在的最后一个 QW</td>
         </tr>
