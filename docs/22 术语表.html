@@ -150,13 +150,13 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>Term（术语）</th>
         <th>定义</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>128b/130b Encoding（128b/130b 编码）</td>
         <td>这里的“编码”并不等同于 8b/10b 编码。发送端以 Block
         为单位发送信息，每个 Block 由连续 16 个原始字节组成，前面带有 2
@@ -165,12 +165,12 @@
         引入，主要目的是在不加倍时钟频率的情况下使链路带宽翻倍。它提升了带宽利用率，但也牺牲了
         8b/10b 为接收端提供的一些优势。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>8b/10b Encoding（8b/10b 编码）</td>
         <td>一种多年前开发、至今仍广泛用于多种串行传输的编码方案。该方案旨在帮助接收端从输入信号中恢复时钟和数据，但也会使接收端可用带宽降低
         20%。PCIe 的早期版本 Gen1 和 Gen2 使用该方案。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>ACK/NAK Protocol（ACK/NAK 协议）</td>
         <td>Acknowledge/Negative
         Acknowledge（确认/否定确认）机制。数据链路层通过该机制报告 TLP
@@ -178,85 +178,85 @@
         NAK，请求重放失败的 TLP；若没有错误，则返回 ACK，表示一个或多个
         TLP 已安全到达。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>ACPI（高级配置与电源接口）</td>
         <td>Advanced Configuration and Power
         Interface。定义系统和设备的多种电源状态。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>ACS（访问控制服务）</td>
         <td>Access Control Services。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>ARI（备用路由 ID 解释）</td>
         <td>Alternative Routing-ID
         Interpretation；可选功能，允许端点拥有超过常规 8 个功能的
         Function 数量。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>ASPM（主动状态电源管理）</td>
         <td>Active State Power
         Management。启用后，硬件可以将链路电源状态从 L0 切换到
         L0s、L1，或同时支持二者。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>AtomicOps（原子操作）</td>
         <td>Atomic Operations；规范 2.1
         修订版新增的三类请求。这些请求在目标设备内部执行多个操作，并保证这些操作不会被中断。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Bandwidth Management（带宽管理）</td>
         <td>由硬件发起的链路速率或链路宽度变更，目的通常是节能或提升可靠性。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>BAR（基地址寄存器）</td>
         <td>Base Address Register。Function 用它指示本地 Memory 空间和
         I/O 空间的类型及大小。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Beacon（信标）</td>
         <td>一种低频带内信号。主电源关闭的设备可用它通知系统发生了某个事件，需要恢复供电。该信号可在链路处于
         L2 状态时通过链路发送。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>BER（误码率）</td>
         <td>Bit Error Rate 或 Bit Error
         Ratio；基于一段时间内观察到的传输比特错误数量来衡量信号完整性的指标。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Bit Lock（比特锁定）</td>
         <td>接收端获取发送端精确时钟频率的过程。该过程由 CDR
         逻辑完成，是链路训练的早期步骤之一。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Block（块）</td>
         <td>Gen3 发送端发送的 130 位单元，由 2 位 Sync Field 后跟 16
         字节数据组成。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Block Lock（块锁定）</td>
         <td>使用 128b/130b 编码时，接收端寻找 Block 边界以识别传入 Block
         的过程。该过程包含三个阶段：先在输入流中搜索 EIEOS（Electrical
         Idle Exit Ordered Set）并调整内部 Block 边界；再搜索 SDS（Start
         Data Stream）有序集；随后接收端锁定到该 Block 边界。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Bridge（桥）</td>
         <td>作为两条总线之间接口的 Function。Switch 和 Root Complex
         会在其端口上实现桥功能以支持数据包路由；桥也可用于连接不同协议，例如
         PCIe 与 PCI。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Byte Striping（字节条带化）</td>
         <td>将输出字节流分散到所有可用 Lane 上。只要发送字节，所有可用
         Lane 都会被使用。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>CC（已消耗信用量）</td>
         <td>Credits
         Consumed；发送端在计算流量控制时已经使用的信用数量。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>CDR（时钟与数据恢复）</td>
         <td>Clock and Data
         Recovery。用于从输入比特流中恢复发送端时钟，并对比特进行采样以识别模式。对于
@@ -264,39 +264,39 @@
         Lock；对于 128b/130b，则通过 EIEOS 序列经历三个锁定阶段以获得
         Block Lock。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Character（字符）</td>
         <td>描述链路邻居之间传递的 8 位值的术语。对于 Gen1 和
         Gen2，字符包括普通数据字节（D character）和特殊控制值（K
         character）。对于 Gen3，由于不再使用 8b/10b
         编码，因此没有控制字符，所有字符都表现为数据字节。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>CL（信用额度）</td>
         <td>Credit Limit；从发送端视角看可用的流量控制信用。发送 TLP
         前会检查该值，以确认是否有足够信用。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Control Character（控制字符）</td>
         <td>8b/10b 编码中的特殊字符，标记为 K
         character，用于链路训练和有序集。Gen3
         不再使用该类字符，因为不再区分控制字符和数据字符。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Correctable Errors（可纠正错误）</td>
         <td>可由硬件自动纠正、通常不需要软件介入的错误。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>CR（所需信用量）</td>
         <td>Credits Required；等于 CC 与 PTLP 之和。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>CRC（循环冗余校验码）</td>
         <td>Cyclic Redundancy Code。附加到 TLP 和 DLLP
         中，用于验证传输是否无误。其名称表示这种校验模式具有循环性且是冗余信息（不增加额外业务数据）。CRC
         信息不足以自动纠错，但能提供强健的错误检测能力。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Cut-Through Mode（直通模式）</td>
         <td>Switch 允许 TLP
         从入口端口直接转发到出口端口而不先完整存储并检查错误的机制。风险在于，TLP
@@ -306,12 +306,12 @@
         token，二者共同告知接收端该包已被作废，应丢弃且不发送 ACK/NAK
         响应。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Data Characters（数据字符）</td>
         <td>8b/10b 编码中表示普通数据、并与控制字符区分的字符，标记为 D
         character。对于 Gen3，字符之间不再做这种区分。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Data Stream（数据流）</td>
         <td>Gen3 操作中的 Data Block 流。数据流通过 SDS（Start of Data
         Stream Ordered Set）进入，并通过 EDS（End of Data Stream
@@ -321,66 +321,66 @@
         Stream 等价于进入 L0 链路状态，因为有序集只会在 Recovery 等其他
         LTSSM 状态中发送。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>De-emphasis（去加重）</td>
         <td>降低比特流中重复比特对应的发送端电压的过程。这样会弱化信号中容易在传输介质中造成问题的低频分量，从而改善接收端的信号完整性。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Digest（摘要）</td>
         <td>ECRC（End-to-End CRC）的另一个名称。ECRC 可在事务层创建 TLP
         时选择性地附加到 TLP 末尾。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>DLCMSM（数据链路控制与管理状态机）</td>
         <td>Data Link Control and Management State
         Machine；管理链路层训练过程，主要负责流量控制初始化。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DLLP（数据链路层包）</td>
         <td>Data Link Layer Packet。DLLP
         在数据链路层创建，并转发至物理层，但事务层不可见。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>DPA（动态电源分配）</td>
         <td>Dynamic Power Allocation；规范 2.1
         修订版新增的一组配置寄存器，在 D0 设备电源状态下定义 32
         个电源子状态，使软件更容易控制设备电源选项。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DSP (Downstream Port)（下游端口）</td>
         <td>面向下游的端口，例如 Root Port 或 Switch Downstream
         Port。该区分在 LTSSM
         中有意义，因为端口在某些状态下会被分配特定角色。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>ECRC（端到端 CRC）</td>
         <td>End-to-End CRC。事务层创建 TLP
         时可选择附加该值，使接收方能够验证数据包从源端到目的端的可靠传输，而不受中间跨越多少条链路影响。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Egress Port（出口端口）</td>
         <td>承载出站流量的端口。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Elastic Buffer（弹性缓冲器）</td>
         <td>CDR
         逻辑的一部分，用于补偿发送端与接收端时钟之间的差异。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>EMI（电磁干扰）</td>
         <td>Electro-Magnetic Interference；系统发射出的电气噪声。对于
         PCIe，可通过 SSC 和加扰来降低 EMI。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Endpoint（端点）</td>
         <td>位于 PCI 倒置树结构底部的 PCIe Function。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Enumeration（枚举）</td>
         <td>系统发现过程。软件读取所有预期的配置位置，以确定哪些 PCI
         可配置 Function 在系统中可见并存在。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Equalization（均衡）</td>
         <td>调整 Tx 和 Rx
         参数以补偿传输介质中实际或预期信号失真的过程。对于 Gen1 和
@@ -388,148 +388,148 @@
         Gen3，引入主动评估流程，用于测试信号环境并相应调整 Tx
         设置，同时规范也提到可选的 Rx equalization。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Flow Control（流量控制）</td>
         <td>发送端用于避免接收端因缓冲空间不足而拒收数据包的机制。接收端定期报告可用缓冲空间，发送端在尝试发送包之前确认是否有足够空间。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>FLR（功能级复位）</td>
         <td>Function-Level Reset。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Framing Symbols（帧定界符）</td>
         <td>8b/10b 编码中用于指示 TLP 或 DLLP
         边界的“start”和“end”控制字符。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Gen1（第一代）</td>
         <td>Generation 1，指符合 PCIe 规范 1.x 版本的设计。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Gen1, Gen2, Gen3（第一代、第二代、第三代）</td>
         <td>PCIe 规范修订版本的缩写：Gen1 对应 1.x，Gen2 对应 2.x，Gen3
         对应 3.0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Gen2（第二代）</td>
         <td>Generation 2，指符合 PCIe 规范 2.x 版本的设计。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Gen3（第三代）</td>
         <td>Generation 3，指符合 PCIe 规范 3.x 版本的设计。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>IDO（基于 ID 的排序）</td>
         <td>ID-based Ordering。启用后，来自不同 Requester 的 TLP
         可以彼此乱序转发，目标是降低延迟并提升性能。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Implicit Routing（隐式路由）</td>
         <td>不需要参考地址或 ID 即可确定路由的 TLP。只有 Message Request
         可选择使用这种路由方式。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Ingress Port（入口端口）</td>
         <td>承载入站流量的端口。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>ISI（符号间干扰）</td>
         <td>Inter-Symbol
         Interference；由当前比特之前的若干比特对当前比特时间造成的影响。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Lane（通道）</td>
         <td>两对差分线，用于在两个端口之间提供一个比特的发送路径和接收路径。一条
         Link 可以只有 1 条 Lane，也可以最多包含 32 条 Lane。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Lane-to-Lane Skew（通道间偏移）</td>
         <td>不同 Lane
         上比特到达时间的差异。接收端必须检测该差异并在内部进行校正。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Legacy Endpoint（传统端点）</td>
         <td>向前兼容任一传统特性的 Endpoint：支持 I/O 事务、支持本地 32
         位可预取内存空间，或支持锁定事务。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>LFSR（线性反馈移位寄存器）</td>
         <td>Linear-Feedback Shift
         Register；生成用于加扰的伪随机模式。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Link（链路）</td>
         <td>两个 Port 之间的接口，由一条或多条 Lane 组成。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>LTR（延迟容忍度报告）</td>
         <td>Latency-Tolerance Reporting；设备向系统报告其发送 Request
         后需要多快获得服务的机制。可容忍更长延迟时，系统就能使用更多电源管理选项。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>LTSSM（链路训练与状态状态机）</td>
         <td>Link Training and Status State
         Machine；管理物理层训练过程。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Non-posted Request（非发布请求）</td>
         <td>期望收到 Completion 响应的
         Request。例如，任何读请求都属于非发布请求。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Non-prefetchable Memory（不可预取内存）</td>
         <td>读取时会产生副作用的内存。例如，某个状态寄存器在读取后自动清零。此类数据不适合预取，因为若请求者并未真正请求该数据且预取结果被丢弃，该信息就会丢失。该区分对
         PCI Bridge 曾很重要，因为桥在读取时需要推测数据大小；对 PCIe
         而言，由于 TLP
         中包含精确字节数，该区分的重要性降低，但保留它有助于向后兼容。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Nullified Packet（作废数据包）</td>
         <td>发送端发现某个包存在错误且本不应发送时，可将该包作废；接收端应丢弃它，并表现得像从未收到过该包一样。该问题可能出现在
         Switch 的 cut-through 操作中。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>OBFF（优化缓冲刷新与填充）</td>
         <td>Optimized Buffer Flush and
         Fill；系统用来告知设备最佳流量发起时机的机制。设备若在最佳时段发送请求而非其他时段发送，可改善系统电源管理。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Ordered Sets（有序集）</td>
         <td>作为物理层通信发送的一组 Symbol，用于 Lane 管理。对于
         8b/10b，它们通常只由控制字符组成。有序集在发送端物理层创建，在接收端物理层消耗，对其他层完全不可见。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>PCI（外围组件互连）</td>
         <td>Peripheral Component Interconnect。用于取代 PC 中 ISA
         等早期总线设计。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>PCI-X（PCI 扩展）</td>
         <td>PCI eXtended。用于修正 PCI 的不足并支持更高速度。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>PME（电源管理事件）</td>
         <td>Power Management
         Event；设备发出的消息，表示需要与电源相关的服务。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Poisoned TLP（中毒 TLP）</td>
         <td>创建时即已知数据载荷有错误的数据包。发送带有错误数据的包可作为诊断问题和确定解决方案的辅助手段。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Polarity Inversion（极性反转）</td>
         <td>允许接收端信号极性反接，以支持简化板级布线的场景。接收端必须在链路训练期间检测该情况，并在内部反转信号以纠正。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Port（端口）</td>
         <td>连接 PCIe Link 的输入/输出接口。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Posted Request（发布请求）</td>
         <td>不期望 Completion 响应的 Request
         包。规范只定义了两类发布请求：Memory Write 和 Message。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Prefetchable Memory（可预取内存）</td>
         <td>读取时不会产生副作用的内存。因此可以安全预取：即使数据被中间缓冲丢弃，后续需要时仍可再次读取。该区分对
         PCI Bridge
@@ -537,109 +537,109 @@
         PCIe 而言，由于 TLP
         中包含精确字节数，该区分的重要性降低，但保留它有助于向后兼容。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>PTLP（待处理 TLP）</td>
         <td>Pending TLP；发送当前 TLP 所需的流量控制信用。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>QoS（服务质量）</td>
         <td>Quality of Service；PCIe
         拓扑为不同数据包分配不同优先级的能力。简单场景中可能只是仲裁点的优先处理；复杂系统中也可用于为数据包提供带宽和延迟保证。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Requester ID（请求者 ID）</td>
         <td>事务请求者的配置地址，即对应的 BDF（Bus、Device、Function
         编号）。Completer 使用它作为返回 Completion 包的返回地址。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Root Complex（根复合体）</td>
         <td>作为系统 CPU 核心与 PCIe
         拓扑之间接口的组件集合。它可由一个或多个芯片组成，结构可简可繁。从
         PCIe 角度看，它是 PCI 向后兼容性所要求的倒置树结构的根。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Run Length（游程长度）</td>
         <td>连续出现的 1 或 0 的数量。对于 8b/10b 编码，游程长度限制为 5
         位；对于
         128b/130b，没有定义明确限制，但其改进的加扰方案用于补偿这一点。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Scrambling（加扰）</td>
         <td>对输出比特流进行随机化，以避免链路上出现重复模式并降低
         EMI。Gen1 和 Gen2 中可关闭加扰，以便在链路上指定特定模式；Gen3
         中不能关闭加扰，因为在该速率下它还承担其他工作，且链路预计无法在无加扰情况下可靠运行。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SOS（跳过有序集）</td>
         <td>Skip Ordered Set；用于补偿 Tx 与 Rx
         之间微小的频率差异。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>SSC（扩频时钟）</td>
         <td>Spread-Spectrum
         Clocking。通过让时钟频率在允许范围内来回变化来降低系统 EMI
         的方法。它将发射能量分散到更宽的频率范围，避免过多 EMI
         能量集中在某一频点。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Sticky Bits（粘滞位）</td>
         <td>复位后仍保持原值的状态位。该特性有助于在链路下游 Function
         检测到错误且链路已无法正常运行时保存状态信息。必须复位故障链路才能访问下游
         Function，而寄存器中的错误状态信息需要在复位后仍可供软件读取。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Switch（交换机）</td>
         <td>包含多个 Downstream Port 和一个 Upstream Port
         的设备，能够在其端口之间路由流量。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Symbol（符号）</td>
         <td>通过链路发送的编码单元。对于 8b/10b，它是编码后得到的 10
         位值；对于 128b/130b，它是 8 位值。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Symbol Lock（符号锁定）</td>
         <td>使用 8b/10b 编码时，接收端寻找 Symbol 边界，以识别传入
         Symbol 并进而识别数据包内容。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Symbol time（符号时间）</td>
         <td>通过 Link 发送一个 Symbol 所需的时间：Gen1 为 4 ns，Gen2 为
         2 ns，Gen3 为 1 ns。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TLP（事务层包）</td>
         <td>Transaction Layer Packet。TLP
         在事务层创建，并通过其他层传递。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Token（令牌）</td>
         <td>Gen3 速率下运行于 Data Stream
         时，用于标识所传递信息类型的标识符。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TPH（TLP 处理提示）</td>
         <td>TLP Processing
         Hints；帮助系统路由代理做出选择，以改善延迟并缓解流量拥塞。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>UI（单位间隔）</td>
         <td>Unit Interval；通过 Link 发送一个比特所需的时间：Gen1 为 0.4
         ns，Gen2 为 0.2 ns，Gen3 为 0.125 ns。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Uncorrectable Errors（不可纠正错误）</td>
         <td>硬件无法纠正、通常需要软件介入解决的错误。它们分为 Fatal
         error（导致后续链路操作不可靠）和 Non-fatal
         error（检测到问题但不影响链路操作）。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>USP（上游端口）</td>
         <td>Upstream Port，即面向上游的端口，例如 Endpoint 或 Switch
         Upstream Port。该区分在 LTSSM 中有意义，因为端口在 Configuration
         和 Recovery 期间会被分配特定角色。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Variables（变量）</td>
         <td>硬件层之间使用多个标志来传递事件和状态。这些标志与硬件状态转换相关，通常对软件不可见。例如：<br>-
         <code>LinkUp</code>：物理层向数据链路层发出的指示，表示训练完成且物理层已可正常工作。<br>-
@@ -651,7 +651,7 @@
         FFh）仍不能正常工作，则返回 Detect 重新开始，这可能表明部分 Lane
         无法正常工作。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>WAKE#（唤醒信号）</td>
         <td>用于通知系统恢复供电的边带引脚。在重视节能的系统中，它用于替代
         Beacon。</td>

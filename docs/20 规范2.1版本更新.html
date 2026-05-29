@@ -617,29 +617,29 @@
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>PH [1:0]</th>
         <th>处理提示</th>
         <th>使用模型</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td><code>00b</code></td>
         <td>双向数据结构</td>
         <td>表示主机和设备都会频繁进行读写访问。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td><code>01b</code></td>
         <td>请求者</td>
         <td>D<em>D</em>（设备到设备传输）。表示设备会频繁进行读写访问。星号表示任一设备都可能是读取方或写入方。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td><code>10b</code></td>
         <td>目标</td>
         <td>DWHR、HWDR（设备到主机或主机到设备传输）。表示主机会频繁进行读写访问。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td><code>11b</code></td>
         <td>带优先级的目标</td>
         <td>与“目标”相同，但额外包含时间重用优先级信息。表示主机会频繁进行读写访问，且被访问数据具有较高时间局部性。</td>
@@ -671,26 +671,26 @@
         <col style="width: 50%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>双字</th>
         <th>内容</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>DW0</td>
         <td>PCI Express 能力寄存器，包含下一能力指针和 PCI Express 能力
         ID（<code>17h</code>）。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DW1</td>
         <td>TPH 请求者能力寄存器。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>DW2</td>
         <td>TPH 请求者控制寄存器。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DW3 及后续</td>
         <td>TPH ST 表（可选），大小由 ST 表条目数量决定。</td>
         </tr>
@@ -707,25 +707,25 @@
         <p>表 20-2：ST 表位置编码</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>位 [10:9]</th>
         <th>ST 表位置</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td><code>00b</code></td>
         <td>不存在。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td><code>01b</code></td>
         <td>位于请求者能力结构中。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td><code>10b</code></td>
         <td>位于 MSI-X 表中。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td><code>11b</code></td>
         <td>保留。</td>
         </tr>

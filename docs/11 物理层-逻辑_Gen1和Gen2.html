@@ -512,7 +512,7 @@ Gen2）</div>
         <p>图 11-12：x4 数据包格式示例</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>时间顺序</th>
         <th>Lane 0</th>
         <th>Lane 1</th>
@@ -521,63 +521,63 @@ Gen2）</div>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>TLP 起始</td>
         <td>STP</td>
         <td>Sequence</td>
         <td>TLP</td>
         <td>TLP</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TLP 数据</td>
         <td>TLP</td>
         <td>TLP</td>
         <td>TLP</td>
         <td>TLP</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TLP 结束</td>
         <td>LCRC</td>
         <td>LCRC</td>
         <td>LCRC</td>
         <td>END</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>SKIP OS</td>
         <td>COM</td>
         <td>COM</td>
         <td>COM</td>
         <td>COM</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SKIP OS</td>
         <td>SKP</td>
         <td>SKP</td>
         <td>SKP</td>
         <td>SKP</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>SKIP OS</td>
         <td>SKP</td>
         <td>SKP</td>
         <td>SKP</td>
         <td>SKP</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SKIP OS</td>
         <td>SKP</td>
         <td>SKP</td>
         <td>SKP</td>
         <td>SKP</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>DLLP</td>
         <td>SDP</td>
         <td>DLLP</td>
         <td>DLLP</td>
         <td>END</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>逻辑空闲</td>
         <td>Idle（00h）</td>
         <td>Idle（00h）</td>
@@ -624,7 +624,7 @@ Gen2）</div>
         <col style="width: 11%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>时间顺序</th>
         <th>Lane 0</th>
         <th>Lane 1</th>
@@ -637,7 +637,7 @@ Gen2）</div>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>逻辑空闲</td>
         <td>Idle</td>
         <td>Idle</td>
@@ -648,7 +648,7 @@ Gen2）</div>
         <td>Idle</td>
         <td>Idle</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TLP 起始</td>
         <td>STP</td>
         <td>Sequence</td>
@@ -659,7 +659,7 @@ Gen2）</div>
         <td>TLP</td>
         <td>TLP</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TLP 数据</td>
         <td>TLP</td>
         <td>TLP</td>
@@ -670,7 +670,7 @@ Gen2）</div>
         <td>TLP</td>
         <td>TLP</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TLP 结束</td>
         <td>LCRC</td>
         <td>LCRC</td>
@@ -681,7 +681,7 @@ Gen2）</div>
         <td>END</td>
         <td>—</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SKIP OS</td>
         <td>COM</td>
         <td>COM</td>
@@ -692,7 +692,7 @@ Gen2）</div>
         <td>COM</td>
         <td>COM</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>SKIP OS</td>
         <td>SKP</td>
         <td>SKP</td>
@@ -703,7 +703,7 @@ Gen2）</div>
         <td>SKP</td>
         <td>SKP</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SKIP OS</td>
         <td>SKP</td>
         <td>SKP</td>
@@ -714,7 +714,7 @@ Gen2）</div>
         <td>SKP</td>
         <td>SKP</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>SKIP OS</td>
         <td>SKP</td>
         <td>SKP</td>
@@ -725,7 +725,7 @@ Gen2）</div>
         <td>SKP</td>
         <td>SKP</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>DLLP</td>
         <td>SDP</td>
         <td>DLLP</td>
@@ -736,7 +736,7 @@ Gen2）</div>
         <td>—</td>
         <td>—</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>TLP 起始</td>
         <td>STP</td>
         <td>Sequence</td>
@@ -747,7 +747,7 @@ Gen2）</div>
         <td>TLP</td>
         <td>TLP</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>TLP 结束与填充</td>
         <td>LCRC</td>
         <td>LCRC</td>
@@ -758,7 +758,7 @@ Gen2）</div>
         <td>PAD</td>
         <td>PAD</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>逻辑空闲</td>
         <td>Idle</td>
         <td>Idle</td>
@@ -964,7 +964,7 @@ Gen2）</div>
         <col style="width: 20%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>D/K#</th>
         <th>十六进制 字节</th>
         <th>二进制位 HGF EDCBA</th>
@@ -974,7 +974,7 @@ Gen2）</div>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>控制 (K)</td>
         <td>BC</td>
         <td>10111100</td>
@@ -982,7 +982,7 @@ Gen2）</div>
         <td>0011111010</td>
         <td>1100000101</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>数据 (D)</td>
         <td>6A</td>
         <td>01101010</td>
@@ -1005,7 +1005,7 @@ Gen2）</div>
         <col style="width: 3%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th></th>
         <th>CRD</th>
         <th>字符</th>
@@ -1017,7 +1017,7 @@ Gen2）</div>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>待传输的字符</td>
         <td>-</td>
         <td>K28.5 (BCh)</td>
@@ -1027,7 +1027,7 @@ Gen2）</div>
         <td>D10.3 (6Ah)</td>
         <td>-</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>传输的比特流</td>
         <td>产生 0011111010 CRD 为 +</td>
         <td>产生 1100000101 CRD 为 -</td>
@@ -1051,59 +1051,59 @@ Gen2）</div>
         <col style="width: 33%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>字符名称</th>
         <th>8b/10b 名称</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>COM</td>
         <td>K28.5</td>
         <td>任意有序集中的第一个字符；接收端在训练期间也利用它实现符号锁定。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>PAD</td>
         <td>K23.7</td>
         <td>数据包填充字符。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SKP</td>
         <td>K28.0</td>
         <td>SKIP 有序集中的可丢弃字符，用于时钟容差补偿。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>STP</td>
         <td>K27.7</td>
         <td>TLP 起始字符。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>SDP</td>
         <td>K28.2</td>
         <td>DLLP 起始字符。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>END</td>
         <td>K29.7</td>
         <td>有效数据包结束字符。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>EDB</td>
         <td>K30.7</td>
         <td>无效或被“作废”的 TLP 结束字符。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>FTS</td>
         <td>K28.1</td>
         <td>快速训练序列字符，用于从 L0s 低功耗状态退出至 L0。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>IDL</td>
         <td>K28.3</td>
         <td>电气空闲有序集的一部分，用于指示链路即将进入电气空闲。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>EIE</td>
         <td>K28.7</td>
         <td>电气空闲退出有序集的一部分，在高于 2.5 GT/s
@@ -1215,21 +1215,21 @@ Gen2）</div>
         <p>表 11-2：允许的发送端信号偏移</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>规范版本</th>
         <th>允许的发送端偏移</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Gen1</td>
         <td>1300 ps</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Gen2</td>
         <td>1300 ps</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Gen3</td>
         <td>1250 ps</td>
         </tr>
@@ -1405,21 +1405,21 @@ Gen2）</div>
         <p>表 11-3：允许的接收端信号偏移</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>规范版本</th>
         <th>允许的接收端偏移</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>Gen1</td>
         <td>20 ns（5 个符号时钟，每个符号 4 ns）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>Gen2</td>
         <td>8 ns（4 个符号时钟，每个符号 2 ns）</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>Gen3</td>
         <td>6 ns（约 4 个符号时钟，每个符号 1.25 ns）</td>
         </tr>
@@ -1491,7 +1491,7 @@ Gen2）</div>
         <col style="width: 5%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th></th>
         <th>CRD</th>
         <th>字符</th>
@@ -1503,7 +1503,7 @@ Gen2）</div>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>传输的字符流</td>
         <td>-</td>
         <td>D21.1</td>
@@ -1513,7 +1513,7 @@ Gen2）</div>
         <td>D23.5</td>
         <td>+</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>传输的比特流</td>
         <td>-</td>
         <td>1010101001</td>
@@ -1523,7 +1523,7 @@ Gen2）</div>
         <td>1110101010</td>
         <td>+</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>经过错误处理后的比特流</td>
         <td>-</td>
         <td>1010101011 ↑</td>
@@ -1533,7 +1533,7 @@ Gen2）</div>
         <td>1110101010</td>
         <td>+</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>解码后的字符流</td>
         <td>-</td>
         <td>D21.0</td>
@@ -1543,7 +1543,7 @@ Gen2）</div>
         <td>无效 ↑</td>
         <td>+</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>此处发生错误 此处检测到错误</td>
         <td></td>
         <td></td>

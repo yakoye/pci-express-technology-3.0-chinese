@@ -760,29 +760,29 @@
         <p>表 15-1：完成代码及描述</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>状态码</th>
         <th>完成状态定义</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>000b</td>
         <td>成功完成（SC）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>001b</td>
         <td>不支持的请求（UR）- 错误</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>010b</td>
         <td>配置请求重试状态（CRS）</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>011b</td>
         <td>完成者中止（CA）- 错误</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>100b - 111b</td>
         <td>保留</td>
         </tr>
@@ -959,24 +959,24 @@
         <col style="width: 75%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>消息代码</th>
         <th>名称</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>30h</td>
         <td>ERR_COR</td>
         <td>设备检测到可纠正的错误。该错误由硬件自动修正，无需软件干预。但报告这些错误仍有助于软件监控趋势，例如可纠正错误数量持续增长的情况。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>31h</td>
         <td>ERR_NONFATAL</td>
         <td>表示不可纠正的非致命错误。没有可用的硬件纠错机制，但链路仍能可靠工作。需要软件介入来解决问题。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>33h</td>
         <td>ERR_FATAL</td>
         <td>表示不可纠正的致命错误。没有可用的硬件纠错机制，且链路操作在某个重要方面已失败。需要软件介入，并且可能需要重置至少一个设备才能解决此问题。</td>
@@ -1123,13 +1123,13 @@
         <col style="width: 85%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>名称</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>SERR# 启用</td>
         <td>设置此位可启用向根复合体发送 ERR_FATAL 和 ERR_NONFATAL
         错误消息。这些错误大致相当于 PCI
@@ -1146,13 +1146,13 @@
         <col style="width: 78%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>名称</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>奇偶校验错误响应</td>
         <td>设置该位将启用对状态寄存器中主数据奇偶校验错误位的投毒 TLP
         记录。毒化数据包表示数据异常，大致相当于 PCI 奇偶校验错误。</td>
@@ -1176,41 +1176,41 @@
         <col style="width: 76%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th>错误相关位</th>
         <th>描述</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>检测到奇偶校验错误</td>
         <td>由接收到损坏 TLP
         的端口设置。无论奇偶校验错误响应位的状态如何，该状态位都会更新。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>信号系统错误</td>
         <td>由已报告不可纠正错误（ERR_FATAL 或
         ERR_NONFATAL）且命令寄存器中 SERR#
         使能位已设置的端口所设置。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>收到主设备中止</td>
         <td>由收到状态为
         UR（不支持请求）的完成包的请求方设置。这被视为类似于 PCI
         主设备中止，因为目标未“认领该事务”。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>收到目标中止</td>
         <td>由请求者设置，该请求者收到状态为
         CA（完成者中止）的完成消息。这类似于 PCI
         目标中止，表示目标出现了编程违规或内部错误状况。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>发出目标中止</td>
         <td>由处理请求（无论是发布还是非发布）的完成者设置，作为完成者中止。如果是非发布请求，则会发送一条完成状态为
         CA 的完成消息。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>主数据奇偶校验错误</td>
         <td>对于类型 0
         报头（例如端点），如果命令寄存器中的奇偶校验错误响应位已设置，并且它要么发起了一个中毒请求，要么接收了一个中毒完成，则此位将被置位。对于类型
@@ -1258,59 +1258,59 @@
         <p>表 15-5：错误的默认分类</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>分类与严重性</th>
         <th>错误名称</th>
         <th>检测到的层</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>可纠正</td>
         <td>接收器错误</td>
         <td>物理</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>可纠正</td>
         <td>坏 TLP</td>
         <td>链路</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>可纠正</td>
         <td>坏 DLLP</td>
         <td>链路</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>可纠正</td>
         <td>重放次数回绕</td>
         <td>链路</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>可纠正</td>
         <td>重放定时器超时</td>
         <td>链路</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>可纠正</td>
         <td>建议性非致命错误</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>可纠正</td>
         <td>已纠正的内部错误</td>
         <td>内部</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>可纠正</td>
         <td>报头日志溢出</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 非致命</td>
         <td>收到投毒 TLP</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 非致命</td>
         <td>ECRC 校验失败</td>
         <td>事务</td>
@@ -1320,84 +1320,84 @@
         <p>表 15-5：错误的默认分类（续）</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>分类与严重程度</th>
         <th>错误名称</th>
         <th>检测层</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 非致命</td>
         <td>不支持的请求</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 非致命</td>
         <td>完成超时</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 非致命</td>
         <td>完成者中止</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 非致命</td>
         <td>意外完成</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 非致命</td>
         <td>ACS 违规</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 非致命</td>
         <td>MC 阻塞的 TLP</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 非致命</td>
         <td>原子操作出口被阻止</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 非致命</td>
         <td>TLP 前缀被阻止</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 致命</td>
         <td>不可纠正的内部错误（可选）</td>
         <td>内部</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 致命</td>
         <td>意外断开（可选）</td>
         <td>链路</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 致命</td>
         <td>接收器溢出（可选）</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 致命</td>
         <td>DLL 协议错误</td>
         <td>链路</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 致命</td>
         <td>接收器溢出</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>不可纠正 - 致命</td>
         <td>流控制协议错误</td>
         <td>事务</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不可纠正 - 致命</td>
         <td>格式错误的 TLP</td>
         <td>事务</td>
@@ -1494,57 +1494,57 @@
         </figure>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>偏移</th>
         <th>寄存器/字段</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>00h</td>
         <td>PCIe 扩展能力寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>04h</td>
         <td>不可纠正错误状态寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>08h</td>
         <td>不可纠正错误掩码寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>0Ch</td>
         <td>不可纠正错误严重性寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>10h</td>
         <td>可纠正错误状态寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>14h</td>
         <td>可纠正错误掩码寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>18h</td>
         <td>高级错误能力与控制寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>1Ch</td>
         <td>报头日志寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>2Ch</td>
         <td>根错误命令寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>30h</td>
         <td>根错误状态寄存器</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>34h</td>
         <td>错误源 ID 寄存器</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>38h</td>
         <td>TLP 前缀日志寄存器（支持 TLP 前缀的功能）</td>
         </tr>
@@ -1768,37 +1768,37 @@
         <p>表 15-6：可使用报头日志寄存器的错误类型</p>
         <table>
         <thead>
-        <tr>
+        <tr class="header">
         <th>错误名称</th>
         <th>默认分类</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>收到中毒的 TLP</td>
         <td>不可纠正-非致命</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>ECRC 校验失败</td>
         <td>不可纠正-非致命</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>不支持的请求</td>
         <td>不可纠正-非致命</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>完成者中止</td>
         <td>不可纠正-非致命</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>意外完成</td>
         <td>不可纠正 - 非致命</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>ACS 违规</td>
         <td>不可纠正 - 非致命</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>格式错误的 TLP</td>
         <td>不可纠正 - 致命错误</td>
         </tr>

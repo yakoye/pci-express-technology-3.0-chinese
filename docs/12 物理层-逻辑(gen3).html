@@ -831,24 +831,24 @@
         <col style="width: 76%" />
         </colgroup>
         <thead>
-        <tr>
+        <tr class="header">
         <th><strong>符号编号</strong></th>
         <th><strong>值</strong></th>
         <th><strong>描述</strong></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="odd">
         <td>0-11</td>
         <td>AAh</td>
         <td>SKP 符号。符号 0 是有序集的标识符，因此它被视为 SOS。</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>12</td>
         <td>E1h</td>
         <td>SKP_END 符号，表示再过 3 个符号后，SOS 将完成。</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>13</td>
         <td>00-FFh</td>
         <td>a) 如果 LTSSM 状态为 Polling.Compliance：AAh <br>b)
@@ -856,13 +856,13 @@
         位[6:0]=LFSR[22:16] <br/> c) 其他情况 <br/>位[7]=~LFSR[22]
         <br/>位[6:0]=LFSR[22:16]</td>
         </tr>
-        <tr>
+        <tr class="even">
         <td>14</td>
         <td>00-FFh</td>
         <td>a) 如果 LTSSM 的状态是 Polling.Compliance：Error_Status[7:0]
         <br/>b) 否则 LFSR[15:8]</td>
         </tr>
-        <tr>
+        <tr class="odd">
         <td>15</td>
         <td>00-FFh</td>
         <td>a) 如果 LTSSM 的状态是 Polling.Compliance：Error_Status
