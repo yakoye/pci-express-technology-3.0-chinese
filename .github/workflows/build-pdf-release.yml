@@ -1,0 +1,79 @@
+name: Build PDF Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag，例如 pdf-20260529；留空则自动生成"
+        required: false
+        type: string
+
+  push:
+    branches:
+      - main
+    paths:
+      - "*.md"
+      - "img/**"
+      - "docs/**"
+      - "scripts/build_pdf_release.sh"
+      - ".github/workflows/build-pdf-release.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pandoc, xelatex, Chinese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pandoc \
+            texlive-xetex \
+            texlive-latex-extra \
+            texlive-lang-chinese \
+            fonts-noto-cjk \
+            zip
+
+      - name: Show tool versions
+        run: |
+          pandoc --version
+          xelatex --version
+          fc-list | grep -i "Noto Serif CJK" | head || true
+
+      - name: Build PDFs
+        run: |
+          bash scripts/build_pdf_release.sh
+
+      - name: Decide release tag
+        id: meta
+        shell: bash
+        run: |
+          INPUT_TAG="${{ github.event.inputs.release_tag || '' }}"
+
+          if [[ -n "$INPUT_TAG" ]]; then
+            TAG="$INPUT_TAG"
+          else
+            TAG="pdf-$(date +'%Y%m%d-%H%M%S')"
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "Release tag: $TAG"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.meta.outputs.tag }}" \
+            "dist/pdf/PCIe_Technology_3.0_Chinese_full.pdf" \
+            "dist/PCIe_Technology_3.0_Chinese_chapters_pdf.zip" \
+            "dist/all_generated.md" \
+            "dist/chapter_list.txt" \
+            --title "PDF 自动构建 ${{ steps.meta.outputs.tag }}" \
+            --notes-file "dist/release_notes.md" \
+            --latest
