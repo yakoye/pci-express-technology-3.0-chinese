@@ -168,6 +168,7 @@ for ((i=0; i<chapter_count; i++)); do
   chapter_cn_tex="$(latex_escape "$chapter_cn")"
   chapter_en_tex="$(latex_escape "$chapter_en")"
   header_title_tex="$(latex_escape "$header_title")"
+  md_name_tex="$(latex_escape "$md_name")"
 
   echo "转换：$md_name"
   echo "  -> $chapter_pdf"
@@ -219,7 +220,7 @@ lang: zh-CN
 \\centering
 {\\small 本章节由 Markdown 源文件自动构建生成，适合离线阅读、检索和归档。\\par}
 \\vspace{0.25cm}
-{\\small Source: $md_name\\par}
+{\small Source: $md_name_tex\par}
 \\end{minipage}
 
 \\vspace{1.4cm}
@@ -234,7 +235,19 @@ lang: zh-CN
 
 EOF
 
-  cat "$ROOT_DIR/$md_name" >> "$tmp_md"
+python3 - "$ROOT_DIR/$md_name" >> "$tmp_md" <<'PY'
+import sys
+from pathlib import Path
+
+p = Path(sys.argv[1])
+text = p.read_text(encoding="utf-8", errors="ignore")
+
+# 修复少数字体不支持的特殊字符
+text = text.replace("\u02ba", '"')   # ʺ -> "
+text = text.replace("\u02b9", "'")   # ʹ -> '
+
+print(text)
+PY
 
   # ------------------------------------------------------------
   # 每章页眉：只显示 “5 TLP 元素}”，不显示页码
