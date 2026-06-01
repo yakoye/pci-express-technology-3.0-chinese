@@ -82,28 +82,28 @@
 
 | 章节 | 标题                        | Markdown                                                                                                                                            |
 | ---: | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-|    1 | 背景                        | [1 背景.md](https://chatgpt.com/c/1%20%E8%83%8C%E6%99%AF.md)                                                                                           |
-|    2 | PCIe 体系结构概述           | [2 PCIe 体系结构概述.md](https://chatgpt.com/c/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0.md)                                   |
-|    3 | PCIe 配置概述               | [3 PCIe 配置概述.md](https://chatgpt.com/c/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0.md)                                                         |
-|    4 | 地址空间与事务路由          | [4 地址空间与事务路由.md](https://chatgpt.com/c/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1.md)              |
-|    5 | TLP 元素                    | [5 TLP 元素.md](https://chatgpt.com/c/5%20TLP%20%E5%85%83%E7%B4%A0.md)                                                                                 |
-|    6 | 流量控制                    | [6 流量控制.md](https://chatgpt.com/c/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6.md)                                                                     |
-|    7 | QoS 服务质量                | [7 QoS 服务质量.md](https://chatgpt.com/c/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F.md)                                                           |
-|    8 | 事务排序                    | [8 事务排序.md](https://chatgpt.com/c/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F.md)                                                                     |
-|    9 | DLLP 元素                   | [9 DLLP 元素.md](https://chatgpt.com/c/9%20DLLP%20%E5%85%83%E7%B4%A0.md)                                                                               |
-|   10 | Ack/Nak 协议                | [10 Ack-Nak_协议.md](https://chatgpt.com/c/10%20Ack-Nak_%E5%8D%8F%E8%AE%AE.md)                                                                         |
-|   11 | 物理层-逻辑（Gen1 和 Gen2） | [11 物理层-逻辑_Gen1和Gen2.md](https://chatgpt.com/c/11%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91_Gen1%E5%92%8CGen2.md)                         |
-|   12 | 物理层-逻辑（Gen3）         | [12 物理层-逻辑(gen3).md](https://chatgpt.com/c/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91%28gen3%29.md)                                      |
-|   13 | 物理层-电气特性             | [13 物理层-电气特性.md](https://chatgpt.com/c/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7.md)                                |
-|   14 | 链路初始化与训练            | [14 链路初始化与训练.md](https://chatgpt.com/c/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83.md)                       |
-|   15 | 错误检测与处理              | [15 错误检测与处理.md](https://chatgpt.com/c/15%20%E9%94%99%E8%AF%AF%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%A4%84%E7%90%86.md)                                  |
-|   16 | 电源管理                    | [16 电源管理.md](https://chatgpt.com/c/16%20%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86.md)                                                                   |
-|   17 | 中断支持                    | [17 中断支持.md](https://chatgpt.com/c/17%20%E4%B8%AD%E6%96%AD%E6%94%AF%E6%8C%81.md)                                                                   |
-|   18 | 系统复位                    | [18 系统复位.md](https://chatgpt.com/c/18%20%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%BD%8D.md)                                                                   |
-|   19 | 热插拔和功耗预算管理        | [19 热插拔和功耗预算管理.md](https://chatgpt.com/c/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86.md) |
-|   20 | 规范 2.1 版本更新           | [20 规范2.1版本更新.md](https://chatgpt.com/c/20%20%E8%A7%84%E8%8C%832.1%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0.md)                                       |
-|   21 | 附录                        | [21 附录.md](https://chatgpt.com/c/21%20%E9%99%84%E5%BD%95.md)                                                                                         |
-|   22 | 术语表                      | [22 术语表.md](https://chatgpt.com/c/22%20%E6%9C%AF%E8%AF%AD%E8%A1%A8.md)                                                                              |
+|    1 | 背景                        | [1 背景.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/1%20%E8%83%8C%E6%99%AF.md)                                                                                           |
+|    2 | PCIe 体系结构概述           | [2 PCIe 体系结构概述.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/2%20PCIe%20%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0.md)                                   |
+|    3 | PCIe 配置概述               | [3 PCIe 配置概述.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/3%20PCIe%20%E9%85%8D%E7%BD%AE%E6%A6%82%E8%BF%B0.md)                                                         |
+|    4 | 地址空间与事务路由          | [4 地址空间与事务路由.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/4%20%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E5%8A%A1%E8%B7%AF%E7%94%B1.md)              |
+|    5 | TLP 元素                    | [5 TLP 元素.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/5%20TLP%20%E5%85%83%E7%B4%A0.md)                                                                                 |
+|    6 | 流量控制                    | [6 流量控制.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/6%20%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6.md)                                                                     |
+|    7 | QoS 服务质量                | [7 QoS 服务质量.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/7%20QoS%20%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F.md)                                                           |
+|    8 | 事务排序                    | [8 事务排序.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/8%20%E4%BA%8B%E5%8A%A1%E6%8E%92%E5%BA%8F.md)                                                                     |
+|    9 | DLLP 元素                   | [9 DLLP 元素.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/9%20DLLP%20%E5%85%83%E7%B4%A0.md)                                                                               |
+|   10 | Ack/Nak 协议                | [10 Ack-Nak_协议.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/10%20Ack-Nak_%E5%8D%8F%E8%AE%AE.md)                                                                         |
+|   11 | 物理层-逻辑（Gen1 和 Gen2） | [11 物理层-逻辑_Gen1和Gen2.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/11%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91_Gen1%E5%92%8CGen2.md)                         |
+|   12 | 物理层-逻辑（Gen3）         | [12 物理层-逻辑(gen3).md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/12%20%E7%89%A9%E7%90%86%E5%B1%82-%E9%80%BB%E8%BE%91%28gen3%29.md)                                      |
+|   13 | 物理层-电气特性             | [13 物理层-电气特性.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/13%20%E7%89%A9%E7%90%86%E5%B1%82-%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7.md)                                |
+|   14 | 链路初始化与训练            | [14 链路初始化与训练.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/14%20%E9%93%BE%E8%B7%AF%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E8%AE%AD%E7%BB%83.md)                       |
+|   15 | 错误检测与处理              | [15 错误检测与处理.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/15%20%E9%94%99%E8%AF%AF%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%A4%84%E7%90%86.md)                                  |
+|   16 | 电源管理                    | [16 电源管理.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/16%20%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86.md)                                                                   |
+|   17 | 中断支持                    | [17 中断支持.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/17%20%E4%B8%AD%E6%96%AD%E6%94%AF%E6%8C%81.md)                                                                   |
+|   18 | 系统复位                    | [18 系统复位.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/18%20%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%BD%8D.md)                                                                   |
+|   19 | 热插拔和功耗预算管理        | [19 热插拔和功耗预算管理.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/19%20%E7%83%AD%E6%8F%92%E6%8B%94%E5%92%8C%E5%8A%9F%E8%80%97%E9%A2%84%E7%AE%97%E7%AE%A1%E7%90%86.md) |
+|   20 | 规范 2.1 版本更新           | [20 规范2.1版本更新.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/20%20%E8%A7%84%E8%8C%832.1%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0.md)                                       |
+|   21 | 附录                        | [21 附录.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/21%20%E9%99%84%E5%BD%95.md)                                                                                         |
+|   22 | 术语表                      | [22 术语表.md](https://github.com/yakoye/pci-express-technology-3.0-chinese/blob/main/22%20%E6%9C%AF%E8%AF%AD%E8%A1%A8.md)                                                                              |
 
 ---
 
