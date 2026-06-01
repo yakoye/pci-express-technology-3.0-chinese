@@ -169,8 +169,21 @@ cat > "$COMMON_HEADER" <<'EOF'
 \def\fps@figure{H}
 \makeatother
 
-% 图片默认限制宽度，避免溢出页面
-\setkeys{Gin}{width=\linewidth,keepaspectratio}
+% 图片默认限制宽度和高度，避免溢出页面
+% width=0.92\linewidth：图片最大宽度为正文宽度的 92%
+% height=0.68\textheight：图片最大高度为正文高度的 68%，给图片说明/上下文留空间
+% keepaspectratio：保持图片比例，不拉伸变形
+\setkeys{Gin}{width=0.92\linewidth,height=0.68\textheight,keepaspectratio}
+
+% 所有 Markdown 图片默认居中，并在图片上下留一点间距
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \begin{center}
+    \vspace{0.3em}
+    \Oldincludegraphics[#1]{#2}%
+    \vspace{0.3em}
+  \end{center}
+}
 
 % 全书页眉页脚
 \pagestyle{fancy}
