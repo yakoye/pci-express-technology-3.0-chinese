@@ -78,16 +78,88 @@ PY
 normalize_md_to_stdout() {
   python3 - "$1" <<'PY'
 import sys
+import re
 from pathlib import Path
 
 p = Path(sys.argv[1])
 text = p.read_text(encoding="utf-8", errors="ignore")
 
-text = text.replace("\u02ba", '"')
-text = text.replace("\u02b9", "'")
+# 修复少数字体不支持的特殊字符
+text = text.replace("\u02ba", '"')   # ʺ -> "
+text = text.replace("\u02b9", "'")   # ʹ -> '
+
+# 去掉极少数不可见控制字符
 text = text.replace("\x00", "")
 
-print(text)
+lines = text.splitlines()
+
+# Markdown 图片行：
+# ![](img/a.png)
+# ![xxx](img/a.jpg)
+img_re = re.compile(r'^\s*!\[[^\]]*\]\([^)]+\)\s*$')
+
+def next_nonempty_line(start_index):
+    """找到当前行后面的下一条非空行"""
+    for j in range(start_index + 1, len(lines)):
+        if lines[j].strip():
+            return j, lines[j]
+    return None, None
+
+def is_caption_like(line):
+    """
+    判断当前行是否像图片说明/引导语。
+    只处理图片前一行，避免误伤大段正文。
+    """
+    s = line.strip()
+
+    if not s:
+        return False
+
+    # 跳过标题、列表、表格、引用、代码块、HTML/LaTeX 原始行
+    if s.startswith(("#", "|", ">", "```", "~~~", "<", "\\")):
+        return False
+
+    if re.match(r'^[-*+]\s+', s):
+        return False
+
+    if re.match(r'^\d+\.\s+', s):
+        return False
+
+    if img_re.match(s):
+        return False
+
+    # 明显的图片说明/引用
+    if re.search(r'(如图|见图|下图|图\s*\d|图[0-9０-９]|Figure|figure|Fig\.)', s):
+        return True
+
+    # 如果图片前一行比较短，也认为是图片描述行
+    # 例如：TLP Header 格式如下：
+    #       数据流向示意：
+    if len(s) <= 80:
+        return True
+
+    return False
+
+out = []
+
+for i, line in enumerate(lines):
+    j, nxt = next_nonempty_line(i)
+
+    # 如果当前行后面的下一条非空行是图片，
+    # 并且当前行像图片说明/引导语，
+    # 就在当前行前面插入 Needspace。
+    #
+    # 作用：
+    # 当前页剩余空间不够时，把“说明文字 + 图片”整体推到下一页。
+    if j is not None and img_re.match(nxt) and is_caption_like(line):
+        prev = out[-1].strip() if out else ""
+        if not prev.startswith(r"\Needspace"):
+            out.append(r"\Needspace{0.76\textheight}")
+
+    out.append(line)
+
+sys.stdout.write("\n".join(out))
+sys.stdout.write("\n")
 PY
 }
 
@@ -142,6 +214,7 @@ cat > "$COMMON_HEADER" <<'EOF'
 \usepackage{placeins}
 \usepackage{flafter}
 \usepackage{graphicx}
+\usepackage{needspace}
 \usepackage{bookmark}
 \usepackage{etoolbox}
 
@@ -171,9 +244,9 @@ cat > "$COMMON_HEADER" <<'EOF'
 
 % 图片默认限制宽度和高度，避免溢出页面
 % width=0.92\linewidth：图片最大宽度为正文宽度的 92%
-% height=0.68\textheight：图片最大高度为正文高度的 68%，给图片说明/上下文留空间
+% height=0.64\textheight：图片最大高度为正文高度的 64%，给图片说明/上下文留空间
 % keepaspectratio：保持图片比例，不拉伸变形
-\setkeys{Gin}{width=0.92\linewidth,height=0.68\textheight,keepaspectratio}
+\setkeys{Gin}{width=0.92\linewidth,height=0.64\textheight,keepaspectratio}
 
 % 所有 Markdown 图片默认居中，并在图片上下留一点间距
 \let\Oldincludegraphics\includegraphics
