@@ -98,6 +98,25 @@ print("".join(mapping.get(ch, ch) for ch in s))
 PY
 }
 
+normalize_md_to_stdout() {
+  python3 - "$1" <<'PY'
+import sys
+from pathlib import Path
+
+p = Path(sys.argv[1])
+text = p.read_text(encoding="utf-8", errors="ignore")
+
+# 修复少数字体不支持的特殊字符
+text = text.replace("\u02ba", '"')   # ʺ -> "
+text = text.replace("\u02b9", "'")   # ʹ -> '
+
+# 去掉极少数不可见控制字符
+text = text.replace("\x00", "")
+
+print(text)
+PY
+}
+
 echo "生成章节列表..."
 
 : > "$CHAPTER_LIST_TXT"
@@ -129,10 +148,10 @@ for item in "${chapters[@]}"; do
   CHAPTER_CN_TITLES+=("$chapter_cn")
   CHAPTER_EN_TITLES+=("$chapter_en")
 
-  # 页眉按你的要求：5 TLP 元素}
-  # 从“第 5 章”里提取数字，拼成 “5 TLP 元素}”
+  # 页眉按新的要求：不要右大括号
+  # 例如：5 TLP 元素
   chapter_no="$(echo "$chapter_label" | grep -oE '[0-9]+' | head -n 1)"
-  header_title="${chapter_no} ${chapter_cn}}"
+  header_title="${chapter_no} ${chapter_cn}"
   CHAPTER_HEADER_TITLES+=("$header_title")
 
   echo "$md_name" >> "$CHAPTER_LIST_TXT"
@@ -162,6 +181,7 @@ for ((i=0; i<chapter_count; i++)); do
   chapter_pdf="$CHAPTER_PDF_DIR/chapter_${chapter_index}.pdf"
 
   tmp_md="$TMP_DIR/chapter_${chapter_index}.md"
+  tmp_before="$TMP_DIR/chapter_${chapter_index}.before.tex"
   tmp_header="$TMP_DIR/chapter_${chapter_index}.header.tex"
 
   chapter_label_tex="$(latex_escape "$chapter_label")"
@@ -174,35 +194,36 @@ for ((i=0; i<chapter_count; i++)); do
   echo "  -> $chapter_pdf"
 
   # ------------------------------------------------------------
-  # 每章封面：第 X 章 / 中文标题 / 英文副标题
+  # 正文 Markdown：只放正文，不再把封面塞进正文里
   # ------------------------------------------------------------
   cat > "$tmp_md" <<EOF
 ---
-title: "$chapter_label $chapter_cn"
 lang: zh-CN
 ---
 
+EOF
+
+  normalize_md_to_stdout "$ROOT_DIR/$md_name" >> "$tmp_md"
+
+  # ------------------------------------------------------------
+  # include-before-body：
+  # 这里会在 Pandoc 自动目录之前插入。
+  # 顺序就是：章节封面 -> 章节目录 -> 正文
+  # ------------------------------------------------------------
+  cat > "$tmp_before" <<EOF
 \\begin{titlepage}
 \\thispagestyle{empty}
 \\centering
 
-\\vspace*{0.07\\textheight}
+\\vspace*{0.13\\textheight}
 
-{\\Large\\scshape PCI Express Technology 3.0\\par}
+{\\color{pcieblue}\\rule{0.80\\textwidth}{1.2pt}\\par}
 
-\\vspace{0.45cm}
-
-{\\large 中文技术阅读版\\par}
-
-\\vspace{1.2cm}
-
-{\\color{pcieblue}\\rule{0.82\\textwidth}{1.2pt}\\par}
-
-\\vspace{1.35cm}
+\\vspace{1.3cm}
 
 {\\Large\\bfseries\\color{pciegold} $chapter_label_tex\\par}
 
-\\vspace{0.8cm}
+\\vspace{0.85cm}
 
 {\\Huge\\bfseries\\color{pcieblue} $chapter_cn_tex\\par}
 
@@ -210,20 +231,20 @@ lang: zh-CN
 
 {\\Large\\itshape\\color{pciegray} $chapter_en_tex\\par}
 
-\\vspace{1.35cm}
+\\vspace{1.2cm}
 
-{\\color{pcieblue}\\rule{0.52\\textwidth}{0.6pt}\\par}
+{\\color{pcieblue}\\rule{0.54\\textwidth}{0.6pt}\\par}
 
 \\vfill
 
-\\begin{minipage}{0.72\\textwidth}
+\\begin{minipage}{0.70\\textwidth}
 \\centering
-{\\small 本章节由 Markdown 源文件自动构建生成，适合离线阅读、检索和归档。\\par}
+{\\small Source: $md_name_tex\\par}
 \\vspace{0.25cm}
-{\small Source: $md_name_tex\par}
+{\\small Auto-generated chapter PDF\\par}
 \\end{minipage}
 
-\\vspace{1.4cm}
+\\vspace{1.1cm}
 
 {\\large yakoye\\par}
 \\vspace{0.25cm}
@@ -233,28 +254,25 @@ lang: zh-CN
 
 \\clearpage
 
+\\begin{center}
+{\\Large\\bfseries $chapter_label_tex\\quad $chapter_cn_tex\\par}
+\\end{center}
+
+\\vspace{0.6cm}
+
+\\renewcommand{\\contentsname}{目录}
 EOF
 
-python3 - "$ROOT_DIR/$md_name" >> "$tmp_md" <<'PY'
-import sys
-from pathlib import Path
-
-p = Path(sys.argv[1])
-text = p.read_text(encoding="utf-8", errors="ignore")
-
-# 修复少数字体不支持的特殊字符
-text = text.replace("\u02ba", '"')   # ʺ -> "
-text = text.replace("\u02b9", "'")   # ʹ -> '
-
-print(text)
-PY
-
   # ------------------------------------------------------------
-  # 每章页眉：只显示 “5 TLP 元素}”，不显示页码
+  # 每章页眉、图片位置、链接设置
   # ------------------------------------------------------------
   cat > "$tmp_header" <<EOF
 \\usepackage{xcolor}
 \\usepackage{fancyhdr}
+\\usepackage{float}
+\\usepackage{placeins}
+\\usepackage{flafter}
+
 \\definecolor{pcieblue}{HTML}{163A5F}
 \\definecolor{pciegold}{HTML}{A17835}
 \\definecolor{pciegray}{HTML}{555555}
@@ -271,6 +289,12 @@ PY
   }
 }
 
+% 尽量禁止图片乱浮动，保持在 Markdown 附近
+\\floatplacement{figure}{H}
+\\makeatletter
+\\def\\fps@figure{H}
+\\makeatother
+
 \\pagestyle{fancy}
 \\fancyhf{}
 \\fancyhead[C]{\\small $header_title_tex}
@@ -285,8 +309,12 @@ PY
 }
 EOF
 
+  # 关键改动：
+  # 1. 不使用 --number-sections，避免重复编号
+  # 2. 使用 -implicit_figures，让图片尽量按 md 原位置出现，不进入浮动体
+  # 3. 封面通过 -B 放到目录之前
   pandoc "$tmp_md" \
-    -f markdown+raw_html+raw_tex+tex_math_dollars \
+    -f markdown+raw_html+raw_tex+tex_math_dollars-implicit_figures \
     --resource-path="$ROOT_DIR:$ROOT_DIR/img:$ROOT_DIR/docs" \
     --pdf-engine=xelatex \
     -V documentclass=ctexart \
@@ -300,6 +328,7 @@ EOF
     -V linktoc=all \
     --toc \
     --toc-depth=4 \
+    -B "$tmp_before" \
     -H "$tmp_header" \
     -o "$chapter_pdf"
 
@@ -307,7 +336,7 @@ EOF
 done
 
 echo
-echo "开始生成整本 merged.pdf：正式总封面 + 总目录 + 书签 + 章节 PDF..."
+echo "开始生成整本 merged.pdf：正式总封面 + 总目录 + 书签 + 页码 + 章节 PDF..."
 
 # ------------------------------------------------------------
 # 生成 master.tex
@@ -334,13 +363,19 @@ cat > "$MASTER_TEX" <<'EOF'
   citecolor=blue,
   linktoc=all,
   bookmarksopen=true,
-  bookmarksnumbered=true,
+  bookmarksnumbered=false,
   pdfauthor={yakoye},
   pdftitle={PCI Express Technology 3.0 中文版}
 }
 
 \setcounter{tocdepth}{0}
-\pagestyle{empty}
+
+\fancypagestyle{mergedpage}{
+  \fancyhf{}
+  \fancyfoot[C]{\small \thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
 
 \begin{document}
 
@@ -349,11 +384,9 @@ cat > "$MASTER_TEX" <<'EOF'
 \begin{titlepage}
 \thispagestyle{empty}
 
-\vspace*{-0.5cm}
-
 \begin{center}
 
-\vspace*{0.07\textheight}
+\vspace*{0.08\textheight}
 
 {\Large\scshape Technical Reading Edition \par}
 
@@ -418,34 +451,40 @@ cat > "$MASTER_TEX" <<'EOF'
 
 \clearpage
 
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{mergedpage}
+
 \pdfbookmark[0]{目录}{main-toc}
 \tableofcontents
+\thispagestyle{mergedpage}
 \clearpage
 EOF
 
 # ------------------------------------------------------------
-# 把每章 PDF 插入整本 PDF，并写入总目录/书签
+# 插入每章 PDF
+# 不用 addtotoc，避免出现“第一章 第 1 章 背景”
+# 用 addcontentsline + pdfbookmark，避免目录/书签重复
 # ------------------------------------------------------------
 for ((i=0; i<chapter_count; i++)); do
   chapter_label="${CHAPTER_LABELS[$i]}"
   chapter_cn="${CHAPTER_CN_TITLES[$i]}"
-  chapter_en="${CHAPTER_EN_TITLES[$i]}"
   chapter_pdf="${CHAPTER_PDFS[$i]}"
 
   chapter_toc_title="${chapter_label} ${chapter_cn}"
   chapter_toc_title_tex="$(latex_escape "$chapter_toc_title")"
-  chapter_bookmark_tex="$(latex_escape "$chapter_toc_title")"
   pdf_abs="$(realpath "$chapter_pdf")"
 
   cat >> "$MASTER_TEX" <<EOF
 
 \\clearpage
 \\phantomsection
-\\pdfbookmark[0]{$chapter_bookmark_tex}{bookmark-chapter-$((i + 1))}
+\\addcontentsline{toc}{chapter}{$chapter_toc_title_tex}
+\\pdfbookmark[0]{$chapter_toc_title_tex}{bookmark-chapter-$((i + 1))}
 \\includepdf[
   pages=-,
-  pagecommand={\\thispagestyle{empty}},
-  addtotoc={1,chapter,0,{$chapter_toc_title_tex},toc-chapter-$((i + 1))}
+  link=false,
+  pagecommand={\\thispagestyle{mergedpage}}
 ]{${pdf_abs}}
 
 EOF
@@ -483,17 +522,18 @@ echo "生成 Release notes..."
   echo
   echo "## 附件说明"
   echo
-  echo "- \`PCIe_Technology_3.0_Chinese_merged.pdf\`：整本 PDF，含正式封面、总目录、章节书签"
+  echo "- \`PCIe_Technology_3.0_Chinese_merged.pdf\`：整本 PDF，含正式封面、总目录、章节书签、统一页码"
   echo "- \`PCIe_Technology_3.0_Chinese_chapters_pdf.zip\`：每章单独 PDF，每章含章节封面和本章目录"
   echo "- \`chapter_list.txt\`：本次参与构建的章节列表"
   echo
   echo "## 当前构建特性"
   echo
-  echo "- 总封面更接近正式出版物样式"
-  echo "- 整本 PDF 含总目录和书签，方便翻阅"
-  echo "- 每章封面使用：第 X 章 / 中文标题 / 英文副标题"
-  echo "- 每章页眉使用：章节号 + 中文标题 + 右大括号"
-  echo "- 每章不显示页码"
+  echo "- 修复每章页眉多余右大括号"
+  echo "- 修复总目录/书签重复显示问题"
+  echo "- 每章封面删除冗余书名提示"
+  echo "- 每章顺序为：章节封面 -> 本章目录 -> 正文"
+  echo "- 图片尽量保持在 Markdown 原始位置附近"
+  echo "- 整本 merged.pdf 添加统一页码"
   echo "- 取消自动章节编号，避免和原文标题编号重复"
   echo
   echo "## 章节列表"
