@@ -28,16 +28,17 @@
     }
 
     .page {
-      max-width: 1100px;
+      /* 首页也按接近 ChatGPT 的阅读宽度收窄，避免 1000px+ 显得太散 */
+      max-width: 960px;
       margin: 0 auto;
-      padding: 36px 18px 60px;
+      padding: 34px 18px 56px;
     }
 
     .hero {
       background: linear-gradient(135deg, #1d4ed8, #0f172a);
       color: white;
       border-radius: 22px;
-      padding: 34px 36px;
+      padding: 32px 34px;
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
       margin-bottom: 28px;
     }
@@ -58,7 +59,7 @@
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 24px;
+      padding: 22px;
       margin-bottom: 22px;
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
     }

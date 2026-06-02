@@ -22,9 +22,10 @@
   --title6-color: #008899; /*湖青色*/
   --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
 
-  --page-width: 1600px;
-  --side-width: 330px;
-  --gap-width: 32px;
+  /* 桌面端整体宽度：左侧大纲 300 + 间距 28 + 正文卡片约 960 + 两侧 padding 48 ≈ 1336 */
+  --page-width: 1340px;
+  --side-width: 300px;
+  --gap-width: 28px;
   --topbar-height: 58px;
 }
 
@@ -570,7 +571,7 @@ article {
 .content {
   grid-column: 2;
   min-width: 0;
-  padding: 36px 48px 46px;
+  padding: 34px 40px 44px;
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--card);
@@ -579,7 +580,8 @@ article {
 }
 
 article {
-  max-width: 980px;
+  /* 正文实际阅读宽度，接近 ChatGPT 的舒适阅读宽度，不让一行文字过长 */
+  max-width: 880px;
   margin: 0 auto;
 }
 
@@ -798,12 +800,12 @@ blockquote {
 
 @media (max-width: 1100px) {
   :root {
-    --side-width: 280px;
-    --gap-width: 24px;
+    --side-width: 260px;
+    --gap-width: 22px;
   }
 
   .desktop-topbar {
-    grid-template-columns: 78px var(--side-width) minmax(220px, 1fr) auto;
+    grid-template-columns: 74px var(--side-width) minmax(220px, 1fr) auto;
     column-gap: 12px;
   }
 
@@ -812,7 +814,7 @@ blockquote {
   }
 
   .content {
-    padding: 30px 32px 40px;
+    padding: 28px 30px 38px;
   }
 
   p {
