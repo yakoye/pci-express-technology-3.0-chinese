@@ -631,11 +631,11 @@ h6 {
 
 p {
   margin: 0.8em 0;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 li {
-  font-size: 17px;
+  font-size: 14px;
 }
 
 a {
@@ -818,11 +818,11 @@ blockquote {
   }
 
   p {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   li {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
